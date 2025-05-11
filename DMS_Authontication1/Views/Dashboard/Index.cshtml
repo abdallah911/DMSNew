@@ -32,129 +32,141 @@
 }
 <div class="dms-container reports">
 
-    
- 
-        <style>
-            .dms-container{
-                height:100%;
-            }
-        
-        </style>
-        <div class="portlet box dms-container">
 
-            <div class="dashboard-box px-0 mx-auto d-flex flex-wrap">
-                <div class="dashboard-categories ">
-                    <ul>
-                        <li class="active"><a><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" /> Live </a></li>
-                        <li><a><i class="fas fa-reply"></i>Consumptions</a></li>
-                        <li><a><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" />Providers Consumptions</a></li>
-                        <li><a><i class="fas fa-tasks"></i>Consumptions Per Employees</a></li>
-                        <li><a><i class="fas fa-calendar-alt"></i>Consumptions Comparison</a></li>
-                        @*<li><a><i class="fas fa-phone"></i>Contact</a></li>*@
-                    </ul>
-                </div>
-                <div class="dashboard-body " id="MainDashbord">
-                    @*<div class="dashboard-filter-box">
-            <div>
-                <div class="forLabel">
-                    <select required></select>
-                    <span>Month</span>
-                </div>
-            </div>
-            <div>
-                <div class="forLabel">
-                    <select required></select>
-                    <span></span>
-                </div>
-            </div>
-            <div>
-                <div class="forLabel">
-                    <select required></select>
-                    <span>Company</span>
-                </div>
-            </div>
-        </div>*@
-                    <div class="cards-parent ">
 
-                        <div class="doughnut-parent">
-                            <div class="doughnut-box mb-4 chart-card w-100">
-                                <div class="box">
-                                    <div class="box">
-                                        <div>
-                                            <canvas id="doughnutChart">
-                                            </canvas>
-                                        </div>
-                                    </div>
+    <style>
+        .dms-container {
+            height: 100%;
+        }
+    </style>
+    <div class="portlet box dms-container">
+
+        <div class="dashboard-box px-0 mx-auto d-flex flex-wrap">
+            <div class="dashboard-categories ">
+                <ul>
+                    <li class="active"><a href="#" onclick="event.preventDefault(); loadScreen('_Live');"><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" onclick="loadScreen('_Screen1')" /> Live </a></li>
+                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Screen2');"><i class="fas fa-reply" onclick="loadScreen('_Screen2')"></i>Consumptions</a></li>
+                    <li><a><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" />Providers Consumptions</a></li>
+                    <li><a><i class="fas fa-tasks"></i>Consumptions Per Employees</a></li>
+                    <li><a><i class="fas fa-calendar-alt"></i>Consumptions Comparison</a></li>
+                    @*<li><a><i class="fas fa-phone"></i>Contact</a></li>*@
+                </ul>
+            </div>
+
+            <div class="dashboard-body" id="mainScreen">
+                <!-- Default load -->
+                @*@Html.Partial("_Screen1")*@
+            </div>
+            @*<div id="screen1">
+                    <h2>Screen 1 Content</h2>
+                </div>
+                <div id="screen2">
+                    <h2>Screen 2 Content</h2>
+                </div>*@
+
+
+            <!--<div class="dashboard-body " id="MainDashbord">-->
+            @*<div class="dashboard-filter-box">
+                    <div>
+                        <div class="forLabel">
+                            <select required></select>
+                            <span>Month</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="forLabel">
+                            <select required></select>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="forLabel">
+                            <select required></select>
+                            <span>Company</span>
+                        </div>
+                    </div>
+                </div>*@
+            <!--<div class="cards-parent ">
+
+                <div class="doughnut-parent">
+                    <div class="doughnut-box mb-4 chart-card w-100">
+                        <div class="box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="doughnutChart">
+                                    </canvas>
                                 </div>
-                                <div class="box">
-                                    <div class="box">
-                                        <div>
-                                            <canvas id="doughnutChartTwo"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <label>المنتفعين من الخدمة</label>
-
                             </div>
-                            <div class="doughnut-box chart-card w-100">
-                                <div class="box">
-                                    <div class="box">
-                                        <div>
-                                            <canvas id="pieChart3"></canvas>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="doughnutChartTwo"></canvas>
                                 </div>
-                                <div class="box">
-                                    <div class="box">
-                                        <div>
-                                            <canvas id="pieChart4"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <label>
-                                    عدد الخدمات
-                                </label>
                             </div>
-                            <div class="doughnut-box chart-card w-100">
-                                @*<div class="box">
+                        </div>
+                        <label>المنتفعين من الخدمة</label>
+
+                    </div>
+                    <div class="doughnut-box chart-card w-100">
+                        <div class="box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="pieChart3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="pieChart4"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <label>
+                            عدد الخدمات
+                        </label>
+                    </div>
+                    <div class="doughnut-box chart-card w-100">-->
+            @*<div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>*@
+            <!--<div class="box">
                         <div class="box">
                             <div>
-                                <canvas id="pieChart"></canvas>
+                                <canvas id="pieChartTwo"></canvas>
                             </div>
                         </div>
-                    </div>*@
-                                <div class="box">
-                                    <div class="box">
-                                        <div>
-                                            <canvas id="pieChartTwo"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <label>
-                                    عدد مقدمي الخدمة المتعاملين
-                                </label>
-                            </div>
-                        </div>
-                        <div class="cards-box mb-4 w-100">
-                            @*<div class="card-body" style="background: #8389eb5c">
+                    </div>
+                    <label>
+                        عدد مقدمي الخدمة المتعاملين
+                    </label>
+                </div>
+            </div>
+            <div class="cards-box mb-4 w-100">-->
+            @*<div class="card-body" style="background: #8389eb5c">
                     <i class="fa fa-user"></i>
                     <h4 class="card-number" id="Consum"></h4>
                     <h5 class="card-name">Consumption</h5>
                     <p class="ratio" id="RatioConsum">100%</p>
                 </div>*@
-                            <div class="card-body one">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberEmployee">2500</h4>
-                                <h5 class="card-name">Approval</h5>
-                                <p class="ratio" id="RatioEmployee"></p>
-                            </div>
-                            <div class="card-body one">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberEmployee">2500</h4>
-                                <h5 class="card-name">Online</h5>
-                                <p class="ratio" id="RatioEmployee"></p>
-                            </div>
-                            @*<div class="card-body two gender-type-card flex-row">
+            <!--<div class="card-body one">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberEmployee">2500</h4>
+                <h5 class="card-name">Approval</h5>
+                <p class="ratio" id="RatioEmployee"></p>
+            </div>
+            <div class="card-body one">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberEmployee">2500</h4>
+                <h5 class="card-name">Online</h5>
+                <p class="ratio" id="RatioEmployee"></p>
+            </div>-->
+            @*<div class="card-body two gender-type-card flex-row">
                     <div class="d-flex" style="justify-content: space-between; width: 100%;">
                         <div class="d-flex gap-2">
                             <i class="fa fa-male" style="background-color: dodgerblue; "></i>
@@ -172,354 +184,365 @@
                     <h4>22</h4>
                     <h4>22</h4>
                 </div>*@
-                            <div class="card-body three">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberMed">
-                                    186,229,715.13
-                                </h4>
-                                <h5 class="card-name">
-                                    اجمالي الاستهلاك طبقا لتاريخ الفاتورة
-                                </h5>
-                                @*<p class="ratio" id="RatioMed"></p>*@
-                            </div>
-                            <div class="card-body four">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberOther">
-                                    156,615,312.56
+            <!--<div class="card-body three">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberMed">
+                    186,229,715.13
+                </h4>
+                <h5 class="card-name">
+                    اجمالي الاستهلاك طبقا لتاريخ الفاتورة
+                </h5>-->
+            @*<p class="ratio" id="RatioMed"></p>*@
+            <!--</div>
+            <div class="card-body four">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberOther">
+                    156,615,312.56
 
-                                </h4>
-                                <h5 class="card-name">
-                                    صافي الاستهلاك طبقا لتاريخ الفاتورة
-                                </h5>
-                                @*<p class="ratio" id="RatioOther"></p>*@
-                            </div>
-                            <div class="card-body three">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberMed">
-                                    152,373,434.72
-                                </h4>
-                                <h5 class="card-name">اجمالي الاستهلاك طبقا لتاريخ الخدمة</h5>
-                                @*<p class="ratio" id="RatioMed"></p>*@
-                            </div>
-                            <div class="card-body four">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberOther">
-                                    127,436,344.19
-                                </h4>
-                                <h5 class="card-name">صافي الاستهلاك طبقا لتاريخ الخدمة</h5>
-                                @*<p class="ratio" id="RatioOther"></p>*@
-                            </div>
-
-
-
-                            <div class="card-body three">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberMed">
-                                    152,373,434.72
-                                </h4>
-                                <h5 class="card-name">Total IBNR Consumptions</h5>
-                                @*<p class="ratio" id="RatioMed"></p>*@
-                            </div>
-                            <div class="card-body four">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberOther">
-                                    127,436,344.19
-                                </h4>
-                                <h5 class="card-name">Net IBNR Consumptions</h5>
-                                @*<p class="ratio" id="RatioOther"></p>*@
-                            </div>
-                        </div>
-                    </div>3
-
-                    @*ApexCharts*@
-
-
-                    <div class="doughnut-parent">
-                        <div class="doughnut-box mb-4 chart-card w-100">
-                            <div class="box">
-                                <div class="box">
-                                    <div id="doughnutChartApexCharts">
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <div class="box">
-                                    <div id="doughnutChartApexChartsTwo">
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                            <label>المنتفعين من الخدمة</label>
-
-                        </div>
-                      
-                    </div>
-
-                    <div class="graph-parent ">
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartNew"></canvas>
-                                    </div>
-                                </div>
-                                <label>توزيع الاستهلاك طبقا لنوع المشترك</label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartNew2"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    توزيع الاستهلاك طبقا لجنس المشترك
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart"></canvas>
-                                    </div>
-                                </div>
-                                <label>توزيع الاستهلاك طبقا للشركات</label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartTwo"></canvas>
-                                    </div>
-                                </div>
-                                <label>توزيع الاستهلاك طبقا لنوع مقدم الخدمة</label>
-                            </div>
-                        </div>
-                        <div class="w-100">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartSeven"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    توزيع الاستهلاك طبقا لنوع الخدمة
-                                </label>
-                            </div>
-                        </div>
-                        <div class="w-100">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartEight"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    توزيع الاستهلاك طبقا  للخدمة
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartThree"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    اعداد الخدمة طبقا لنوع مقدم الخدمة
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartFour"></canvas>
-                                    </div>
-                                </div>
-                                <label>Top 10 Providers</label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartFive"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    الاستهلاك حسب الخدمة
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartSix"></canvas>
-                                    </div>
-                                </div>
-                                <label>استهلاك الادوية</label>
-                            </div>
-                        </div>
+                </h4>
+                <h5 class="card-name">
+                    صافي الاستهلاك طبقا لتاريخ الفاتورة
+                </h5>-->
+            @*<p class="ratio" id="RatioOther"></p>*@
+            <!--</div>
+            <div class="card-body three">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberMed">
+                    152,373,434.72
+                </h4>
+                <h5 class="card-name">اجمالي الاستهلاك طبقا لتاريخ الخدمة</h5>-->
+            @*<p class="ratio" id="RatioMed"></p>*@
+            <!--</div>
+            <div class="card-body four">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberOther">
+                    127,436,344.19
+                </h4>
+                <h5 class="card-name">صافي الاستهلاك طبقا لتاريخ الخدمة</h5>-->
+            @*<p class="ratio" id="RatioOther"></p>*@
+            <!--</div>
 
 
 
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart27"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    Last Three Years Consumption Comparison Per Servies Date
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart28"></canvas>
-                                    </div>
-                                </div>
-                                <label>Last Three Years Consumption Comparison Per Record Date</label>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart29"></canvas>
-                                    </div>
-                                </div>
-                                <label>
-                                    Last Three Years Consumption Comparison Per Companies Servies Date
-                                </label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart30"></canvas>
-                                    </div>
-                                </div>
-                                <label>Last Three Years Consumption Comparison Per Companies Servies Date</label>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart31"></canvas>
-                                    </div>
-                                </div>
-                                <label>Last Three Years Number of Employees Comparison</label>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart32"></canvas>
-                                    </div>
-                                </div>
-                                <label>Last Three Years Number of Employees Comparison Per Companies</label>
-                            </div>
-                        </div>
-
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart33"></canvas>
-                                    </div>
-                                </div>
-                                <label>Consumption categories</label>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart34"></canvas>
-                                    </div>
-                                </div>
-                                <label>Number of Employees Per categories</label>
-                            </div>
-                        </div>
-
-
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart26"></canvas>
-                                    </div>
-                                </div>
-                                <label>Top 10 Pharmacies</label>
-                            </div>
-                        </div>
-
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart18"></canvas>
-                                    </div>
-                                </div>
-                                <label>Top 10 laboratories and Radiology centers</label>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart25"></canvas>
-                                    </div>
-                                </div>
-                                <label>Top 10 Hospitals</label>
-                            </div>
-                        </div>
-
-
-
-                        <div class="">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChart12"></canvas>
-                                    </div>
-                                </div>
-                                <label>Number of used Providers</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-12"></div>
+            <div class="card-body three">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberMed">
+                    152,373,434.72
+                </h4>
+                <h5 class="card-name">Total IBNR Consumptions</h5>-->
+            @*<p class="ratio" id="RatioMed"></p>*@
+            <!--</div>
+            <div class="card-body four">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberOther">
+                    127,436,344.19
+                </h4>
+                <h5 class="card-name">Net IBNR Consumptions</h5>-->
+            @*<p class="ratio" id="RatioOther"></p>*@
+            <!--</div>
                 </div>
-            </div>
+            </div>3-->
+            @*ApexCharts*@
+
+
+            <!--<div class="doughnut-parent">
+                    <div class="doughnut-box mb-4 chart-card w-100">
+                        <div class="box">
+                            <div class="box">
+                                <div id="doughnutChartApexCharts">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box">
+                                <div id="doughnutChartApexChartsTwo">
+
+                                </div>
+                            </div>
+                        </div>
+                        <label>المنتفعين من الخدمة</label>
+
+                    </div>
+
+                </div>
+
+                <div class="graph-parent ">
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartNew"></canvas>
+                                </div>
+                            </div>
+                            <label>توزيع الاستهلاك طبقا لنوع المشترك</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartNew2"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                توزيع الاستهلاك طبقا لجنس المشترك
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart"></canvas>
+                                </div>
+                            </div>
+                            <label>توزيع الاستهلاك طبقا للشركات</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartTwo"></canvas>
+                                </div>
+                            </div>
+                            <label>توزيع الاستهلاك طبقا لنوع مقدم الخدمة</label>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartSeven"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                توزيع الاستهلاك طبقا لنوع الخدمة
+                            </label>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartEight"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                توزيع الاستهلاك طبقا  للخدمة
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartThree"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                اعداد الخدمة طبقا لنوع مقدم الخدمة
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartFour"></canvas>
+                                </div>
+                            </div>
+                            <label>Top 10 Providers</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartFive"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                الاستهلاك حسب الخدمة
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChartSix"></canvas>
+                                </div>
+                            </div>
+                            <label>استهلاك الادوية</label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart27"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                Last Three Years Consumption Comparison Per Servies Date
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart28"></canvas>
+                                </div>
+                            </div>
+                            <label>Last Three Years Consumption Comparison Per Record Date</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart29"></canvas>
+                                </div>
+                            </div>
+                            <label>
+                                Last Three Years Consumption Comparison Per Companies Servies Date
+                            </label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart30"></canvas>
+                                </div>
+                            </div>
+                            <label>Last Three Years Consumption Comparison Per Companies Servies Date</label>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart31"></canvas>
+                                </div>
+                            </div>
+                            <label>Last Three Years Number of Employees Comparison</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart32"></canvas>
+                                </div>
+                            </div>
+                            <label>Last Three Years Number of Employees Comparison Per Companies</label>
+                        </div>
+                    </div>
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart33"></canvas>
+                                </div>
+                            </div>
+                            <label>Consumption categories</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart34"></canvas>
+                                </div>
+                            </div>
+                            <label>Number of Employees Per categories</label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart26"></canvas>
+                                </div>
+                            </div>
+                            <label>Top 10 Pharmacies</label>
+                        </div>
+                    </div>
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart18"></canvas>
+                                </div>
+                            </div>
+                            <label>Top 10 laboratories and Radiology centers</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart25"></canvas>
+                                </div>
+                            </div>
+                            <label>Top 10 Hospitals</label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart12"></canvas>
+                                </div>
+                            </div>
+                            <label>Number of used Providers</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="graph-box">
+                            <div class="box">
+                                <div>
+                                    <canvas id="graphChart11"></canvas>
+                                </div>
+                            </div>
+                            <label>Number of Servies Per Provider Types</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12"></div>
+            </div>-->
+
         </div>
-    
+    </div>
+
 </div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -531,2097 +554,12 @@
 
 
 
+<script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>
+
 <script>
-    const doughnut = document.getElementById('doughnutChart');
-    const doughnutTwo = document.getElementById('doughnutChartTwo');
-    const pie = document.getElementById('pieChart');
-    const pieTwo = document.getElementById('pieChartTwo');
-    const pie3 = document.getElementById('pieChart3');
-    const pie4 = document.getElementById('pieChart4');
-
-    const graph = document.getElementById('graphChart');
-    const graphTwo = document.getElementById('graphChartTwo');
-    const graphThree = document.getElementById('graphChartThree'); 
-    const graphFour = document.getElementById('graphChartFour');
-    const graphFive = document.getElementById('graphChartFive');
-    const graphSix = document.getElementById('graphChartSix'); 
-    const graphSeven = document.getElementById('graphChartSeven');
-    const graphEight = document.getElementById('graphChartEight');
-    const graphnew = document.getElementById('graphChartNew');
-    const graphnew2 = document.getElementById('graphChartNew2');
-    const graph27 = document.getElementById('graphChart27');
-    const graph28 = document.getElementById('graphChart28');
-    const graph29 = document.getElementById('graphChart29');
-    const graph30 = document.getElementById('graphChart30');
-    const graph31 = document.getElementById('graphChart31');
-    const graph32 = document.getElementById('graphChart32');
-    const graph33 = document.getElementById('graphChart33');
-    const graph34 = document.getElementById('graphChart34');
-    const graph26 = document.getElementById('graphChart26');
-    const graph18 = document.getElementById('graphChart18');
-    const graph25 = document.getElementById('graphChart25');
-    const graph12 = document.getElementById('graphChart12');
-
-    new Chart(pie, {
-        type: 'pie',
-        data: {
-            labels: [
-                'عيادات أطباء',
-                'خدمات خارج الهيئة الطبية',
-                'مراكز علاج طبيعي',
-                'صيدليات',
-                'مراكز اشعة',
-                'مستشفيات',
-                'معامل تحاليل'
-            ],
-            datasets: [{
-                label: 'عدد المنتفعين من الخدمة',
-                data: [361, 739, 801, 49666, 3197, 23625, 5822],
-                backgroundColor: [
-                    '#abe6a4',
-                    '#1796f8',
-                    '#f5c542',
-                    '#ff6384',
-                    '#36a2eb',
-                    '#ff9f40',
-                    '#9966ff'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true, position: 'right',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.chart._metasets[0].total;
-                            const percent = ((value / total) * 100).toFixed(2);
-                            return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    new Chart(pieTwo, {
-        type: 'pie',
-        data: {
-            labels: [
-                'عيادات أطباء',
-                'مراكز علاج طبيعي',
-                'صيدليات',
-                'مراكز أشعة',
-                'مستشفيات',
-                'معامل تحاليل'
-            ],
-            datasets: [{
-                label: 'عدد المستفيدين',
-                data: [57, 56, 126, 57, 305, 16],
-                backgroundColor: [
-                    '#abe6a4',
-                    '#1796f8',
-                    '#f5c542',
-                    '#ff6384',
-                    '#36a2eb',
-                    '#9966ff'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true, position: 'right',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percent = ((value / total) * 100).toFixed(1);
-                            return `${context.label}: ${value} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    new Chart(pie3, {
-        type: 'pie',
-        data: {
-            labels: [
-                'Pharmacy',
-                'Lab',
-                'Ray',
-                'OutPatient',
-                'InPatient'
-            ],
-            datasets: [{
-                label: 'عدد الخدمات',
-                data: [49666, 5822, 3197, 361, 23625], // 🟡 Adjust values as appropriate for each label
-                backgroundColor: [
-                    '#ff6384', // Pharmacy
-                    '#9966ff', // Lab
-                    '#36a2eb', // Ray
-                    '#abe6a4', // OutPatient
-                    '#ff9f40'  // InPatient
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true, position: 'right',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.chart._metasets[0].total;
-                            const percent = ((value / total) * 100).toFixed(2);
-                            return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    new Chart(pie4, {
-        type: 'pie',
-        data: {
-            labels: [
-                'daily',
-                'Chronic'
-            ],
-            datasets: [{
-                label: 'عدد الخدمات (ادوية)',
-                data: [126, 305], 
-                backgroundColor: [
-                    '#36a2eb', 
-                    '#ff6384' 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true, position: 'right',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percent = ((value / total) * 100).toFixed(1);
-                            return `${context.label}: ${value} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    new Chart(doughnut, {
-        type: 'doughnut',
-        data: {
-            labels: [
-                'ذكر',
-                'انثى'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [10157, 2093],
-                backgroundColor: [
-                    '#abe6a4',
-                    '#1796f8'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                datalabels: {
-                    formatter: (value, context) => {
-                        const data = context.chart.data.datasets[0].data;
-                        const total = data.reduce((sum, val) => sum + val, 0);
-                        const percentage = ((value / total) * 100).toFixed(1) + '%';
-                        return `${value} (${percentage})`;
-                    },
-                    color: '#fff',
-                    font: {
-                        weight: 'bold'
-                    }
-                },
-                //title: {
-                //    display: true,
-                //    //text: 'عدد المنتفعين من الخدمة',
-                //    font: {
-                //        size: 18
-                //    },
-                //    padding: {
-                //        top: 10,
-                //        bottom: 20
-                //    }
-                //},
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const data = context.dataset.data;
-                            const total = data.reduce((sum, val) => sum + val, 0);
-                            const value = context.parsed;
-                            const percent = ((value / total) * 100).toFixed(1);
-                            return `${context.label}: ${value} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(doughnutTwo, {
-        type: 'doughnut',
-        data: {
-            labels: [
-                'موظفين',
-                'معاشات'
-            ],
-            datasets: [{
-                label: 'عدد المنفعين',
-                data: [3660, 8590],
-                backgroundColor: [
-                    '#abe6a4',
-                    '#1796f8'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                datalabels: {
-                    formatter: (value, context) => {
-                        const data = context.chart.data.datasets[0].data;
-                        const total = data.reduce((sum, val) => sum + val, 0);
-                        const percentage = ((value / total) * 100).toFixed(1) + '%';
-                        return `${value} (${percentage})`;
-                    },
-                    color: '#fff',
-                    font: {
-                        weight: 'bold'
-                    }
-                },
-                //title: {
-                //    display: true,
-                //    //text: 'عدد المنتفعين من الخدمة',
-                //    font: {
-                //        size: 18
-                //    },
-                //    padding: {
-                //        top: 10,
-                //        bottom: 20
-                //    }
-                //},
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const data = context.dataset.data;
-                            const total = data.reduce((sum, val) => sum + val, 0);
-                            const value = context.parsed;
-                            const percent = ((value / total) * 100).toFixed(1);
-                            return `${context.label}: ${value} (${percent}%)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-
-
-
-    const genderOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [10157, 2093],
-        labels: ['ذكر', 'انثى'],
-        colors: ['#abe6a4', '#1796f8'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-                const value = opts.w.config.series[opts.seriesIndex];
-                return `${value} (${val.toFixed(1)}%)`;
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series, seriesIndex, w }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
-
-    new ApexCharts(document.querySelector("#doughnutChartApexCharts"), genderOptions).render();
-       
-    const typeOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [3660, 8590],
-        labels: ['موظفين', 'معاشات'],
-        colors: ['#abe6a4', '#1796f8'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-                const value = opts.w.config.series[opts.seriesIndex];
-                return `${value} (${val.toFixed(1)}%)`;
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series, seriesIndex, w }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
-
-    new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
-
-    //new Chart(graphnew, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    //new Chart(graphnew2, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetConsumType',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graphnew, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetConsumGender',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graphnew2, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetCompData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-           // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graph, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetTypeProviderData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphTwo, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetServiceData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphSeven, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetServiceDetailsData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphEight, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetTypeProvider',
-        success: function (data) {
-            const labels = data.map(item => item.typeprovider);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphThree, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'عدد الخدمات',
-                            data: netValues,
-                            backgroundColor: '#3fa1fc',
-                            borderColor: '#3fa1fc',
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    elements: {
-                        bar: {
-                            borderWidth: 2
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'العدد'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                font: {
-                                    size: 14,
-                                    family: 'Open Sans'
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return 'عدد الخدمات: ' + value.toLocaleString('en-US');
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetAllConsumGroup',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graphFive, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetAllConsumMed',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graphSix, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    //new Chart(graphTwo, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-                    
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        indexAxis: 'y',
-    //        // Elements options apply to all of the options unless overridden in a dataset
-    //        // In this case, we are setting the border of each horizontal bar to be 2px wide
-    //        elements: {
-    //            bar: {
-    //                borderWidth: 2,
-    //            }
-    //        },
-    //        responsive: true,
-    //        plugins: {
-    //            legend: {
-    //                position: 'top', 
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            },
-    //            title: {
-    //                display:false 
-    //            }
-    //        }
-    //    },
-    //});
-    //new Chart(graphThree, {
-    //    type: 'line',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            fill: false,
-    //            borderColor: 'rgb(75, 192, 192)',
-    //            tension: 0.1,
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    new Chart(graphFour, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    new Chart(graph27, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph28, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph29, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph30, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph31, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph32, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    new Chart(graph33, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph34, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    new Chart(graph26, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    new Chart(graph18, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph25, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph12, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    //new Chart(graphFive, {
-    //    type: 'scatter',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            type: 'line',
-    //            label: 'Line Dataset',
-    //            data: [50, 46, 20, 46, 20, 10],
-    //            fill: false,
-    //            borderColor: 'rgb(54, 162, 235)',
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    //new Chart(graphFive, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    //new Chart(graphSix, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-
-    //new Chart(graphnew, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    //new Chart(graphnew2, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-    //new Chart(graphSeven, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: 'employees',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-
-    //                '#3fa1fc'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //        ,
-    //        plugins: {
-    //            legend: {
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-
-
-    $(function () {
-
-    })
-
-    function getInfoCard() {
-
+    function loadScreen(viewName) {
+        $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {           
+            ChartLiveScreen();
+        });
     }
-
-</script>
+    </script>

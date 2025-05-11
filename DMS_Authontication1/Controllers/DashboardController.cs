@@ -284,7 +284,6 @@ namespace DMS_Authontication1.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetChartData()
         {
             var data = new[] {
@@ -294,6 +293,34 @@ namespace DMS_Authontication1.Controllers
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTypeProviderLive()
+        {
+            var data = new[]
+            {
+        new { typeprovider = "Pharmacy",             net = 361 },
+        new { typeprovider = "Lab", net = 739 },
+        new { typeprovider = "Ray",         net = 801 },
+        new { typeprovider = "OutPatient",                  net = 49666 },
+        new { typeprovider = "InPatient",                 net = 23625 }
+    };           
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult LoadPartial(string viewName)
+        {
+            // Secure only known partials
+            switch (viewName)
+            {
+                case "_Live":
+                case "_Screen2":
+                case "_Screen3":
+                    return PartialView($"~/Views/Dashboard/{viewName}.cshtml");
+                default:
+                    return HttpNotFound();
+            }
         }
     }
 }
