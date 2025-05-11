@@ -1665,6 +1665,21 @@ div.hide-pseudo::before {
 label { 
     margin-bottom: 0px;
 }
+li a img.black {
+    display: none !important;
+}
+
+li a img.white {
+    display: block !important;
+}
+
+li.active a img.black {
+    display: block !important;
+}
+
+li.active a img.white {
+    display: none !important;
+}
 /*=====================Dashboard==============================================*/
 
 .dashboard-box {
@@ -1673,11 +1688,14 @@ label {
     /*border-radius: 12px;*/
     box-shadow: 0 0 9px 1px #00000036;
     width:100%;
+    height:100%;
 }
 .dashboard-categories {
     width: 178px;
     text-align: center;
     padding: 20px 0px 20px 12px;
+    min-height:100vh;
+    /*height:100%;*/
     /*border-right: 15px solid white;*/
     background: #444751;
     /*border-radius: 12px 0 0 12px;*/
@@ -1729,6 +1747,9 @@ label {
 .dashboard-categories ul li a i {
     font-size: 12px;
     color: white;
+}
+.dashboard-categories ul li.active a i {
+    color: #444751;
 }
 .dashboard-body {
     width:calc(100% - 178px)
@@ -1787,6 +1808,9 @@ label {
     font-weight: bold;
     text-align: center;
     color: #337ab7;
+}
+.card-name h5 {
+    font-size: 12px;
 }
 
 p.ratio {
@@ -1935,7 +1959,8 @@ p.ratio {
         height: 160px !important; 
     }
 }
-label{
+label,
+h5 {
     white-space:nowrap;
 }
 /*=====================New==============================================*/
