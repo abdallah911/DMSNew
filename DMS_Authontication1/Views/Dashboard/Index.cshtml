@@ -43,7 +43,16 @@
         <div class="portlet box dms-container">
 
             <div class="dashboard-box px-0 mx-auto d-flex flex-wrap">
-                <div class="dashboard-categories ">
+                <div class="sidebar-btn navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories" >
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="dashboard-categories navbar-collapse  collapse" id="categories">
                     <ul>
                         <li class="active"><a><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" /> Live </a></li>
                         <li><a><i class="fas fa-reply"></i>Consumptions</a></li>
@@ -55,25 +64,25 @@
                 </div>
                 <div class="dashboard-body " id="MainDashbord">
                     @*<div class="dashboard-filter-box">
-                        <div>
-                            <div class="forLabel">
-                                <select required></select>
-                                <span>Month</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="forLabel">
-                                <select required></select>
-                                <span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="forLabel">
-                                <select required></select>
-                                <span>Company</span>
-                            </div>
-                        </div>
-                    </div>*@ 
+                <div>
+                    <div class="forLabel">
+                        <select required></select>
+                        <span>Month</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="forLabel">
+                        <select required></select>
+                        <span></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="forLabel">
+                        <select required></select>
+                        <span>Company</span>
+                    </div>
+                </div>
+            </div>*@
                     <div class="cards-parent ">
 
                         <div class="doughnut-parent">
@@ -98,12 +107,12 @@
                             </div>
                             <div class="doughnut-box chart-card w-100">
                                 <div class="box">
-                <div class="box">
-                    <div>
-                        <canvas id="pieChart3"></canvas>
-                    </div>
-                </div>
-            </div>
+                                    <div class="box">
+                                        <div>
+                                            <canvas id="pieChart3"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="box">
                                     <div class="box">
                                         <div>
@@ -117,12 +126,12 @@
                             </div>
                             <div class="doughnut-box chart-card w-100">
                                 @*<div class="box">
-                <div class="box">
-                    <div>
-                        <canvas id="pieChart"></canvas>
-                    </div>
-                </div>
-            </div>*@
+                            <div class="box">
+                                <div>
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>*@
                                 <div class="box">
                                     <div class="box">
                                         <div>
@@ -137,41 +146,41 @@
                         </div>
                         <div class="cards-box mb-4 w-100">
                             @*<div class="card-body" style="background: #8389eb5c">
-            <i class="fa fa-user"></i>
-            <h4 class="card-number" id="Consum"></h4>
-            <h5 class="card-name">Consumption</h5>
-            <p class="ratio" id="RatioConsum">100%</p>
-        </div>*@
+                        <i class="fa fa-user"></i>
+                        <h4 class="card-number" id="Consum"></h4>
+                        <h5 class="card-name">Consumption</h5>
+                        <p class="ratio" id="RatioConsum">100%</p>
+                    </div>*@
                             <div class="card-body one">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberEmployee">2500</h4>
                                 <h5 class="card-name">Approval</h5>
                                 <p class="ratio" id="RatioEmployee"></p>
                             </div>
-                            <div class="card-body one">
+                            <div class="card-body two">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberEmployee">2500</h4>
                                 <h5 class="card-name">Online</h5>
                                 <p class="ratio" id="RatioEmployee"></p>
                             </div>
                             @*<div class="card-body two gender-type-card flex-row">
-            <div class="d-flex" style="justify-content: space-between; width: 100%;">
-                <div class="d-flex gap-2">
-                    <i class="fa fa-male" style="background-color: dodgerblue; "></i>
-                    <p>
-                        10157
-                    </p>
-                </div>
-                <div class="d-flex gap-2">
-                    <i class="fa fa-female" style="background-color: #ff69b4; "></i>
-                    <p>
-                        2093
-                    </p>
-                </div>
-            </div>
-            <h4>22</h4>
-            <h4>22</h4>
-        </div>*@
+                        <div class="d-flex" style="justify-content: space-between; width: 100%;">
+                            <div class="d-flex gap-2">
+                                <i class="fa fa-male" style="background-color: dodgerblue; "></i>
+                                <p>
+                                    10157
+                                </p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <i class="fa fa-female" style="background-color: #ff69b4; "></i>
+                                <p>
+                                    2093
+                                </p>
+                            </div>
+                        </div>
+                        <h4>22</h4>
+                        <h4>22</h4>
+                    </div>*@
                             <div class="card-body three">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberMed">
@@ -193,7 +202,7 @@
                                 </h5>
                                 @*<p class="ratio" id="RatioOther"></p>*@
                             </div>
-                            <div class="card-body three">
+                            <div class="card-body one">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberMed">
                                     152,373,434.72
@@ -201,7 +210,7 @@
                                 <h5 class="card-name">اجمالي الاستهلاك طبقا لتاريخ الخدمة</h5>
                                 @*<p class="ratio" id="RatioMed"></p>*@
                             </div>
-                            <div class="card-body four">
+                            <div class="card-body two">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberOther">
                                     127,436,344.19
@@ -487,7 +496,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
 
                     <div class="col-sm-12"></div>
                 </div>

@@ -1666,34 +1666,7 @@ label {
     margin-bottom: 0px;
 }
 /*=====================Dashboard==============================================*/
-@media (max-width:991px) { 
-    .graph-parent {
-        margin-bottom: 20px;
-    }
-}
-@media (max-width:767px) {
-    .dashboard-categories {
-        display: none;
-    }
-    .dashboard-body {
-        width:100% !important;
-        display:flex;
-        flex-direction:column;
-        gap:20px;
-    } 
-}
-@media (max-width:576px) {
-    .doughnut-box {
-        height: unset !important; 
-    }
-    .doughnut-box > .box {
-        width: 100% !important;
-    }
-    .cards-box .card-body { 
-        width: 100% !important;
-        height: 160px !important; 
-    }
-}
+
 .dashboard-box {
     /*margin: 20px 0;*/
     background: #ffffff;
@@ -1705,7 +1678,7 @@ label {
     width: 165px;
     text-align: center;
     padding: 20px 0px 20px 20px;
-    border-right: 15px solid white;
+    /*border-right: 15px solid white;*/
     background: #444751;
     /*border-radius: 12px 0 0 12px;*/
 }
@@ -1881,10 +1854,11 @@ p.ratio {
 .cards-parent {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
-.doughnut-parent ,
+.doughnut-parent,
 .cards-box {
-    width: 50% !important;
+    width: calc(50% - 10px) !important;
 }
 .graph-parent {
     display: flex;
@@ -1910,7 +1884,57 @@ p.ratio {
 #doughnutChartTwo {
     /*height: 300px !important;*/
 }
-
+.sidebar-btn span.icon-bar {
+    background: #156caf;
+    width: 30px;
+}
+.sidebar-btn button {
+    background: #e6e6e6;
+    padding: 10px;
+    margin-left: 20px;
+}
+@media (min-width:991px) {  
+    .dashboard-categories {
+        display:block;
+    }
+}
+@media (max-width:991px) { 
+    .graph-parent {
+        margin-bottom: 20px;
+    }
+    .doughnut-parent, .cards-box {
+        width: 100% !important;
+    }
+}
+@media (max-width:767px) {
+    .dashboard-categories {
+        width:100%;
+    }
+    .dashboard-body {
+        width:100% !important;
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+    .graph-parent > div {
+        width: 100%; 
+    }
+}
+@media (max-width:576px) {
+    .doughnut-box {
+        height: unset !important; 
+    }
+    .doughnut-box > .box {
+        width: 100% !important;
+    }
+    .cards-box .card-body { 
+        width: 100% !important;
+        height: 160px !important; 
+    }
+}
+label{
+    white-space:nowrap;
+}
 /*=====================New==============================================*/
 div.forLabel > span:not(.select2 ) {
     display: flex;
