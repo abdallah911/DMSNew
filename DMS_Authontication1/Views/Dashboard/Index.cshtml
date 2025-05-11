@@ -46,9 +46,9 @@
                 <ul>
                     <li class="active"><a href="#" onclick="event.preventDefault(); loadScreen('_Live');"><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" onclick="loadScreen('_Screen1')" /> Live </a></li>
                     <li><a href="#" onclick="event.preventDefault(); loadScreen('_Consumptions');"><i class="fas fa-reply" onclick="loadScreen('_Screen2')"></i>Consumptions</a></li>
-                    <li><a><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" />Providers Consumptions</a></li>
-                    <li><a><i class="fas fa-tasks"></i>Consumptions Per Employees</a></li>
-                    <li><a><i class="fas fa-calendar-alt"></i>Consumptions Comparison</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Providers');"><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" />Providers Consumptions</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Employees');"><i class="fas fa-tasks"></i>Consumptions Per Employees</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Comparison');"><i class="fas fa-calendar-alt"></i>Consumptions Comparison</a></li>
                     @*<li><a><i class="fas fa-phone"></i>Contact</a></li>*@
                 </ul>
             </div>
@@ -81,6 +81,12 @@
                 ChartLiveScreen();
             else if (viewName === "_Consumptions")
                 ChartConsumptionsScreen();
+            else if (viewName === "_Providers")
+                ChartProvidersScreen();
+            else if (viewName === "_Employees")
+                ChartEmployeesScreen();
+            else if (viewName === "_Comparison")
+                ChartComparisonScreen();
         });
     }
     </script>
