@@ -8868,6 +8868,7 @@
     <Content Include="Views\Dashboard\_Live.cshtml" />
     <Content Include="Views\Dashboard\_Live - Copy.cshtml" />
     <Content Include="Views\Dashboard\22222.cshtml" />
+    <Content Include="Views\Dashboard\_Consumptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
