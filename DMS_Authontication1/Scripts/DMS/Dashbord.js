@@ -262,6 +262,19 @@
             });
         }
     });
+
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/getLiveCard',        
+        success: function (data) {                                      
+                $('#NumberApproval').text(data.Approv);
+                $('#NumberOnline').text(data.Onlin);            
+        }
+    });
+
+  
+            
+    
 }
 
 function ChartConsumptionsScreen() {

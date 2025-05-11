@@ -61,6 +61,7 @@
     </div>
 
 </div>
+
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
@@ -74,11 +75,16 @@
 <script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>
 
 <script>
-   
-    function loadScreen(viewName) {
+
+    //setInterval(ChartLiveScreen, 10000);
+    
+
+    function loadScreen(viewName = "_Live") {
+       
+
         $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
-            if (viewName === "_Live")
-                ChartLiveScreen();
+            if (viewName === "_Live") 
+                ChartLiveScreen();               
             else if (viewName === "_Consumptions")
                 ChartConsumptionsScreen();
             else if (viewName === "_Providers")
@@ -89,4 +95,7 @@
                 ChartComparisonScreen();
         });
     }
+
+    loadScreen();
+
     </script>

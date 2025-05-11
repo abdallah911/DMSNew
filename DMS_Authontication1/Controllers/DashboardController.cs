@@ -21,7 +21,7 @@ namespace DMS_Authontication1.Controllers
     {
         DMS_TESTEntities db;
         ApplicationDbContext UserDB;
-        DBData dbApproval;
+        DBData dbOra;
 
         public JsonResult GetNotifications()
         {
@@ -78,7 +78,7 @@ namespace DMS_Authontication1.Controllers
         {
             db = new DMS_TESTEntities();
             UserDB = new ApplicationDbContext();
-            dbApproval = new DBData();
+            dbOra = new DBData();
         }
         public ActionResult Index()
         {
@@ -294,7 +294,6 @@ namespace DMS_Authontication1.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetTypeProviderLive()
         {
             var data = new[]
@@ -307,8 +306,6 @@ namespace DMS_Authontication1.Controllers
     };           
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
         public ActionResult LoadPartial(string viewName)
         {           
             switch (viewName)
@@ -322,6 +319,47 @@ namespace DMS_Authontication1.Controllers
                 default:
                     return HttpNotFound();
             }
+        }
+        public JsonResult getLiveCard()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dtcrd = new DataTable();
+
+            string Approv = "", Onlin ="";
+
+            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime endDate = new DateTime(2025, 10, 31);
+
+
+            Approv = dbOra.getApprovalMatar().Rows[0][0].ToString();
+            var comp = new[] { "500118", "500119", "500120", "500121", "500122" };
+            var managers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+
+            Onlin = db.Roshitas
+                .Where(r =>
+                    comp.Any(c => r.CardId.StartsWith(c)) &&
+                    r.CreatedDate >= startDate &&
+                    r.CreatedDate <= endDate &&
+                    managers.Contains(r.Manager)
+                )
+                .Count()
+                .ToString();
+
+            //string consmMedClaim = dbData1062.getConsumptionMedClaim(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd, compIsFamily).Rows[0][0].ToString();
+            //string consmMedOnline = dbData1062.getConsumptionMedOnline(CardId, Convert.ToDateTime(dat1), Convert.ToDateTime(dat2), oldcrd, compIsFamily).Rows[0][0].ToString();
+            //string consmMed = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline)).ToString();
+            //string consmOther = dbData1062.getConsumptionOther(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd, compIsFamily).Rows[0][0].ToString();
+            //string consmAll = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline) + double.Parse(consmOther)).ToString();
+            //string remain = (double.Parse(maxamt) - double.Parse(consmAll)).ToString();
+            //double tm = Convert.ToDouble(consmAll) / Convert.ToDouble(maxamt) * 100;
+            //string perct = Math.Round(tm, 2).ToString() + " %";
+            //string consmApproval = dbData1062.getConsumptionApproval(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
+
+
+            return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }
