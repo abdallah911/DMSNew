@@ -1,0 +1,364 @@
+﻿<div>
+    @*<div class="dashboard-filter-box">
+            <div>
+                <div class="forLabel">
+                    <select required></select>
+                    <span>Month</span>
+                </div>
+            </div>
+            <div>
+                <div class="forLabel">
+                    <select required></select>
+                    <span></span>
+                </div>
+            </div>
+            <div>
+                <div class="forLabel">
+                    <select required></select>
+                    <span>Company</span>
+                </div>
+            </div>
+        </div>*@
+    <div class="cards-parent ">
+
+        <div class="doughnut-parent">
+            <div class="doughnut-box mb-4 chart-card w-100">
+                <div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="doughnutChart">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="doughnutChartTwo"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <label>المنتفعين من الخدمة</label>
+
+            </div>
+            <div class="doughnut-box chart-card w-100">
+                <div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="pieChart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="pieChart4"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <label>
+                    عدد الخدمات
+                </label>
+            </div>
+            <div class="doughnut-box chart-card w-100">
+                @*<div class="box">
+                        <div class="box">
+                            <div>
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="box">
+                    <div class="box">
+                        <div>
+                            <canvas id="pieChartTwo"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <label>
+                    عدد مقدمي الخدمة المتعاملين
+                </label>
+            </div>
+        </div>
+      
+    </div>3
+
+    @*ApexCharts*@
+
+
+    
+
+    <div class="graph-parent ">
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartNew"></canvas>
+                    </div>
+                </div>
+                <label>توزيع الاستهلاك طبقا لنوع المشترك</label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartNew2"></canvas>
+                    </div>
+                </div>
+                <label>
+                    توزيع الاستهلاك طبقا لجنس المشترك
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart"></canvas>
+                    </div>
+                </div>
+                <label>توزيع الاستهلاك طبقا للشركات</label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartTwo"></canvas>
+                    </div>
+                </div>
+                <label>توزيع الاستهلاك طبقا لنوع مقدم الخدمة</label>
+            </div>
+        </div>
+        <div class="w-100">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartSeven"></canvas>
+                    </div>
+                </div>
+                <label>
+                    توزيع الاستهلاك طبقا لنوع الخدمة
+                </label>
+            </div>
+        </div>
+        <div class="w-100">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartEight"></canvas>
+                    </div>
+                </div>
+                <label>
+                    توزيع الاستهلاك طبقا  للخدمة
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartThree"></canvas>
+                    </div>
+                </div>
+                <label>
+                    اعداد الخدمة طبقا لنوع مقدم الخدمة
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartFour"></canvas>
+                    </div>
+                </div>
+                <label>Top 10 Providers</label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartFive"></canvas>
+                    </div>
+                </div>
+                <label>
+                    الاستهلاك حسب الخدمة
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartSix"></canvas>
+                    </div>
+                </div>
+                <label>استهلاك الادوية</label>
+            </div>
+        </div>
+
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart27"></canvas>
+                    </div>
+                </div>
+                <label>
+                    Last Three Years Consumption Comparison Per Servies Date
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart28"></canvas>
+                    </div>
+                </div>
+                <label>Last Three Years Consumption Comparison Per Record Date</label>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart29"></canvas>
+                    </div>
+                </div>
+                <label>
+                    Last Three Years Consumption Comparison Per Companies Servies Date
+                </label>
+            </div>
+        </div>
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart30"></canvas>
+                    </div>
+                </div>
+                <label>Last Three Years Consumption Comparison Per Companies Servies Date</label>
+            </div>
+        </div>
+
+
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart31"></canvas>
+                    </div>
+                </div>
+                <label>Last Three Years Number of Employees Comparison</label>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart32"></canvas>
+                    </div>
+                </div>
+                <label>Last Three Years Number of Employees Comparison Per Companies</label>
+            </div>
+        </div>
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart33"></canvas>
+                    </div>
+                </div>
+                <label>Consumption categories</label>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart34"></canvas>
+                    </div>
+                </div>
+                <label>Number of Employees Per categories</label>
+            </div>
+        </div>
+
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart26"></canvas>
+                    </div>
+                </div>
+                <label>Top 10 Pharmacies</label>
+            </div>
+        </div>
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart18"></canvas>
+                    </div>
+                </div>
+                <label>Top 10 laboratories and Radiology centers</label>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart25"></canvas>
+                    </div>
+                </div>
+                <label>Top 10 Hospitals</label>
+            </div>
+        </div>
+
+
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart12"></canvas>
+                    </div>
+                </div>
+                <label>Number of used Providers</label>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart11"></canvas>
+                    </div>
+                </div>
+                <label>Number of Servies Per Provider Types</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12"></div>
+</div>
+
+<script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>
