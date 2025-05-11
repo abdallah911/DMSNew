@@ -1,4 +1,5 @@
-﻿function ChartLiveScreen() {
+﻿
+function ChartLiveScreen() {
     const pie4 = document.getElementById('pieChart4');
 
     const graphSix = document.getElementById('graphChartSix');

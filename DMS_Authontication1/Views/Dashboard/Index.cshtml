@@ -89,15 +89,8 @@
             $(this).addClass('active');             // إضافة الكلاس للعنصر اللي اتضغط عليه
         });
     }); 
-   
-    function loadScreen(viewName) {
-
-    //setInterval(ChartLiveScreen, 10000);
-    
-
+    setInterval(ChartLiveScreen, 10000);
     function loadScreen(viewName = "_Live") {
-       
-
         $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
             if (viewName === "_Live") 
                 ChartLiveScreen();               
