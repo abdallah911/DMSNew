@@ -1,5 +1,15 @@
 ﻿
 function ChartLiveScreen() {
+   // alert("hello");
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/getLiveCard',
+        success: function (data) {
+            $('#NumberApproval').text(data.Approv);
+            $('#NumberOnline').text(data.Onlin);
+        }
+    });
+
     const pie4 = document.getElementById('pieChart4');
 
     const graphSix = document.getElementById('graphChartSix');
@@ -264,19 +274,13 @@ function ChartLiveScreen() {
         }
     });
 
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/getLiveCard',        
-        success: function (data) {                                      
-                $('#NumberApproval').text(data.Approv);
-                $('#NumberOnline').text(data.Onlin);            
-        }
-    });
-
   
-            
-    
+
+
+
+
 }
+
 
 function ChartConsumptionsScreen() {
     const graph = document.getElementById('graphChart');
@@ -646,43 +650,48 @@ function ChartProvidersScreen() {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
                 'صيدلية محمد منير خفاجى',
                 'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
                 'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
                 'مجموعه صيدليات سيف - القاهرة',
                 'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'صيدلية هناء',
+                'صيدلية /ابو داود - الاقصر',
+                'صيدلية احمد السيد محمود',
+                'مجموعه صيدليات خليل - الاسكندريه',
+                'صيدليه روشان عمر - مدينه نصر - القاهرة',
+                'صيدلية / ريمون كمال - اسوان'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    7363130.68,
+                    6218001.07,
+                    5934788.21,
+                    3853259.21,
+                    3635896.46,
+                    1790842.61,
+                    1733829.09,
+                    1525380.60,
+                    909809.44,
+                    874366.82,
+                    763292.14
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -695,47 +704,51 @@ function ChartProvidersScreen() {
             }
         }
     });
+
     new Chart(graph25, {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'مصر للاشعة',
+                'الفا سكان',
+                'معامل ألفالاب  -16191',
+                'معامل المختبر 19014',
+                'معامل البرج - 19911',
+                'كايرو سكان   - اشعة',
+                'البرج سكان - شركة معامل البرج',
+                'تكنوسكان - 19989',
+                'جراند للتحاليل الطبية',
+                'الطاهرة سكان 19173'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    2013706.52,
+                    1886609.00,
+                    1883208.00,
+                    1862339.48,
+                    1055032.26,
+                    709816.00,
+                    297081.70,
+                    268949.00,
+                    169268.80,
+                    77862.50
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -748,6 +761,7 @@ function ChartProvidersScreen() {
             }
         }
     });
+
     new Chart(graph12, {
         type: 'bar',
         data: {
@@ -805,43 +819,46 @@ function ChartProvidersScreen() {
         type: 'bar',
         data: {
             labels: [
+                'مستشفى القاهرة التخصصى - خارجى',
                 'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
                 'مستشفى النزهة الدولى',
                 'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'مستشفى النيل بدراوى',
+                'مستشفى الشروق - المهندسين',
+                'مستشفى كيورا النصر',
+                'مستشفى شفا التخصصى',
+                'مجمع الجلاء الطبى للقوات المسلحة - مصر الجديدة',
+                'مستشفى العروبة للخدمات الطبية'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
                 data: [
+                    12287220.99,
                     11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
                     4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    4398819.72,
+                    3071241.26,
+                    2292852.75,
+                    1666394.14,
+                    1617912.83,
+                    1542776.45,
+                    1441538.31
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -854,6 +871,7 @@ function ChartProvidersScreen() {
             }
         }
     });
+
 }
 
 function ChartEmployeesScreen() {
@@ -1153,43 +1171,46 @@ function ChartEmployeesScreen() {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'Less tan 10,000',
+                'From 10,000 To 40,000',
+                'From 40,000 To 60,000',
+                'From 60,000 To 80,000',
+                'From 80,000 To 100,000',
+                'From 100,000 To 200,000',
+                'From 200,000 To 300,000',
+                'From 300,000 To 400,000',
+                'From 400,000 To 500,000',
+                'Grater Than 500,000'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    39289637.70,
+                    22969966.86,
+                    5391530.31,
+                    4676887.30,
+                    4717747.70,
+                    14012040.78,
+                    8050667.74,
+                    11089625.95,
+                    2666063.58,
+                    14572176.28
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -1202,47 +1223,51 @@ function ChartEmployeesScreen() {
             }
         }
     });
+
     new Chart(graph34, {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'Less tan 10,000',
+                'From 10,000 To 40,000',
+                'From 40,000 To 60,000',
+                'From 60,000 To 80,000',
+                'From 80,000 To 100,000',
+                'From 100,000 To 200,000',
+                'From 200,000 To 300,000',
+                'From 300,000 To 400,000',
+                'From 400,000 To 500,000',
+                'Grater Than 500,000'
             ],
             datasets: [{
-                label: 'صافي الخدمات',
+                label: 'عدد الحالات',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    10451,
+                    1382,
+                    110,
+                    67,
+                    53,
+                    98,
+                    32,
+                    32,
+                    6,
+                    20
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -1255,6 +1280,7 @@ function ChartEmployeesScreen() {
             }
         }
     });
+
 
 
     const genderOptions = {
@@ -1338,202 +1364,32 @@ function ChartComparisonScreen() {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                '2022-2023',
+                '2023-2024',
+                '2024-2025'
             ],
             datasets: [{
-                label: 'صافي الخدمات',
+                label: 'صافي الصرف (بالجنيه)',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    196228599.45,
+                    262420174.68,
+                    127436344.19
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
                         }
                     }
                 }
-            }
-        }
-    });
-    new Chart(graph28, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph29, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph30, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -1547,47 +1403,230 @@ function ChartComparisonScreen() {
         }
     });
 
+    //new Chart(graph28, {
+    //    type: 'bar',
+    //    data: {
+    //        labels: [
+    //            '2022-2023',
+    //            '2023-2024',
+    //            '2024-2025'
+    //        ],
+    //        datasets: [{
+    //            label: 'صافي الصرف (بالجنيه)',
+    //            data: [
+    //                187921405.11,
+    //                258984736.25,
+    //                156615312.56
+    //            ],
+    //            backgroundColor: '#3fa1fc',
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        scales: {
+    //            y: {
+    //                beginAtZero: true,
+    //                ticks: {
+    //                    callback: function (value) {
+    //                        return value.toLocaleString('en-US');
+    //                    }
+    //                }
+    //            }
+    //        },
+    //        plugins: {
+    //            legend: {
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
+    new Chart(graph28, {
+        type: 'line',
+        data: {
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
+            datasets: [{
+                label: 'صافي الصرف (بالجنيه)',
+                data: [
+                    187921405.11,
+                    258984736.25,
+                    156615312.56
+                ],
+                borderColor: '#3fa1fc',
+                backgroundColor: '#3fa1fc22',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 5,
+                pointBackgroundColor: '#3fa1fc'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US')
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: { size: 14, family: 'Open Sans' }
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(graph29, {
+        type: 'bar',
+        data: {
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
+            datasets: [
+                {
+                    label: '500118',
+                    data: [6340679.72, 8776573.46, 5906272.04],
+                    backgroundColor: '#1abc9c'
+                },
+                {
+                    label: '500119',
+                    data: [62599582.23, 72888166.58, 33095029.03],
+                    backgroundColor: '#3498db'
+                },
+                {
+                    label: '500120',
+                    data: [41403778.78, 57375382.33, 27667279.53],
+                    backgroundColor: '#9b59b6'
+                },
+                {
+                    label: '500121',
+                    data: [84385009.99, 121013327.16, 59737417.55],
+                    backgroundColor: '#f39c12'
+                },
+                {
+                    label: '500122',
+                    data: [1499548.74, 2366725.15, 1030346.04],
+                    backgroundColor: '#e74c3c'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US')
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(graph30, {
+        type: 'bar',
+        data: {
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
+            datasets: [
+                {
+                    label: '500118',
+                    data: [5954883.55, 8752211.34, 6809483.49],
+                    backgroundColor: '#1abc9c'
+                },
+                {
+                    label: '500119',
+                    data: [58530209.77, 74472640.61, 40914950.34],
+                    backgroundColor: '#3498db'
+                },
+                {
+                    label: '500120',
+                    data: [39657803.95, 57107879.25, 33662545.39],
+                    backgroundColor: '#9b59b6'
+                },
+                {
+                    label: '500121',
+                    data: [82366540.56, 116380315.77, 73853841.50],
+                    backgroundColor: '#f39c12'
+                },
+                {
+                    label: '500122',
+                    data: [1411967.27, 2271689.28, 1374491.84],
+                    backgroundColor: '#e74c3c'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US')
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Open Sans'
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
     new Chart(graph31, {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                '2022-2023',
+                '2023-2024',
+                '2024-2025'
             ],
             datasets: [{
-                label: 'صافي الخدمات',
+                label: 'عدد الحالات',
                 data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                    13720,
+                    13764,
+                    12250
                 ],
                 backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US');
+                        }
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
                     labels: {
@@ -1600,49 +1639,52 @@ function ChartComparisonScreen() {
             }
         }
     });
+
     new Chart(graph32, {
         type: 'bar',
         data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
+            datasets: [
+                {
+                    label: '500118',
+                    data: [491, 493, 459],
+                    backgroundColor: '#1abc9c'
+                },
+                {
+                    label: '500119',
+                    data: [4904, 4915, 4134],
+                    backgroundColor: '#3498db'
+                },
+                {
+                    label: '500120',
+                    data: [2689, 2754, 2344],
+                    backgroundColor: '#9b59b6'
+                },
+                {
+                    label: '500121',
+                    data: [5363, 5342, 5089],
+                    backgroundColor: '#f39c12'
+                },
+                {
+                    label: '500122',
+                    data: [273, 260, 224],
+                    backgroundColor: '#e74c3c'
+                }
+            ]
+        },
         options: {
+            responsive: true,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US')
+                    }
                 }
-            }
-            ,
+            },
             plugins: {
                 legend: {
+                    position: 'top',
                     labels: {
                         font: {
                             size: 14,

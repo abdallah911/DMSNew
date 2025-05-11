@@ -89,11 +89,14 @@
             $(this).addClass('active');             // إضافة الكلاس للعنصر اللي اتضغط عليه
         });
     }); 
-    setInterval(ChartLiveScreen, 10000);
     function loadScreen(viewName = "_Live") {
         $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
-            if (viewName === "_Live") 
-                ChartLiveScreen();               
+            
+            if (viewName === "_Live") {
+                ChartLiveScreen(); 
+
+                //setInterval(ChartLiveScreen, 10000);
+            }
             else if (viewName === "_Consumptions")
                 ChartConsumptionsScreen();
             else if (viewName === "_Providers")
