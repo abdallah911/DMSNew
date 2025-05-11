@@ -310,12 +310,11 @@ namespace DMS_Authontication1.Controllers
 
 
         public ActionResult LoadPartial(string viewName)
-        {
-            // Secure only known partials
+        {           
             switch (viewName)
             {
                 case "_Live":
-                case "_Screen2":
+                case "_Consumptions":
                 case "_Screen3":
                     return PartialView($"~/Views/Dashboard/{viewName}.cshtml");
                 default:

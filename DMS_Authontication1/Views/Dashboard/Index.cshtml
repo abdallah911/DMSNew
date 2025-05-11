@@ -45,7 +45,7 @@
             <div class="dashboard-categories ">
                 <ul>
                     <li class="active"><a href="#" onclick="event.preventDefault(); loadScreen('_Live');"><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" onclick="loadScreen('_Screen1')" /> Live </a></li>
-                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Screen2');"><i class="fas fa-reply" onclick="loadScreen('_Screen2')"></i>Consumptions</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); loadScreen('_Consumptions');"><i class="fas fa-reply" onclick="loadScreen('_Screen2')"></i>Consumptions</a></li>
                     <li><a><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" />Providers Consumptions</a></li>
                     <li><a><i class="fas fa-tasks"></i>Consumptions Per Employees</a></li>
                     <li><a><i class="fas fa-calendar-alt"></i>Consumptions Comparison</a></li>
@@ -77,7 +77,10 @@
    
     function loadScreen(viewName) {
         $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
-            ChartLiveScreen();
+            if (viewName === "_Live")
+                ChartLiveScreen();
+            else if (viewName === "_Consumptions")
+                ChartConsumptionsScreen();
         });
     }
     </script>

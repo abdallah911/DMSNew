@@ -264,6 +264,218 @@
     });
 }
 
+function ChartConsumptionsScreen() {
+    const graph = document.getElementById('graphChart');
+    const graphSeven = document.getElementById('graphChartSeven');
+    const graphEight = document.getElementById('graphChartEight');
+    
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetCompData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+                        
+            new Chart(graph, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetServiceData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            new Chart(graphSeven, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetServiceDetailsData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            new Chart(graphEight, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
 
 function drawGraphChart() {
     
@@ -271,14 +483,14 @@ function drawGraphChart() {
     //const pieTwo = document.getElementById('pieChartTwo');
     const pie3 = document.getElementById('pieChart3');
    
-    const graph = document.getElementById('graphChart');
+    
     const graphTwo = document.getElementById('graphChartTwo');
     const graphThree = document.getElementById('graphChartThree');
     const graphFour = document.getElementById('graphChartFour');
  
   
-    const graphSeven = document.getElementById('graphChartSeven');
-    const graphEight = document.getElementById('graphChartEight');
+   
+    
     const graphnew = document.getElementById('graphChartNew');
     const graphnew2 = document.getElementById('graphChartNew2');
     const graph27 = document.getElementById('graphChart27');
@@ -779,75 +991,7 @@ function drawGraphChart() {
     });
 
 
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetCompData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            // const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(graph, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
+  
 
     $.ajax({
         type: "GET",
@@ -917,142 +1061,8 @@ function drawGraphChart() {
             });
         }
     });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetServiceData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphSeven, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetServiceDetailsData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphEight, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
+   
+    
 
 
     $.ajax({
