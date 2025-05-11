@@ -1665,47 +1665,38 @@ div.hide-pseudo::before {
 label { 
     margin-bottom: 0px;
 }
+li a img.black {
+    display: none !important;
+}
+
+li a img.white {
+    display: block !important;
+}
+
+li a.active img.black {
+    display: block !important;
+}
+
+li a.active img.white {
+    display: none !important;
+}
 /*=====================Dashboard==============================================*/
-@media (max-width:991px) { 
-    .graph-parent {
-        margin-bottom: 20px;
-    }
-}
-@media (max-width:767px) {
-    .dashboard-categories {
-        display: none;
-    }
-    .dashboard-body {
-        width:100% !important;
-        display:flex;
-        flex-direction:column;
-        gap:20px;
-    } 
-}
-@media (max-width:576px) {
-    .doughnut-box {
-        height: unset !important; 
-    }
-    .doughnut-box > .box {
-        width: 100% !important;
-    }
-    .cards-box .card-body { 
-        width: 100% !important;
-        height: 160px !important; 
-    }
-}
+
 .dashboard-box {
     /*margin: 20px 0;*/
     background: #ffffff;
     /*border-radius: 12px;*/
     box-shadow: 0 0 9px 1px #00000036;
     width:100%;
+    height:100%;
 }
 .dashboard-categories {
-    width: 165px;
+    width: 178px;
     text-align: center;
-    padding: 20px 0px 20px 20px;
-    border-right: 15px solid white;
+    padding: 20px 0px 20px 12px;
+    min-height:100vh;
+    /*height:100%;*/
+    /*border-right: 15px solid white;*/
     background: #444751;
     /*border-radius: 12px 0 0 12px;*/
 }
@@ -1717,46 +1708,53 @@ label {
     margin-bottom:0; 
 }
 .dashboard-categories ul li {
-    font-weight: 700;
+   /* font-weight: 700;
     font-size: 16px;
     color: white !important;
-    padding: 10px 30px 10px 10px;
+    padding: 10px 30px 10px 10px;*/
 }
-.dashboard-categories ul li.active {
-    background:white;
-    border-radius:12px 0 0 12px
-}
-.dashboard-categories ul li.active:hover {
-    background:#ffffff; 
-}
-.dashboard-categories ul li:hover {
-    background:#ffffff5c;
-    border-radius:12px 0 0 12px;
-    cursor:pointer;
-}
+
 .dashboard-categories ul li a {
     pointer-events: painted;
+    padding: 10px 30px 10px 10px;
     color: white;
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 6px;
+    gap: 4px;
+    font-size: 9px;
+    font-weight:700;
+    white-space: nowrap;
+    text-decoration:none;
 }
-.dashboard-categories ul li.active a {
-    color: #434252;
+    .dashboard-categories ul li a.active {
+        background: white;
+        border-radius: 12px 0 0 12px;
+        color: #444751;
+    }
+.dashboard-categories ul li a.active:hover {
+    background:#ffffff; 
 }
+.dashboard-categories ul li a:hover {
+    background:#ffffff5c;
+    border-radius:12px 0 0 12px;
+    cursor:pointer;
+} 
 .dashboard-categories ul li a:hover{
     text-decoration:none;
 }
 .dashboard-categories ul li a img {
-    width: 20px;
+    width: 14px;
 }
 .dashboard-categories ul li a i {
-    font-size: 16px;
+    font-size: 12px;
     color: white;
 }
+.dashboard-categories ul li a.active i {
+    color: #444751;
+}
 .dashboard-body {
-    width:calc(100% - 165px)
+    width:calc(100% - 178px)
 }
 .cards-box {
     display: flex;
@@ -1813,10 +1811,20 @@ label {
     text-align: center;
     color: #337ab7;
 }
+h5.card-name {
+    font-size: 12px;
+    white-space: normal;
+} 
 
 p.ratio {
     margin: 0;
     font-weight: bold;
+}
+.card-graph {
+    width: calc(50% - 10px);
+}
+.card-graph div{
+    height: 100%;
 }
 .dashboard-filter-box {
     display:grid;
@@ -1881,36 +1889,97 @@ p.ratio {
 .cards-parent {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
-.doughnut-parent ,
+.doughnut-parent,
 .cards-box {
-    width: 50% !important;
+    width: calc(50% - 10px) !important;
 }
 .graph-parent {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
 }
 .graph-parent > div {
-    width: 50%;
-    margin-bottom:16px;
+    width: calc(50% - 10px);
+    /*margin-bottom: 16px;*/
 }
 .graph-box {
     position:relative;
 }
-    .graph-box > label, .doughnut-box label {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 18px;
-        font-weight: 700;
-        color: #a83c6a;
-    }
+.graph-box > label, .doughnut-box label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 700;
+    color: #a83c6a;
+}
 #doughnutChart,
 #doughnutChartTwo {
     /*height: 300px !important;*/
 }
-
+.sidebar-btn span.icon-bar {
+    background: #156caf;
+    width: 30px;
+}
+.sidebar-btn button {
+    background: #e6e6e6;
+    padding: 10px;
+    margin-left: 20px;
+}
+@media (min-width:991px) {  
+    .dashboard-categories {
+        display:block;
+    }
+}
+@media (max-width:991px) { 
+    .graph-parent {
+        margin-bottom: 20px;
+    }
+    .doughnut-parent, .cards-box {
+        width: 100% !important;
+    }
+    h5.card-name { 
+        white-space: nowrap;
+    }
+    .card-graph {
+        width: 100%;
+    }
+    .consumption 
+}
+@media (max-width:767px) {
+    .dashboard-categories {
+        width: 100%;
+        min-height: fit-content;
+    }
+    .dashboard-body {
+        width:100% !important;
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+    .graph-parent > div {
+        width: 100%; 
+    }
+}
+@media (max-width:576px) {
+    .doughnut-box {
+        height: unset !important; 
+    }
+    .doughnut-box > .box {
+        width: 100% !important;
+    }
+    .cards-box .card-body { 
+        width: 100% !important;
+        height: 160px !important; 
+    }
+}
+label,
+h5 {
+    white-space:nowrap;
+}
 /*=====================New==============================================*/
 div.forLabel > span:not(.select2 ) {
     display: flex;
