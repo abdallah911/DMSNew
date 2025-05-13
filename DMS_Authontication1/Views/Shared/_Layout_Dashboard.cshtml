@@ -450,23 +450,44 @@
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <a href="~/Home/Index">
-                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
-                            @*<div class="celebrate-gif">
-                                 <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                              </div>*@
-                            @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
-                            <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"/>
-                        </div>
-
-                        @*<img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"  />*@
-
-                        @*<div class="celebrate-gif">
-                                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                    @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin" || User.Identity.GetUserName().Trim() == "super-admin" || User.Identity.GetUserName().Trim() == "matarat5-admin")
+                    {
+                        <a href="~/Dashboard/Index">
+                            <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
+                                @*<div class="celebrate-gif">
+                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                    </div>*@
+                                @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
+                                <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
                             </div>
-                            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
-                    </a>
 
+                            @*<img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"  />*@
+
+                            @*<div class="celebrate-gif">
+                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                </div>
+                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="~/Home/Index">
+                            <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
+                                @*<div class="celebrate-gif">
+                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                    </div>*@
+                                @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
+                                <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
+                            </div>
+
+                            @*<img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"  />*@
+
+                            @*<div class="celebrate-gif">
+                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                </div>
+                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                        </a>
+                    }
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
                         @{
                             if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
@@ -645,11 +666,11 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
-                                            "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
+                                                                                                        {
+                                           "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance",
-                                            "it.admin", "Ahmed-selim", "hr-500118", "hr-500119"
+                                            "it.admin", "Ahmed-selim", "hr-500118", "hr-500119", "super-admin", "matarat5-admin"
                                         };
 
                                         if (misrUsers.Contains(User.Identity.GetUserName().Trim()))
@@ -659,8 +680,8 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
-                                            "dr.mohsen", "it.admin"
+                                                                                                        {
+                                            "dr.mohsen", "it.admin", "super-admin"
                                         };
 
                                         if (reportHighLevel.Contains(User.Identity.GetUserName().Trim()))
@@ -668,9 +689,9 @@
                                             <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
                                         }
                                         @*if (User.Identity.GetUserName() == "hr.misr.insurance")
-                                            {
-                                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                                            }*@
+                            {
+                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                            }*@
                                         //}
                                     }
                                 }

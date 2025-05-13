@@ -171,10 +171,19 @@
         <div class="content-container flex-grow-1 ">
             <nav class="navbar navbar-expand-md navbar-light bg-light">
                 <div class="container d-flex justify-content-between">
-                    <a class="navbar-brand" href="~/Home/Index">
-                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" style=" width: 120px;" alt="sios-logo" />
-                    </a>
 
+                    @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin" || User.Identity.GetUserName().Trim() == "super-admin" || User.Identity.GetUserName().Trim() == "matarat5-admin")
+                    {
+                        <a class="navbar-brand" href="~/Dashboard/Index">
+                            <img src="~/assets/HomeTemplete/img/DMS_Logo.png" style=" width: 120px;" alt="sios-logo" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand" href="~/Home/Index">
+                            <img src="~/assets/HomeTemplete/img/DMS_Logo.png" style=" width: 120px;" alt="sios-logo" />
+                        </a>
+                    }
                     <div class="sios-hr-parent d-flex align-items-center">
                         <div class="sios-hr-btn dropdown">
                             <button type="button"

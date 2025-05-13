@@ -1,4 +1,5 @@
 ﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+@using Microsoft.AspNet.Identity;
 
 @{
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
@@ -12,49 +13,122 @@
     <div class="sidebar-parent">
         <div class="sideBar">
             <div class="operation-btns">
-                <a href="/NewReports/OperationReport">
-                    <button class="sidebar-item " id="reportsOperation">
-                        Operation
-                    </button>
-                </a>
-                <br />
-                <a href="/NewReports/ApprovalReports">
-                    <button class="sidebar-item" id="reportsApproval">
-                        Medical Approval
-                    </button>
-                </a>
-                <a href="/NewReports/ReportsPrinting">
-                    <button class="sidebar-item" id="reportsPrinting">
-                        Printing
-                    </button>
-                </a>
-                <br />
-                <a href="/NewReports/ConsumptionReport">
-                    <button class="sidebar-item" id="reportsConsumption">
-                        Consumption
-                    </button>
-                </a>
-                <a href="/NewReports/ReportsLoseRatio">
-                    <button class="sidebar-item" id="reportsLoseRatio">
-                        Lose Ratio
-                    </button>
-                </a>
-                <a href="/NewReports/ReportsCustomerServices">
-                    <button class="sidebar-item" id="reportsCustomerServices">
-                        Customer Services
-                    </button>
-                </a>
-                <a href="/NewReports/ReportsContract">
-                    <button class="sidebar-item" id="reportsContract">
-                        Contract
-                    </button>
-                </a>
-                <a href="/NewReports/ReportsPharmacy">
-                    <button class="sidebar-item" id="reportsPharmacy">
-                        Pharmacy
-                    </button>
-                </a>
+                @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin")
+                {
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPrinting">
+                        <button class="sidebar-item" id="reportsPrinting">
+                            Printing
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsLoseRatio">
+                        <button class="sidebar-item" id="reportsLoseRatio">
+                            Lose Ratio
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsCustomerServices">
+                        <button class="sidebar-item" id="reportsCustomerServices">
+                            Customer Services
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsContract">
+                        <button class="sidebar-item" id="reportsContract">
+                            Contract
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+
+                }
+                else
+                {
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+                    }
             </div>
+            @*<div class="operation-btns">
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPrinting">
+                        <button class="sidebar-item" id="reportsPrinting">
+                            Printing
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsLoseRatio">
+                        <button class="sidebar-item" id="reportsLoseRatio">
+                            Lose Ratio
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsCustomerServices">
+                        <button class="sidebar-item" id="reportsCustomerServices">
+                            Customer Services
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsContract">
+                        <button class="sidebar-item" id="reportsContract">
+                            Contract
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+                </div>*@
         </div>
     </div>
 
@@ -67,7 +141,7 @@
     <form class="reports-form " action="Home.html">
         <div class="container d-flex justify-content-center">
             <div class="row col-10 col-sm-8 col-lg-10 d-flex ">
-                <div class="bg-secondary w-100 m-auto "style="padding:16px !important">
+                <div class="bg-secondary w-100 m-auto " style="padding:16px !important">
                     <div>
                         <div class="reports-select-parent w-100 ">
                             <select style="height: 65px;border: none;"
@@ -199,6 +273,6 @@
 </div><!-- End Section -->
 @*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>*@
 
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

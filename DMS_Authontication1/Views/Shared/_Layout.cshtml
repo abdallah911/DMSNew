@@ -174,33 +174,49 @@
                             @*<a id="EventLogoDms" class="d-block" href="/home/index" rel="home">
 
 
-                                <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
-                                    <div style="display: none;" class="celebrate-gif">
-                                        <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+            <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                <div style="display: none;" class="celebrate-gif">
+                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                </div>
+                <img style="display: none;" class="w-100 " src="~/assets/global/img/Events/event-logo.png" />
+            </div>
+        </a>*@
+
+                            @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin" || User.Identity.GetUserName().Trim() == "super-admin" || User.Identity.GetUserName().Trim() == "matarat5-admin")
+                            {
+                                <a class="d-block" href="/Dashboard/index" rel="home">
+                                    <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                                        <img id="EventLogoDms" class="w-100 " src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                        @*<img id="LogoDmsTop" class="w-100 " src="~/assets/global/img/Events/Eid-logo.gif" />
+                    <div id="EventLogoDms2" style="display: none;" class="celebrate-gif" hidden>
+                        <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                    </div>*@
+
+
                                     </div>
-                                    <img style="display: none;" class="w-100 " src="~/assets/global/img/Events/event-logo.png" />
-                                </div>     
-                            </a>*@
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="d-block" href="/home/index" rel="home">
+                                    <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                                        <img id="EventLogoDms" class="w-100 " src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                        @*<img id="LogoDmsTop" class="w-100 " src="~/assets/global/img/Events/Eid-logo.gif" />
+                    <div id="EventLogoDms2" style="display: none;" class="celebrate-gif" hidden>
+                        <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                    </div>*@
 
 
-                            <a class="d-block" href="/home/index" rel="home" >
-                                <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch"> 
-                                    <img id="EventLogoDms"  class="w-100 " src="~/assets/HomeTemplete/img/DMS_Logo.png" />
-                                    @*<img id="LogoDmsTop" class="w-100 " src="~/assets/global/img/Events/Eid-logo.gif" />
-                                    <div id="EventLogoDms2" style="display: none;" class="celebrate-gif" hidden>
-                                        <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                                    </div>*@
-
-                                    
-                                </div>
-                            </a>
+                                    </div>
+                                </a>
+                            }
 
                             <div class="site-navigation d-flex justify-content-end align-items-center menu ps-3">
                                 <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center p-3" id="navbarUL">
                                     @{ if (!User.IsInRole("Admin"))
                                         {
                                             <li>
-                                                <div class="dropdown"style=" display: unset;">
+                                                <div class="dropdown" style=" display: unset;">
                                                     <a href="#" class="link-item" id="patientServices">
                                                         Patient Services
                                                         <i class="fa fa-caret-down"></i>

@@ -202,8 +202,12 @@ namespace DMS_Authontication1.Controllers
                                     return RedirectToLocal("/EmployeeRequest/Index");
                                 //return RedirectToLocal("/Dashboard/Dashboard");
                                 case "HR_Admin":
-                                    //return RedirectToLocal("/Reports/Index");
-                                    return RedirectToLocal("/Dashboard/Index");
+                                    if (model.UserName.ToLower() == "dr.mohsen" || model.UserName.ToLower() == "it.admin" || model.UserName.ToLower() == "super-admin" || model.UserName.ToLower() == "matarat5-admin")  
+                                    {
+                                        //return RedirectToLocal("/Reports/Index");
+                                        return RedirectToLocal("/Dashboard/Index");
+                                    }
+                                    return RedirectToLocal("/Reports/Index");
                                 case "Hospital":
                                     return RedirectToLocal("/Hospital/Index");
                                 case "AfterSale":

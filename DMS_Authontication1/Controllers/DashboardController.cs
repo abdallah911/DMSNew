@@ -258,32 +258,6 @@ namespace DMS_Authontication1.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
-        public JsonResult GetAllConsumGroup()
-        {
-            var data = new[]
-{
-    new { company = "Pharmacy",   gross = 7783030m,   net = 6809483.489m, percent = 4.35 },
-    new { company = "Lab",        gross = 48331006m,  net = 40914950.34m, percent = 26.12 },
-    new { company = "Ray",        gross = 42652394m,  net = 33662545.39m, percent = 21.49 },
-    new { company = "OutPatient", gross = 85807314m,  net = 73853841.5m,  percent = 47.16 },
-    new { company = "InPatient",  gross = 1655971m,   net = 1374491.839m, percent = 0.88 }
-};
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetAllConsumMed()
-        {
-            var data = new[]
-{
-    new { company = "Daily",   gross = 7783030m,   net = 6809483.489m, percent = 4.35 },
-    new { company = "Chronic",        gross = 48331006m,  net = 40914950.34m, percent = 26.12 }
-   
-};
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
         public JsonResult GetChartData()
         {
             var data = new[] {
@@ -342,7 +316,7 @@ namespace DMS_Authontication1.Controllers
                 .Where(r =>
                     comp.Any(c => r.CardId.StartsWith(c)) &&
                     r.CreatedDate >= startDate &&
-                    r.CreatedDate <= endDate &&
+                    //r.CreatedDate <= endDate &&
                     managers.Contains(r.Manager)
                 )
                 .Count()
@@ -360,6 +334,189 @@ namespace DMS_Authontication1.Controllers
 
 
             return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult GetMedServiceCounts()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2024, 11, 1);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    r.Manager == "Pharmacy_Chronic" ? "Chronic" :
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor" }.Contains(r.Manager) ? "daily" :
+                    "other"
+                )
+                .Select(g => new {
+                    label = g.Key,
+                    count = g.Count()
+                })
+                .Where(x => x.label != "other")
+                .ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+           
+        }
+        public JsonResult GetAllConsumMed()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2024, 11, 1);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var query = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    r.Manager == "Pharmacy_Chronic" ? "Chronic" :
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor" }.Contains(r.Manager) ? "Daily" :
+                    r.Manager
+                )
+                .Select(g => new
+                {
+                    company = g.Key,
+                    gross = g.Sum(x => x.TotalValue),
+                    net = g.Sum(x => x.CompanyPayment)
+                })
+                .ToList();
+
+            
+            var totalGross = query.Sum(x => x.gross);
+
+            var result = query
+                .Select(x => new
+                {
+                    x.company,
+                    x.gross,
+                    x.net,
+                    percent = totalGross > 0 ? Math.Round((double)(x.gross / totalGross) * 100, 2) : 0
+                })
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllOtherCounts()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2024, 11, 1);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                   new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" }.Contains(r.Manager)? "Pharmacy" : r.Manager
+                )
+                .Select(g => new {
+                    labels = g.Key,
+                    count = g.Count()
+                })
+                .Where(x => x.labels != "other")
+                .ToList();
+
+
+            DataTable dt = dbOra.getApprovalMatarCount();
+            var ora = new List<dynamic>();
+            
+            foreach (DataRow row in dt.Rows)
+            {
+                ora.Add(new
+                {
+                    labels = row["typ"].ToString(),
+                    count = Convert.ToInt32(row["cont"])
+                });
+            }
+
+            var allData = data.Concat(ora).ToList().OrderBy(x => x.count).ToList();
+                       
+            return Json(allData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllConsumOther()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2024, 11, 1);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor", "Pharmacy_Chronic" }.Contains(r.Manager) ? "Pharmacy" :
+                    r.Manager
+                )
+                .Select(g => new
+                {
+                    company = g.Key,
+                    gross = g.Sum(x => x.TotalValue),
+                    net = g.Sum(x => x.CompanyPayment)
+                })
+                .ToList();
+
+
+            DataTable dt = dbOra.getApprovalMatarConsum();
+            var ora = new List<dynamic>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                ora.Add(new
+                {
+                    company = row["typ"].ToString(),
+                    gross = Convert.ToDecimal(row["Gross"]),
+                    net = Convert.ToDecimal(row["Net"])
+                });
+            }
+
+            var allData = data.Concat(ora).ToList().OrderBy(x => x.company).ToList();
+
+            var totalGross = allData.Sum(x => (decimal)x.gross);
+
+            var result = allData
+                .Select(x => new
+                {
+                    x.company,
+                    x.gross,
+                    x.net,
+                    percent = totalGross > 0? Math.Round(((decimal)x.gross / totalGross) * 100, 2): 0
+
+                })
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -61,48 +61,95 @@ function ChartLiveScreen() {
     const graph11 = document.getElementById('graphChart11');
 
 
-    new Chart(pie4, {
-        type: 'pie',
-        data: {
-            labels: [
-                'daily',
-                'Chronic'
-            ],
-            datasets: [{
-                label: 'عدد الخدمات (ادوية)',
-                data: [126, 305],
-                backgroundColor: [
-                    '#8d6aaf',
-                    '#4f256a'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true, position: 'right',
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
+    //new Chart(pie4, {
+    //    type: 'pie',
+    //    data: {
+    //        labels: [
+    //            'daily',
+    //            'Chronic'
+    //        ],
+    //        datasets: [{
+    //            label: 'عدد الخدمات (ادوية)',
+    //            data: [126, 305],
+    //            backgroundColor: [
+    //                '#8d6aaf',
+    //                '#4f256a'
+    //            ],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        plugins: {
+    //            legend: {
+    //                display: true, position: 'right',
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            },
+    //            tooltip: {
+    //                callbacks: {
+    //                    label: function (context) {
+    //                        const value = context.raw;
+    //                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+    //                        const percent = ((value / total) * 100).toFixed(1);
+    //                        return `${context.label}: ${value} (${percent}%)`;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetMedServiceCounts',
+        success: function (response) {
+            const labels = response.map(x => x.label);
+            const data = response.map(x => x.count);
+
+            new Chart(pie4, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'عدد الخدمات (أدوية)',
+                        data: data,
+                        backgroundColor: [
+                            '#2362c1',
+                            '#3fa1fc'
+                        ],
+                        borderWidth: 1
+                    }]
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percent = ((value / total) * 100).toFixed(1);
-                            return `${context.label}: ${value} (${percent}%)`;
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "Open Sans"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percent = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${value} (${percent}%)`;
+                                }
+                            }
                         }
                     }
                 }
-            }
+            });
         }
     });
-
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetAllConsumMed',
@@ -172,9 +219,10 @@ function ChartLiveScreen() {
             });
         }
     });
+
     $.ajax({
         type: "GET",
-        url: '/Dashboard/GetAllConsumGroup',
+        url: '/Dashboard/GetAllConsumOther',
         success: function (data) {
             const labels = data.map(item => item.company);
             const grossValues = data.map(item => item.gross);
@@ -241,26 +289,92 @@ function ChartLiveScreen() {
             });
         }
     });
+    //$.ajax({
+    //    type: "GET",
+    //    url: '/Dashboard/GetAllConsumOther',
+    //    success: function (data) {
+    //        const labels = data.map(item => item.company);
+    //        const grossValues = data.map(item => item.gross);
+    //        const netValues = data.map(item => item.net);
+    //        const percentages = data.map(item => item.percent);
+
+    //        new Chart(graphFive, {
+    //            type: 'bar',
+    //            data: {
+    //                labels: labels,
+    //                datasets: [
+    //                    {
+    //                        label: 'إجمالي الاستهلاك',
+    //                        data: grossValues,
+    //                        backgroundColor: '#2362c1',
+    //                        yAxisID: 'amount'
+    //                    },
+    //                    {
+    //                        label: 'صافي الاستهلاك',
+    //                        data: netValues,
+    //                        backgroundColor: '#3fa1fc',
+    //                        yAxisID: 'amount'
+    //                    }
+    //                ]
+    //            },
+    //            options: {
+    //                responsive: true,
+    //                scales: {
+    //                    amount: {
+    //                        type: 'linear',
+    //                        position: 'left',
+    //                        beginAtZero: true,
+    //                        title: {
+    //                            display: true,
+    //                            text: 'القيمة'
+    //                        },
+    //                        ticks: {
+    //                            callback: function (value) {
+    //                                return value.toLocaleString('en-US');
+    //                            }
+    //                        }
+    //                    }
+    //                },
+    //                plugins: {
+    //                    tooltip: {
+    //                        callbacks: {
+    //                            label: function (context) {
+    //                                const value = context.raw;
+    //                                return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+    //                            },
+    //                            afterBody: function (context) {
+    //                                const index = context[0].dataIndex;
+    //                                const percent = percentages[index];
+    //                                return 'النسبة من الاستهلاك: ' + percent + '%';
+    //                            }
+    //                        }
+    //                    },
+    //                    legend: {
+    //                        position: 'top'
+    //                    }
+    //                }
+    //            }
+    //        });
+    //    }
+    //});
     $.ajax({
         type: "GET",
-        url: '/Dashboard/GetTypeProviderLive',
+        url: '/Dashboard/GetAllOtherCounts',
         success: function (data) {
-            const labels = data.map(item => item.typeprovider);
-            const netValues = data.map(item => item.net);
+            const labels = data.map(item => item.labels);
+            const count = data.map(item => item.count);
 
             new Chart(graph11, {
                 type: 'bar',
                 data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'عدد الخدمات',
-                            data: netValues,
-                            backgroundColor: '#3fa1fc',
-                            borderColor: '#3fa1fc',
-                            borderWidth: 2
-                        }
-                    ]
+                    labels: labels, 
+                    datasets: [{
+                        label: 'عدد الخدمات',
+                        data: count,
+                        backgroundColor: '#3fa1fc',
+                        borderColor: '#3fa1fc',
+                        borderWidth: 2
+                    }]
                 },
                 options: {
                     indexAxis: 'x',
@@ -276,15 +390,20 @@ function ChartLiveScreen() {
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'العدد'
+                                text: 'النوع'
                             },
-                            ticks: {
+                            ticks: {                               
                                 callback: function (value) {
-                                    return value.toLocaleString('en-US');
+                                    return this.getLabelForValue(value);
                                 }
                             }
                         },
                         y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'عدد الخدمات'
+                            },
                             ticks: {
                                 font: {
                                     size: 14,
@@ -317,6 +436,8 @@ function ChartLiveScreen() {
             });
         }
     });
+
+
 
 
 
