@@ -1058,8 +1058,8 @@ function ChartEmployeesScreen() {
                 label: 'My First Dataset',
                 data: [10157, 2093],
                 backgroundColor: [
-                    '#4f256a',
-                    '#8d6aaf'
+                    '#2362c1',
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -1103,8 +1103,8 @@ function ChartEmployeesScreen() {
                 label: 'عدد المنفعين',
                 data: [3660, 8590],
                 backgroundColor: [
-                    '#4f256a',
-                    '#8d6aaf'
+                    '#2362c1',
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -1137,75 +1137,6 @@ function ChartEmployeesScreen() {
             }
         }
     });
-    //$.ajax({
-    //    type: "GET",
-    //    url: '/Dashboard/GetConsumType',
-    //    success: function (data) {
-    //        const labels = data.map(item => item.company);
-    //        const grossValues = data.map(item => item.gross);
-    //        const netValues = data.map(item => item.net);
-    //        const percentages = data.map(item => item.percent);
-
-    //        // const ctx = document.getElementById('myChart').getContext('2d');
-    //        new Chart(graphnew, {
-    //            type: 'bar',
-    //            data: {
-    //                labels: labels,
-    //                datasets: [
-    //                    {
-    //                        label: 'إجمالي الاستهلاك',
-    //                        data: grossValues,
-    //                        backgroundColor: '#2362c1',
-    //                        yAxisID: 'amount'
-    //                    },
-    //                    {
-    //                        label: 'صافي الاستهلاك',
-    //                        data: netValues,
-    //                        backgroundColor: '#3fa1fc',
-    //                        yAxisID: 'amount'
-    //                    }
-    //                ]
-    //            },
-    //            options: {
-    //                responsive: true,
-    //                scales: {
-    //                    amount: {
-    //                        type: 'linear',
-    //                        position: 'left',
-    //                        beginAtZero: true,
-    //                        title: {
-    //                            display: true,
-    //                            text: 'القيمة'
-    //                        },
-    //                        ticks: {
-    //                            callback: function (value) {
-    //                                return value.toLocaleString('en-US');
-    //                            }
-    //                        }
-    //                    }
-    //                },
-    //                plugins: {
-    //                    tooltip: {
-    //                        callbacks: {
-    //                            label: function (context) {
-    //                                const value = context.raw;
-    //                                return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-    //                            },
-    //                            afterBody: function (context) {
-    //                                const index = context[0].dataIndex;
-    //                                const percent = percentages[index];
-    //                                return 'النسبة من الاستهلاك: ' + percent + '%';
-    //                            }
-    //                        }
-    //                    },
-    //                    legend: {
-    //                        position: 'top'
-    //                    }
-    //                }
-    //            }
-    //        });
-    //    }
-    //});
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetConsumType',
@@ -1215,54 +1146,123 @@ function ChartEmployeesScreen() {
             const netValues = data.map(item => item.net);
             const percentages = data.map(item => item.percent);
 
-            const options = {
-                chart: {
-                    type: 'bar',
-                    height: 400
-                },
-                series: [
-                    {
-                        name: 'إجمالي الاستهلاك',
-                        data: grossValues
-                    },
-                    {
-                        name: 'صافي الاستهلاك',
-                        data: netValues
-                    }
-                ],
-                xaxis: {
-                    categories: labels
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-                            return value.toLocaleString('en-US') + ' جنيه';
+            // const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(graphnew, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#2362c1',
+                            yAxisID: 'amount'
                         },
-                        title: {
-                            formatter: function (seriesName) {
-                                return seriesName;
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#3fa1fc',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
                             }
                         }
                     },
-                    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-                        return `
-              <div class="apex-tooltip">
-                <strong>${w.globals.seriesNames[seriesIndex]}:</strong> 
-                ${series[seriesIndex][dataPointIndex].toLocaleString('en-US')} جنيه<br>
-                <span>النسبة من الاستهلاك: ${percentages[dataPointIndex]}%</span>
-              </div>
-            `;
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
                     }
-                },
-                legend: {
-                    position: 'top'
                 }
-            };
-
-            const chart = new ApexCharts(document.querySelector("#graphnew"), options);
-            chart.render();
+            });
         }
     });
+    //$.ajax({
+    //    type: "GET",
+    //    url: '/Dashboard/GetConsumType',
+    //    success: function (data) {
+    //        const labels = data.map(item => item.company);
+    //        const grossValues = data.map(item => item.gross);
+    //        const netValues = data.map(item => item.net);
+    //        const percentages = data.map(item => item.percent);
+
+    //        const options = {
+    //            chart: {
+    //                type: 'bar',
+    //                height: 400
+    //            },
+    //            series: [
+    //                {
+    //                    name: 'إجمالي الاستهلاك',
+    //                    data: grossValues
+    //                },
+    //                {
+    //                    name: 'صافي الاستهلاك',
+    //                    data: netValues
+    //                }
+    //            ],
+    //            xaxis: {
+    //                categories: labels
+    //            },
+    //            tooltip: {
+    //                y: {
+    //                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+    //                        return value.toLocaleString('en-US') + ' جنيه';
+    //                    },
+    //                    title: {
+    //                        formatter: function (seriesName) {
+    //                            return seriesName;
+    //                        }
+    //                    }
+    //                },
+    //                custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //                    return `
+    //          <div class="apex-tooltip">
+    //            <strong>${w.globals.seriesNames[seriesIndex]}:</strong> 
+    //            ${series[seriesIndex][dataPointIndex].toLocaleString('en-US')} جنيه<br>
+    //            <span>النسبة من الاستهلاك: ${percentages[dataPointIndex]}%</span>
+    //          </div>
+    //        `;
+    //                }
+    //            },
+    //            legend: {
+    //                position: 'top'
+    //            }
+    //        };
+
+    //        const chart = new ApexCharts(document.querySelector("#graphnew"), options);
+    //        chart.render();
+    //    }
+    //});
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetConsumGender',
@@ -1448,74 +1448,74 @@ function ChartEmployeesScreen() {
 
 
 
-    const genderOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [10157, 2093],
-        labels: ['ذكر', 'انثى'],
-        colors: ['#4f256a', '#8d6aaf'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val) {
-                // Show only the percentage in the chart label
-                return val.toFixed(1) + '%';
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    // Show only the percentage in tooltip
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
+    //const genderOptions = {
+    //    chart: {
+    //        type: 'donut',
+    //        height: 350
+    //    },
+    //    series: [10157, 2093],
+    //    labels: ['ذكر', 'انثى'],
+    //    colors: ['#4f256a', '#8d6aaf'],
+    //    dataLabels: {
+    //        enabled: true,
+    //        formatter: function (val) {
+    //            // Show only the percentage in the chart label
+    //            return val.toFixed(1) + '%';
+    //        },
+    //        style: {
+    //            fontWeight: 'bold'
+    //        }
+    //    },
+    //    tooltip: {
+    //        y: {
+    //            formatter: function (value, { series }) {
+    //                const total = series.reduce((sum, v) => sum + v, 0);
+    //                const percent = ((value / total) * 100).toFixed(1);
+    //                // Show only the percentage in tooltip
+    //                return `${value} (${percent}%)`;
+    //            }
+    //        }
+    //    },
+    //    legend: {
+    //        position: 'bottom'
+    //    }
+    //};
 
-    new ApexCharts(document.querySelector("#doughnutChartApexCharts"), genderOptions).render();
+    //new ApexCharts(document.querySelector("#doughnutChartApexCharts"), genderOptions).render();
 
-    const typeOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [3660, 8590],
-        labels: ['موظفين', 'معاشات'],
-        colors: ['#4f256a', '#8d6aaf'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-                const value = opts.w.config.series[opts.seriesIndex];
-                return `${value} (${val.toFixed(1)}%)`;
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series, seriesIndex, w }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
+    //const typeOptions = {
+    //    chart: {
+    //        type: 'donut',
+    //        height: 350
+    //    },
+    //    series: [3660, 8590],
+    //    labels: ['موظفين', 'معاشات'],
+    //    colors: ['#4f256a', '#8d6aaf'],
+    //    dataLabels: {
+    //        enabled: true,
+    //        formatter: function (val, opts) {
+    //            const value = opts.w.config.series[opts.seriesIndex];
+    //            return `${value} (${val.toFixed(1)}%)`;
+    //        },
+    //        style: {
+    //            fontWeight: 'bold'
+    //        }
+    //    },
+    //    tooltip: {
+    //        y: {
+    //            formatter: function (value, { series, seriesIndex, w }) {
+    //                const total = series.reduce((sum, v) => sum + v, 0);
+    //                const percent = ((value / total) * 100).toFixed(1);
+    //                return `${value} (${percent}%)`;
+    //            }
+    //        }
+    //    },
+    //    legend: {
+    //        position: 'bottom'
+    //    }
+    //};
 
-    new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
+    //new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
 }
 function ChartComparisonScreen() {
     const graph27 = document.getElementById('graphChart27');

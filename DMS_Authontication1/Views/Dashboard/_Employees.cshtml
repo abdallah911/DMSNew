@@ -35,7 +35,7 @@
 
 
 
-        <div class="doughnut-parent" style="display: flex;width: 100% !important;">
+        @*<div class="doughnut-parent" style="display: flex;width: 100% !important;">
             <div class="doughnut-box mb-4 chart-card w-100">
                 <div class="box w-100">
                     <div class="box">
@@ -55,44 +55,52 @@
                 </div>
                 <label>Number of Employees Per Type</label>
             </div>
-        </div>
+        </div>*@
     </div>
 
 
 
 
     <div class="graph-parent ">
-        <div class="">
-            <div class="graph-box"style="height: 100%;display: flex;align-items: center;    justify-content: center;">
-                <div class="box w-100">
-                    <div style="min-height:200px !important;" id="graphnew">
-                        @*<canvas id="graphChartNew"></canvas>*@
+        
+
+            <div class="">
+                <div class="graph-box">
+                    <div class="box">
+                        <div>
+                            <canvas id="graphChartNew2"></canvas>
+                        </div>
                     </div>
+                    <label>
+                        Consumption Per Gender
+                    </label>
                 </div>
-                <label>Consumption Per Type</label>
-            </div>
-        </div>
-        <div class="">
-            <div class="graph-box w-100" style="margin-bottom:20px;">
-                <div class="box">
-                    <div>
-                        <canvas id="graphChartNew2"></canvas>
-                    </div>
-                </div>
-                <label>
-                    Consumption Per Gender
-                </label>
             </div>
             <div class="">
                 <div class="graph-box">
                     <div class="box">
                         <div>
-                            <canvas id="graphChart34"></canvas>
+                            <canvas id="graphChartNew"></canvas>
                         </div>
                     </div>
-                    <label>Number of Employees Per categories</label>
+                    <label>Consumption Per Type</label>
                 </div>
             </div>
+
+
+     
+
+
+        <div class="w-100">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart34"></canvas>
+                    </div>
+                </div>
+                <label>Number of Employees Per categories</label>
+            </div>
+
         </div>
         <div class="w-100">
             <div class="graph-box">
