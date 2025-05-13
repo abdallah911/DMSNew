@@ -1,28 +1,28 @@
-﻿$(document).ready(function () {
-    $('.counter').each(function () {
-        let $this = $(this);
-        let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
-        let current = 0;
-        let duration = 3000;  
-        let steps = 60;       
-        let increment = target / steps;
-
-        function formatNumber(num) {
-            return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        let counter = setInterval(function () {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(counter);
-            }
-            $this.text(formatNumber(current));
-        }, duration / steps);
-    });
-});
+﻿
 function ChartLiveScreen() {
-    // alert("hello");
+    $(document).ready(function () {
+        $('.counter').each(function () {
+            let $this = $(this);
+            let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
+            let current = 0;
+            let duration = 3000;  
+            let steps = 60;       
+            let increment = target / steps;
+    
+            function formatNumber(num) {
+                return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+    
+            let counter = setInterval(function () {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(counter);
+                }
+                $this.text(formatNumber(current));
+            }, duration / steps);
+        });
+    });
     $(document).ready(function () {
         
         function animateCount($el, target) {
@@ -44,8 +44,7 @@ function ChartLiveScreen() {
         $.ajax({
             type: "GET",
             url: '/Dashboard/getLiveCard',
-            success: function (data) {
-                // التأكد من الأرقام ليست null
+            success: function (data) { 
                 let approval = parseInt(data.Approv) || 0;
                 let online = parseInt(data.Onlin) || 0;
         
