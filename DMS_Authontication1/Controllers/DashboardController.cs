@@ -304,7 +304,7 @@ namespace DMS_Authontication1.Controllers
 
             string Approv = "", Onlin ="";
 
-            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime startDate = new DateTime(2024, 11, 01);
             DateTime endDate = new DateTime(2025, 10, 31);
 
 
@@ -334,14 +334,14 @@ namespace DMS_Authontication1.Controllers
 
 
             return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
+        }        
         public JsonResult GetMedServiceCounts()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime startDate = new DateTime(2024, 11, 01);
 
             var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
             var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
@@ -374,7 +374,7 @@ namespace DMS_Authontication1.Controllers
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime startDate = new DateTime(2024, 11, 01);
 
             var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
             var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
@@ -419,7 +419,7 @@ namespace DMS_Authontication1.Controllers
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime startDate = new DateTime(2024, 11, 01);
 
             var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
             var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
@@ -464,7 +464,7 @@ namespace DMS_Authontication1.Controllers
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            DateTime startDate = new DateTime(2024, 11, 1);
+            DateTime startDate = new DateTime(2024, 11, 01);
 
             var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
             var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
@@ -512,6 +512,221 @@ namespace DMS_Authontication1.Controllers
                     x.gross,
                     x.net,
                     percent = totalGross > 0? Math.Round(((decimal)x.gross / totalGross) * 100, 2): 0
+
+                })
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult getLiveCardMonth()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dtcrd = new DataTable();
+
+            string Approv = "", Onlin = "";
+
+            DateTime startDate = new DateTime(2025, 05, 01);
+            DateTime endDate = new DateTime(2025, 05, 31);
+
+
+            Approv = dbOra.getApprovalMatar().Rows[0][0].ToString();
+            var comp = new[] { "500118", "500119", "500120", "500121", "500122" };
+            var managers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+
+            Onlin = db.Roshitas
+                .Where(r =>
+                    comp.Any(c => r.CardId.StartsWith(c)) &&
+                    r.CreatedDate >= startDate &&
+                    //r.CreatedDate <= endDate &&
+                    managers.Contains(r.Manager)
+                )
+                .Count()
+                .ToString();
+
+            return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult GetMedServiceCountsMonth()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2025, 05, 01);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    r.Manager == "Pharmacy_Chronic" ? "Chronic" :
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor" }.Contains(r.Manager) ? "daily" :
+                    "other"
+                )
+                .Select(g => new {
+                    label = g.Key,
+                    count = g.Count()
+                })
+                .Where(x => x.label != "other")
+                .ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+
+        }
+        public JsonResult GetAllConsumMedMonth()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2025, 05, 01);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var query = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    r.Manager == "Pharmacy_Chronic" ? "Chronic" :
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor" }.Contains(r.Manager) ? "Daily" :
+                    r.Manager
+                )
+                .Select(g => new
+                {
+                    company = g.Key,
+                    gross = g.Sum(x => x.TotalValue),
+                    net = g.Sum(x => x.CompanyPayment)
+                })
+                .ToList();
+
+
+            var totalGross = query.Sum(x => x.gross);
+
+            var result = query
+                .Select(x => new
+                {
+                    x.company,
+                    x.gross,
+                    x.net,
+                    percent = totalGross > 0 ? Math.Round((double)(x.gross / totalGross) * 100, 2) : 0
+                })
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllOtherCountsMonth()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2025, 05, 01);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                   new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor" }.Contains(r.Manager) ? "Pharmacy" : r.Manager
+                )
+                .Select(g => new {
+                    labels = g.Key,
+                    count = g.Count()
+                })
+                .Where(x => x.labels != "other")
+                .ToList();
+
+
+            DataTable dt = dbOra.getApprovalMatarCount();
+            var ora = new List<dynamic>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                ora.Add(new
+                {
+                    labels = row["typ"].ToString(),
+                    count = Convert.ToInt32(row["cont"])
+                });
+            }
+
+            var allData = data.Concat(ora).ToList().OrderBy(x => x.count).ToList();
+
+            return Json(allData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllConsumOtherMonth()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2025, 05, 01);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var data = db.Roshitas
+                .Where(r =>
+                    targetManagers.Contains(r.Manager) &&
+                    r.CreatedDate >= startDate &&
+                    cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                )
+                .GroupBy(r =>
+                    new[] { "Daily", "Monthly", "Pharmacy_Doctor", "Pharmacy_Chronic" }.Contains(r.Manager) ? "Pharmacy" :
+                    r.Manager
+                )
+                .Select(g => new
+                {
+                    company = g.Key,
+                    gross = g.Sum(x => x.TotalValue),
+                    net = g.Sum(x => x.CompanyPayment)
+                })
+                .ToList();
+
+
+            DataTable dt = dbOra.getApprovalMatarConsum();
+            var ora = new List<dynamic>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                ora.Add(new
+                {
+                    company = row["typ"].ToString(),
+                    gross = Convert.ToDecimal(row["Gross"]),
+                    net = Convert.ToDecimal(row["Net"])
+                });
+            }
+
+            var allData = data.Concat(ora).ToList().OrderBy(x => x.company).ToList();
+
+            var totalGross = allData.Sum(x => (decimal)x.gross);
+
+            var result = allData
+                .Select(x => new
+                {
+                    x.company,
+                    x.gross,
+                    x.net,
+                    percent = totalGross > 0 ? Math.Round(((decimal)x.gross / totalGross) * 100, 2) : 0
 
                 })
                 .ToList();

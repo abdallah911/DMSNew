@@ -1,4 +1,12 @@
-﻿
+﻿$('#refreshData').on('click', function () {
+    ChartLiveScreenMonth();
+});
+$('#AllContract').on('click', function () {
+    ChartLiveScreen();
+});
+$('#CurrentMonth').on('click', function () {
+    ChartLiveScreenMonth();
+});
 function ChartLiveScreen() {
     $(document).ready(function () {
         $('.counter').each(function () {
@@ -446,6 +454,345 @@ function ChartLiveScreen() {
 
 }
 
+function ChartLiveScreenMonth() {
+
+    $(document).ready(function () {
+        $('.counter').each(function () {
+            let $this = $(this);
+            let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
+            let current = 0;
+            let duration = 3000;
+            let steps = 60;
+            let increment = target / steps;
+
+            function formatNumber(num) {
+                return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            let counter = setInterval(function () {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(counter);
+                }
+                $this.text(formatNumber(current));
+            }, duration / steps);
+        });
+    });
+    $(document).ready(function () {
+
+        function animateCount($el, target) {
+
+            $el.stop(true, true);
+
+            $({ countNum: 0 }).animate({ countNum: target }, {
+                duration: 1200, //  
+                easing: 'swing',
+                step: function () {
+                    $el.text(Math.floor(this.countNum));
+                },
+                complete: function () {
+                    $el.text(this.countNum);
+                }
+            });
+        }
+
+        $.ajax({
+            type: "GET",
+            url: '/Dashboard/getLiveCardMonth',
+            success: function (data) {
+                let approval = parseInt(data.Approv) || 0;
+                let online = parseInt(data.Onlin) || 0;
+
+
+                animateCount($('#NumberApproval'), approval);
+                animateCount($('#NumberOnline'), online);
+            }
+        });
+    });
+
+    const pie4 = document.getElementById('pieChart4');
+
+    const graphSix = document.getElementById('graphChartSix');
+    const graphFive = document.getElementById('graphChartFive');
+    const graph11 = document.getElementById('graphChart11');
+
+
+   
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetMedServiceCountsMonth',
+        success: function (response) {
+            const labels = response.map(x => x.label);
+            const data = response.map(x => x.count);
+
+            new Chart(pie4, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'عدد الخدمات (أدوية)',
+                        data: data,
+                        backgroundColor: [
+                            '#2362c1',
+                            '#3fa1fc'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "Open Sans"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percent = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${value} (${percent}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetAllConsumMedMonth',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            // const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(graphSix, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#2362c1',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#3fa1fc',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetAllConsumOtherMonth',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            // const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(graphFive, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#2362c1',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#3fa1fc',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });   
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetAllOtherCountsMonth',
+        success: function (data) {
+            const labels = data.map(item => item.labels);
+            const count = data.map(item => item.count);
+
+            new Chart(graph11, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'عدد الخدمات',
+                        data: count,
+                        backgroundColor: '#3fa1fc',
+                        borderColor: '#3fa1fc',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'x',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        bar: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'النوع'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return this.getLabelForValue(value);
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'عدد الخدمات'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    family: 'Open Sans'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return 'عدد الخدمات: ' + value.toLocaleString('en-US');
+                                },
+                                afterBody: function (context) {
+                                    const values = context[0].chart.data.datasets[0].data;
+                                    const total = values.reduce((sum, val) => sum + val, 0);
+                                    const value = context[0].raw;
+                                    const percent = ((value / total) * 100).toFixed(2);
+                                    return 'النسبة: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+}
 
 function ChartConsumptionsScreen() {
     const graph = document.getElementById('graphChart');
@@ -1769,28 +2116,39 @@ function ChartComparisonScreen() {
 
 
     new Chart(graph31, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: [
-                '2022-2023',
-                '2023-2024',
-                '2024-2025'
-            ],
             datasets: [{
                 label: 'عدد الحالات',
                 data: [
-                    13720,
-                    13764,
-                    12250
+                    { x: '2022-2023', y: 13720 },
+                    { x: '2023-2024', y: 13764 },
+                    { x: '2024-2025', y: 12250 }
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                borderColor: '#3fa1fc',
+                backgroundColor: '#3fa1fc22',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 5,
+                pointBackgroundColor: '#3fa1fc'
             }]
         },
         options: {
+            responsive: true,
             scales: {
+                x: {
+                    type: 'category', 
+                    title: {
+                        display: true,
+                        text: 'السنة'
+                    }
+                },
                 y: {
                     beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'عدد الحالات'
+                    },
                     ticks: {
                         callback: function (value) {
                             return value.toLocaleString('en-US');
@@ -1810,6 +2168,7 @@ function ChartComparisonScreen() {
             }
         }
     });
+
 
     new Chart(graph32, {
         type: 'bar',

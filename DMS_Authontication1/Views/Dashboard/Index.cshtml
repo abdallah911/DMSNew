@@ -93,9 +93,10 @@
         $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
             
             if (viewName === "_Live") {
-                ChartLiveScreen(); 
+                ChartLiveScreenMonth();
+                /*ChartLiveScreen(); */
 
-                //setInterval(ChartLiveScreen, 10000);
+                //setInterval(ChartLiveScreenMonth, 10000);
             }
             else if (viewName === "_Consumptions")
                 ChartConsumptionsScreen();
