@@ -1760,20 +1760,20 @@ li a.active img.white {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-} 
+}
 .cards-box .card-body {
     background: white;
     border-radius: 12px;
     padding: 15px 20px;
     width: calc(50% - 10px);
-    height: 150px;
+    min-height 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     box-shadow: 0 0 6px 1px #00000024;
-    border-bottom: 2px solid;
-
+    border-bottom: 2px solid; 
+    justify-content: space-evenly;
 }
 .live .cards-box .card-body {
     background: transparent;
@@ -1927,18 +1927,21 @@ p.ratio {
 .graph-box {
     position:relative;
 }
-    .graph-box > label, .doughnut-box label {
-        position: absolute;
-        top: -13px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 14px;
-        font-weight: 700;
-        color: #5a5d68;
-        border-radius: 12px;
-        padding: 14px 10px 4px 10px !important;
-        background: white;
-    }
+.graph-box > label, .doughnut-box label {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 700;
+    color: #5a5d68;
+    border-radius: 12px;
+    padding: 14px 10px 4px 10px !important;
+    background: white;
+}
+.comparison .graph-box > label, .doughnut-box label { 
+    min-width: 270px;
+}
 #doughnutChart,
 #doughnutChartTwo {
     /*height: 300px !important;*/
@@ -1986,6 +1989,24 @@ li.nav-item.dash-filter-icon {
 }
 li.nav-item.dash-filter-icon:hover {
     background:unset;
+}
+li.dash-filter-icon {
+    padding: 10px;
+    background: #dfdfdf;
+    border-radius: 8px 0 0 8px;
+    color: #337ab7;
+}
+.dash-tabs {
+    align-items: center;
+}
+li.dash-refresh-icon i {
+    background: #eee;
+    border-radius: 8px;
+    margin-left: 10px;
+    width: 41px;
+    padding: 13px 10px;
+    font-size: 18px;
+    cursor: pointer;
 }
 @media (min-width:991px) {  
     .dashboard-categories {
