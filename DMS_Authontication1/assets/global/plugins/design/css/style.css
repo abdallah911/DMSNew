@@ -1952,6 +1952,41 @@ p.ratio {
     padding: 10px;
     margin-left: 20px;
 }
+
+.dash-tabs li.nav-item {
+    border: none !important;
+    background: #337ab7;
+}
+.dash-tabs li.nav-item.first {
+    border-right: 1px solid white !important;
+}
+.dash-tabs li.nav-item.second {
+    border-radius: 0 8px 8px  0 ;
+    border-right: 1px solid white !important;
+}
+.dash-tabs li.nav-item:hover {
+    background: #30699b !important;
+}
+.dash-tabs li.nav-item:active {
+    background: white !important;
+
+}
+.dash-tabs li.nav-item a {
+    color: white;
+    border: none !important;
+}
+.dash-tabs li.nav-item a:hover {
+    background: unset;
+}
+li.nav-item.dash-filter-icon {
+    padding: 10px;
+    border-radius: 8px 0 0 8px;
+    color: white;
+    border-right: 1px solid white !important;
+}
+li.nav-item.dash-filter-icon:hover {
+    background:unset;
+}
 @media (min-width:991px) {  
     .dashboard-categories {
         display:block;
