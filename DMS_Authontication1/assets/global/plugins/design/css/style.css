@@ -1691,7 +1691,7 @@ li a.active img.white {
     height:100%;
 }
 .dashboard-categories {
-    width: 178px;
+    width: 165px;
     text-align: center;
     padding: 20px 0px 20px 12px;
     min-height:100vh;
@@ -1722,7 +1722,7 @@ li a.active img.white {
     align-items: center;
     justify-content: start;
     gap: 4px;
-    font-size: 9px;
+    font-size: 16px;
     font-weight:700;
     white-space: nowrap;
     text-decoration:none;
@@ -1744,17 +1744,17 @@ li a.active img.white {
     text-decoration:none;
 }
 .dashboard-categories ul li a img {
-    width: 14px;
+    width: 16px;
 }
 .dashboard-categories ul li a i {
-    font-size: 12px;
+    font-size: 16px;
     color: white;
 }
 .dashboard-categories ul li a.active i {
     color: #444751;
 }
 .dashboard-body {
-    width:calc(100% - 178px)
+    width:calc(100% - 165px)
 }
 .cards-box {
     display: flex;
@@ -1774,6 +1774,20 @@ li a.active img.white {
     box-shadow: 0 0 6px 1px #00000024;
     border-bottom: 2px solid;
 
+}
+.live .cards-box .card-body {
+    background: transparent;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: calc(25% - 15px);
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-shadow: none;
+    border-bottom: none;
+    justify-content: space-around;
 }
 .card-body.one {
     border-color: #375aa9 !important;
@@ -1809,7 +1823,7 @@ li a.active img.white {
     margin: 0;
     font-weight: bold;
     text-align: center;
-    color: #337ab7;
+    color: #444751;
 }
 h5.card-name {
     font-size: 12px;
@@ -1854,6 +1868,7 @@ p.ratio {
 }
 .doughnut-box, .graph-box {
     padding: 20px;
+    padding-top  : 30px;
     border-radius: 10px;
     background: #f2f2f2;
 }
@@ -1891,9 +1906,14 @@ p.ratio {
     gap: 20px;
     flex-wrap: wrap;
 }
-.doughnut-parent,
-.cards-box {
+.doughnut-parent, .cards-box {
     width: calc(50% - 10px) !important;
+    gap: 20px;
+}
+.live .cards-box {
+    width: 100% !important;
+    background: #3fa8fc24;
+    border-radius: 12px;
 }
 .graph-parent {
     display: flex;
@@ -1907,15 +1927,18 @@ p.ratio {
 .graph-box {
     position:relative;
 }
-.graph-box > label, .doughnut-box label {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    font-weight: 700;
-    color: #a83c6a;
-}
+    .graph-box > label, .doughnut-box label {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        font-weight: 700;
+        color: #5a5d68;
+        border-radius: 12px;
+        padding: 14px 10px 4px 10px !important;
+        background: white;
+    }
 #doughnutChart,
 #doughnutChartTwo {
     /*height: 300px !important;*/

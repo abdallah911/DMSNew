@@ -1,58 +1,13 @@
-﻿$(document).ready(function () {
-    $('.counter').each(function () {
-        let $this = $(this);
-        let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
-        let current = 0;
-        let duration = 3000;  
-        let steps = 60;       
-        let increment = target / steps;
-
-        function formatNumber(num) {
-            return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        let counter = setInterval(function () {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(counter);
-            }
-            $this.text(formatNumber(current));
-        }, duration / steps);
-    });
-});
+﻿ 
 function ChartLiveScreen() {
     // alert("hello");
-    $(document).ready(function () {
-        
-        function animateCount($el, target) {
-            
-            $el.stop(true, true);
-        
-            $({ countNum: 0 }).animate({ countNum: target }, {
-                duration: 1200, //  
-                easing: 'swing',
-                step: function () {
-                    $el.text(Math.floor(this.countNum));
-                },
-                complete: function () {
-                    $el.text(this.countNum);
-                }
-            });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/getLiveCard',
+        success: function (data) {
+            $('#NumberApproval').text(data.Approv);
+            $('#NumberOnline').text(data.Onlin);
         }
-        
-        $.ajax({
-            type: "GET",
-            url: '/Dashboard/getLiveCard',
-            success: function (data) {
-                // التأكد من الأرقام ليست null
-                let approval = parseInt(data.Approv) || 0;
-                let online = parseInt(data.Onlin) || 0;
-        
-                animateCount($('#NumberApproval'), approval);
-                animateCount($('#NumberOnline'), online);
-            }
-        });
     });
 
     const pie4 = document.getElementById('pieChart4');
@@ -938,8 +893,8 @@ function ChartEmployeesScreen() {
                 label: 'My First Dataset',
                 data: [10157, 2093],
                 backgroundColor: [
-                    '#4f256a',
-                    '#8d6aaf'
+                    '#2362c1',
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -983,8 +938,8 @@ function ChartEmployeesScreen() {
                 label: 'عدد المنفعين',
                 data: [3660, 8590],
                 backgroundColor: [
-                    '#4f256a',
-                    '#8d6aaf'
+                    '#2362c1',
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -1335,7 +1290,7 @@ function ChartEmployeesScreen() {
         },
         series: [10157, 2093],
         labels: ['ذكر', 'انثى'],
-        colors: ['#4f256a', '#8d6aaf'],
+        colors: ['#2362c1', '#3fa1fc'],
         dataLabels: {
             enabled: true,
             formatter: function (val) {
@@ -1370,7 +1325,7 @@ function ChartEmployeesScreen() {
         },
         series: [3660, 8590],
         labels: ['موظفين', 'معاشات'],
-        colors: ['#4f256a', '#8d6aaf'],
+        colors: ['#2362c1', '#3fa1fc'],
         dataLabels: {
             enabled: true,
             formatter: function (val, opts) {
@@ -1575,8 +1530,6 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
-                        usePointStyle: true,        
-                        pointStyle: 'circle',       
                         font: {
                             size: 14,
                             family: "Open Sans"
@@ -1586,7 +1539,6 @@ function ChartComparisonScreen() {
             }
         }
     });
-
 
     new Chart(graph30, {
         type: 'bar',
@@ -1635,8 +1587,6 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
-                        usePointStyle: true,        
-                        pointStyle: 'circle',   
                         font: {
                             size: 14,
                             family: 'Open Sans'
@@ -2041,7 +1991,7 @@ function drawGraphChart() {
     };
 
     new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
-
+     
     $(function () {
 
     })
