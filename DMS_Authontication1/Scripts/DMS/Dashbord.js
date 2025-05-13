@@ -1530,6 +1530,8 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
+                        usePointStyle: true,        
+                        pointStyle: 'circle',       
                         font: {
                             size: 14,
                             family: "Open Sans"
@@ -1539,6 +1541,7 @@ function ChartComparisonScreen() {
             }
         }
     });
+
 
     new Chart(graph30, {
         type: 'bar',
@@ -1586,6 +1589,8 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
+                        usePointStyle: true,        
+                        pointStyle: 'circle',   
                         font: {
                             size: 14,
                             family: 'Open Sans'
