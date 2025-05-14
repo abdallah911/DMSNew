@@ -1,10 +1,10 @@
-﻿$('#refreshData').on('click', function () {
+﻿$('#refreshData').on('click', function () {    
     ChartLiveScreenMonth();
 });
-$('#AllContract').on('click', function () {
+$('#AllContract').on('click', function () {    
     ChartLiveScreen();
 });
-$('#CurrentMonth').on('click', function () {
+$('#CurrentMonth').on('click', function () {  
     ChartLiveScreenMonth();
 });
 function ChartLiveScreen() {
@@ -479,45 +479,12 @@ function ChartLiveScreenMonth() {
             }, duration / steps);
         });
     });
-    $(document).ready(function () {
-
-        function animateCount($el, target) {
-
-            $el.stop(true, true);
-
-            $({ countNum: 0 }).animate({ countNum: target }, {
-                duration: 1200, //  
-                easing: 'swing',
-                step: function () {
-                    $el.text(Math.floor(this.countNum));
-                },
-                complete: function () {
-                    $el.text(this.countNum);
-                }
-            });
-        }
-
-        $.ajax({
-            type: "GET",
-            url: '/Dashboard/getLiveCardMonth',
-            success: function (data) {
-                let approval = parseInt(data.Approv) || 0;
-                let online = parseInt(data.Onlin) || 0;
-
-
-                animateCount($('#NumberApproval'), approval);
-                animateCount($('#NumberOnline'), online);
-            }
-        });
-    });
-
+    updatCard();
     const pie4 = document.getElementById('pieChart4');
 
     const graphSix = document.getElementById('graphChartSix');
     const graphFive = document.getElementById('graphChartFive');
     const graph11 = document.getElementById('graphChart11');
-
-
    
     $.ajax({
         type: "GET",
@@ -784,15 +751,54 @@ function ChartLiveScreenMonth() {
             });
         }
     });
-
-
-
-
-
-
-
-
 }
+
+function updatCard() {
+    $(document).ready(function () {
+
+        function animateCount($el, target) {
+
+            $el.stop(true, true);
+
+            $({ countNum: 0 }).animate({ countNum: target }, {
+                duration: 1200, //  
+                easing: 'swing',
+                step: function () {
+                    $el.text(Math.floor(this.countNum));
+                },
+                complete: function () {
+                    $el.text(this.countNum);
+                }
+            });
+        }
+
+        $.ajax({
+            type: "GET",
+            url: '/Dashboard/getLiveCardMonth',
+            success: function (data) {
+                let approval = parseInt(data.Approv) || 0;
+                let online = parseInt(data.Onlin) || 0;
+
+
+                let currentApproval = parseInt($('#NumberApproval').text().replace(/,/g, '')) || 0;
+                let currentOnline = parseInt($('#NumberOnline').text().replace(/,/g, '')) || 0;
+
+
+                if (approval !== currentApproval) {
+                    animateCount($('#NumberApproval'), approval);
+                }
+
+                if (online !== currentOnline) {
+                    animateCount($('#NumberOnline'), online);
+                }
+                //animateCount($('#NumberApproval'), approval);
+                //animateCount($('#NumberOnline'), online);
+            }
+        });
+
+    });
+}
+
 
 function ChartConsumptionsScreen() {
     const graph = document.getElementById('graphChart');
