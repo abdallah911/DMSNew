@@ -1743,10 +1743,10 @@ function ChartEmployeesScreen() {
     });
 
     new Chart(graph34, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: [
-                'Less tan 10,000',
+                'Less than 10,000',
                 'From 10,000 To 40,000',
                 'From 40,000 To 60,000',
                 'From 60,000 To 80,000',
@@ -1755,7 +1755,7 @@ function ChartEmployeesScreen() {
                 'From 200,000 To 300,000',
                 'From 300,000 To 400,000',
                 'From 400,000 To 500,000',
-                'Grater Than 500,000'
+                'Greater Than 500,000'
             ],
             datasets: [{
                 label: 'عدد الحالات',
@@ -1771,33 +1771,59 @@ function ChartEmployeesScreen() {
                     6,
                     20
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                fill: true,
+                backgroundColor: 'rgba(63, 161, 252, 0.2)',
+                borderColor: 'rgba(63, 161, 252, 1)',
+                pointBackgroundColor: 'white',
+                pointBorderColor: 'rgba(63, 161, 252, 1)',
+                pointRadius: 5,
+                tension: 0.4,
+                borderWidth: 2
             }]
         },
         options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Open Sans'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.dataset.label + ': ' + context.raw.toLocaleString('en-US');
+                        }
+                    }
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'عدد الحالات'
+                    },
                     ticks: {
                         callback: function (value) {
                             return value.toLocaleString('en-US');
                         }
                     }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'الفئة'
                     }
                 }
             }
         }
     });
+
 
 
 
@@ -1881,45 +1907,129 @@ function ChartComparisonScreen() {
     new Chart(graph27, {
         type: 'bar',
         data: {
-            labels: [
-                '2022-2023',
-                '2023-2024',
-                '2024-2025'
-            ],
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
             datasets: [{
                 label: 'صافي الصرف (بالجنيه)',
-                data: [
-                    196228599.45,
-                    262420174.68,
-                    127436344.19
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                data: [187921405.11, 258984736.25, 156615312.56],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                borderRadius: 6,
+                barThickness: 40
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (value) {
-                            return value.toLocaleString('en-US');
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Open Sans',
+                            weight: 'bold'
+                        },
+                        boxWidth: 15,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Last Three Years Consumption\nComparison Per Services Date',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            return 'صافي الصرف: ' + value.toLocaleString('en-US') + ' جنيه';
                         }
                     }
                 }
             },
-            plugins: {
-                legend: {
-                    labels: {
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
                         font: {
                             size: 14,
-                            family: "Open Sans"
+                            family: 'Open Sans'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US'),
+                        font: {
+                            size: 14,
+                            family: 'Open Sans'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'القيمة بالجنيه',
+                        font: {
+                            size: 14
                         }
                     }
                 }
             }
         }
     });
+
+    //new Chart(graph27, {
+    //    type: 'bar',
+    //    data: {
+    //        labels: [
+    //            '2022-2023',
+    //            '2023-2024',
+    //            '2024-2025'
+    //        ],
+    //        datasets: [{
+    //            label: 'صافي الصرف (بالجنيه)',
+    //            data: [
+    //                196228599.45,
+    //                262420174.68,
+    //                127436344.19
+    //            ],
+    //            backgroundColor: '#3fa1fc',
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        scales: {
+    //            y: {
+    //                beginAtZero: true,
+    //                ticks: {
+    //                    callback: function (value) {
+    //                        return value.toLocaleString('en-US');
+    //                    }
+    //                }
+    //            }
+    //        },
+    //        plugins: {
+    //            legend: {
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
 
     //new Chart(graph28, {
     //    type: 'bar',
@@ -2121,53 +2231,142 @@ function ChartComparisonScreen() {
     });
 
 
+    //new Chart(graph31, {
+    //    type: 'line',
+    //    data: {
+    //        datasets: [{
+    //            label: 'عدد الحالات',
+    //            data: [
+    //                { x: '2022-2023', y: 13720 },
+    //                { x: '2023-2024', y: 13764 },
+    //                { x: '2024-2025', y: 12250 }
+    //            ],
+    //            borderColor: '#3fa1fc',
+    //            backgroundColor: '#3fa1fc22',
+    //            fill: true,
+    //            tension: 0.3,
+    //            pointRadius: 5,
+    //            pointBackgroundColor: '#3fa1fc'
+    //        }]
+    //    },
+    //    options: {
+    //        responsive: true,
+    //        scales: {
+    //            x: {
+    //                type: 'category', 
+    //                title: {
+    //                    display: true,
+    //                    text: 'السنة'
+    //                }
+    //            },
+    //            y: {
+    //                beginAtZero: true,
+    //                title: {
+    //                    display: true,
+    //                    text: 'عدد الحالات'
+    //                },
+    //                ticks: {
+    //                    callback: function (value) {
+    //                        return value.toLocaleString('en-US');
+    //                    }
+    //                }
+    //            }
+    //        },
+    //        plugins: {
+    //            legend: {
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
     new Chart(graph31, {
         type: 'line',
         data: {
+            labels: ['2022-2023', '2023-2024', '2024-2025'],
             datasets: [{
-                label: 'عدد الحالات',
-                data: [
-                    { x: '2022-2023', y: 13720 },
-                    { x: '2023-2024', y: 13764 },
-                    { x: '2024-2025', y: 12250 }
-                ],
+                label: 'صافي الصرف (بالجنيه)',
+                data: [187921405.11, 258984736.25, 156615312.56],
                 borderColor: '#3fa1fc',
-                backgroundColor: '#3fa1fc22',
-                fill: true,
-                tension: 0.3,
-                pointRadius: 5,
-                pointBackgroundColor: '#3fa1fc'
+                backgroundColor: 'rgba(63, 161, 252, 0.2)',
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                pointBackgroundColor: '#2362c1',
+                fill: true, 
             }]
         },
         options: {
             responsive: true,
-            scales: {
-                x: {
-                    type: 'category', 
-                    title: {
-                        display: true,
-                        text: 'السنة'
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Last Three Years Consumption\nComparison Per Services Date',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    color: '#444'
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: 'Open Sans',
+                            weight: '600'
+                        },
+                        color: '#333',
+                        usePointStyle: true,
+                        pointStyle: 'circle'
                     }
                 },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'عدد الحالات'
-                    },
-                    ticks: {
-                        callback: function (value) {
-                            return value.toLocaleString('en-US');
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            return 'صافي الصرف: ' + value.toLocaleString('en-US') + ' جنيه';
                         }
                     }
                 }
             },
-            plugins: {
-                legend: {
-                    labels: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'السنة',
                         font: {
-                            size: 14,
-                            family: "Open Sans"
+                            size: 14
+                        }
+                    },
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            size: 13
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value.toLocaleString('en-US'),
+                        font: {
+                            size: 13
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'القيمة بالجنيه',
+                        font: {
+                            size: 14
                         }
                     }
                 }
@@ -2414,7 +2613,7 @@ function drawGraphChart() {
             ],
             datasets: [{
                 label: 'عدد الخدمات',
-                data: [49666, 5822, 3197, 361, 23625], // 🟡 Adjust values as appropriate for each label
+                data: [49666, 5822, 3197, 361, 23625], 
                 backgroundColor: [
                     '#ff6384', // Pharmacy
                     '#9966ff', // Lab
@@ -2530,9 +2729,6 @@ function drawGraphChart() {
     $(function () {
 
     })
-
-    function getInfoCard() {
-
-    }
+       
 }
 
