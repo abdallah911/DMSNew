@@ -1881,6 +1881,7 @@ p.ratio {
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    padding: 0;
 }
 .doughnut-box canvas {
     height: 100% !important;
@@ -2007,7 +2008,7 @@ li.dash-filter-icon {
 .dash-tabs {
     align-items: center;
 }
-li.dash-refresh-icon i {
+.dash-refresh-icon i {
     background: #eee;
     border-radius: 8px;
     margin-left: 10px;
@@ -2019,7 +2020,8 @@ li.dash-refresh-icon i {
 
 /*=====Table======*/
 .graph-box.table .box {
-    width: 80%;
+    /*width: 80%;*/
+    width: 100%;
 }
 .graph-box.table {
     gap: 20px;
@@ -2028,32 +2030,48 @@ li.dash-refresh-icon i {
     flex-wrap:wrap;
 }
 .graph-table {
-    width: calc(20% - 20px);
+    /*width: calc(20% - 20px);*/
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
 }
 .graph-table table {
     width: 100%;
     height: 100%; 
+    background:transparent !important;
+    margin-bottom:0;
 }
 .graph-table tbody {
     border: 1px solid #186bb321;
 }
-.graph-table thead {
-    background: #337ab7;
-    border: 1px solid #337ab7;
-}
+    .graph-table thead {
+        background: #337ab7;
+        /*border: 1px solid #337ab7;*/
+        border-radius: 8px 8px 0 0 !important;
+    }
 .graph-table tr {
     border-bottom: 1px solid #186bb321;
 }
 .graph-table tr:last-of-type {
     border-bottom: unset;
 }
-.table thead tr th {
+.graph-table thead tr th {
     padding: 8px !important;
     border-right: 1px solid #e1e1e1c4;
     font-size: 10px;
     font-weight: 700;
+        white-space: nowrap;
+        /*border: 1px solid #337ab7;*/ 
+
+} 
+.graph-table th:first-of-type {
+    border-radius: 8px 0 0 0;
+    
 }
-.table thead tr th:last-of-type { 
+.graph-table th:last-of-type {
+    border-radius: 0 8px 0 0;
+}
+.graph-table thead tr th:last-of-type { 
     border-right: unset;
 }
 .graph-table tr td {
@@ -2063,6 +2081,11 @@ li.dash-refresh-icon i {
     font-size: 10px;
     font-weight: 600;
 }
+    .graph-table td:first-of-type {
+        color: #337ab7;
+        font-weight: 700;
+        font-size: 11px;
+    }
 .graph-table tr td:last-of-type { 
     border-right:unset; 
 }

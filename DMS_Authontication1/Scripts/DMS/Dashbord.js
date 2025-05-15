@@ -1,10 +1,10 @@
-﻿$('#refreshData').on('click', function () {    
+﻿$('#refreshData').on('click', function () {
     ChartLiveScreenMonth();
 });
-$('#AllContract').on('click', function () {    
+$('#AllContract').on('click', function () {
     ChartLiveScreen();
 });
-$('#CurrentMonth').on('click', function () {  
+$('#CurrentMonth').on('click', function () {
     ChartLiveScreenMonth();
 });
 function ChartLiveScreen() {
@@ -13,14 +13,14 @@ function ChartLiveScreen() {
             let $this = $(this);
             let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
             let current = 0;
-            let duration = 3900;  
-            let steps = 60;       
+            let duration = 3000;
+            let steps = 60;
             let increment = target / steps;
-    
+
             function formatNumber(num) {
                 return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
-    
+
             let counter = setInterval(function () {
                 current += increment;
                 if (current >= target) {
@@ -32,11 +32,11 @@ function ChartLiveScreen() {
         });
     });
     $(document).ready(function () {
-        
+
         function animateCount($el, target) {
-            
+
             $el.stop(true, true);
-        
+
             $({ countNum: 0 }).animate({ countNum: target }, {
                 duration: 1200, //  
                 easing: 'swing',
@@ -48,14 +48,14 @@ function ChartLiveScreen() {
                 }
             });
         }
-        
+
         $.ajax({
             type: "GET",
             url: '/Dashboard/getLiveCard',
-            success: function (data) { 
+            success: function (data) {
                 let approval = parseInt(data.Approv) || 0;
                 let online = parseInt(data.Onlin) || 0;
-        
+
                 animateCount($('#NumberApproval'), approval);
                 animateCount($('#NumberOnline'), online);
             }
@@ -110,6 +110,7 @@ function ChartLiveScreen() {
     //        }
     //    }
     //});
+
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetMedServiceCounts',
@@ -125,8 +126,8 @@ function ChartLiveScreen() {
                         label: 'عدد الخدمات (أدوية)',
                         data: data,
                         backgroundColor: [
-                            '#2362c1',
-                            '#3fa1fc'
+                            '#337ab7',
+                            '#36a2ebb3'
                         ],
                         borderWidth: 1
                     }]
@@ -174,22 +175,23 @@ function ChartLiveScreen() {
                     labels: labels,
                     datasets: [
                         {
-                           label: 'Fully Rounded',
-                           data: Utils.numbers(NUMBER_CFG),
-                                borderColor: Utils.CHART_COLORS.red,
-                                backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-                                borderWidth: 2,
-                                borderRadius: Number.MAX_VALUE,
-                                borderSkipped: false,
+                            label: 'إجمالي الاستهلاك',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
+                            yAxisID: 'amount'
                         },
                         {
-                           label: 'Fully Rounded',
-                           data: Utils.numbers(NUMBER_CFG),
-                                borderColor: Utils.CHART_COLORS.red,
-                                backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-                                borderWidth: 2,
-                                borderRadius: Number.MAX_VALUE,
-                                borderSkipped: false,
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
+                            yAxisID: 'amount'
                         }
                     ]
                 },
@@ -252,13 +254,21 @@ function ChartLiveScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -381,13 +391,15 @@ function ChartLiveScreen() {
             new Chart(graph11, {
                 type: 'bar',
                 data: {
-                    labels: labels, 
+                    labels: labels,
                     datasets: [{
                         label: 'عدد الخدمات',
                         data: count,
-                        backgroundColor: '#3fa1fc',
-                        borderColor: '#3fa1fc',
-                        borderWidth: 2
+                        backgroundColor: '#337ab7',
+                        borderColor: '#24669c',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                        borderSkipped: false, 
                     }]
                 },
                 options: {
@@ -406,7 +418,7 @@ function ChartLiveScreen() {
                                 display: true,
                                 text: 'النوع'
                             },
-                            ticks: {                               
+                            ticks: {
                                 callback: function (value) {
                                     return this.getLabelForValue(value);
                                 }
@@ -491,7 +503,7 @@ function ChartLiveScreenMonth() {
     const graphSix = document.getElementById('graphChartSix');
     const graphFive = document.getElementById('graphChartFive');
     const graph11 = document.getElementById('graphChart11');
-   
+
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetMedServiceCountsMonth',
@@ -558,13 +570,21 @@ function ChartLiveScreenMonth() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -627,13 +647,21 @@ function ChartLiveScreenMonth() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -677,7 +705,7 @@ function ChartLiveScreenMonth() {
                 }
             });
         }
-    });   
+    });
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetAllOtherCountsMonth',
@@ -692,9 +720,11 @@ function ChartLiveScreenMonth() {
                     datasets: [{
                         label: 'عدد الخدمات',
                         data: count,
-                        backgroundColor: '#3fa1fc',
-                        borderColor: '#3fa1fc',
-                        borderWidth: 2
+                        backgroundColor: '#36a2ebb3',
+                        borderColor: '#36a2eb',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                        borderSkipped: false, 
                     }]
                 },
                 options: {
@@ -828,13 +858,21 @@ function ChartConsumptionsScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -897,13 +935,21 @@ function ChartConsumptionsScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -966,13 +1012,21 @@ function ChartConsumptionsScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -1044,13 +1098,21 @@ function ChartProvidersScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -1112,8 +1174,11 @@ function ChartProvidersScreen() {
                             label: 'عدد الخدمات',
                             data: netValues,
                             backgroundColor: '#3fa1fc',
-                            borderColor: '#3fa1fc',
-                            borderWidth: 2
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false, 
                         }
                     ]
                 },
@@ -1201,8 +1266,11 @@ function ChartProvidersScreen() {
                     874366.82,
                     763292.14
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                backgroundColor: '#36a2ebb3',
+                borderColor: '#36a2eb',
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false, 
             }]
         },
         options: {
@@ -1258,8 +1326,11 @@ function ChartProvidersScreen() {
                     169268.80,
                     77862.50
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false, 
             }]
         },
         options: {
@@ -1315,8 +1386,11 @@ function ChartProvidersScreen() {
                     3635896.456,
                     3071241.26
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false, 
             }]
         }
         ,
@@ -1368,8 +1442,11 @@ function ChartProvidersScreen() {
                     1542776.45,
                     1441538.31
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false, 
             }]
         },
         options: {
@@ -1417,8 +1494,8 @@ function ChartEmployeesScreen() {
                 label: 'My First Dataset',
                 data: [10157, 2093],
                 backgroundColor: [
-                    '#2362c1',
-                    '#3fa1fc'
+                    '#337ab7',
+                    '#36a2ebb3'
                 ],
                 borderWidth: 1
             }]
@@ -1437,6 +1514,16 @@ function ChartEmployeesScreen() {
                         weight: 'bold'
                     }
                 },
+                  legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "Open Sans"
+                                }
+                            }
+                        },
                 tooltip: {
                     callbacks: {
                         label: function (context) {
@@ -1462,14 +1549,18 @@ function ChartEmployeesScreen() {
                 label: 'عدد المنفعين',
                 data: [3660, 8590],
                 backgroundColor: [
-                    '#2362c1',
-                    '#3fa1fc'
+                    '#337ab7',
+                    '#36a2ebb3'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             plugins: {
+                legend: {
+                    display: true,
+                    position: 'right', 
+                },
                 datalabels: {
                     formatter: (value, context) => {
                         const data = context.chart.data.datasets[0].data;
@@ -1514,13 +1605,21 @@ function ChartEmployeesScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -1640,13 +1739,21 @@ function ChartEmployeesScreen() {
                         {
                             label: 'إجمالي الاستهلاك',
                             data: grossValues,
-                            backgroundColor: '#2362c1',
+                            backgroundColor: '#337ab7',
+                            borderColor: '#24669c',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         },
                         {
                             label: 'صافي الاستهلاك',
                             data: netValues,
-                            backgroundColor: '#3fa1fc',
+                            backgroundColor: '#36a2ebb3',
+                            borderColor: '#36a2eb',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            borderSkipped: false,
                             yAxisID: 'amount'
                         }
                     ]
@@ -1695,16 +1802,16 @@ function ChartEmployeesScreen() {
         type: 'bar',
         data: {
             labels: [
-                'Less tan 10k',
-                'From 10k To 40k',
-                'From 40k To 60k',
-                'From 60k To 80k',
-                'From 80k To 100k',
-                'From 100k To 200k',
-                'From 200k To 300k',
-                'From 300k To 400k',
-                'From 400k To 500k',
-                'Grater Than 500k'
+                'Less tan 105',
+                'From 105 To 405',
+                'From 405 To 605',
+                'From 605 To 805',
+                'From 805 To 1005',
+                'From 1005 To 2005',
+                'From 2005 To 3005',
+                'From 3005 To 4005',
+                'From 4005 To 5005',
+                'Grater Than 5005'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
@@ -1720,8 +1827,12 @@ function ChartEmployeesScreen() {
                     2666063.58,
                     14572176.28
                 ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
+                backgroundColor: '#36a2ebb3',
+                borderColor: '#36a2eb',
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+                yAxisID: 'amount'
             }]
         },
         options: {
@@ -1752,16 +1863,16 @@ function ChartEmployeesScreen() {
         type: 'line',
         data: {
             labels: [
-                'Less than 10k',
-                'From 10k To 40k',
-                'From 40k To 60k',
-                'From 60k To 80k',
-                'From 80k To 100k',
-                'From 100k To 200k',
-                'From 200k To 300k',
-                'From 300k To 400k',
-                'From 400k To 500k',
-                'Greater Than 500k'
+                'Less than 105',
+                'From 105 To 405',
+                'From 405 To 605',
+                'From 605 To 805',
+                'From 805 To 1005',
+                'From 1005 To 2005',
+                'From 2005 To 3005',
+                'From 3005 To 4005',
+                'From 4005 To 5005',
+                'Greater Than 5005'
             ],
             datasets: [{
                 label: 'عدد الحالات',
@@ -1940,18 +2051,18 @@ function ChartComparisonScreen() {
                         pointStyle: 'rectRounded'
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Last Three Years Consumption\nComparison Per Services Date',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 20
-                    }
-                },
+                //title: {
+                //    display: true,
+                //    text: 'Last Three Years Consumption\nComparison Per Services Date',
+                //    font: {
+                //        size: 18,
+                //        weight: 'bold'
+                //    },
+                //    padding: {
+                //        top: 10,
+                //        bottom: 20
+                //    }
+                //},
                 tooltip: {
                     callbacks: {
                         label: function (context) {
@@ -2079,6 +2190,7 @@ function ChartComparisonScreen() {
     //        }
     //    }
     //});
+
     new Chart(graph28, {
         type: 'line',
         data: {
@@ -2126,27 +2238,47 @@ function ChartComparisonScreen() {
                 {
                     label: '500118',
                     data: [6340679.72, 8776573.46, 5906272.04],
-                    backgroundColor: '#4f256a'
+                    backgroundColor: '#4f256a' ,
+                    borderColor: '#40185a',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 },
                 {
                     label: '500119',
                     data: [62599582.23, 72888166.58, 33095029.03],
-                    backgroundColor: '#8d6aaf'
+                    backgroundColor: '#8d6aaf',
+                    borderColor: '#775598',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 },
                 {
                     label: '500120',
                     data: [41403778.78, 57375382.33, 27667279.53],
-                    backgroundColor: '#2362c1'
+                    backgroundColor: '#337ab7',
+                    borderColor: '#24669c',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 },
                 {
                     label: '500121',
                     data: [84385009.99, 121013327.16, 59737417.55],
-                    backgroundColor: '#3fa1fc'
+                    backgroundColor: '#36a2ebb3',
+                    borderColor: '#36a2eb',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 },
                 {
                     label: '500122',
                     data: [1499548.74, 2366725.15, 1030346.04],
-                    backgroundColor: '#e74c3c'
+                    backgroundColor: '#e74c3c',
+                    borderColor: '#d13c2d',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 }
             ]
         },
@@ -2164,8 +2296,8 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
-                        usePointStyle: true,        
-                        pointStyle: 'circle',       
+                        usePointStyle: true,
+                        pointStyle: 'circle',
                         font: {
                             size: 14,
                             family: "Open Sans"
@@ -2186,27 +2318,48 @@ function ChartComparisonScreen() {
                 {
                     label: '500118',
                     data: [5954883.55, 8752211.34, 6809483.49],
-                    backgroundColor: '#4f256a'
+                    backgroundColor: '#4f256a',
+                    borderColor: '#40185a',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500119',
                     data: [58530209.77, 74472640.61, 40914950.34],
-                    backgroundColor: '#8d6aaf'
+                    backgroundColor: '#8d6aaf',
+                    borderColor: '#775598',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500120',
                     data: [39657803.95, 57107879.25, 33662545.39],
-                    backgroundColor: '#2362c1'
+                    backgroundColor: '#337ab7',
+                    borderColor: '#24669c',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500121',
                     data: [82366540.56, 116380315.77, 73853841.50],
-                    backgroundColor: '#3fa1fc'
+                    data: [84385009.99, 121013327.16, 59737417.55],
+                    backgroundColor: '#36a2ebb3',
+                    borderColor: '#36a2eb',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 },
                 {
                     label: '500122',
                     data: [1411967.27, 2271689.28, 1374491.84],
-                    backgroundColor: '#e74c3c'
+                    backgroundColor: '#e74c3c',
+                    borderColor: '#d13c2d',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false, 
                 }
             ]
         },
@@ -2224,8 +2377,8 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
-                        usePointStyle: true,        
-                        pointStyle: 'circle',   
+                        usePointStyle: true,
+                        pointStyle: 'circle',
                         font: {
                             size: 14,
                             family: 'Open Sans'
@@ -2304,21 +2457,21 @@ function ChartComparisonScreen() {
                 pointRadius: 6,
                 pointHoverRadius: 8,
                 pointBackgroundColor: '#2362c1',
-                fill: true, 
+                fill: true,
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Last Three Years Consumption\nComparison Per Services Date',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    },
-                    color: '#444'
-                },
+                //title: {
+                //    display: true,
+                //    text: 'Last Three Years Consumption\nComparison Per Services Date',
+                //    font: {
+                //        size: 18,
+                //        weight: 'bold'
+                //    },
+                //    color: '#444'
+                //},
                 legend: {
                     display: true,
                     position: 'top',
@@ -2389,27 +2542,47 @@ function ChartComparisonScreen() {
                 {
                     label: '500118',
                     data: [491, 493, 459],
-                    backgroundColor: '#4f256a'
+                    backgroundColor: '#4f256a',
+                    borderColor: '#40185a',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500119',
                     data: [4904, 4915, 4134],
-                    backgroundColor: '#8d6aaf'
+                    backgroundColor: '#8d6aaf',
+                    borderColor: '#775598',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500120',
                     data: [2689, 2754, 2344],
-                    backgroundColor: '#2362c1'
+                    backgroundColor: '#337ab7',
+                    borderColor: '#24669c',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500121',
                     data: [5363, 5342, 5089],
-                    backgroundColor: '#3fa1fc'
+                    backgroundColor: '#36a2ebb3',
+                    borderColor: '#36a2eb',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 },
                 {
                     label: '500122',
                     data: [273, 260, 224],
-                    backgroundColor: '#e74c3c'
+                    backgroundColor: '#e74c3c',
+                    borderColor: '#d13c2d',
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    borderSkipped: false,
                 }
             ]
         },
@@ -2427,6 +2600,8 @@ function ChartComparisonScreen() {
                 legend: {
                     position: 'top',
                     labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
                         font: {
                             size: 14,
                             family: "Open Sans"
@@ -2619,7 +2794,7 @@ function drawGraphChart() {
             ],
             datasets: [{
                 label: 'عدد الخدمات',
-                data: [49666, 5822, 3197, 361, 23625], 
+                data: [49666, 5822, 3197, 361, 23625],
                 backgroundColor: [
                     '#ff6384', // Pharmacy
                     '#9966ff', // Lab
@@ -2735,6 +2910,6 @@ function drawGraphChart() {
     $(function () {
 
     })
-       
+
 }
 
