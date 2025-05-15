@@ -1956,31 +1956,38 @@ p.ratio {
     margin-left: 20px;
 }
 
-.dash-tabs li.nav-item {
-    border: none !important;
+.dash-tabs li.nav-item a {
+    border: 1px solid #337ab7 !important;
     background: #337ab7;
+    margin: 0;
+    color:white
 }
 .dash-tabs li.nav-item.first {
     border-right: 1px solid white !important;
 }
-.dash-tabs li.nav-item.second {
-    border-radius: 0 8px 8px  0 ;
+.dash-tabs li.nav-item.second a {
+    border-radius: 0 8px 8px 0;
     border-right: 1px solid white !important;
 }
+.dash-tabs li.nav-item a.active {
+    border: 1px solid #c4c4c4 !important;
+    color: #337ab7 !important;
+    background: transparent !important;
+}
 .dash-tabs li.nav-item:hover {
-    background: #30699b !important;
+    /*background: #30699b !important;*/
 }
 .dash-tabs li.nav-item:active {
     background: white !important;
 
 }
-.dash-tabs li.nav-item a {
-    color: white;
-    border: none !important;
-}
-.dash-tabs li.nav-item a:hover {
-    background: unset;
-}
+.dash-tabs li.nav-item:active a {
+    color: rgb(51 122 183) !important;
+} 
+    .dash-tabs li.nav-item a:hover  {
+        background: #30699b !important;
+        color: white !important;
+    }
 li.nav-item.dash-filter-icon {
     padding: 10px;
     border-radius: 8px 0 0 8px;
@@ -1995,6 +2002,7 @@ li.dash-filter-icon {
     background: #dfdfdf;
     border-radius: 8px 0 0 8px;
     color: #337ab7;
+    border: 1px solid #dfdfdf;
 }
 .dash-tabs {
     align-items: center;
@@ -2081,6 +2089,12 @@ li.dash-refresh-icon i {
     }
     .graph-box.table .box {
         width: 100% !important;
+    }
+    .cards-parent .graph-box {
+        width:100% !important;
+    }
+    .graph-parent > div {
+        width: 100%;
     }
 }
 @media (max-width:767px) {
