@@ -656,7 +656,7 @@ namespace DMS_Authontication1.Controllers
                 .ToList();
 
 
-            DataTable dt = dbOra.getApprovalMatarCount();
+            DataTable dt = dbOra.getApprovalMatarCountMonth();
             var ora = new List<dynamic>();
 
             foreach (DataRow row in dt.Rows)
@@ -703,7 +703,7 @@ namespace DMS_Authontication1.Controllers
                 .ToList();
 
 
-            DataTable dt = dbOra.getApprovalMatarConsum();
+            DataTable dt = dbOra.getApprovalMatarConsumMonth();
             var ora = new List<dynamic>();
 
             foreach (DataRow row in dt.Rows)

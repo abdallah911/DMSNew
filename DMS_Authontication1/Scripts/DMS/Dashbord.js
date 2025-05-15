@@ -772,6 +772,7 @@ function updatCard() {
             });
         }
 
+
         $.ajax({
             type: "GET",
             url: '/Dashboard/getLiveCardMonth',
