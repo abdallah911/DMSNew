@@ -1,34 +1,6 @@
-﻿@using System.Security.Claims;
-@using DMS_TEST.ViewModel;
-@using Newtonsoft.Json;
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/Dashboard.cshtml";
-    var edit = false;
-    var delete = false;
-    var view = false;
-    var fullcontroll = false;
-    var Create = false;
-    var modellist = new List<ModulesPagesViewModel>();
-    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
-    if (claim != null)
-    {
-        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
-        if (modellist != null)
-        {
-            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 17 && (x.FullControl || x.EditPermission
-                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
-            if (obj != null)
-            {
-                edit = obj.EditPermission;
-                delete = obj.ActivationControl;
-                view = obj.Preview;
-                fullcontroll = obj.FullControl;
-                Create = obj.AddPermission;
-
-            }
-        }
-    }
 }
 <div class="dms-container reports">
 
@@ -96,7 +68,7 @@
                 ChartLiveScreenMonth();
                 /*ChartLiveScreen(); */
 
-                setInterval(updatCard, 10000);
+                setInterval(updatCard, 60000);
             }
             else if (viewName === "_Consumptions")
                 ChartConsumptionsScreen();

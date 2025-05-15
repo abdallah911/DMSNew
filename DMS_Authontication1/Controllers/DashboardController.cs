@@ -145,46 +145,47 @@ namespace DMS_Authontication1.Controllers
         {
             var data = new[]
             {
-                new { company = "500118", gross = 7783030m, net = 6809483.489m, percent = 4.35 },
-                new { company = "500119", gross = 48331006m, net = 40914950.34m, percent = 26.12 },
-                new { company = "500120", gross = 42652394m, net = 33662545.39m, percent = 21.49 },
-                new { company = "500121", gross = 85807314m, net = 73853841.5m, percent = 47.16 },
-                new { company = "500122", gross = 1655971m, net = 1374491.839m, percent = 0.88 }
-            };
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult GetTypeProviderData()
-        {
-            var data = new[]
-            {
-        new { company = "أطباء", gross = 1790324.00m, net = 1790324.00m, percent = 1.40 },
-        new { company = "خدمات خارج الهيئة الطبية", gross = 1261949.53m, net = 791818.15m, percent = 0.62 },
-        new { company = "خدمات علاج طبيعى", gross = 575770.00m, net = 556822.00m, percent = 0.44 },
-        new { company = "صيدليات", gross = 59261164.36m, net = 48305251.82m, percent = 37.91 },
-        new { company = "مراكز أشعة", gross = 5679658.45m, net = 5673220.37m, percent = 4.45 },
-        new { company = "مستشفيات", gross = 78767467.85m, net = 65281897.50m, percent = 51.23 },
-        new { company = "معامل تحاليل", gross = 5037100.53m, net = 5037010.34m, percent = 3.95 }
+        new { company = "500118", gross = 6654890.57m, net = 5906272.041m, percent = 4.37m },
+        new { company = "500119", gross = 39170102.90m, net = 33095029.03m, percent = 25.71m },
+        new { company = "500120", gross = 35585983.51m, net = 27667279.53m, percent = 23.36m },
+        new { company = "500121", gross = 69714725.80m, net = 59737417.55m, percent = 45.77m },
+        new { company = "500122", gross = 1247731.94m, net = 1030346.041m, percent = 0.82m }
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetTypeProviderData()
+        {
+            var data = new[]
+            {
+        new { company = "مستشفيات", gross = 78767442.85m, net = 65281872.50m, percent = 51.70m },
+        new { company = "صيدليات", gross = 59261164.36m, net = 48305251.82m, percent = 38.90m },
+        new { company = "مراكز أشعة", gross = 5679658.45m, net = 5673220.37m, percent = 3.73m },
+        new { company = "معامل تحاليل", gross = 5037100.53m, net = 5037010.34m, percent = 3.31m },
+        new { company = "أطباء", gross = 1790324.00m, net = 1790324.00m, percent = 1.17m },
+        new { company = "خدمات خارج الهيئة الطبية", gross = 1261949.53m, net = 791818.15m, percent = 0.83m },
+        new { company = "خدمات علاج طبيعى", gross = 575770.00m, net = 556822.00m, percent = 0.38m }
+    };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetServiceData()
         {
             var data = new[]
             {
-        new { company = "أدويه", gross = 59330518.40m, net = 48362434.90m, percent = 37.95 },
-        new { company = "اسنان", gross = 662699.50m, net = 419370.50m, percent = 0.33 },
-        new { company = "أشعات", gross = 7798013.90m, net = 7424979.61m, percent = 5.83 },
-        new { company = "بصريات", gross = 195044.00m, net = 93587.00m, percent = 0.07 },
-        new { company = "تحاليل طبية", gross = 6398044.34m, net = 6152742.20m, percent = 4.83 },
-        new { company = "خدمات داخل المستشفيات", gross = 174310.00m, net = 173444.00m, percent = 0.14 },
-        new { company = "خدمات عيادة خارجية", gross = 2672600.46m, net = 1531471.36m, percent = 1.20 },
-        new { company = "علاج طبيعي", gross = 897078.06m, net = 834315.06m, percent = 0.65 },
-        new { company = "عمليات جراحية", gross = 66241152.59m, net = 56334589.72m, percent = 44.21 },
-        new { company = "كشف طبيب", gross = 7877715.50m, net = 6068378.32m, percent = 4.76 },
-        new { company = "مناظير", gross = 7893.75m, net = 6698.75m, percent = 0.01 },
-        new { company = "ولادة", gross = 118364.22m, net = 34332.76m, percent = 0.03 }
+        new { company = "عمليات جراحية", gross = 66241152.59m, net = 56334589.72m, percent = 44.21m },
+        new { company = "أدويه", gross = 59330518.40m, net = 48362434.90m, percent = 37.95m },
+        new { company = "كشف طبيب", gross = 7877715.50m, net = 6068378.32m, percent = 4.76m },
+        new { company = "أشعات", gross = 7798013.90m, net = 7424979.61m, percent = 5.83m },
+        new { company = "تحاليل طبية", gross = 6398044.34m, net = 6152742.20m, percent = 4.83m },
+        new { company = "خدمات عيادة خارجية", gross = 2672600.46m, net = 1531471.36m, percent = 1.20m },
+        new { company = "علاج طبيعي", gross = 897078.06m, net = 834315.06m, percent = 0.65m },
+        new { company = "اسنان", gross = 662699.50m, net = 419370.50m, percent = 0.33m },
+        new { company = "خدمات داخل المستشفيات", gross = 174310.00m, net = 173444.00m, percent = 0.14m },
+        new { company = "بصريات", gross = 195044.00m, net = 93587.00m, percent = 0.07m },
+        new { company = "ولادة", gross = 118364.22m, net = 34332.76m, percent = 0.03m },
+        new { company = "مناظير", gross = 7893.75m, net = 6698.75m, percent = 0.01m }
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -193,77 +194,79 @@ namespace DMS_Authontication1.Controllers
         {
             var data = new[]
             {
-        new { company = "ادوية مزمن - خارج الهيئة الطبية", gross = 8127.00m, net = 5512.70m, percent = 0.004 },
-        new { company = "ادوية مزمن - داخل الهيئة الطبية", gross = 50023043.87m, net = 40827419.29m, percent = 32.04 },
-        new { company = "ادوية يومي - خارج الهيئة الطبية", gross = 60304.04m, net = 50896.08m, percent = 0.04 },
-        new { company = "ادوية يومي - داخل الهيئة الطبية", gross = 9238120.49m, net = 7477832.53m, percent = 5.87 },
-        new { company = "اشعات - خارج الهيئة الطبية", gross = 9836.25m, net = 7560.00m, percent = 0.01 },
-        new { company = "اشعات - داخل المستشفيات", gross = 2111052.80m, net = 1746732.84m, percent = 1.37 },
-        new { company = "اشعات - داخل الهيئة الطبية", gross = 5677829.85m, net = 5671391.77m, percent = 4.45 },
-        new { company = "باكدج عمليات - داخل الهيئة الطبية", gross = 66242075.59m, net = 56335364.02m, percent = 44.21 },
-        new { company = "بصريات - خارج الهيئة الطبية", gross = 195044.00m, net = 93587.00m, percent = 0.07 },
-        new { company = "تحاليل طبية - خارج الهيئة الطبية", gross = 32505.00m, net = 28736.00m, percent = 0.02 },
-        new { company = "تحاليل طبية - داخل المستشفيات", gross = 1323613.81m, net = 1082170.86m, percent = 0.85 },
-        new { company = "تحاليل طبية - داخل الهيئة الطبية", gross = 5037100.53m, net = 5037010.34m, percent = 3.95 },
-        new { company = "خدمات اسنان - خارج الهيئة الطبية", gross = 660241.50m, net = 417263.50m, percent = 0.33 },
-        new { company = "خدمات اسنان - داخل المستشفيات", gross = 2458.00m, net = 2107.00m, percent = 0.002 },
-        new { company = "خدمات عيادة خارجية - خارج الهيئة الطبية", gross = 144312.52m, net = 134878.11m, percent = 0.11 },
-        new { company = "خدمات عيادة خارجية - داخل الهيئة الطبية", gross = 2694065.69m, net = 1561604.00m, percent = 1.23 },
-        new { company = "علاج طبيعي - خارج الهيئة الطبية", gross = 480.00m, net = 384.00m, percent = 0.000 },
-        new { company = "علاج طبيعي - داخل المستشفيات", gross = 322378.06m, net = 278659.06m, percent = 0.22 },
-        new { company = "علاج طبيعي - داخل الهيئة الطبية", gross = 575770.00m, net = 556822.00m, percent = 0.44 },
-        new { company = "كشف طبيب - خارج الهيئة الطبية", gross = 4085.00m, net = 2668.00m, percent = 0.002 },
-        new { company = "كشف طبيب - داخل المستشفيات", gross = 7828190.50m, net = 6020270.32m, percent = 4.72 },
-        new { company = "كشف طبيب - داخل الهية الطبية", gross = 50610.00m, net = 50610.00m, percent = 0.04 },
-        new { company = "مناظير", gross = 13826.00m, net = 12532.00m, percent = 0.01 },
-        new { company = "ولادة - خارج الهيئة الطبية", gross = 118364.22m, net = 34332.76m, percent = 0.03 }
+        new { company = "باكدج عمليات - داخل الهيئة الطبية", gross = 66242075.59m, net = 56335364.02m, percent = 44.21m },
+        new { company = "ادوية مزمن - داخل الهيئة الطبية", gross = 50023043.87m, net = 40827419.29m, percent = 32.04m },
+        new { company = "ادوية يومي - داخل الهيئة الطبية", gross = 9238120.49m, net = 7477832.53m, percent = 5.87m },
+        new { company = "كشف طبيب - داخل المستشفيات", gross = 7828190.50m, net = 6020270.32m, percent = 4.72m },
+        new { company = "اشعات - داخل الهيئة الطبية", gross = 5677829.85m, net = 5671391.77m, percent = 4.45m },
+        new { company = "تحاليل طبية - داخل الهيئة الطبية", gross = 5037100.53m, net = 5037010.34m, percent = 3.95m },
+        new { company = "اشعات - داخل المستشفيات", gross = 2111052.80m, net = 1746732.84m, percent = 1.37m },
+        new { company = "خدمات عيادة خارجية - داخل الهيئة الطبية", gross = 2694065.69m, net = 1561604.00m, percent = 1.23m },
+        new { company = "تحاليل طبية - داخل المستشفيات", gross = 1323613.81m, net = 1082170.86m, percent = 0.85m },
+        new { company = "علاج طبيعي - داخل الهيئة الطبية", gross = 575770.00m, net = 556822.00m, percent = 0.44m },
+        new { company = "خدمات اسنان - خارج الهيئة الطبية", gross = 660241.50m, net = 417263.50m, percent = 0.33m },
+        new { company = "بصريات - خارج الهيئة الطبية", gross = 195044.00m, net = 93587.00m, percent = 0.07m },
+        new { company = "خدمات عيادة خارجية - خارج الهيئة الطبية", gross = 144312.52m, net = 134878.11m, percent = 0.11m },
+        new { company = "علاج طبيعي - داخل المستشفيات", gross = 322378.06m, net = 278659.06m, percent = 0.22m },
+        new { company = "ادوية يومي - خارج الهيئة الطبية", gross = 60304.04m, net = 50896.08m, percent = 0.04m },
+        new { company = "كشف طبيب - داخل الهية الطبية", gross = 50610.00m, net = 50610.00m, percent = 0.04m },
+        new { company = "تحاليل طبية - خارج الهيئة الطبية", gross = 32505.00m, net = 28736.00m, percent = 0.02m },
+        new { company = "مناظير", gross = 13826.00m, net = 12532.00m, percent = 0.01m },
+        new { company = "اشعات - خارج الهيئة الطبية", gross = 9836.25m, net = 7560.00m, percent = 0.01m },
+        new { company = "ادوية مزمن - خارج الهيئة الطبية", gross = 8127.00m, net = 5512.70m, percent = 0.004m },
+        new { company = "كشف طبيب - خارج الهيئة الطبية", gross = 4085.00m, net = 2668.00m, percent = 0.002m },
+        new { company = "خدمات اسنان - داخل المستشفيات", gross = 2458.00m, net = 2107.00m, percent = 0.002m },
+        new { company = "ولادة - خارج الهيئة الطبية", gross = 118364.22m, net = 34332.76m, percent = 0.03m },
+        new { company = "علاج طبيعي - خارج الهيئة الطبية", gross = 480.00m, net = 384.00m, percent = 0.000m }
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetConsumType()
         {
             var data = new[]
-     {
-        new { company = "موظف", gross = 95676812m, net = 77712318m, percent = 49.62 },
-        new { company = "معاش", gross = 90552903m, net = 78902995m, percent = 50.38 }
+            {
+        new { company = "موظف", gross = 78306983.08m, net = 63116005.81m, percent = 51.39m },
+        new { company = "معاشات", gross = 74066451.64m, net = 64320338.37m, percent = 48.61m }
     };
-
-
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetConsumGender()
         {
             var data = new[]
-   {
-        new { company = "أنثى", gross = 39521526m, net = 30678886m, percent = 19.59 },
-        new { company = "ذكر",  gross = 146708189m, net = 125936427m, percent = 80.41 }
+            {
+        new { company = "Male", gross = 118794657.42m, net = 101883877.70m, percent = 77.96m },
+        new { company = "Female", gross = 33578777.30m, net = 25552466.49m, percent = 22.04m }
     };
-
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GetTypeProvider()
         {
             var data = new[]
             {
-        new { typeprovider = "عيادات أطباء",             net = 361m,     percent = 0.43 },
-        new { typeprovider = "خدمات خارج الهيئة الطبية", net = 739m,     percent = 0.88 },
-        new { typeprovider = "مراكز علاج طبيعي",         net = 801m,     percent = 0.95 },
-        new { typeprovider = "صيدليات",                  net = 49666m,   percent = 58.98 },
-        new { typeprovider = "مراكز اشعة",               net = 3197m,    percent = 3.80 },
-        new { typeprovider = "مستشفيات",                 net = 23625m,   percent = 28.05 },
-        new { typeprovider = "معامل تحاليل",             net = 5822m,    percent = 6.91 }
+        new { typeprovider = "صيدليات",                  net = 49667m, percent = 61.15m },
+        new { typeprovider = "مستشفيات",                 net = 23624m, percent = 29.10m },
+        new { typeprovider = "معامل تحاليل",             net = 5822m,  percent = 7.17m },
+        new { typeprovider = "مراكز اشعة",               net = 3197m,  percent = 3.94m },
+        new { typeprovider = "مراكز علاج طبيعي",         net = 801m,   percent = 0.99m },
+        new { typeprovider = "خدمات خارج الهيئة الطبية", net = 739m,   percent = 0.91m },
+        new { typeprovider = "عيادات أطباء",             net = 361m,   percent = 0.44m },
+        new { typeprovider = "مراكز اسنان",              net = 1m,     percent = 0.00m }
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetChartData()
         {
             var data = new[] {
         new { category = "", value = 32000 },
         new { category = "", value = 19000 },
-      
+
     };
 
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -277,11 +280,11 @@ namespace DMS_Authontication1.Controllers
         new { typeprovider = "Ray",         net = 801 },
         new { typeprovider = "OutPatient",                  net = 49666 },
         new { typeprovider = "InPatient",                 net = 23625 }
-    };           
+    };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult LoadPartial(string viewName)
-        {           
+        {
             switch (viewName)
             {
                 case "_Live":
@@ -294,6 +297,40 @@ namespace DMS_Authontication1.Controllers
                     return HttpNotFound();
             }
         }
+
+        public (double grossIBNR, double netIBNR) GetIBNRValues()
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DateTime startDate = new DateTime(2025, 05, 14);
+
+            var targetManagers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
+            var cardPrefixes = new[] { "500119", "500120", "500121", "500122", "500118" };
+
+            var filtered = db.Roshitas
+                .Where(r =>
+                targetManagers.Contains(r.Manager) &&
+                r.CreatedDate > startDate &&
+                cardPrefixes.Any(prefix => r.CardId.StartsWith(prefix))
+                );
+
+            double oraGross = 0, oraNet = 0;
+
+            DataTable dt = dbOra.getApprovalMatarIBNR();
+
+            oraGross = Convert.ToDouble(dt.Rows[0][1].ToString());
+            oraNet = Convert.ToDouble(dt.Rows[0][2].ToString());
+
+
+            double gross = Convert.ToDouble(filtered.Sum(x => x.TotalValue)) + oraGross + 73229134.07;
+            double net = Convert.ToDouble(filtered.Sum(x => x.CompanyPayment)) + oraNet + 69405264.54;
+          
+            return (gross, net);
+        }
+
+
         public JsonResult getLiveCard()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
@@ -331,9 +368,9 @@ namespace DMS_Authontication1.Controllers
             //double tm = Convert.ToDouble(consmAll) / Convert.ToDouble(maxamt) * 100;
             //string perct = Math.Round(tm, 2).ToString() + " %";
             //string consmApproval = dbData1062.getConsumptionApproval(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
+            var (gross, net) = GetIBNRValues();
 
-
-            return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = new { Approv, Onlin, gross, net }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }        
         public JsonResult GetMedServiceCounts()
         {
@@ -525,27 +562,32 @@ namespace DMS_Authontication1.Controllers
 
             DataTable dtcrd = new DataTable();
 
-            string Approv = "", Onlin = "";
+            string Approv = "", Onlin = "", gross = "", net = "";
 
             DateTime startDate = new DateTime(2025, 05, 01);
             DateTime endDate = new DateTime(2025, 05, 31);
 
+            DataTable dt = new DataTable();
+            dt = dbOra.getApprovalMatarMonth();
 
-            Approv = dbOra.getApprovalMatarMonth().Rows[0][0].ToString();
+            Approv = dt.Rows[0][0].ToString();
             var comp = new[] { "500118", "500119", "500120", "500121", "500122" };
             var managers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
 
-            Onlin = db.Roshitas
+            var data = db.Roshitas
                 .Where(r =>
                     comp.Any(c => r.CardId.StartsWith(c)) &&
                     r.CreatedDate >= startDate &&
-                    //r.CreatedDate <= endDate &&
+                    r.CreatedDate <= endDate &&
                     managers.Contains(r.Manager)
-                )
-                .Count()
-                .ToString();
+                );
 
-            return new JsonResult { Data = new { Approv, Onlin }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            Onlin = data.Count().ToString();
+            gross = (Convert.ToDouble(data.Sum(r => r.TotalValue).ToString()) + Convert.ToDouble(dt.Rows[0][1].ToString())).ToString();
+            net = (Convert.ToDouble(data.Sum(r => r.CompanyPayment).ToString()) + Convert.ToDouble(dt.Rows[0][2].ToString())).ToString();
+      
+            return new JsonResult { Data = new { Approv, Onlin, gross, net }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult GetMedServiceCountsMonth()
         {

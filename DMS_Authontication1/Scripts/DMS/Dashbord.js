@@ -36,14 +36,25 @@ function updatCard(url = '') {
     $.get(url, function (data) {
         let approval = parseInt(data.Approv) || 0;
         let online = parseInt(data.Onlin) || 0;
+        let gross = parseInt(data.gross) || 0;
+        let net = parseInt(data.net) || 0;
+
 
         let currentApproval = parseInt($('#NumberApproval').text().replace(/,/g, '')) || 0;
         let currentOnline = parseInt($('#NumberOnline').text().replace(/,/g, '')) || 0;
+
+        let currentGross = parseInt($('#GrossIBNR').text().replace(/,/g, '')) || 0;
+        let currentNet = parseInt($('#NetIBNR').text().replace(/,/g, '')) || 0;
 
         if (approval !== currentApproval)
             animateCount($('#NumberApproval'), approval);
         if (online !== currentOnline)
             animateCount($('#NumberOnline'), online);
+
+        if (gross !== currentGross)
+            animateCount($('#GrossIBNR'), gross);
+        if (net !== currentNet)
+            animateCount($('#NetIBNR'), net);
     });
 }
 
@@ -55,29 +66,29 @@ function destroyCanvasChart(canvas) {
 }
 
 function ChartLiveScreen() {
-    $(document).ready(function () {
-        $('.counter').each(function () {
-            let $this = $(this);
-            let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
-            let current = 0;
-            let duration = 3000;
-            let steps = 60;
-            let increment = target / steps;
+    //$(document).ready(function () {
+    //    $('.counter').each(function () {
+    //        let $this = $(this);
+    //        let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
+    //        let current = 0;
+    //        let duration = 3000;
+    //        let steps = 60;
+    //        let increment = target / steps;
 
-            function formatNumber(num) {
-                return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
+    //        function formatNumber(num) {
+    //            return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //        }
 
-            let counter = setInterval(function () {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(counter);
-                }
-                $this.text(formatNumber(current));
-            }, duration / steps);
-        });
-    });
+    //        let counter = setInterval(function () {
+    //            current += increment;
+    //            if (current >= target) {
+    //                current = target;
+    //                clearInterval(counter);
+    //            }
+    //            $this.text(formatNumber(current));
+    //        }, duration / steps);
+    //    });
+    //});
 
     updatCard('/Dashboard/getLiveCard');
 
@@ -232,6 +243,7 @@ function ChartLiveScreen() {
                     datasets: [
                         {
                             label: 'إجمالي الاستهلاك',
+                            data: grossValues,
                             backgroundColor: '#337ab7',
                             borderColor: '#24669c',
                             borderWidth: 2,
@@ -1380,7 +1392,7 @@ function ChartProvidersScreen() {
         type: 'bar',
         data: {
             labels: [
-                'مستشفى الجوى',
+                'مستشفي الجوى',
                 'مستشفى القاهرة التخصصى- داخلى',
                 'صيدلية محمد منير خفاجى',
                 'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
@@ -1396,22 +1408,23 @@ function ChartProvidersScreen() {
                 data: [
                     11935995.83,
                     10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
+                    7363130.68,
+                    6218001.07,
+                    5934788.21,
                     4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
+                    4398819.72,
+                    3853259.21,
+                    3635896.46,
                     3071241.26
                 ],
                 backgroundColor: '#36a2ebb3',
-                            borderColor: '#36a2eb',
-                            borderWidth: 2,
-                            borderRadius: 5,
-                            borderSkipped: false, 
+                borderColor: '#36a2eb',
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false
             }]
         }
+
         ,
         options: {
             scales: {
