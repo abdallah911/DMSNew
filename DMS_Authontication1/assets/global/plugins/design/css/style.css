@@ -2008,6 +2008,56 @@ li.dash-refresh-icon i {
     font-size: 18px;
     cursor: pointer;
 }
+
+/*=====Table======*/
+.graph-box.table .box {
+    width: 80%;
+}
+.graph-box.table {
+    gap: 20px;
+    display: flex;
+    /*align-items: start;*/
+    flex-wrap:wrap;
+}
+.graph-table {
+    width: calc(20% - 20px);
+}
+.graph-table table {
+    width: 100%;
+    height: 100%; 
+}
+.graph-table tbody {
+    border: 1px solid #186bb321;
+}
+.graph-table thead {
+    background: #337ab7;
+    border: 1px solid #337ab7;
+}
+.graph-table tr {
+    border-bottom: 1px solid #186bb321;
+}
+.graph-table tr:last-of-type {
+    border-bottom: unset;
+}
+.table thead tr th {
+    padding: 8px !important;
+    border-right: 1px solid #e1e1e1c4;
+    font-size: 10px;
+    font-weight: 700;
+}
+.table thead tr th:last-of-type { 
+    border-right: unset;
+}
+.graph-table tr td {
+    padding: 8px !important;
+    border-right: 1px solid #186bb321;
+    background: #eeeeee;
+    font-size: 10px;
+    font-weight: 600;
+}
+.graph-table tr td:last-of-type { 
+    border-right:unset; 
+}
 @media (min-width:991px) {  
     .dashboard-categories {
         display:block;
@@ -2026,7 +2076,12 @@ li.dash-refresh-icon i {
     .card-graph {
         width: 100%;
     }
-    .consumption 
+    .graph-table {
+        width: 100%;
+    }
+    .graph-box.table .box {
+        width: 100% !important;
+    }
 }
 @media (max-width:767px) {
     .dashboard-categories {

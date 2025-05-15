@@ -13,7 +13,7 @@ function ChartLiveScreen() {
             let $this = $(this);
             let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
             let current = 0;
-            let duration = 3000;  
+            let duration = 3900;  
             let steps = 60;       
             let increment = target / steps;
     
