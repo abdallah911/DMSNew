@@ -554,6 +554,50 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
+        public DataTable getApprovalMatarMonth()
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+
+                cmd = new OracleCommand(@"              SELECT    COUNT(CODE)
+                                                        FROM      MEDICAL_APPROVALS 
+                                                        WHERE     TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE('1 May 2025')) AND TRUNC(TO_DATE('31 May 2025')) AND COMPANY_ID IN (500118, 500119, 500120, 500121, 500122) AND active = 'Y'", con);
+
+
+
+                cmd.Parameters.Clear();
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
         public DataTable getApprovalMatarCountMonth()
         {
             OracleConnection con = new OracleConnection(connectionStr);

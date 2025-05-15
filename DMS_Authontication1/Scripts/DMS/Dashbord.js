@@ -1,6 +1,10 @@
 ﻿$('#refreshData').on('click', function () {    
-    ChartLiveScreenMonth();
+    if ($('#AllContract').hasClass('active'))
+        ChartLiveScreen();
+    else
+        ChartLiveScreenMonth();
 });
+
 $('#AllContract').on('click', function () {    
     ChartLiveScreen();
 });
@@ -31,36 +35,41 @@ function ChartLiveScreen() {
             }, duration / steps);
         });
     });
-    $(document).ready(function () {
+
+    updatCard();
+
+    //$(document).ready(function () {
         
-        function animateCount($el, target) {
+    //    function animateCount($el, target) {
             
-            $el.stop(true, true);
+    //        $el.stop(true, true);
         
-            $({ countNum: 0 }).animate({ countNum: target }, {
-                duration: 1200, //  
-                easing: 'swing',
-                step: function () {
-                    $el.text(Math.floor(this.countNum));
-                },
-                complete: function () {
-                    $el.text(this.countNum);
-                }
-            });
-        }
+    //        $({ countNum: 0 }).animate({ countNum: target }, {
+    //            duration: 1200, //  
+    //            easing: 'swing',
+    //            step: function () {
+    //                $el.text(Math.floor(this.countNum));
+    //            },
+    //            complete: function () {
+    //                $el.text(this.countNum);
+    //            }
+    //        });
+    //    }
+
+
+
+    //    //$.ajax({
+    //    //    type: "GET",
+    //    //    url: '/Dashboard/getLiveCard',
+    //    //    success: function (data) { 
+    //    //        let approval = parseInt(data.Approv) || 0;
+    //    //        let online = parseInt(data.Onlin) || 0;
         
-        $.ajax({
-            type: "GET",
-            url: '/Dashboard/getLiveCard',
-            success: function (data) { 
-                let approval = parseInt(data.Approv) || 0;
-                let online = parseInt(data.Onlin) || 0;
-        
-                animateCount($('#NumberApproval'), approval);
-                animateCount($('#NumberOnline'), online);
-            }
-        });
-    });
+    //    //        animateCount($('#NumberApproval'), approval);
+    //    //        animateCount($('#NumberOnline'), online);
+    //    //    }
+    //    //});
+    //});
 
     const pie4 = document.getElementById('pieChart4');
 
@@ -486,6 +495,9 @@ function ChartLiveScreenMonth() {
         });
     });
     updatCard();
+
+
+
     const pie4 = document.getElementById('pieChart4');
 
     const graphSix = document.getElementById('graphChartSix');
@@ -778,30 +790,56 @@ function updatCard() {
             });
         }
 
-
-        $.ajax({
-            type: "GET",
-            url: '/Dashboard/getLiveCardMonth',
-            success: function (data) {
-                let approval = parseInt(data.Approv) || 0;
-                let online = parseInt(data.Onlin) || 0;
-
-
-                let currentApproval = parseInt($('#NumberApproval').text().replace(/,/g, '')) || 0;
-                let currentOnline = parseInt($('#NumberOnline').text().replace(/,/g, '')) || 0;
+        if ($('#AllContract').hasClass('active')) {
+            $.ajax({
+                type: "GET",
+                url: '/Dashboard/getLiveCard',
+                success: function (data) {
+                    let approval = parseInt(data.Approv) || 0;
+                    let online = parseInt(data.Onlin) || 0;
 
 
-                if (approval !== currentApproval) {
-                    animateCount($('#NumberApproval'), approval);
+                    let currentApproval = parseInt($('#NumberApproval').text().replace(/,/g, '')) || 0;
+                    let currentOnline = parseInt($('#NumberOnline').text().replace(/,/g, '')) || 0;
+
+
+                    if (approval !== currentApproval) {
+                        animateCount($('#NumberApproval'), approval);
+                    }
+
+                    if (online !== currentOnline) {
+                        animateCount($('#NumberOnline'), online);
+                    }
+                    //animateCount($('#NumberApproval'), approval);
+                    //animateCount($('#NumberOnline'), online);
                 }
+            });
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                url: '/Dashboard/getLiveCardMonth',
+                success: function (data) {
+                    let approval = parseInt(data.Approv) || 0;
+                    let online = parseInt(data.Onlin) || 0;
 
-                if (online !== currentOnline) {
-                    animateCount($('#NumberOnline'), online);
+
+                    let currentApproval = parseInt($('#NumberApproval').text().replace(/,/g, '')) || 0;
+                    let currentOnline = parseInt($('#NumberOnline').text().replace(/,/g, '')) || 0;
+
+
+                    if (approval !== currentApproval) {
+                        animateCount($('#NumberApproval'), approval);
+                    }
+
+                    if (online !== currentOnline) {
+                        animateCount($('#NumberOnline'), online);
+                    }
+                    //animateCount($('#NumberApproval'), approval);
+                    //animateCount($('#NumberOnline'), online);
                 }
-                //animateCount($('#NumberApproval'), approval);
-                //animateCount($('#NumberOnline'), online);
-            }
-        });
+            });
+        }        
 
     });
 }

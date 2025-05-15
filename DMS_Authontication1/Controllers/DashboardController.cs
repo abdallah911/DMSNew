@@ -457,7 +457,6 @@ namespace DMS_Authontication1.Controllers
                        
             return Json(allData, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetAllConsumOther()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
@@ -518,8 +517,6 @@ namespace DMS_Authontication1.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
         public JsonResult getLiveCardMonth()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
@@ -534,7 +531,7 @@ namespace DMS_Authontication1.Controllers
             DateTime endDate = new DateTime(2025, 05, 31);
 
 
-            Approv = dbOra.getApprovalMatar().Rows[0][0].ToString();
+            Approv = dbOra.getApprovalMatarMonth().Rows[0][0].ToString();
             var comp = new[] { "500118", "500119", "500120", "500121", "500122" };
             var managers = new[] { "Daily", "Monthly", "Pharmacy_Chronic", "Pharmacy_Doctor", "Lab", "Ray" };
 
@@ -672,7 +669,6 @@ namespace DMS_Authontication1.Controllers
 
             return Json(allData, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult GetAllConsumOtherMonth()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);

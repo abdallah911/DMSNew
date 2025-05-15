@@ -13,22 +13,69 @@ namespace DMS_Authontication1.Controllers
        
         private DMS_TESTEntities db = new DMS_TESTEntities();
         private ApplicationDbContext db2 = new ApplicationDbContext();
-        void getAllCompany()
+        //void getAllCompany()
+        //{
+        //    var companyname = db.Contract_Comp.Select(c => new
+        //    {
+        //        COMP_ID = c.C_COMP_ID,
+        //        Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+        //    }).ToList();
+        //    SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+        //    ViewBag.company = companylist;
+        //}
+        void getAllCompanyByUser()
         {
-            var companyname = db.Contract_Comp.Select(c => new
+            if (User.IsInRole("HR_Admin"))
             {
-                COMP_ID = c.C_COMP_ID,
-                Name = c.C_ANAME + " || " + c.C_COMP_ID
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
-            }).ToList();
-            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
-            ViewBag.company = companylist;
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }               
+            }
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                int compa = int.Parse(db2.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider);
+
+                var Companies = db.Contract_Comp.Where(x => x.C_COMP_ID == compa)
+                    .Select(c => new
+                    {
+                        Code = c.C_COMP_ID,
+                        Name = c.C_ENAME + " || " + c.C_COMP_ID
+                    }).ToList(); ;
+
+                SelectList companylist = new SelectList(Companies, "Code", "Name");
+                ViewBag.company = companylist;               
+            }
         }
-
         #region Operation 
         public ActionResult OperationReport()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             return View();
         }
@@ -471,7 +518,7 @@ namespace DMS_Authontication1.Controllers
         #region Approval 
         public ActionResult ApprovalReports()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             return View();
         }
@@ -876,7 +923,7 @@ namespace DMS_Authontication1.Controllers
         #region Consumption
         public ActionResult ConsumptionReport()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             return View();
         }
@@ -1202,7 +1249,7 @@ namespace DMS_Authontication1.Controllers
         #region LoseRatio
         public ActionResult ReportsLoseRatio()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             return View();
         }
@@ -1344,7 +1391,7 @@ namespace DMS_Authontication1.Controllers
         #region Pharmacy
         public ActionResult ReportsPharmacy()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             var usersname = db2.Users.Where(u => u.UserName != "").Select(c => new
             {
@@ -1373,7 +1420,7 @@ namespace DMS_Authontication1.Controllers
         #region Printing
         public ActionResult ReportsPrinting()
         {
-            getAllCompany();
+            getAllCompanyByUser();
 
             return View();
         }
