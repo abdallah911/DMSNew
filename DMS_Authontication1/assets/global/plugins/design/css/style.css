@@ -1956,31 +1956,38 @@ p.ratio {
     margin-left: 20px;
 }
 
-.dash-tabs li.nav-item {
-    border: none !important;
+.dash-tabs li.nav-item a {
+    border: 1px solid #337ab7 !important;
     background: #337ab7;
+    margin: 0;
+    color:white
 }
 .dash-tabs li.nav-item.first {
     border-right: 1px solid white !important;
 }
-.dash-tabs li.nav-item.second {
-    border-radius: 0 8px 8px  0 ;
+.dash-tabs li.nav-item.second a {
+    border-radius: 0 8px 8px 0;
     border-right: 1px solid white !important;
 }
+.dash-tabs li.nav-item a.active {
+    border: 1px solid #c4c4c4 !important;
+    color: #337ab7 !important;
+    background: transparent !important;
+}
 .dash-tabs li.nav-item:hover {
-    background: #30699b !important;
+    /*background: #30699b !important;*/
 }
 .dash-tabs li.nav-item:active {
     background: white !important;
 
 }
-.dash-tabs li.nav-item a {
-    color: white;
-    border: none !important;
-}
-.dash-tabs li.nav-item a:hover {
-    background: unset;
-}
+.dash-tabs li.nav-item:active a {
+    color: rgb(51 122 183) !important;
+} 
+    .dash-tabs li.nav-item a:hover  {
+        background: #30699b !important;
+        color: white !important;
+    }
 li.nav-item.dash-filter-icon {
     padding: 10px;
     border-radius: 8px 0 0 8px;
@@ -1995,6 +2002,7 @@ li.dash-filter-icon {
     background: #dfdfdf;
     border-radius: 8px 0 0 8px;
     color: #337ab7;
+    border: 1px solid #dfdfdf;
 }
 .dash-tabs {
     align-items: center;
@@ -2007,6 +2015,56 @@ li.dash-refresh-icon i {
     padding: 13px 10px;
     font-size: 18px;
     cursor: pointer;
+}
+
+/*=====Table======*/
+.graph-box.table .box {
+    width: 80%;
+}
+.graph-box.table {
+    gap: 20px;
+    display: flex;
+    /*align-items: start;*/
+    flex-wrap:wrap;
+}
+.graph-table {
+    width: calc(20% - 20px);
+}
+.graph-table table {
+    width: 100%;
+    height: 100%; 
+}
+.graph-table tbody {
+    border: 1px solid #186bb321;
+}
+.graph-table thead {
+    background: #337ab7;
+    border: 1px solid #337ab7;
+}
+.graph-table tr {
+    border-bottom: 1px solid #186bb321;
+}
+.graph-table tr:last-of-type {
+    border-bottom: unset;
+}
+.table thead tr th {
+    padding: 8px !important;
+    border-right: 1px solid #e1e1e1c4;
+    font-size: 10px;
+    font-weight: 700;
+}
+.table thead tr th:last-of-type { 
+    border-right: unset;
+}
+.graph-table tr td {
+    padding: 8px !important;
+    border-right: 1px solid #186bb321;
+    background: #eeeeee;
+    font-size: 10px;
+    font-weight: 600;
+}
+.graph-table tr td:last-of-type { 
+    border-right:unset; 
 }
 @media (min-width:991px) {  
     .dashboard-categories {
@@ -2026,7 +2084,18 @@ li.dash-refresh-icon i {
     .card-graph {
         width: 100%;
     }
-    .consumption 
+    .graph-table {
+        width: 100%;
+    }
+    .graph-box.table .box {
+        width: 100% !important;
+    }
+    .cards-parent .graph-box {
+        width:100% !important;
+    }
+    .graph-parent > div {
+        width: 100%;
+    }
 }
 @media (max-width:767px) {
     .dashboard-categories {

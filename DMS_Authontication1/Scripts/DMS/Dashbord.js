@@ -13,7 +13,7 @@ function ChartLiveScreen() {
             let $this = $(this);
             let target = parseFloat($this.attr('data-count').replace(/,/g, ''));
             let current = 0;
-            let duration = 3000;  
+            let duration = 3900;  
             let steps = 60;       
             let increment = target / steps;
     
@@ -174,16 +174,22 @@ function ChartLiveScreen() {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#2362c1',
-                            yAxisID: 'amount'
+                           label: 'Fully Rounded',
+                           data: Utils.numbers(NUMBER_CFG),
+                                borderColor: Utils.CHART_COLORS.red,
+                                backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+                                borderWidth: 2,
+                                borderRadius: Number.MAX_VALUE,
+                                borderSkipped: false,
                         },
                         {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#3fa1fc',
-                            yAxisID: 'amount'
+                           label: 'Fully Rounded',
+                           data: Utils.numbers(NUMBER_CFG),
+                                borderColor: Utils.CHART_COLORS.red,
+                                backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+                                borderWidth: 2,
+                                borderRadius: Number.MAX_VALUE,
+                                borderSkipped: false,
                         }
                     ]
                 },
@@ -1690,16 +1696,16 @@ function ChartEmployeesScreen() {
         type: 'bar',
         data: {
             labels: [
-                'Less tan 10,000',
-                'From 10,000 To 40,000',
-                'From 40,000 To 60,000',
-                'From 60,000 To 80,000',
-                'From 80,000 To 100,000',
-                'From 100,000 To 200,000',
-                'From 200,000 To 300,000',
-                'From 300,000 To 400,000',
-                'From 400,000 To 500,000',
-                'Grater Than 500,000'
+                'Less tan 10k',
+                'From 10k To 40k',
+                'From 40k To 60k',
+                'From 60k To 80k',
+                'From 80k To 100k',
+                'From 100k To 200k',
+                'From 200k To 300k',
+                'From 300k To 400k',
+                'From 400k To 500k',
+                'Grater Than 500k'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
@@ -1747,16 +1753,16 @@ function ChartEmployeesScreen() {
         type: 'line',
         data: {
             labels: [
-                'Less than 10,000',
-                'From 10,000 To 40,000',
-                'From 40,000 To 60,000',
-                'From 60,000 To 80,000',
-                'From 80,000 To 100,000',
-                'From 100,000 To 200,000',
-                'From 200,000 To 300,000',
-                'From 300,000 To 400,000',
-                'From 400,000 To 500,000',
-                'Greater Than 500,000'
+                'Less than 10k',
+                'From 10k To 40k',
+                'From 40k To 60k',
+                'From 60k To 80k',
+                'From 80k To 100k',
+                'From 100k To 200k',
+                'From 200k To 300k',
+                'From 300k To 400k',
+                'From 400k To 500k',
+                'Greater Than 500k'
             ],
             datasets: [{
                 label: 'عدد الحالات',
