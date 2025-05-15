@@ -101,15 +101,26 @@
                     <div class="col-sm-2" hidden id="Hidden">
                         <label style="font-size:medium; margin-left:12px;">Reasons</label>
 
-                        @* <input type="hidden" id="textBoxVal" />*@
-                        <select class="mySelect2" multiple style="width :280px;" name="SelectVal" id="SelectVal"></select>
+                        <select class="mySelect2" multiple style="width :200px;" name="SelectVal" id="SelectVal"></select>
+                    </div>
+
+                    <div class="col-sm-2" hidden id="Patient">
+                        <label style="font-size:medium; margin-left:12px;">Patient Amount</label>
+
+                        <input class="form-control" name="PercentPercent" id="PercentAmount" type="number" />
+                    </div>
+
+                    <div class="col-sm-2" hidden id="Percent">
+                        <label style="font-size:medium; margin-left:12px;">Patient Percent</label>
+
+                        <input class="form-control" name="PercentPercent" id="PercentPercent" type="number" min="0" max="100" />
                     </div>
 
                 </div>
 
                 <div class="row">
 
-                    <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
+                    <button style="width:110px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
 
 
                 </div>
@@ -136,12 +147,16 @@
 
         document.getElementById("Hidden").hidden = false;
         document.getElementById("Hidde").hidden = false;
+        document.getElementById("Patient").hidden = false;
+        document.getElementById("Percent").hidden = false;
 
     }
     function Function() {
 
         document.getElementById("Hidden").hidden = true;
         document.getElementById("Hidde").hidden = true;
+        document.getElementById("Patient").hidden = true;
+        document.getElementById("Percent").hidden = true;
 
     }
     $(document).ready(function () {
@@ -168,6 +183,19 @@
             }
 
         });
+    });
+    $('.mySelect2').on('select2:selecting', function (event) {
+        var Code = event.params.args.data.id;
+        console.log(Code);
+        console.log(Code=="1");
+
+
+    });
+    $('#SelectVal').on("select2:unselecting", function (event) {
+        var Code = event.params.args.data.id;
+        console.log(Code);
+
+
     });
     var dat1;
     var StartDate;
