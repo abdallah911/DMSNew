@@ -434,7 +434,7 @@ $(function () {
                             $.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: '/Pharmacy/GetLastApproval',
+                                url: '/Pharmacy/GetLastApprovalObject',
                                 data: { CardId: $('#txtSearchCard').val(), Type: 3 },
                                 success: function (returndata) {
                                     if (returndata == false) {
@@ -460,7 +460,9 @@ $(function () {
                                     }
                                     else {
                                         var Copayment = false;
+                                        var PatientPercent = 0;
                                         var Limit = false;
+                                        var PatientAmount = 0;
                                         var Adult = false;
                                         var Date = false;
                                         var Diagnose = false;
@@ -469,17 +471,22 @@ $(function () {
                                         var ExternalPrescription = false;
                                         var PrescriptionPerDay = false;
                                         var PrescriptionCount = false;
+                                        var ReasonsView = "";
+                                        debugger;
                                         for (var i = 0; i < returndata.length; i++) {
-                                            Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
-                                            Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
-                                            Adult = Adult == true ? true : returndata[i].includes("Ignore Age");
-                                            Date = Date == true ? true : returndata[i].includes("Expired Date");
-                                            Diagnose = Diagnose == true ? true : returndata[i].includes("Diagnose");
-                                            Gender = Gender == true ? true : returndata[i].includes("Ignore Gender");
-                                            DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
-                                            ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
-                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
-                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].includes("Ignore Prescription Count");
+                                            Copayment = Copayment == true ? true : returndata[i].Name.includes("Cancel Co-Payment");
+                                            PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent ;
+                                            Limit = Limit == true ? true : returndata[i].Name.includes('Disregard OverInsurance');
+                                            PatientAmount = Limit == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
+                                            Adult = Adult == true ? true : returndata[i].Name.includes("Ignore Age");
+                                            Date = Date == true ? true : returndata[i].Name.includes("Expired Date");
+                                            Diagnose = Diagnose == true ? true : returndata[i].Name.includes("Diagnose");
+                                            Gender = Gender == true ? true : returndata[i].Name.includes("Ignore Gender");
+                                            DisregardCeiling = DisregardCeiling == true ? true : returndata[i].Name.includes("Disregard Ceiling");
+                                            ExternalPrescription = ExternalPrescription == true ? true : returndata[i].Name.includes("External Prescription");
+                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].Name.includes("Unlimited Examination per day");
+                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].Name.includes("Ignore Prescription Count");
+                                            ReasonsView = ReasonsView + returndata[i].Name+" , ";
 
                                         }
                                         if (PrescriptionCount == true) {
@@ -533,11 +540,11 @@ $(function () {
                                         }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);
-                                            AnuualLimit = $('#AllLimit').val();
+                                            AnuualLimit = parseInt($('#AllLimit').val()) - PatientAmount;
                                             Calculation();
                                         }
                                         if (Copayment == true) {
-                                            $("#ddEmp_CEILING_PERT").val(100);
+                                            $("#ddEmp_CEILING_PERT").val(100 - PatientPercent);
                                             Calculation();
                                         }
                                         if (Date == true) {
@@ -587,7 +594,6 @@ $(function () {
                                                         } else {
                                                             alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
                                                             $("#insurance_LIVEL").val("0.001");
-
                                                             $('#ddEmp_CEILING_PERT').val("0");
                                                         }
                                                     }
@@ -606,7 +612,7 @@ $(function () {
                                         }
                                         bootbox.dialog({
                                             title: 'Reasons',
-                                            message: returndata + " ",
+                                            message: ReasonsView,
                                             buttons: {
                                                 Ok: {
                                                     label: "Ok",

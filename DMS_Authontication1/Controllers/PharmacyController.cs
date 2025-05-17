@@ -3015,6 +3015,22 @@ namespace DMS_TEST.Controllers
                 .ToList();
             return new JsonResult { Data = reasons, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        //GetLastApprovalObject
+        public JsonResult GetLastApprovalObject(string CardId, int Type = 3)
+        {
+            DateTime datenow = DateTime.Now.Date;
+            //Default is pharmacy=3
+            int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+            var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == Type).OrderByDescending(d => d.Id).FirstOrDefault();
+            if (accption == null)
+            {
+                return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id)
+                .Select(x => new { Name = x.AcceptionReason.Name, PatientAmount = x.PatientAmount, PatientPercent = x.PatientPercent })
+                .ToList();
+            return new JsonResult { Data = reasons, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         //GetRoshitaApproval
         public JsonResult GetRoshitaApproval(int RoshitaId, int Type = 3)
         {
@@ -4770,13 +4786,13 @@ namespace DMS_TEST.Controllers
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
                 var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
-                
+
                 if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
                 {
                     @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
-                    return View("~/Views/Shared/Error.cshtml");                  
+                    return View("~/Views/Shared/Error.cshtml");
                 }
-                
+
                 List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch, CompHoder)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {

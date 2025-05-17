@@ -20,6 +20,8 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsSync { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
+        public Nullable<double> PatientPercent { get; set; }
+        public Nullable<double> PatientAmount { get; set; }
     
         public virtual AcceptionReason AcceptionReason { get; set; }
     }
