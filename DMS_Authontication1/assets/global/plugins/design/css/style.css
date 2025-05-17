@@ -1966,8 +1966,8 @@ p.ratio {
 .dash-tabs li.nav-item.first {
     /*border-right: 1px solid white !important;*/
 }
-.dash-tabs li.nav-item.second a {
-    border-radius: 0 8px 8px 0; 
+.dash-tabs li.nav-item:last-of-type a {
+    border-radius: 0 8px 8px 0;
 }
 .dash-tabs li.nav-item a.active {
     /*border: none  ;*/

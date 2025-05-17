@@ -3,8 +3,8 @@
     <div class="d-flex no-wrap">
         <ul class="nav nav-tabs dash-tabs d-flex" style="border-bottom: none; " id="myTab" role="tablist">
             <li class="dash-filter-icon"> <i class="fas fa-filter"></i></li>
-            <li class="nav-item first" role="presentation"><a class="nav-link active" id="CurrentMonth" data-bs-toggle="tab" data-bs-target="#First" role="tab" aria-controls="First" aria-selected="false">Current Month</a></li>
-            <li class="nav-item second" role="presentation"><a class="nav-link " id="AllContract" data-bs-toggle="tab" data-bs-target="#Second" role="tab" aria-controls="Second" aria-selected="true">All</a></li>
+            <li class="nav-item  " ><a class=" dash-link active" id="CurrentMonth"  >Current Month</a></li>
+            <li class="nav-item  " ><a class=" dash-link " id="AllContract"  >All</a></li>
         </ul>
         <div class="dash-refresh-icon" id="refreshData"><i class="fas fa-sync-alt"></i></div>
     </div>
@@ -91,3 +91,11 @@
 
 <script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>
 
+<script>
+    $(document).ready(function () {
+        $('.dash-link').on('click', function () {
+            $('.dash-link').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>

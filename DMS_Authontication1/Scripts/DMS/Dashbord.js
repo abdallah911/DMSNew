@@ -221,6 +221,14 @@ function ChartLiveScreen() {
                                 display: true,
                                 text: 'القيمة'
                             },
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 14,
+                                    family: "Open Sans"
+                                }
+                            }
                             ticks: {
                                 callback: function (value) {
                                     return value.toLocaleString('en-US');
@@ -234,7 +242,9 @@ function ChartLiveScreen() {
                                 label: function (context) {
                                     const value = context.raw;
                                     return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+
                                 },
+
                                 afterBody: function (context) {
                                     const index = context[0].dataIndex;
                                     const percent = percentages[index];
