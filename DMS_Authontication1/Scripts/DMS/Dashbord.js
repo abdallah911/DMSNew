@@ -1,4 +1,19 @@
-﻿$('#refreshData').on('click', function () {
+﻿$(document).ready(function () {
+    let $el = $('.dashboard-categories ul');
+    let offset = $el.offset().top;
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() >= offset) {
+            $el.addClass('fixed-top');
+        } else {
+            $el.removeClass('fixed-top');
+        }
+    });
+});
+
+
+
+$('#refreshData').on('click', function () {
     ChartLiveScreenMonth();
 });
 $('#AllContract').on('click', function () {
