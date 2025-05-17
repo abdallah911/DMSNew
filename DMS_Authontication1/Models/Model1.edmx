@@ -200,6 +200,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="PatientPercent" Type="float" />
+          <Property Name="PatientAmount" Type="float" />
         </EntityType>
         <EntityType Name="CardCode">
           <Key>
@@ -4390,6 +4392,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AcceptionReason" Relationship="Self.FK_CardAcceptionReasons_AcceptionReasons" FromRole="CardAcceptionReasons" ToRole="AcceptionReasons" />
+          <Property Name="PatientPercent" Type="Double" />
+          <Property Name="PatientAmount" Type="Double" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D">
           <Key>
@@ -8810,6 +8814,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="CardAcceptionReasons">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardAcceptionReason">
               <MappingFragment StoreEntitySet="CardAcceptionReasons">
+                <ScalarProperty Name="PatientAmount" ColumnName="PatientAmount" />
+                <ScalarProperty Name="PatientPercent" ColumnName="PatientPercent" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="AcceptionId" ColumnName="AcceptionId" />
                 <ScalarProperty Name="AcceptionReasonsId" ColumnName="AcceptionReasonsId" />

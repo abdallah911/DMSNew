@@ -39,12 +39,13 @@ namespace DMS_Authontication1.ViewModel
         public string ApprovalType { get; set; }
         public Nullable<int> COMP_EMPLOYEESID { get; set; }
 
-        public string []Array  { get; set; }
+        public string[] Array { get; set; }
         [Display(Name = "Reasons")]
-        public string []  ReasonsList { get; set; }
+        public string[] ReasonsList { get; set; }
 
         public string[] ProvidersList { get; set; }
-
+        public double? PatientPercent { get; set; }
+        public double? PatientAmount { get; set; }
 
     }
 }
