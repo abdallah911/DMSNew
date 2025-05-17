@@ -1,17 +1,17 @@
-﻿$(document).ready(function () {
-    let $el = $('.dashboard-categories ul');
-    let offset = $el.offset().top;
+﻿ $(window).on('scroll resize', function () {
+    if ($(window).width() >= 767) {
+        var containerTop = $('.dashboard-categories ').offset().top;
+        var scrollTop = $(window).scrollTop();
 
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() >= offset) {
-            $el.addClass('fixed-top');
+        if (scrollTop >= containerTop - 20) {
+            $('.dashboard-categories ul').addClass('fixed-top');
         } else {
-            $el.removeClass('fixed-top');
+            $('.dashboard-categories ul').removeClass('fixed-top');
         }
-    });
+    } else {
+        containerTop.removeClass('fixed-top');
+    }
 });
-
-
 
 $('#refreshData').on('click', function () {
     ChartLiveScreenMonth();

@@ -1958,22 +1958,22 @@ p.ratio {
 }
 
 .dash-tabs li.nav-item a {
-    border: 1px solid #337ab7 !important;
+    border: none !important;
     background: #337ab7;
-    margin: 0;
-    color:white
+    margin: 0 !important;
+    color: white
 }
 .dash-tabs li.nav-item.first {
-    border-right: 1px solid white !important;
+    /*border-right: 1px solid white !important;*/
 }
 .dash-tabs li.nav-item.second a {
-    border-radius: 0 8px 8px 0;
-    border-right: 1px solid white !important;
+    border-radius: 0 8px 8px 0; 
 }
 .dash-tabs li.nav-item a.active {
-    border: 1px solid #c4c4c4 !important;
+    /*border: none  ;*/
     color: #337ab7 !important;
     background: transparent !important;
+    box-shadow: 0px -1px 1px 1px #1f116e1c;
 }
 .dash-tabs li.nav-item:hover {
     /*background: #30699b !important;*/
@@ -2003,10 +2003,13 @@ li.dash-filter-icon {
     background: #dfdfdf;
     border-radius: 8px 0 0 8px;
     color: #337ab7;
-    border: 1px solid #dfdfdf;
+    border: none;
 }
 .dash-tabs {
-    align-items: center;
+    align-items: start;
+    border  : 1px solid #337ab7 !important;
+    box-sizing: border-box !important;
+    border-radius: 8px;
 }
 .dash-refresh-icon i {
     background: #eee;
@@ -2091,13 +2094,10 @@ li.dash-filter-icon {
 }
 .dashboard-categories ul { 
     z-index: 999;
+    width:inherit;
 }
 
-.fixed-top {
-    position: fixed;
-    top:20px;
-    left: 12px;
-}
+
 @media (min-width:991px) {  
     .dashboard-categories {
         display:block;
@@ -2111,7 +2111,7 @@ li.dash-filter-icon {
         width: 100% !important;
     }
     h5.card-name { 
-        white-space: nowrap;
+        /*white-space: nowrap;*/
     }
     .card-graph {
         width: 100%;
@@ -2127,6 +2127,13 @@ li.dash-filter-icon {
     }
     .graph-parent > div {
         width: 100%;
+    }
+}
+@media (min-width:767px) {
+    .fixed-top {
+        position: fixed;
+        top:40px;
+        left: 12px;
     }
 }
 @media (max-width:767px) {
