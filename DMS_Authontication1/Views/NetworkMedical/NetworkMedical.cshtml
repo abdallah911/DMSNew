@@ -25,21 +25,21 @@
     <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
         <div class="forLabel px-2 border-0 ">
             <input type="text" id="txtCardId" value="@Model.CardId" class="border-2 admin-form-control w-100" style="text-align: right;" dir="ltr" readonly />
-            <span class="sios-color" style="right:20px;">رقم الكارت</span>
+            <span class="sios-color" style="right:20px;transform: translateY(-8px);">رقم الكارت</span>
         </div>
         <div class="forLabel px-2 border-0">
             @*<input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" readonly />*@
             <input type="text" id="txtName" value="@Model.EmpName" class="border-2 admin-form-control w-100" readonly />
 
-            <span class="sios-color" style="right:20px;">الإسم</span>
+            <span class="sios-color" style="right:20px;transform: translateY(-8px);">الإسم</span>
         </div>
         <div class="forLabel px-2 border-0">
             <input type="text" id="startDate" value="@Model.StartDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">تاريخ البداية</span>
+            <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ البداية</span>
         </div>
         <div class="forLabel px-2 border-0">
             <input type="text" id="endDate" value="@Model.EndDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">تاريخ النهاية</span>
+            <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ النهاية</span>
         </div>
     </div>
     <div class="row bg-overlay mb-4 portlet-title">
@@ -56,7 +56,7 @@
 
         @*  <p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(@Model.Notes)</p>*@
 
-        <ul class="h5 container mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">
+        <ul class="operation-instructions h5 container mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">
             @if (string.IsNullOrEmpty(@Model.Mesage))
             {
                 if (@Model.Notes != null)
@@ -109,7 +109,7 @@
                 المنطقة
             </span>
         </div>
-        <div class="d-flex gap-2 mt-3">
+        <div class="d-flex gap-2 justify-content-sm-center justify-content-md-start  mt-md-3">
             <div class=" ">
                 <button id="Search" type="button" class="btn fw-bold rounded-3" onclick="SearchProvider()">
                     <span class="glyphicon glyphicon-search"></span> بحث
@@ -165,7 +165,7 @@
         </div>
         if (Model.CardId.StartsWith("10000-VIP-100159-1"))
         {
-            <div class="px-2">
+            <div class="container px-4 mb-3">
                 <input id="Back" type="button" value="Upload Claim Photo" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
             </div>
         }
