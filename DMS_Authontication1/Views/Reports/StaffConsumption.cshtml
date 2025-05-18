@@ -76,7 +76,7 @@
                                     <div class="tab-content">
                                         <div asp-validation-summary="All" class="text-danger"></div>
 
-                                        <div class="row d-flex flex-column row-gap-2 " >
+                                        <div class="row d-flex flex-column row-gap-2 ">
                                             @*Date of Registration*@
                                             <div class="labeled-file-box col-md-8">
                                                 <div class=" ">
@@ -99,35 +99,36 @@
 
 
 
-                                            @if (User.IsInRole("HR_Admin"))
-                                            {
-                                                <div class="forLabel col-md-8">
-                                                    <div class="col-md-6">
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
-
+                                            <div class="labeled-file-box  col-md-8">
+                                                @if (User.IsInRole("HR_Admin"))
+                                                {
+                                                    <div class=" ">
+                                                        <span>
+                                                            <label class="">
+                                                                Copmany Number
+                                                            </label>
+                                                        </span>
+                                                        <div class="field">
+                                                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
+                                                        </div>
                                                     </div>
-                                                    <span>
-                                                        <label class="">
-                                                            Copmany Number
-                                                        </label>
-                                                    </span>
                                                     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
                                                     <script>
                                                         $(document).ready(function () {
                                                             $('#CopmanyNumber').select2();
                                                         });
                                                     </script>
-                                                    }
-                                                    else
-                                                    {
+                                                }
+                                                else
+                                                {
                                                     <div class="col-md-6" hidden>
                                                         <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
 
                                                     </div>
 
-                                                </div>
-                                            }
 
+                                                }
+                                            </div>
 
                                             @* Card Number *@
 
@@ -193,25 +194,25 @@
                                                             Print Type
                                                         </label>
                                                     </span>
+                                                    <div class="checkboxs-parent"> 
+                                                        <div class=" ">
+                                                            <div class="checkbox-inline">
+                                                                <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                                <label for="pdf">
+                                                                    PDF
+                                                                </label>
+                                                            </div>
+                                                        </div>
 
-                                                    <div class="col-md-2">
-                                                        <div class="checkbox-inline">
-                                                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                            <label for="pdf">
-                                                                PDF
-                                                            </label>
+                                                        <div class=" ">
+                                                            <div class="checkbox-inline">
+                                                                <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                                <label for="excel">
+                                                                    EXCEL
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-md-2">
-                                                        <div class="checkbox-inline">
-                                                            <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                            <label for="excel">
-                                                                EXCEL
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
 

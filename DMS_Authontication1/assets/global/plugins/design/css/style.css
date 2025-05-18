@@ -1680,7 +1680,77 @@ li a.active img.black {
 li a.active img.white {
     display: none !important;
 }
-/*=====================Dashboard==============================================*/
+/*=====================Hr===============*/
+.upload-file-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid #c2cad8;
+    border-radius: 4px;
+    height: 40px;
+}
+.upload-file-box > span:first-of-type {
+    width: 40%;
+    color: #337ab7;
+}
+.upload-file-box input {
+    width: 60%;
+    /* border: none !important; */
+    /* background: #d8d8d8; */
+    margin: 4px;
+    border: 1px solid #c2cad8 !important;
+}
+.upload-file-box span label {
+    width: unset;
+}
+.download-file-box {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 80px;
+    border: 2px solid #c2cad8;
+    border-radius: 4px;
+    margin:0;
+}
+    .download-file-box label {
+        width: unset;
+        color: #337ab7;
+    }
+label{
+    padding-left:0
+}
+.labeled-file-box > span:first-of-type {
+    width: 40%;
+    color: #337ab7;
+    padding-left: 20px;
+}
+span.select2-selection.select2-selection--single  {
+    width: 100% !important ;
+
+    /* padding: 0; */
+}
+.labeled-file-box span.selection {
+    padding: 0 4px 0 10px !important;
+}
+.reports .labeled-file-box span.selection {
+    padding: 0 !important;
+}
+span.selection {
+    display: inline-block;
+    width: 100% !important;
+    height: 100%;
+    /*padding-right: 4px;*/
+}
+.reports .checkbox-inline {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+}
+.reports .checkboxs-parent {
+    display: flex;
+    gap: 30px;
+}
+/*=====================Dashboard===============*/
 
 .dashboard-box {
     /*margin: 20px 0;*/
@@ -2179,9 +2249,12 @@ div  label {
 .labeled-file-box {
     white-space:nowrap
 }
+.labeled-file-box .field {
+    /*width:100%;*/
+}
 
     .labeled-file-box > div {
-        border: 2px solid #c2cad8;
+        border: 2px solid #c2cad8 !important;
         display: flex;
         padding: 2px 0;
         border-radius: 4px;
@@ -2201,24 +2274,45 @@ div  label {
         text-align: center;
     }
     .labeled-file-box span.select2.select2-container.select2-container--default {
-        height: 90%; 
+        height: 34px;
     }
     .labeled-file-box span.select2-selection.select2-selection--single {
-        border: 1px solid #c2cad8; 
+        border: 1px solid #c2cad8;
+        padding-top:0;
     }
-    .labeled-file-box span {
+    .labeled-file-box div > span:first-of-type {
         width: 40%;
         color: #337ab7;
+        padding-left: 20px;
+        font-weight:700;
+    }
+
+    .labeled-file-box span.select2.select2-container.select2-container--default {
+        padding-left: 0 !important;
+    }
+    .labeled-file-box label {
+        padding-left: 0 !important;
+        font-weight: 700;
+        text-align: start !important;
     }
     .reports .labeled-file-box label { 
         width: 35%;
     }
-.reports .selected-date {
+.reports .selected-date,
+.reports .labeled-file-box .field {
     display: flex;
     gap: 10px;
     width: 60%;
     height: 38px;
     align-items: center;
+    margin-right: 6px;
+}
+.double-field {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-right: 6px;
+    gap: 4px;
 }
 /* ====================footer========================================== */
 

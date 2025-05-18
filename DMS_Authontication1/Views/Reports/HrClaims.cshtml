@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <div class="row d-flex flex-wrap row-gap-2">
+                <div class="row d-flex flex-wrap row-gap-2 mb-3">
                     <div class="col-md-4">
                         <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
                     </div>
@@ -87,7 +87,7 @@
                     </div>
                     @if (User.IsInRole("HR_Admin"))
                     {
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="height: 34px;">
                             @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
 
                         </div>

@@ -147,7 +147,7 @@
                                                         }
                                                         else
                                                         {
-                                                            <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                            <input id="CopmanyNumber" type="number" class="  form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
 
                                                       
                                                     }
@@ -159,14 +159,18 @@
 
                                             @* Service provider number *@
 
-                                            <div class="forLabel col-md-8"> 
-                                                <input id="SerProvNumber"required type="number" class="col-md-2 form-control " min="0" />
-                                                <span>
-                                                    <label class="control-label sbold col-md-4">
-                                                        Service Provider Number
-                                               
-                                                    </label>
-                                                </span> 
+                                            <div class="labeled-file-box col-md-8"> 
+                                                <div>
+                                                    <span>
+                                                        <label class="control-label fw-bold col-md-4">
+                                                            Service Provider Number
+
+                                                        </label>
+                                                    </span>
+                                                    <div class="field" style="width:60%">
+                                                        <input id="SerProvNumber" required type="number" class="w-100 form-control " min="0" />
+                                                    </div>
+                                                </div>
                                             </div>
                                             
 
@@ -179,7 +183,7 @@
                                                             Print Type
                                                         </label>
                                                     </span>
-                                                    <div class="col-md-2">
+                                                    <div class=" ">
                                                         <div class="checkbox-inline">
                                                             <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
                                                             <label for="pdf">

@@ -34,6 +34,9 @@
     }
 }
 <style>
+    label{
+        padding-left:0;
+    }
     div > span:not(.select2 ) {
         display: flex;
         white-space: nowrap;
@@ -57,10 +60,10 @@
             border: 1px solid #afa9a9;
             border-radius: 4px; 
         }
-    .labeled-file-box span {
-        width: 40% ;
-        color:#337ab7;
-    }
+        .labeled-file-box span:first-of-type {
+            width: 40%;
+            color: #337ab7;
+        }
     .download-btn {
         display: flex;
         align-items: center;
@@ -159,7 +162,7 @@
                             @if (User.IsInRole("HR_Admin"))
                             {
                                 <div class="forLabel  col-md-6">
-                                    <div class="forLabel col-md-9">
+                                    <div class="forLabel ">
                                         @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
                                         <span>
                                             @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
@@ -178,7 +181,7 @@
                             <div class="forLabel  col-md-6"> 
                                     @* @Html.EditorFor(model => model.ServiceID, new { htmlAttributes = new { @class = "form-control" } })*@
                                     @Html.DropDownListFor(model => model.EMP_CLASS, ViewBag.levels as SelectList, "", new { @class = "form-control", id = "EMP_CLASS", @required = "True" })
-                                    <span>
+                                    <span style=" transform: translateY(-10px);">
                                         @Html.Label("Employee Class", htmlAttributes: new { @class = "control-label col-md-3" })
                                         @*<span class="required"> * </span>*@
                                     </span>
@@ -283,7 +286,7 @@
                                     @Html.DropDownList("BRANCH", ViewBag.Branchs as SelectList, "", new { @class = "form-control", @required = "true" , id = "BRANCH" })
                    
                                     @Html.ValidationMessageFor(model => model.BRANCH, "", new { @class = "text-danger" })
-                                    <span>
+                                    <span style=" transform: translateY(-10px);">
                                         @Html.Label("Branch", htmlAttributes: new { @class = "control-label col-md-3" })
                    
                                     </span> 
@@ -314,30 +317,35 @@
                                     </span> 
                             </div>
                    
-                            <div class="forLabel  col-md-6">
+                            <div class="  col-md-6">
+                                <div class="upload-file-box">
+                                    <span>
+                                        @Html.Label("Employee Photo", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @*<span class="required"> * </span>*@
+                                    </span>
                                     @Html.EditorFor(model => model.EMP_IMG, new { htmlAttributes = new { @class = "form-control", @type = "File", @required = "True" } })
                                     @Html.ValidationMessageFor(model => model.EMP_IMG, "", new { @class = "text-danger" })
-                                <span>
-                                    @Html.Label("Employee Photo", htmlAttributes: new { @class = "control-label col-md-3" }) 
-                                    @*<span class="required"> * </span>*@
-                                </span> 
+                                </div>
                             </div>
                    
-                            <div class="forLabel  col-md-6 ">
-                                @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-md-offset-4">
+                            <div class=" col-md-6 ">
+                                <div class="download-file-box col-md-offset-4">
+                                    @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
                                     <i class="fa fa-download">
                                         <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('1');" class="btn btn-primary" />
                                     </i>
                                 </div>
                             </div>
                             <br />
-                            <div class="forLabel  col-md-6"> 
-                                <input class="form-control text-box single-line" id="UploadExcel" name="UploadExcel" type="File" value="">
-                                <span>
-                                    @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
-                             
-                                </span> 
+                            <div class=" col-md-6"> 
+                                <div class="upload-file-box">
+                                    <span>
+                                        @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+
+                                    </span>
+                                    <input class="form-control text-box single-line" id="UploadExcel" name="UploadExcel" type="File" value="">
+
+                                </div>
                             </div>
                    
                             <div class="">
@@ -354,10 +362,10 @@
 
                         @if (User.IsInRole("HR_Admin"))
                         {
-                        <div class="row">
-                            <div class="forLabel  col-md-7">
+                        <div class="d-flex">
+                            <div class="mb-2 col-md-7">
                                 @*<span class="required"> * </span>*@
-                                <div class="forLabel col-md-9">
+                                <div class="forLabel  ">
                                     @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
                                     <span>
                                         @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
@@ -394,7 +402,7 @@
                             @Html.DropDownList("EMP_CLASS", ViewBag.levels as SelectList, "", new { @class = "form-control", id = "EMP_CLASS", @required = "True" })
 
                             @Html.ValidationMessageFor(model => model.EMP_CLASS, "", new { @class = "text-danger" })
-                            <span>
+                            <span style=" transform: translateY(-10px);">
                                 @Html.Label("Employee Class", htmlAttributes: new { @class = "control-label col-md-3" })
 
                             </span>
@@ -435,8 +443,8 @@
                             </div>
                         </div>
                         <br />
-                        <div class="forLabel  col-md-6"> 
-                            <div class="download-btn  col-md-6 ">
+                        <div class="   col-md-6"> 
+                            <div class="download-file-box w-100 download-btn  ">
                                 <span>
                                     @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
                                 </span>
@@ -500,10 +508,11 @@
                             </div>
                             <br />
                             <div class=" download-btn  col-md-6 ">
-                                <span>
-                                    @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
-                                </span>
-                                <div class="col-md-offset-4">
+                             
+                                <div class="download-file-box w-100">
+                                    <span>
+                                        @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                                    </span>
                                     <i class="fa fa-download">
                                         <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('3');" class="btn btn-primary" />
                                     </i>
@@ -575,43 +584,43 @@
                 <div id="ChangeEmployeeNumber" class="tab-pane fade">
                     <div class="form-horizontal">
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="d-flex flex-wrap row-gap-2">
 
-                        @if (User.IsInRole("HR_Admin"))
-                        { 
-                         <div class="forLabel  col-md-6"> 
-                             @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-                             <span>
-                                 @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
-                                 @*<span class="required"> * </span>*@
-                          
-                             </span> 
-                         </div> 
-                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                $("#CompanyNumber").select2();
-                            });
-                        </script>
-                        } 
-                         <div class="forLabel  col-md-6"> 
-                                 <select id="CARD_ID" required="js-data-example-ajax" style="width: 100%"></select>
-                     
-                                 @*@Html.EditorFor(model => model.CARD_ID, new { htmlAttributes = new { @class = "form-control" } })*@
-                                 @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger", @required = "True" })
-                            <span>
-                                @Html.Label("Card Id", htmlAttributes: new { @class = "  " })
-                     
-                            </span> 
-                         </div> 
-                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                            @if (User.IsInRole("HR_Admin"))
+                            {
+                                <div class="forLabel  col-md-6">
+                                    @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+                                    <span>
+                                        @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @*<span class="required"> * </span>*@
+
+                                    </span>
+                                </div>
+                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#CompanyNumber").select2();
+                                    });
+                                </script>
+                            }
+                            <div class="forLabel  col-md-6">
+                                <select id="CARD_ID" required="js-data-example-ajax" style="width: 100%"></select>
+
+                                @*@Html.EditorFor(model => model.CARD_ID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger", @required = "True" })
+                                <span>
+                                    @Html.Label("Card Id", htmlAttributes: new { @class = "  " })
+
+                                </span>
+                            </div>
                             <div class="labeled-file-box  col-md-6">
                                 <div class="d-flex align-items-center no-wrap">
                                     @Html.Label("New Card Id", htmlAttributes: new { @class = " ", @required = "true" })
                                     @*  <select id="CARD_ID" class="js-data-example-ajax" style="width: 100%"></select>*@
 
-                                    <label class="ps-0"  id="lbSplitCard1">0000-0-</label>
+                                    <label class="ps-0" id="lbSplitCard1">0000-0-</label>
 
                                     @Html.EditorFor(model => model.NEW_CARD_ID, new
                                     {
@@ -619,7 +628,7 @@
                                         {@*@class = "form-control",*@@required = "True"
 }
 })
-                                    <label  class="ps-0" id="lbSplitCard2">-0</label>
+                                    <label class="ps-0" id="lbSplitCard2">-0</label>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.NEW_CARD_ID, "", new { @class = "text-danger" })
                                 <span></span>
@@ -636,38 +645,35 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        @if (User.IsInRole("HR_Admin"))
-                        {
-                        <div class="row">
-                            <div class="forLabel  col-md-7">
-                                <div class="forLabel col-md-9">
+                        <div class="d-flex flex-wrap row-gap-2">
+                            @if (User.IsInRole("HR_Admin"))
+                            {
+                                <div class="forLabel  col-md-6">
                                     @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
                                     <span>
                                         @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
                                         @*<span class="required"> * </span>*@
 
                                     </span>
-
                                 </div>
+                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#CompanyNumber").select2();
+                                    });
+                                </script>
+                            }
+                            <div class="forLabel col-md-6 mb-3 ">
+                                <select id="CARD_ID" required class="js-data-example-ajax" style="width: 100%"></select>
+
+                                @*@Html.EditorFor(model => model.CARD_ID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger", })
+                                <span>
+                                    @Html.Label("Card Id", htmlAttributes: new { @class = "control-label col-md-3", })
+
+                                </span>
                             </div>
                         </div>
-                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                $("#CompanyNumber").select2();
-                            });
-                        </script>
-                        } 
-                        <div class="forLabel col-md-6 mb-3 ">
-                            <select id="CARD_ID"required class="js-data-example-ajax" style="width: 100%"></select>
-                     
-                            @*@Html.EditorFor(model => model.CARD_ID, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger",})
-                        <span>
-                            @Html.Label("Card Id", htmlAttributes: new { @class = "control-label col-md-3",  })
-                     
-                        </span>
-                        </div>  
                         <div class="panel panel-info d-flex flex-column">
                             <h2 class="panel-heading" style="margin:1px;">Full Name</h2>
                             <div class="panel-body">

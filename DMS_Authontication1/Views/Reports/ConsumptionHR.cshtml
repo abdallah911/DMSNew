@@ -148,14 +148,14 @@
                                             @* Company Number *@
 
                                             <div class="labeled-file-box col-md-8">
-                                                <div >
+                                                <div style="height:80px">
                                                     <span>
                                                         <label class="control-label sbold col-md-3">
                                                             Company Number
 
                                                         </label>
                                                     </span>
-                                                    <div class="selected-date">
+                                                    <div class="double-field">
                                                         @if (User.IsInRole("HR_Admin"))
                                                         {
                                                             @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
@@ -273,24 +273,25 @@
                                                             Print Type
                                                         </label>
                                                     </span>
-                                                    <div class="col-md-2">
-                                                        <div class="checkbox-inline">
-                                                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                            <label for="pdf">
-                                                                PDF
-                                                            </label>
+                                                    <div class="checkboxs-parent">
+                                                        <div class=" ">
+                                                            <div class="checkbox-inline">
+                                                                <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                                <label for="pdf">
+                                                                    PDF
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-md-2">
-                                                        <div class="checkbox-inline">
-                                                            <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                            <label for="excel">
-                                                                EXCEL
-                                                            </label>
+                                                        <div class=" ">
+                                                            <div class="checkbox-inline">
+                                                                <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                                <label for="excel">
+                                                                    EXCEL
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                  
                                                 </div>
                                             </div>
                                           
