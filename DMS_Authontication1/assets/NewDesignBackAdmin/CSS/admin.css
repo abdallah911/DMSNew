@@ -1282,12 +1282,28 @@ button.bootbox-close-button.close {
 input.admin-form-control {
     padding: 20px 10px 5px;
 }
-    .admin-form-control[readonly="readonly"],
-    .admin-form-control[readonly="true"],
-    .admin-form-control[disabled] {
-        cursor: no-drop;
-        background: gainsboro;
-        border-color: var(--color-secondary);
+.admin-form-control[readonly="readonly"],
+.admin-form-control[readonly="true"],
+.admin-form-control[readonly],
+.admin-form-control[disabled] {
+    cursor: no-drop;
+    background: #dcdcdcc7;
+    border-color: var(--color-btn);
+}
+    .admin-form-control[readonly="readonly"]:focus ~ span,
+    .admin-form-control[readonly="true"]:focus ~ span,
+    .admin-form-control[readonly]:focus ~ span,
+    .admin-form-control[disabled]:focus ~ span {
+        transform: translateY(-6);
+        color: var(--color-secondary);
+        font-weight: bold;
+        font-size: 12px;
+    }
+    .admin-form-control[readonly="readonly"]:focus,
+    .admin-form-control[readonly="true"]:focus,
+    .admin-form-control[readonly]:focus,
+    .admin-form-control[disabled]:focus {
+       box-shadow:unset;
     }
 .hr-page input[readonly="readonly"],
 .hr-page input[readonly="true"],
@@ -3435,10 +3451,15 @@ div.cosum-form-parent {
 .change-inp-parent {
     padding: 0;
 }
-
+.operation-instructions li {
+    background: #f2f2f2;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+}
 /* ====================Ahmed================================================================================= */
 /* Buttons Format */
-
 .HR-buttons > div {
     margin: 1rem;
 }
