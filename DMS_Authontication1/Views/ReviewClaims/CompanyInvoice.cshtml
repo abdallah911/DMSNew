@@ -313,54 +313,54 @@
         }
 
         function GetCompanyInvoices() {
+            if ($("#CompNum").val() != '') {
+                var table = $('#InvoiceData').DataTable();
+                table.clear().draw();
+                table.destroy();
 
-            var table = $('#InvoiceData').DataTable();
-            table.clear().draw();
-            table.destroy();
+                var table2 = $('#BatchDetails').DataTable();
+                table2.clear().draw();
+                table2.destroy();
 
-            var table2 = $('#BatchDetails').DataTable();
-            table2.clear().draw();
-            table2.destroy();
-
-            $('#list_div').hide();
+                $('#list_div').hide();
 
 
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
-            var invocNo = $("#InvoicNo").val();
-            var batchNo = $("#BatchNo").val();
+                var compId = $("#CompNum").val();
+                var servFrom = $("#ServDateFrom").val();
+                var servTo = $("#ServDateTo").val();
+                var regFrom = $("#RegDateFrom").val();
+                var regTo = $("#RegDateTo").val();
+                var invocNo = $("#InvoicNo").val();
+                var batchNo = $("#BatchNo").val();
 
-            $("#loading").css("display", "flex");
+                $("#loading").css("display", "flex");
 
-            $.ajax({
-                url: '/ReviewClaims/GetCompanyInvoice/',
-                data: {
-                    compId: compId, servFrom: servFrom, servTo: servTo, regFrom: regFrom, regTo: regTo,
-                    invocNo: invocNo, batchNo: batchNo
-                },
-                dataType: 'Json',
-                success: function (r) {
-                    $('#InvoiceData').dataTable({
-                        "pageLength": 5
-                    }).fnDestroy();
-                    if (r.msg == "ok") {
-                        var setData = $("#InvoiceData Tbody");
-                        setData.empty();
-                        for (var i = 0; i < r.invoicelist.length; i++) {
-                            //var data = "<tr>" +
-                            //    "<td>" + (r.invoicelist[i].CompId || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].CompName || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].StartDate || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].EndDate || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].CountOfClaim || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].Gross || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].Net || "--") + "</td>" +
-                            //    "<td>" + (r.invoicelist[i].InvoiceNo || "--") + "</td>" +
-                            //    "</tr>";
-                            var data = `
+                $.ajax({
+                    url: '/ReviewClaims/GetCompanyInvoice/',
+                    data: {
+                        compId: compId, servFrom: servFrom, servTo: servTo, regFrom: regFrom, regTo: regTo,
+                        invocNo: invocNo, batchNo: batchNo
+                    },
+                    dataType: 'Json',
+                    success: function (r) {
+                        $('#InvoiceData').dataTable({
+                            "pageLength": 5
+                        }).fnDestroy();
+                        if (r.msg == "ok") {
+                            var setData = $("#InvoiceData Tbody");
+                            setData.empty();
+                            for (var i = 0; i < r.invoicelist.length; i++) {
+                                //var data = "<tr>" +
+                                //    "<td>" + (r.invoicelist[i].CompId || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].CompName || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].StartDate || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].EndDate || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].CountOfClaim || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].Gross || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].Net || "--") + "</td>" +
+                                //    "<td>" + (r.invoicelist[i].InvoiceNo || "--") + "</td>" +
+                                //    "</tr>";
+                                var data = `
                                         <tr>
                                             <td class="text-center">${r.invoicelist[i].CompId || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].CompName || "--"}</td>
@@ -372,27 +372,30 @@
                                             <td class="text-center">${r.invoicelist[i].Net || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].InvoiceNo || "--"}</td>
                                         </tr>`;
-                            setData.append(data);
+                                setData.append(data);
+                            }
+                            $('#InvoiceData').DataTable({
+                                "pageLength": 5
+                            });
+                            $('#list_div').show();
+
+
+                            $('html, body').animate({
+                                scrollTop: $('#MainScreenClaims').offset().top
+                            }, 'slow');
                         }
-                        $('#InvoiceData').DataTable({
-                            "pageLength": 5
-                        });
-                        $('#list_div').show();
+                        else {
+                            alert(r.msg);
+                        }
 
-
-                        $('html, body').animate({
-                            scrollTop: $('#MainScreenClaims').offset().top
-                        }, 'slow');
+                    },
+                    complete: function () {
+                        $("#loading").hide();
                     }
-                    else {
-                        alert(r.msg);
-                    }
-
-                },
-                complete: function () {
-                    $("#loading").hide();
-                }
-            });
+                });
+            }
+            else
+                alert("من فضلك اختر رقم الشركة");
         }
 
         function GetAllBatch(compNo, invocNo) {
