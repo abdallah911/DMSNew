@@ -110,13 +110,11 @@
                                     <div class="d-flex flex-column row-gap-2 col-md-6">
                                         @if (User.IsInRole("HR_Admin"))
                                         {
-                                            <div class="labeled-file-box">
+                                            <div class="labeled-file-box single-p-0">
                                                 <div>
-                                                    <span>
-                                                        <label class=" ">
+                                                    <span> 
                                                             @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
-                                                            @*<span class="required"> * </span>*@
-                                                        </label>
+                                                            @*<span class="required"> * </span>*@ 
                                                     </span>
 
                                                     @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
@@ -133,11 +131,9 @@
                                         {
                                             <div class="labeled-file-box">
                                                 <div>
-                                                    <span>
-                                                        <label class=" ">
+                                                    <span> 
                                                             @Html.DisplayNameFor(model => model.CompName)
-                                                            @*<span class="required"> * </span>*@
-                                                        </label>
+                                                            @*<span class="required"> * </span>*@ 
                                                     </span>
 
                                                     @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
@@ -150,10 +146,8 @@
                                             <div class="forLabel">
 
                                                 @Html.DropDownList("CARD_ID", ViewBag.Cardslist as SelectList, new {  @class = "form-control", @id = "CARD_ID", @required = "True" })
-                                                <span>
-                                                    <label class="control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.CARD_ID)
-                                                    </label>
+                                                <span> 
+                                                        @Html.DisplayNameFor(model => model.CARD_ID) 
                                                 </span>
                                             </div>
                                         }
@@ -165,10 +159,8 @@
 
                                                 @Html.DropDownListFor(model => model.CARD_ID, new List<SelectListItem>() {
                                                     new SelectListItem() { Text = "", Value = "" } }, new { @class = "form-control", id = "CARD_ID" })
-                                                <span>
-                                                    <label class="control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.CARD_ID)
-                                                    </label>
+                                                <span> 
+                                                        @Html.DisplayNameFor(model => model.CARD_ID) 
                                                 </span>
                                             </div>
 
@@ -188,7 +180,7 @@
                                                 <option value="Optical">Optical</option>
                                             </select>
                                             <span>
-                                                <label class="control-label sbold col-md-4">
+                                                <label class="control-label sbold col-md-4 ps-0">
                                                     @Html.DisplayNameFor(model => model.TYPE)
                                                 </label>
                                             </span>
@@ -196,10 +188,8 @@
                                         <div class="forLabel">
 
                                             @Html.DropDownListFor(m => m.TYP_ANAME, ViewBag.provider as SelectList, "", new { @required = "true", @class = "form-control" })
-                                            <span>
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.TYP_ANAME)
-                                                </label>
+                                            <span> 
+                                                    @Html.DisplayNameFor(model => model.TYP_ANAME) 
                                             </span>
                                         </div>
                                         <div class="forLabel">
@@ -209,10 +199,8 @@
                                           @required = "true",
                                                 @class = "form-control"
                                        })
-                                            <span>
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.PR_ENAME)
-                                                </label>
+                                            <span> 
+                                                    @Html.DisplayNameFor(model => model.PR_ENAME) 
                                             </span>
                                         </div>
 
@@ -237,22 +225,18 @@
                                             @Html.EditorFor(model => model.MAIL_SEND, new { htmlAttributes = new { @required = "true", @class = "form-control" } })
                                             @*<input type="text" class="form-control" id="MAIL_SEND" name="MAIL_SEND" />*@
                                             @Html.ValidationMessageFor(model => model.MAIL_SEND, "", new { @class = "text-danger" })
-                                            <span>
-                                                <label class="control-label sbold col-md-4">
+                                            <span> 
                                                     @Html.DisplayName("Contact Email")
-                                                    @*<span class="required"> * </span>*@
-                                                </label>
+                                                    @*<span class="required"> * </span>*@ 
                                             </span>
                                         </div>
 
 
                                         <div class="labeled-file-box">
                                             <div>
-                                                <span>
-                                                    <label class="control-label sbold col-md-4">
+                                                <span> 
                                                         @Html.DisplayName("Upload Files")
-                                                        @*<span class="required"> * </span>*@
-                                                    </label>
+                                                        @*<span class="required"> * </span>*@ 
                                                 </span>
                                                 <input name="ImageFile" id="ImageFile" type="file" class="col-md-2 form-control " multiple required />
                                                 @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })

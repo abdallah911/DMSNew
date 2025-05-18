@@ -42,15 +42,11 @@
                                         {
                                             <div class="col-md-4">
 
-                                                <div class="form-group" id="Company_Number">
-                                                    <div class="col-sm-6">
-
+                                                <div class="forLabel" id="Company_Number">  
+                                                    @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+                                                    <span>
                                                         @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
-                                                    </div>
-                                                    <div class=" col-md-6">
-                                                        @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                                                    </div>
+                                                    </span>
                                                 </div>
 
                                             </div>

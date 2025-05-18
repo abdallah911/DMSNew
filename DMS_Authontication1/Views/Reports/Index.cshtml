@@ -130,6 +130,7 @@
                                                     <label class="">
                                                         Copmany Number
                                                     </label> 
+                                                    <div class="field"  >
                                                         @if (User.IsInRole("HR_Admin"))
                                                         {
 
@@ -144,12 +145,12 @@
                                                             </script>
                                                         }
                                                         else
-                                                        { 
-                                                                <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                        {
+                                                            <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
 
-                                                 
-                                                        } 
-                                                   
+
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                            

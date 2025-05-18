@@ -83,54 +83,56 @@
                                         <div class="row">
                                             @* Search Element and buttons *@
                                             <div class="col-md-12">
-                                                @if (User.IsInRole("HR_Admin"))
-                                                {
-                                                <div class="labeled-file-box col-md-4">
-                                                    <div>
-                                                        <span>
-                                                            <label class="">
-                                                                Copmany Number
-                                                            </label>
-                                                        </span>
-                                                        @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-                                                    </div>
-                                                </div>
-                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                    <script>
-                                                        $(function () {
-                                                            $("#CompanyId").select2();
-                                                        });
-                                                    </script>
-                                                }
-                                                else
-                                                {
-                                                    <div class="labeled-file-box col-md-4">
-                                                        <div>
-                                                            <span>
-                                                                <label class="">
-                                                                    Copmany Number
-                                                                </label>
-                                                            </span>
-                                                            <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                <div class="d-flex flex-wrap row-gap-2 mb-3">
+                                                    @if (User.IsInRole("HR_Admin"))
+                                                    {
+                                                        <div class="labeled-file-box col-md-6">
+                                                            <div>
+                                                                <span>
+                                                                    <label class="">
+                                                                        Copmany Number
+                                                                    </label>
+                                                                </span>
+                                                                @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                }
-                                                <div class="forLabel col-md-4"> 
-                                                    @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
-                                                    { 
-                                                        <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
-                                                        <br />
+                                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                        <script>
+                                                            $(function () {
+                                                                $("#CompanyId").select2();
+                                                            });
+                                                        </script>
                                                     }
                                                     else
-                                                    { 
-                                                         @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
-                                                       <br />
+                                                    {
+                                                        <div class="labeled-file-box col-md-6">
+                                                            <div>
+                                                                <span>
+                                                                    <label class="">
+                                                                        Copmany Number
+                                                                    </label>
+                                                                </span>
+                                                                <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                            </div>
+                                                        </div>
                                                     }
-                                                    <span>
-                                                        <label class="">
-                                                            Card Number
-                                                        </label>
-                                                    </span> 
+                                                    <div class="forLabel col-md-6">
+                                                        @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                                        {
+                                                            <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                            <br />
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                            <br />
+                                                        }
+                                                        <span>
+                                                            <label class="">
+                                                                Card Number
+                                                            </label>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="col-md-6">
