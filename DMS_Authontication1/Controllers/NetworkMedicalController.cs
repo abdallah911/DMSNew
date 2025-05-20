@@ -627,69 +627,35 @@ namespace DMS_Authontication1.Controllers
         }
 
 
-        public ActionResult CreateRequestMedical(int? id)
+        public ActionResult CreateRequestMedical(string cardId)
         {
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
           
             var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
-            var datenow = DateTime.Now.Date;
-          
-            if (id != null)
-            {
-                var model = db.Enum_Requests.Find(id);
-                if (model == null)
-                {
-                    return View(ENUM_REQUESTSViewModel);
-                }
-                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
-                ViewModel.ID = model.ID;
-                var comp_id = model.CARD_ID.Split('-')[0];
-                ViewModel.CompName = comp_id;
-                ViewModel.CARD_ID = model.CARD_ID;
-                ViewModel.TYPE = model.TYPE;
-                ViewModel.TYP_ANAME = model.TYP_ANAME;
-                ViewModel.PR_ENAME = model.PR_ENAME;
-                ViewModel.NOTES = model.NOTES;
-                ViewModel.MAIL_SEND = model.MAIL_SEND;
-                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
-                return View(ViewModel);
-            }
+            //var datenow = DateTime.Now.Date;
+
+            ENUM_REQUESTSViewModel.CompName = cardId.Substring(0, cardId.IndexOf('-'));
+            ENUM_REQUESTSViewModel.CARD_ID = cardId;
+
             return View(ENUM_REQUESTSViewModel);
 
           //  return View();
         }
 
-        public ActionResult CreateRequestChronic(int? id)
+        public ActionResult CreateRequestChronic(string cardId)
         {
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
 
             var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
-            var datenow = DateTime.Now.Date;
+            //var datenow = DateTime.Now.Date;
+            
+            ENUM_REQUESTSViewModel.CompName = cardId.Substring(0, cardId.IndexOf('-'));
+            ENUM_REQUESTSViewModel.CARD_ID = cardId;
 
-            if (id != null)
-            {
-                var model = db.Enum_Requests.Find(id);
-                if (model == null)
-                {
-                    return View(ENUM_REQUESTSViewModel);
-                }
-                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
-                ViewModel.ID = model.ID;
-                var comp_id = model.CARD_ID.Split('-')[0];
-                ViewModel.CompName = comp_id;
-                ViewModel.CARD_ID = model.CARD_ID;
-                ViewModel.TYPE = model.TYPE;
-                ViewModel.TYP_ANAME = model.TYP_ANAME;
-                ViewModel.PR_ENAME = model.PR_ENAME;
-                ViewModel.NOTES = model.NOTES;
-                ViewModel.MAIL_SEND = model.MAIL_SEND;
-                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
-                return View(ViewModel);
-            }
             return View(ENUM_REQUESTSViewModel);
             //Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
 

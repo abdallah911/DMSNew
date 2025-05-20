@@ -499,11 +499,12 @@
                 }
             }
             function GoRequestApproval() {
-                window.location.href = '@Url.Action("CreateRequestMedical", "NetworkMedical")';
-
+                let cardId = encodeURIComponent($("#txtCardId").val());
+                window.location.href = '@Url.Action("CreateRequestMedical", "NetworkMedical")' + '?cardId=' + cardId;
             }
             function GoRequestChronic() {
-                window.location.href = '@Url.Action("CreateRequestChronic", "NetworkMedical")';
+                let cardId = encodeURIComponent($("#txtCardId").val());
+                window.location.href = '@Url.Action("CreateRequestChronic", "NetworkMedical")' + '?cardId=' + cardId;
 
             }
         </script>
