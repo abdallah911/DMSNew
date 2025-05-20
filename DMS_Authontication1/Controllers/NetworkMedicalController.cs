@@ -100,8 +100,8 @@ namespace DMS_Authontication1.Controllers
 
                         //mod.Notes = mod.Notes.Replace("\n", "<br>");
                         //mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                        if(cardId.StartsWith("500172") || cardId.StartsWith("10000-VIP-100159-1"))
-                        {
+                        //if(cardId.StartsWith("500172") || cardId.StartsWith("10000-VIP-100159-1"))
+                        //{
                             var medicin = (from md in db.Med_Card
                                            join m in db.Med_Medicine
                                            on md.CARD_NO equals m.CARD_NO
@@ -123,7 +123,7 @@ namespace DMS_Authontication1.Controllers
 
                             if (dt != null && dt.Rows.Count > 0)
                                 mod.ApprovalCount = dt.Rows.Count.ToString();
-                        }
+                        //}
 
 
                     }                                      
