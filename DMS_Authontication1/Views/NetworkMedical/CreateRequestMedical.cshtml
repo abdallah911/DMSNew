@@ -8,9 +8,18 @@
     Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
 
 }
+<style>
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span,
+    .forLabel .admin-form-control[readonly="readonly"] ~ span, .forLabel .admin-form-control[readonly="true"] ~ span, .forLabel .admin-form-control[disabled] ~ span {
+        transform: translateY(-10px) !important;
+    }
+    select {
+        padding: 7px;
+    }
+</style>
 <div class="sios-container">
 
-    <div class="portlet box  green">
+    <div class="portlet box   ">
         <div class="row bg-overlay portlet-title">
             <div class="m-3 fs-3 text-white caption">
                 <i class="fa-solid fa-home me-1"></i>Create New Request
@@ -134,12 +143,12 @@
 
                                             </div>
 
-
-                                            <div class="forLabel px-2 border-0 form-group">
-
-                                                <input name="ImageFile" id="ImageFile" type="file" class="border-2 admin-form-control w-100" multiple required />
-                                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
-                                                <span class="start-0" style="top:2px;font-size: 10px;transform: unset;"><label class="control-label ">@Html.DisplayName("Upload Files"):<span class="required"> * </span></label></span>
+                                            <div class="px-2">
+                                                <div class=" admin-form-control  d-flex align-content-center px-2 border-2 form-group">
+                                                    <span class="w-25 d-flex align-items-center sios-color fw-bold" style=" font-size: 10px;transform: unset;"><label class="control-label ">@Html.DisplayName("Upload Files"):<span class="required"> * </span></label></span>
+                                                    <input name="ImageFile" id="ImageFile" type="file" style="padding: 5px; height: 90%; margin: auto;" class="admin-form-control bg-dark-subtle border-0 w-75" multiple required />
+                                                    @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

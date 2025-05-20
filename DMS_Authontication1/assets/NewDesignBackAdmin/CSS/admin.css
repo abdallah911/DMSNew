@@ -1303,7 +1303,10 @@ input.admin-form-control {
     .admin-form-control[readonly="true"]:focus,
     .admin-form-control[readonly]:focus,
     .admin-form-control[disabled]:focus {
-       box-shadow:unset;
+        box-shadow: unset;
+        font-weight: 500;
+        color: #1b1b1b;
+        padding: 20px 10px 5px;
     }
 .hr-page input[readonly="readonly"],
 .hr-page input[readonly="true"],
@@ -1956,7 +1959,7 @@ textarea:valid,
 select:valid {
     outline: none;
     /* border: 2px solid #0b132d47; */
-    box-shadow: 0 0 5px #0b132d47;
+    box-shadow: 0 0 5px #0b132d29;
     transition: all 0.2s ease-in;
     font-weight: 700;
     color: #555;

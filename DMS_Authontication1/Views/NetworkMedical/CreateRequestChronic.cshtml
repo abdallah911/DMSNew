@@ -8,7 +8,16 @@
     Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
 
 }
+<style>
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span,
+    .forLabel .admin-form-control[readonly="readonly"] ~ span, .forLabel .admin-form-control[readonly="true"] ~ span, .forLabel .admin-form-control[disabled] ~ span {
+        transform: translateY(-10px) !important;
+    }
 
+    select {
+        padding: 7px;
+    }
+</style>
 
 <div class="sios-container">
     @*@if (fullcontroll || Create)
@@ -32,11 +41,9 @@
 
                                     @Html.HiddenFor(model => model.ID)
                                     <div class="container mx-auto row row-cols-sm-2 my-4 no-wrap">
-                                        <div class="d-flex flex-column row-gap-2 col-md-6">
-                                            <div class="px-2">
+                                        <div class="d-flex flex-column row-gap-2 col-md-6"> 
                                                 @Html.HiddenFor(model => model.CompName)
-                                                @Html.HiddenFor(model => model.CARD_ID)
-                                            </div>
+                                                @Html.HiddenFor(model => model.CARD_ID) 
 
                                             <div class="forLabel px-2 border-0 form-group">
                                                 @Html.TextBoxFor(model => model.CompName, new { @class = "border-2 admin-form-control w-100", @readonly = "readonly" })
@@ -94,16 +101,14 @@
                                                         <span class="required"> * </span>
                                                     </label>
                                                 </span>
-                                            </div>
+                                            </div> 
                                             <div class=" px-2">
-                                                <div class="labeled-file-box ps-2  d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
-                                                    <span>
-                                                        <label class="control-label sbold col-md-4">
+                                                <div class=" admin-form-control  d-flex align-content-center px-2 border-2 form-group ">
+                                                    <span class="w-25 d-flex align-items-center sios-color fw-bold" style=" font-size: 10px;transform: unset;"> 
                                                             @Html.DisplayName("Upload Files") :
-                                                            <span class="required"> * </span>
-                                                        </label>
+                                                            <span class="required"> * </span> 
                                                     </span>
-                                                    <input name="ImageFile" id="ImageFile" type="file" class="border-2 admin-form-control w-100" multiple required />
+                                                    <input name="ImageFile" id="ImageFile" type="file" style="padding: 5px; height: 90%; margin: auto;" class="admin-form-control bg-dark-subtle border-0 w-75"  multiple required />
                                                     @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
 
                                                 </div>
@@ -127,9 +132,7 @@
 
         </div>
 
-    </div>
-
-    //}
+    </div> 
 </div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
