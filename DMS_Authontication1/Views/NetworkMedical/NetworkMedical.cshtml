@@ -166,30 +166,30 @@
             <div class="container px-4 mb-3">
                 <input id="Back" type="button" value="Upload Claim Photo" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
             </div>
-        
-        <br/>
-        <br/>
+ 
         
         <div class="container mx-auto row row-cols-md-2 row-gap-2 ">
 
-            <div class="px-2">
-                <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
-                    <label class="fw-bold">عدد أدوية ال Chronic</label>
-                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
-                    <input type="button" class="btn p-1" value="Show" onclick="ShowChronicDetails()" />
-                    <input type="button" class="btn p-1" value="Create Request" onclick="GoRequestChronic()"/>
+            <div class="px-2 nowrap">
+                <div class="d-flex align-items-center justify-content-between p-2 border-2 admin-form-control">
+                    <label class="fw-bold w-25 text-end">عدد أدوية ال Chronic</label>
+                    <input type="text" class="nm-data-num-input bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="button" class="btn py-1 rounded px-2" value="Show" onclick="ShowChronicDetails()" />
+                        <input type="button" class="btn py-1 rounded px-2" value="Create Request" onclick="GoRequestChronic()" />
+                    </div>
                 </div>
             </div>
             <div class="px-2">
-                <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
-                    <label class="fw-bold">عدد الموافقات الطبية</label>
-                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
-                    <input type="button" class="btn p-1" value="Show" onclick="ShowApprovalDetails()" />
-                    <input type="button" class="btn p-1" value="Create Request" onclick="GoRequestApproval()"/>
-
-                </div>
-            </div>
-
+                <div class="d-flex align-items-center justify-content-between p-2 border-2 admin-form-control">
+                    <label class="fw-bold w-25 text-end">عدد الموافقات الطبية</label>
+                    <input type="text" class="nm-data-num-input bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="button" class="btn py-1 rounded px-2" value="Show" onclick="ShowApprovalDetails()" />
+                        <input type="button" class="btn py-1 rounded px-2" value="Create Request" onclick="GoRequestApproval()" />
+                    </div>
+               </div>
+           </div> 
         </div>
         <div class=" container home-page m-auto px-4 my-4" style="direction:ltr">
             <div class=" mx-auto my-4 table-responsive" id="ApprovalsScreen" hidden>

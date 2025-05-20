@@ -4589,11 +4589,20 @@ button.vjs-big-play-button {
     border: 2px solid #9689a3;
     gap: 10px;
 }
+.nm-data-num-input{
+    width:50px;
+}
+@media (min-width:992px){
+
+   .nm-data-num-input{
+       width:25%;
+   }
+}
 /* ====================footer========================================== */
-    .footer {
-        background: var(--color-gradient);
-        color: white;
-    }
+.footer {
+    background: var(--color-gradient);
+    color: white;
+}
 
     .hr-footer {
         background: var(--color-gradient);
