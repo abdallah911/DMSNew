@@ -1834,16 +1834,16 @@ function ChartEmployeesScreen() {
         type: 'bar',
         data: {
             labels: [
-                'Less tan 105',
-                'From 105 To 405',
-                'From 405 To 605',
-                'From 605 To 805',
-                'From 805 To 1005',
-                'From 1005 To 2005',
-                'From 2005 To 3005',
-                'From 3005 To 4005',
-                'From 4005 To 5005',
-                'Grater Than 5005'
+                'Less than 10,000',
+                'From 10,000 To 40,000',
+                'From 40,000 To 60,000',
+                'From 60,000 To 80,000',
+                'From 80,000 To 100,000',
+                'From 100,000 To 200,000',
+                'From 200,000 To 300,000',
+                'From 300,000 To 400,000',
+                'From 400,000 To 500,000',
+                'Greater Than 500,000'
             ],
             datasets: [{
                 label: 'صافي الخدمات',
@@ -1863,8 +1863,7 @@ function ChartEmployeesScreen() {
                 borderColor: '#36a2eb',
                 borderWidth: 2,
                 borderRadius: 5,
-                borderSkipped: false,
-                yAxisID: 'amount'
+                borderSkipped: false
             }]
         },
         options: {
@@ -1891,20 +1890,21 @@ function ChartEmployeesScreen() {
         }
     });
 
+
     new Chart(graph34, {
         type: 'line',
         data: {
             labels: [
-                'Less than 105',
-                'From 105 To 405',
-                'From 405 To 605',
-                'From 605 To 805',
-                'From 805 To 1005',
-                'From 1005 To 2005',
-                'From 2005 To 3005',
-                'From 3005 To 4005',
-                'From 4005 To 5005',
-                'Greater Than 5005'
+                'Less than 10,000',
+                'From 10,000 To 40,000',
+                'From 40,000 To 60,000',
+                'From 60,000 To 80,000',
+                'From 80,000 To 100,000',
+                'From 100,000 To 200,000',
+                'From 200,000 To 300,000',
+                'From 300,000 To 400,000',
+                'From 400,000 To 500,000',
+                'Greater Than 500,000'
             ],
             datasets: [{
                 label: 'عدد الحالات',
