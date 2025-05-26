@@ -748,6 +748,7 @@ p:last-of-type {
 }
 .table thead {
     background: #337ab7;
+    white-space: nowrap;
 }
 .table th {
     color: white;
@@ -1193,6 +1194,10 @@ div.hide-pseudo::before {
     }
 
     .Pharmacy-form {
+    }
+
+    .col-12 {
+        width: 100%;
     }
 }
 

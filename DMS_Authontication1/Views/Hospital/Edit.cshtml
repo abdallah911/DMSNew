@@ -33,53 +33,54 @@
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <span class="text-danger">@ViewBag.Error</span>
                                 <div class="row ">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayName("Code") :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    <div class="d-flex flex-wrap row-gap-2 ">
+                                        <div class="forLabel col-12 col-sm-6  col-ms-4">
 
-                                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
-                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                            <span>
+                                                <label class="">
+                                                    @Html.DisplayName("Code")
+                                                </label>
+                                            </span>
                                         </div>
-                                        <div class="form-group" id="CompanyTypeNew">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayName("Enter Date") :
-                                                @*<span class="required"> * </span>*@
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.EnterDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
+                                        <div class="forLabel col-12 col-sm-6  col-ms-4" id="CompanyTypeNew">
 
-                                                @Html.ValidationMessageFor(model => model.EnterDate, "", new { @class = "text-danger" })
-                                            </div>
+                                            @Html.EditorFor(model => model.EnterDate, new { htmlAttributes = new { @class = "form-control CreatDate", @required = "required" } })
+
+                                            @Html.ValidationMessageFor(model => model.EnterDate, "", new { @class = "text-danger" })
+                                            <span>
+                                                <label class="">
+                                                    @Html.DisplayName("Enter Date")
+                                                    @*<span class="required"> * </span>*@
+                                                </label>
+                                            </span>
                                         </div>
 
 
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayName("Exit Date") :
-                                                @*<span class="required"> * </span>*@
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.ExitDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
+                                        <div class="forLabel col-12 col-sm-6  col-ms-4">
 
-                                                @Html.ValidationMessageFor(model => model.ExitDate, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.ExitDate, new { htmlAttributes = new { @class = "form-control CreatDate", @required = "required" } })
 
-                                            </div>
+                                            @Html.ValidationMessageFor(model => model.ExitDate, "", new { @class = "text-danger" })
+                                            <span>
+                                                <label class="">
+                                                    @Html.DisplayName("Exit Date")
+                                                    @*<span class="required"> * </span>*@
+                                                </label>
+                                            </span>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayName("Total") :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.TotalValue, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                                        <div class="forLabel col-12 col-sm-6  col-ms-4">
 
-                                                @Html.ValidationMessageFor(model => model.TotalValue, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.TotalValue, new { htmlAttributes = new { @class = "form-control", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
 
-                                            </div>
+                                            @Html.ValidationMessageFor(model => model.TotalValue, "", new { @class = "text-danger" })
+                                            <span>
+                                                <label class="">
+                                                    @Html.DisplayName("Total")
+                                                </label>
+                                            </span>
                                         </div>
 
 
