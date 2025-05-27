@@ -28,8 +28,7 @@ namespace DMS_Authontication1.Controllers
 
         [HttpGet]
         public ActionResult UploadClaimPhoto(string id = "")
-        {
-            // You can return a view or JSON, depending on what you want
+        {            
             ViewBag.stat = "Ok";
             if (id != "")
             {
@@ -307,6 +306,9 @@ namespace DMS_Authontication1.Controllers
         //}
 
 
-
+        public ActionResult UploadFamilyPhoto()
+        {
+            return View();
+        }
     }
 }

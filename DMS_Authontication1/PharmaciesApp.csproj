@@ -9332,7 +9332,7 @@
     <Content Include="Views\Claims\UploadClaimPhoto.cshtml" />
     <Content Include="Views\NetworkMedical\CreateRequestMedical.cshtml" />
     <Content Include="Views\NetworkMedical\CreateRequestChronic.cshtml" />
-    <Content Include="Views\NetworkMedical\FamilyUploadPhoto.cshtml" />
+    <Content Include="Views\Claims\UploadFamilyPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

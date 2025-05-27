@@ -163,9 +163,15 @@
             </div>
         </div>
     
-            <div class="container px-4 mb-3">
-                <input id="Back" type="button" value="Upload Claim Photo" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
-            </div>
+        <div class="container px-4 mb-3">
+            <input id="UploadClaimPhoto" type="button" value="Upload Claim Photo" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
+
+            @if (@Model.CardId == "10000-VIP-100159-1")
+            {
+                <input id="UploadFamilyPhoto" type="button" value="Upload Family Photo" onclick="window.location.replace('/Claims/UploadFamilyPhoto');" class="btn btn-warning" />
+            }
+
+        </div>
  
         
         <div class="container mx-auto row row-cols-md-2 row-gap-2 ">
