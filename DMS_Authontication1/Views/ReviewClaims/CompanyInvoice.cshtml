@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 px-2">
+                <div class="col-md-6 px-2" hidden>
                     <div class="w-100 px-2 field-labeled mb-2">
                         <label>Service date</label>
                         <div>
@@ -74,9 +74,12 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="sec-field-labeled col-md-6 px-2 mb-2 ">
-                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum", required = "required" })
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="ClaimNo" type="text" class="w-100 h-100 " placeholder="Approval No" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                </div>
+                
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum", required = "required" })
 
                     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
                     <script>
@@ -85,33 +88,25 @@
                         });
                     </script>
 
-                    @*@if (User.IsInRole("HR_Admin"))
-                        {
-                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
-                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                            <script>
-                                $(document).ready(function () {
-                                    $('#CompNum').select2();
-                                });
-                            </script>
-
-                        }
-                        else
-                        {
-                            <input id="CompNum" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                        }*@
+                </div>
+                
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <select class="col-md-2 form-control" id="ProviderNo">
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
+
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
+
                 <!--<div class="sec-field-labeled col-md-6 px-2  mb-2">-->
                 @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
                 <!--<select id="CardId" class="w-100 h-100 form-control "></select>
-                </div>-->
+    </div>-->
 
             </div>
 
@@ -172,43 +167,48 @@
                 <i class="fa-solid fa-home"></i>Claims Details
             </div>
         </div>
-        <div class="d-flex justify-content-end gap-2 container text-center">
-            <input type="button" value="Print" class="btn my-3" onclick="PrintBatchReviewReport()" />
-            <div class="d-flex gap-2 justify-content-center align-items-center">
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="pdf2" />
+        <div class="d-flex justify-content-end align-items-center gap-2 container text-center">
+            <div class="sec-field-labeled col-md-2 px-2 ">
+                <select class="col-md-2 form-control" id="ProviderTyp">
+                    <option value="">Select Provider Type</option>
+                </select>
                 </div>
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="excel2" />
+                <input type="button" value="Print" class="btn my-3" onclick="PrintBatchReviewReport()" />
+                <div class="d-flex gap-2 justify-content-center align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="mb-0 fw-bold" for="pdf2">PDF</label>
+                        <input class="mt-0" name="file-type-2" type="radio" id="pdf2" />
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="mb-0 fw-bold" for="excel2">Excel</label>
+                        <input class="mt-0" name="file-type-2" type="radio" id="excel2" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="portlet-body" id="list_div2">
-            <div class="table-responsive">
-                <input id="CompNumber" class="form-control" type="text" style="display:none;" />
-                <input id="CompName" class="form-control" type="text" style="display:none;" />
-                <input id="InvoicNumber" class="form-control" type="text" style="display:none;" />
+                <div class="portlet-body" id="list_div2">
+                    <div class="table-responsive">
+                        <input id="CompNumber" class="form-control" type="text" style="display:none;" />
+                        <input id="CompName" class="form-control" type="text" style="display:none;" />
+                        <input id="InvoicNumber" class="form-control" type="text" style="display:none;" />
 
-                <table class="table" id="BatchDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Batch Number</th>
-                            <th scope="col" align="center">Provider ID</th>
-                            <th scope="col" align="center">Provider Name</th>
-                            <th scope="col" align="center">Provider Type</th>
-                            <th scope="col" align="center">Count of Claim</th>
-                            <th scope="col" align="center">Gross</th>
-                            <th scope="col" align="center">Net</th>
-                            <th scope="col" align="center"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="BatchDetailsBody"></tbody>
-                </table>
+                        <table class="table" id="BatchDetails">
+                            <thead>
+                                <tr>
+                                    <th scope="col" align="center">Batch Number</th>
+                                    <th scope="col" align="center">Provider ID</th>
+                                    <th scope="col" align="center">Provider Name</th>
+                                    <th scope="col" align="center">Provider Type</th>
+                                    <th scope="col" align="center">Count of Claim</th>
+                                    <th scope="col" align="center">Gross</th>
+                                    <th scope="col" align="center">Net</th>
+                                    <th scope="col" align="center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="BatchDetailsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
     <!--<div class="row" style=" text-align:right">
         <div class="col-md-12">
             <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
@@ -258,7 +258,41 @@
                 }
             });
 
+            $('#ProviderNo').select2({
+                placeholder: 'Search for a Provider ',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/ConsumptionAdmin/GetProviderUsers/',
+                    delay: 250,
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
+                        }
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        var obj = {};
+                        data.push(obj)
+                        return {
+                            results: data,//.results,
+                            pagination: {
+                                more: (params.page * 10) < data.count_filtered
+                            }
+                        };
+                    }
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
+                }
+            });
+
+            $('#ProviderTyp').on('change', function () {
+                var table = $('#BatchDetails').DataTable();
+                var selectedType = $(this).val();
+                table.column(3).search(selectedType).draw();
+            });
         })
 
         $('#InvoiceData tbody').on('click', 'tr', function () {
@@ -297,6 +331,12 @@
             $('#CompNumber').val("");
             $('#CompName').val("");
 
+            $('#CompNum').val(null).trigger('change');
+            $('#ProviderNo').val(null).trigger('change');
+            $('#ProviderTyp').val(null).trigger('change');
+            $('#ClaimNo').val("");
+
+
             var table = $('#InvoiceData').DataTable();
             table.clear().draw();
             table.destroy();
@@ -312,8 +352,12 @@
 
         }
 
-        function GetCompanyInvoices() {
-            if ($("#CompNum").val() != '') {
+    function GetCompanyInvoices() {
+        if ($("#ProviderNo").val()?.trim() !== "" && (!$("#RegDateFrom").val()?.trim() || !$("#RegDateTo").val()?.trim())) {
+            alert("من فضلك ادخل تاريخ للبحث");
+            return;
+        }
+        if ($("#CompNum").val() != '' || $("#ClaimNo").val() != '') {
                 var table = $('#InvoiceData').DataTable();
                 table.clear().draw();
                 table.destroy();
@@ -333,13 +377,17 @@
                 var invocNo = $("#InvoicNo").val();
                 var batchNo = $("#BatchNo").val();
 
+                var provNo = $("#ProviderNo").val();
+                var claimNo = $("#ClaimNo").val();
+
+
                 $("#loading").css("display", "flex");
 
                 $.ajax({
                     url: '/ReviewClaims/GetCompanyInvoice/',
                     data: {
                         compId: compId, servFrom: servFrom, servTo: servTo, regFrom: regFrom, regTo: regTo,
-                        invocNo: invocNo, batchNo: batchNo
+                        invocNo: invocNo, batchNo: batchNo, provNo: provNo, claimNo: claimNo
                     },
                     dataType: 'Json',
                     success: function (r) {
@@ -395,7 +443,7 @@
                 });
             }
             else
-                alert("من فضلك اختر رقم الشركة");
+                alert("من فضلك اختر رقم الشركة او ادخل رقم المطالبة");
         }
 
         function GetAllBatch(compNo, invocNo) {
@@ -410,13 +458,16 @@
                 var regTo = $("#RegDateTo").val();               
                 var batchNo = $("#BatchNo").val();
 
+                var provNo = $("#ProviderNo").val();
+                var claimNo = $("#ClaimNo").val();
+
                 $("#loading").css("display", "flex");
 
                 $.ajax({
                     url: '/ReviewClaims/GetBatchDetails/',
                     data: {
                         compNo: compNo, invocNo: invocNo, servFrom: servFrom, servTo: servTo,
-                        regFrom: regFrom, regTo: regTo, batchNo: batchNo
+                        regFrom: regFrom, regTo: regTo, batchNo: batchNo, provNo: provNo, claimNo: claimNo
                     },
                     dataType: 'Json',
                     success: function (r) {
@@ -424,6 +475,9 @@
                         if (r.msg == "ok") {
                             var setData = $("#BatchDetails Tbody");
                             setData.empty();
+
+                            const providerTypes = new Set();
+
                             for (var i = 0; i < r.batchlist.length; i++) {
                                 var data = `
                                         <tr>
@@ -438,13 +492,27 @@
                                                  <button class="btn btn-primary"
                                                     onclick="GoToClaimsScreen('${$('#RegDateFrom').val()}', '${$('#RegDateTo').val()}', '${$('#ServDateFrom').val()}','${$('#ServDateTo').val()}',
                                                     '${r.batchlist[i].BatchNumber}', '${r.batchlist[i].ProviderID}', '${r.batchlist[i].ProviderName}',
-                                                    '${$('#InvoicNumber').val()}', '${$('#CompNumber').val()}', '${$('#CompName').val()}')">
+                                                    '${$('#InvoicNumber').val()}', '${$('#CompNumber').val()}', '${$('#CompName').val()}', '${$('#ClaimNo').val()}')">
                     View Claims
                 </button>
             </td>
                                         </tr>`;
                                 setData.append(data);
+
+                                if (r.batchlist[i].ProviderType) {
+                                    providerTypes.add(r.batchlist[i].ProviderType);
+                                }
+
+                                
                             }
+
+                            const providerSelect = $('#ProviderTyp');
+                            providerSelect.empty();
+                            providerSelect.append(`<option value="">Select Provider Type</option>`); // Placeholder
+                            providerTypes.forEach(type => {
+                                providerSelect.append(`<option value="${type}">${type}</option>`);
+                            });
+
                             $('#BatchDetails').DataTable();
                             $('#list_div2').show();
 
@@ -509,7 +577,7 @@
     //        }
     //    });
     //}
-    function GoToClaimsScreen(RegFrom, RegTo, ServFrom, ServTo, batchNumber, providerID, providerName, invoiceNumber, compNumber, compName) {
+    function GoToClaimsScreen(RegFrom, RegTo, ServFrom, ServTo, batchNumber, providerID, providerName, invoiceNumber, compNumber, compName, ClaimNo) {
         var form = document.createElement('form');
         form.method = 'POST';
         form.action = '@Url.Action("BatchReview", "ReviewClaims")';  // Specify your controller and action
@@ -575,6 +643,12 @@
         compNameInput.value = compName;
         form.appendChild(compNameInput);
 
+        var ClaimNoInput = document.createElement('input');
+        ClaimNoInput.type = 'hidden';
+        ClaimNoInput.name = 'ClaimNo';
+        ClaimNoInput.value = ClaimNo;
+        form.appendChild(ClaimNoInput);
+
         // Append the form to the body and submit it to open in a new tab
         document.body.appendChild(form);
         form.target = '_blank';  // This ensures the form is submitted in a new tab
@@ -622,6 +696,8 @@
         var regTo = $("#RegDateTo").val();
         var invocNo = $("#InvoicNo").val();
         var batchNo = $("#BatchNo").val();
+        var provNo = $("#ProviderNo").val();
+        var claimNo = $("#ClaimNo").val();
         var typ = 1;
 
         if ($("#excel").is(":checked"))
@@ -631,6 +707,7 @@
                         '&&servFrom=' + servFrom + '&&servTo=' + servTo +
                         '&&regFrom=' + regFrom + '&&regTo=' + regTo +                       
                         '&&invocNo=' + invocNo + '&&batchNo=' + batchNo +
+                        '&&provNo=' + provNo + '&&claimNo=' + claimNo +
                         '&&typ=' + typ);              
         }
     function PrintBatchReviewReport() {
@@ -644,6 +721,11 @@
         var regTo = $("#RegDateTo").val();
         var batchNo = $("#BatchNo").val();
 
+        var provNo = $("#ProviderNo").val();
+        var claimNo = $("#ClaimNo").val();
+
+        var provTyp = $("#ProviderTyp").val();
+
         var typ = 1;
         if (compNo != "" && invocNo != "") {
             if ($("#excel2").is(":checked"))
@@ -652,7 +734,9 @@
             window.open('/ReviewClaims/PrintBatchReviewReport?compNo=' + compNo +
                 '&&invocNo=' + invocNo + '&&servFrom=' + servFrom + '&&servTo=' + servTo +
                 '&&regFrom=' + regFrom + '&&regTo=' + regTo +
-                '&&batchNo=' + batchNo + '&&typ=' + typ);
+                '&&batchNo=' + batchNo + '&&provNo=' + provNo +
+                '&&claimNo=' + claimNo + '&&provTyp=' + provTyp +
+                '&&typ=' + typ);
         }
         else
             alert("Comp Id Or Invoice no is empty");
