@@ -1,0 +1,123 @@
+﻿@model DMS_Authontication1.ViewModel.Enum_RequestsViewModel
+
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "CreateRequest";
+    Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
+
+}
+<style>
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span,
+    .forLabel .admin-form-control[readonly="readonly"] ~ span, .forLabel .admin-form-control[readonly="true"] ~ span, .forLabel .admin-form-control[disabled] ~ span {
+        transform: translateY(-10px) !important;
+    }
+
+    select {
+        padding: 7px;
+    }
+
+    .family-upload-box {
+        display: flex;
+        align-items: center;
+        padding: 6px 8px;
+        border: 2px solid #4f3265;
+        border-radius: 6px;
+        gap: 16px;
+    }
+
+        .family-upload-box > div {
+            height: 40px;
+            width: 44%;
+        }
+
+        .family-upload-box > .label {
+            height: 40px;
+            width: 20%;
+            background: white;
+            box-shadow: 0 0 3px 1px #0000003d !important;
+            border-radius: 8px;
+            padding-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .family-upload-box input:not(.file), .family-upload-box select {
+            width: 100%;
+            height: 40px;
+            background: #f1f1f1;
+            box-shadow: 0 0 3px 1px #0000003d !important;
+            border: none;
+            border-radius: 8px;
+            padding: 0 10px;
+        }
+
+        .family-upload-box input:not(.file) {
+            text-align: center;
+        }
+
+    input[type="file"] {
+        padding: 5px 10px !important;
+        text-align: center;
+        cursor: pointer;
+    }
+</style>
+<div class="sios-container">
+
+    <div class="portlet box   " dir="rtl">
+        <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa-solid fa-home ms-2"></i>رفع صور الأسر
+            </div>
+        </div>
+        <div class="portlet-body container d-flex flex-column gap-2 mt-4">
+            <div class="family-upload-box ">
+                <div class="label">
+                    <Label class="sios-color fs-5 fw-bold">الزوجة</Label>
+                </div>
+                <div class=" ">
+                    <input class="sios-form-control rounded border-0" type="text" placeholder="طلعه سلمى محمد احمد احمد" />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label for="photoOne" class="sios-color fw-bold"></label>
+                    <input class="sios-form-control rounded border-0" id="photoOne" type="file" />
+                </div>
+            </div>
+            <div class="family-upload-box ">
+                <div class="label ">
+                    <Label class="sios-color fs-5 fw-bold">إبن</Label>
+                </div>
+                <div class=" ">
+                    <input class="sios-form-control rounded border-0" type="text" placeholder="انس اشرف محمدى فتح الله" />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label for="photoTwo" class="sios-color fw-bold"></label>
+                    <input class="sios-form-control rounded border-0" id="photoTwo" type="file" />
+                </div>
+            </div>
+            <div class="family-upload-box">
+                <div class="label">
+                    <Label class="sios-color fs-5 fw-bold">إبنة</Label>
+                </div>
+                <div class=" ">
+                    <input class="sios-form-control rounded border-0" type="text" placeholder="أية اشرف محمدى فتح الله " />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label for="photoThree" class="sios-color fw-bold"></label>
+                    <input class="sios-form-control rounded border-0" id="photoThree" type="file" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+@*<script src="~/Scripts/DMS/HR/MedicalApprovalCreate.js?V=1"></script>*@
+
+<script>
+    function Save() {
+        alert("تم إستلام طلب سيادتكم وإرساله للقسم المختص وسيتم الرد عليكم فور الإنتهاء من دراسة طلب الموافقة");
+        var cardId = encodeURIComponent($("#CardId").val());
+        window.location.href = '@Url.Action("NetworkMedical", "NetworkMedical", new { cardId = "__REPLACE__" })'.replace("__REPLACE__", encodeURIComponent(cardId));
+    }
+</script>
