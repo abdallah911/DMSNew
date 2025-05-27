@@ -163,12 +163,12 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
         public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                            string invocNo, string batchNo)
+                                            string invocNo, string batchNo, string provNo, string claimNo)
         {
             //string compId, string servFrom, string servTo, string regFrom, string regTo,
             //                        string aprovNo, string cardId, string invocNo, string batchNo
 
-            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2;
+            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
@@ -185,10 +185,15 @@ namespace DMS_Authontication1.Controllers.HR
             batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
             batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
+            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+
             DataTable dt = new DataTable();
 
             dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
-                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
 
             List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
       
@@ -215,11 +220,12 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
 
-        public JsonResult GetBatchDetails(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, string batchNo)
+        public JsonResult GetBatchDetails(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, 
+                                          string batchNo, string provNo, string claimNo)
         {
             DataTable dt = new DataTable();
 
-            Int64 batchNoFrom, batchNoTo;
+            Int64 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
@@ -231,8 +237,14 @@ namespace DMS_Authontication1.Controllers.HR
             batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
             batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
+            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, batchNoFrom, batchNoTo);
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
+                                 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
 
             List<BatchViewModel> clms = new List<BatchViewModel>();
 
@@ -258,9 +270,9 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
         public ActionResult PrintCompanyInvoiceReport(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                                      string invocNo, string batchNo, int typ)
+                                                      string invocNo, string batchNo, string provNo, string claimNo, int typ)
         {
-            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2;
+            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
@@ -277,10 +289,15 @@ namespace DMS_Authontication1.Controllers.HR
             batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
             batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
+            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+
             DataTable dt = new DataTable();
 
             dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
-                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
 
             List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
 
@@ -341,11 +358,12 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, string batchNo, int typ)
+        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, 
+                                                   string batchNo, string provNo, string claimNo, string provTyp, int typ)
         {
             DataTable dt = new DataTable();
 
-            Int64 batchNoFrom, batchNoTo;
+            Int64 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
@@ -357,7 +375,13 @@ namespace DMS_Authontication1.Controllers.HR
             batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
             batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, batchNoFrom, batchNoTo);
+            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
+                                 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2, provTyp);
 
             List<BatchViewModel> clms = new List<BatchViewModel>();
 
@@ -421,7 +445,7 @@ namespace DMS_Authontication1.Controllers.HR
         [HttpPost]
         public ActionResult BatchReview(string RegFrom, string RegTo, string ServFrom, string ServTo,
                                         string batchNumber, string providerID, string providerName,
-                                        string invoiceNumber, string compNumber, string compName)
+                                        string invoiceNumber, string compNumber, string compName, string ClaimNo)
         {
             ViewBag.RegFrom = RegFrom;
             ViewBag.RegTo = RegTo;
@@ -433,7 +457,7 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.InvoiceNumber = invoiceNumber;
             ViewBag.CompNumber = compNumber;
             ViewBag.CompName = compName;
-
+            ViewBag.ClaimNo = ClaimNo;  
             return View();
         }              
         public JsonResult GetClaims(string RegFrom, string RegTo, string ServFrom, string ServTo,

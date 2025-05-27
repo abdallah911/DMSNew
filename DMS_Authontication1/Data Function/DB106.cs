@@ -242,7 +242,7 @@ namespace DMS_Authontication1.Data_Function
             }
         }
         public DataTable getInvoices(Int64 comp1, Int64 comp2, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2,
-                                       Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2)
+                                       Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2, Int64 prov1, Int64 prov2, Int64 clm1, Int64 clm2)
         {
             OracleConnection con = new OracleConnection(connectionStr);
             OracleCommand cmd = new OracleCommand();
@@ -258,6 +258,8 @@ namespace DMS_Authontication1.Data_Function
                                                               AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                               AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
                                                               AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
+                                                              AND NVL(PRV_NO, 0) BETWEEN :prov1 AND :prov2
+                                                              AND NVL(CLAIM_NO, 0) BETWEEN :clm1 AND :clm2
                                                         GROUP BY COMP_ID, INVOICE_NO) t1, APP.DIS_COMP t2
                                               WHERE     t1.COMP_ID = t2.C_COMP_ID", con);
             
@@ -274,7 +276,12 @@ namespace DMS_Authontication1.Data_Function
                 cmd.Parameters.Add(":invoc2", OracleType.Number).Value = invoc2;
                 cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
                 cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
-                
+
+                cmd.Parameters.Add(":prov1", OracleType.Number).Value = prov1;
+                cmd.Parameters.Add(":prov2", OracleType.Number).Value = prov2;
+                cmd.Parameters.Add(":clm1", OracleType.Number).Value = clm1;
+                cmd.Parameters.Add(":clm2", OracleType.Number).Value = clm2;
+
                 da = new OracleDataAdapter(cmd);
 
                 da.Fill(dd);
@@ -308,7 +315,7 @@ namespace DMS_Authontication1.Data_Function
             }
         }
         public DataTable getBatch(Int64 cmp, Int64 invoc, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2,
-                                  Int64 batch1, Int64 batch2)
+                                  Int64 batch1, Int64 batch2, Int64 prov1, Int64 prov2, Int64 clm1, Int64 clm2, string provTyp ="")
         {
             OracleConnection con = new OracleConnection(connectionStr);
             OracleCommand cmd = new OracleCommand();
@@ -322,8 +329,11 @@ namespace DMS_Authontication1.Data_Function
                                                 AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
                                                 AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                 AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
+                                                AND NVL(PRV_NO, 0) BETWEEN :prov1 AND :prov2
+                                                AND NVL(CLAIM_NO, 0) BETWEEN :clm1 AND :clm2
+                                                AND (:provTyp IS NULL OR :provTyp = '' OR PROVIDER_TYPE = :provTyp)
                                             GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE
-                                            ORDER BY BATCH_NO", con);
+                                            ORDER BY PROVIDER_TYPE", con);
 
                 cmd.Parameters.Clear();
 
@@ -335,6 +345,13 @@ namespace DMS_Authontication1.Data_Function
                 cmd.Parameters.Add(":reg2", OracleType.DateTime).Value = reg2;                
                 cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
                 cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
+
+                cmd.Parameters.Add(":prov1", OracleType.Number).Value = prov1;
+                cmd.Parameters.Add(":prov2", OracleType.Number).Value = prov2;
+                cmd.Parameters.Add(":clm1", OracleType.Number).Value = clm1;
+                cmd.Parameters.Add(":clm2", OracleType.Number).Value = clm2;
+
+                cmd.Parameters.Add(":provTyp", OracleType.VarChar).Value = provTyp;
 
                 da = new OracleDataAdapter(cmd);
 

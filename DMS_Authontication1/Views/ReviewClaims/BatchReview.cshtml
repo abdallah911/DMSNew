@@ -96,7 +96,14 @@
                     <select id="CardId" class="w-100 h-100 form-control "></select>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="ApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    @if (!string.IsNullOrEmpty(ViewBag.ClaimNo as string))
+                    {
+                        <input id="ApprovalNo" type="number" class="w-100 h-100" value="@ViewBag.ClaimNo" placeholder="Approval Number" readonly />
+                    }
+                    else
+                    {
+                        <input id="ApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    }
                 </div>
             </div>
             <div class="col-md-3 text-end">
