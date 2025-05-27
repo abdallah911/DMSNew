@@ -138,6 +138,15 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
+                    //var servProviderNew = tESTEntities.SERV_PROVIDERS_NEW.Where(x => x.MAIN_CODE == user.TypeId).FirstOrDefault();
+                    //if (servProviderNew != null)
+                    //{
+                    //    if (servProviderNew.TERMINATE_FLAG == "Y")
+                    //    {
+                    //        ModelState.AddModelError("", "You'r account locked.");
+                    //        return View(model);
+                    //    }
+                    //}
                     var _ERPRolesUsersPages = tESTEntities.ERPUsersModulesPages.Where(x => x.UserId == user.Id)
                          .Join(tESTEntities.ERPModulesPages, rmp => rmp.PageId, mp => mp.Id, (rmp, mp) => new { rmp, mp })
                          .Select(l => new ModulesPagesViewModel

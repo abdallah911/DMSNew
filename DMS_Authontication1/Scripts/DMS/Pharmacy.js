@@ -475,7 +475,7 @@ $(function () {
                                         debugger;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].Name.includes("Cancel Co-Payment");
-                                            PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent ;
+                                            PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent;
                                             Limit = Limit == true ? true : returndata[i].Name.includes('Disregard OverInsurance');
                                             PatientAmount = Limit == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
                                             Adult = Adult == true ? true : returndata[i].Name.includes("Ignore Age");
@@ -486,7 +486,7 @@ $(function () {
                                             ExternalPrescription = ExternalPrescription == true ? true : returndata[i].Name.includes("External Prescription");
                                             PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].Name.includes("Unlimited Examination per day");
                                             PrescriptionCount = PrescriptionCount == true ? true : returndata[i].Name.includes("Ignore Prescription Count");
-                                            ReasonsView = ReasonsView + returndata[i].Name+" , ";
+                                            ReasonsView = ReasonsView + returndata[i].Name + " , ";
 
                                         }
                                         if (PrescriptionCount == true) {
@@ -540,7 +540,16 @@ $(function () {
                                         }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);
-                                            AnuualLimit = parseInt($('#AllLimit').val()) - PatientAmount;
+                                            var alllimitchick = parseInt($('#AllLimit').val());
+                                            if (PatientAmount > 0) {
+                                                if (alllimitchick <= PatientAmount)
+                                                    AnuualLimit = parseInt$('#AllLimit').val();
+                                                else
+                                                    AnuualLimit = PatientAmount;
+                                            }
+                                            else {
+                                                AnuualLimit = parseInt$('#AllLimit').val();
+                                            }
                                             Calculation();
                                         }
                                         if (Copayment == true) {
