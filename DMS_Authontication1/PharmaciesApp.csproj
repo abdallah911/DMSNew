@@ -8882,6 +8882,7 @@
     <Content Include="Views\Dashboard\_Employees.cshtml" />
     <Content Include="Views\Dashboard\_Comparison.cshtml" />
     <Content Include="Views\Dashboard\Test.cshtml" />
+    <Content Include="Views\EmployeeRequest\FamiliesSubscription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

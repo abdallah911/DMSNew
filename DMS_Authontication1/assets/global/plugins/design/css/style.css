@@ -989,6 +989,9 @@ p:last-of-type {
 .justify-content-md-end {
     justify-content:end !important;
 }
+.justify-content-md-start {
+    justify-content:start !important;
+}
 }
 
 .justify-content-start {
