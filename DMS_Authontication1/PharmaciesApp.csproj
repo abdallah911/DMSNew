@@ -1582,6 +1582,8 @@
     <Content Include="assets\global\img\Events\Eid-Card.gif" />
     <Content Include="assets\global\img\Events\Eid-login-bg.png" />
     <Content Include="assets\global\img\Events\Eid-Logo.gif" />
+    <Content Include="assets\global\img\Events\Eid2-login-bg.png" />
+    <Content Include="assets\global\img\Events\Eid2-logo.gif" />
     <Content Include="assets\global\img\Events\event-logo.png" />
     <Content Include="assets\global\img\Events\ramadan-card-ld.jpeg" />
     <Content Include="assets\global\img\Events\ramadan-card.jpg" />
