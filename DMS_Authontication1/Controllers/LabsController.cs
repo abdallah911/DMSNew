@@ -200,7 +200,7 @@ namespace DMS_Authontication1.Controllers
 
             //data.UpdatedBy = User.Identity.GetUserId();
             data.CreatedDate = DateTime.Now;
-            data.CompHolderCode =compholder;
+            data.CompHolderCode = compholder;
             data.Manager = "Lab";
             data.RoshetaType = "11206";
             try
@@ -907,6 +907,31 @@ namespace DMS_Authontication1.Controllers
                 return HttpNotFound();
             }
         }
+        public ActionResult EditDoctor(long id)
+        {
+            var roshita = db.Roshitas.Where(r => r.Id == id && !r.Manager.Contains("Stop") && r.Manager == "Lab_Daily").FirstOrDefault();
+            if (roshita != null)
+            {
+                List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id)
+                 .Select(l => new DoctorContainerViewModel
+                 {
+                     Id = l.Id,
+                     MedicienCode = l.MedicienCode,
+                     MedicienName = l.MedicienName,
+                     Amount = l.Amount,
+                     IsDealed = l.IsDealed,
+                     PaymentGroup = l.PaymentGroup
+                 })
+                   .GroupBy(x => new { x.MedicienCode })
+                .Select(x => x.FirstOrDefault())
+                 .ToList();
+                return View(data);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
         public JsonResult Manger(long id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -1040,7 +1065,16 @@ namespace DMS_Authontication1.Controllers
                 .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
 
             Roshita roshita1 = new Roshita();
-            roshita1.Manager = roshita.Manager;
+            if (roshita.Manager == "")
+            {
+                DateTime datenow = DateTime.Now.Date;
+                var employee = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+
+                roshita1.CompHolderCode = compholder;
+            }
+            roshita1.Manager = roshita.Manager == "Lab_Daily" ? "Lab" : roshita.Manager;
             roshita1.CardId = roshita.CardId;
             roshita1.Speciality = roshita.Speciality;
             roshita1.Diagnose1 = roshita.Diagnose1;
@@ -1051,8 +1085,8 @@ namespace DMS_Authontication1.Controllers
             roshita1.Limit = roshita.Limit;
             roshita1.PhoneNumber = roshita.PhoneNumber;
             roshita1.ClaimNumber = roshita.ClaimNumber;
-            roshita1.CreatedBy = roshita.CreatedBy;
-            roshita1.CreatedDate = roshita.CreatedDate;
+            roshita1.CreatedBy = roshita.Manager == "Lab_Daily" ? User.Identity.Name : roshita.CreatedBy;
+            roshita1.CreatedDate = roshita.Manager == "Lab_Daily" ? DateTime.Now : roshita.CreatedDate;
             roshita1.UpdatedBy = User.Identity.Name;
             roshita1.UpdatedDate = DateTime.Now;
 
@@ -1066,7 +1100,7 @@ namespace DMS_Authontication1.Controllers
             roshita1.IsPool = data.IsPool;
             roshita1.CompHolderCode = roshita.CompHolderCode;
 
-            roshita.Manager = "Stop-ED";
+            roshita.Manager = roshita.Manager == "Lab_Daily" ? "Stop-ED-Lab_Daily" : "Stop-ED";
             roshita.SyncBy = "Update";
             roshita.UpdatedBy = User.Identity.Name;
             roshita.UpdatedDate = DateTime.Now;
@@ -1116,7 +1150,7 @@ namespace DMS_Authontication1.Controllers
                     TotalDuration = old.TotalDuration,
                     TotalUnits = old.TotalUnits,
                     Amount = old.Amount,
-                    IsDealed = old.IsDealed,
+                    IsDealed = roshita.Manager == "Stop-ED-Lab_Daily" ? true : old.IsDealed,
                     PaymentGroup = old.PaymentGroup,
                     MedicineNoPay = old.MedicineNoPay
                 };
@@ -1338,7 +1372,7 @@ namespace DMS_Authontication1.Controllers
             }
             data.RoshetaType = "Lab";
 
-            rd.SetParameterValue("CompType",data.CompHolderCode);
+            rd.SetParameterValue("CompType", data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
@@ -2264,6 +2298,33 @@ namespace DMS_Authontication1.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public JsonResult HaveDoctor(string id)
+        {
+            try
+            {
+                ApplicationDbContext myEntities = new ApplicationDbContext();
+                var user = myEntities.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var date = DateTime.Now.AddDays(-14);
+                var roshita = db.Roshitas.Include(x => x.RoshitaPharmcyApproveds).Where(r => r.CardId == id && r.Manager == "Lab_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
+                foreach (var item in roshita)
+                {
+                    foreach (var itemdetails in item.RoshitaPharmcyApproveds)
+                    {
+                        if (itemdetails.Pharmacy == user.Provider)
+                            return Json(new { ok = true, message = "Ok", roshitaid = itemdetails.RoshitaId }, JsonRequestBehavior.AllowGet);
+
+                    }
+                }
+
+                return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 
