@@ -151,20 +151,7 @@ span.select2-selection.select2-selection--single {
         pointer-events: none;
         transition: all 0.2s ease-in-out;
     } 
-
-.forLabel input:valid ~ span,
-.forLabel select:valid ~ span:last-of-type,
-.forLabel textarea:valid ~ span,
-.forLabel input:focus ~ span,
-.forLabel select:focus ~ span,
-.forLabel textarea:focus ~ span {
-    pointer-events: none;
-    font-size: 10px;
-    transform: translateY(-10px);
-    color: #828282;
-    transition: all 0.2s ease-in-out;
-}
-
+/* 
     .forLabel input[disabled="true"]:focus ~ span,
     .forLabel select[disabled="true"]:focus ~ span:last-of-type,
     .forLabel textarea[disabled="true"]:focus ~ span,
@@ -180,8 +167,51 @@ span.select2-selection.select2-selection--single {
         transform: unset !important;
         color: #337ab7;
         font-size: 14px;
+}*/
+.forLabel input:valid ~ span,
+.forLabel select:valid ~ span:last-of-type,
+.forLabel textarea:valid ~ span,
+.forLabel input:focus ~ span,
+.forLabel select:focus ~ span,
+.forLabel textarea:focus ~ span {
+    pointer-events: none;
+    font-size: 10px;
+    transform: translateY(-10px) ;
+    color: #828282;
+    transition: all 0.2s ease-in-out;
+}
+/*
+.forLabel input[disabled="true"]:valid ~ span,
+.forLabel select[disabled="true"]:valid ~ span:last-of-type,
+.forLabel textarea[disabled="true"]:valid ~ span,
+.forLabel input[disabled="disabled"]:valid ~ span,
+.forLabel select[disabled="disabled"]:valid ~ span:last-of-type,
+.forLabel textarea[disabled="disabled"]:valid ~ span,
+.forLabel input[disabled]:valid ~ span,
+.forLabel select[disabled]:valid ~ span:last-of-type,
+.forLabel textarea[disabled]:valid ~ span,
+.forLabel input[readonly]:valid ~ span,
+.forLabel select[readonly]:valid ~ span:last-of-type,
+.forLabel textarea[readonly]:valid ~ span,
+.forLabel input[readonly="true"]:valid ~ span,
+.forLabel select[readonly="true"]:valid ~ span:last-of-type,
+.forLabel textarea[readonly="true"]:valid ~ span {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-10px);
+        color: #828282;
+        transition: all 0.2s ease-in-out;
+    }*/
+    .forLabel.disabled input {
+        padding: 10px 10px 10px 140px !important;
     }
-
+    .forLabel.has-content > span:last-of-type {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-10px);
+        color: #828282;
+        transition: all 0.2s ease-in-out;
+    }
 .forLabel input[type="date"] {
     color: transparent;
 }

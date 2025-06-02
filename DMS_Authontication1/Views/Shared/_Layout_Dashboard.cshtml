@@ -1249,6 +1249,16 @@
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
 
+
+    <script>
+        $(document).ready(function () {
+            $('.forLabel input[readonly],.forLabel input[readonly="true"],.forLabel input[disabled], .forLabel select:disabled').each(function () {
+                if ($(this).val()) {
+                    $(this).closest('.forLabel').addClass('has-content');
+                }
+            });
+        });
+    </script>
     <script>
         var notification = 0;
         $(document).ready(function () {
