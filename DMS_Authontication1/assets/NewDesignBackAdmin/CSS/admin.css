@@ -4600,6 +4600,7 @@ button.vjs-big-play-button {
 }
 .nm-priv-data-box {
     padding: 0 8px;
+    width:fit-content !important;
 }
     .nm-priv-data-img i{
         font-size:80px;
