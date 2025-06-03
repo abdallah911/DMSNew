@@ -6974,6 +6974,8 @@
     <Content Include="assets\HomeTemplete\vendors\owl-carousel\assets\owl.carousel.css" />
     <Content Include="assets\HomeTemplete\vendors\owl-carousel\owl.carousel.min.css" />
     <Content Include="assets\HomeTemplete\vendors\owl-carousel\owl.carousel.min.js" />
+    <Content Include="assets\Image\100159-1.jpg" />
+    <Content Include="assets\Image\Logo\1.JPG" />
     <Content Include="assets\layouts\global\scripts\cookie-consent.js" />
     <Content Include="assets\layouts\global\scripts\cookie-consent.min.js" />
     <Content Include="assets\layouts\global\scripts\hor-timeline.js" />
