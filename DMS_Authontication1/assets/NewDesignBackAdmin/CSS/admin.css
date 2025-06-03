@@ -4598,6 +4598,23 @@ button.vjs-big-play-button {
        width:25%;
    }
 }
+.nm-priv-data-box {
+    padding: 0 8px;
+}
+    .nm-priv-data-img i{
+        font-size:80px;
+    }
+.nm-priv-data-img img {
+    max-height: 120px;
+    padding: 3px !important;
+    background: #79439b;
+    border-radius: 8px;
+}
+@media (max-width:1199px){
+    .nm-priv-data-img i{
+        font-size:70px;
+    }
+}
 /* ====================footer========================================== */
 .footer {
     background: var(--color-gradient);

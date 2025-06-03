@@ -22,24 +22,34 @@
             </span>
         </div>
     </div>
-    <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
-        <div class="forLabel px-2 border-0 ">
-            <input type="text" id="txtCardId" value="@Model.CardId" class="border-2 admin-form-control w-100" style="text-align: right;" dir="ltr" readonly />
-            <span class="sios-color" style="right:20px;transform: translateY(-8px);">رقم الكارت</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            @*<input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" readonly />*@
-            <input type="text" id="txtName" value="@Model.EmpName" class="border-2 admin-form-control w-100" readonly />
+    <div class="row container mx-auto g-3 my-4">
+        <div class="col-sm-6 col-lg-8 mx-auto row row-cols-sm-2 g-2">
+            <div class="forLabel border-0 ">
+                <input type="text" id="txtCardId" value="@Model.CardId" class="border-2 admin-form-control w-100" style="text-align: right;" dir="ltr" readonly />
+                <span class="sios-color" style="right:20px;transform: translateY(-8px);">رقم الكارت</span>
+            </div>
+            <div class="forLabel border-0">
+                @*<input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" readonly />*@
+                <input type="text" id="txtName" value="@Model.EmpName" class="border-2 admin-form-control w-100" readonly />
 
-            <span class="sios-color" style="right:20px;transform: translateY(-8px);">الإسم</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            <input type="text" id="startDate" value="@Model.StartDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ البداية</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            <input type="text" id="endDate" value="@Model.EndDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ النهاية</span>
+                <span class="sios-color" style="right:20px;transform: translateY(-8px);">الإسم</span>
+            </div>
+            <div class="forLabel border-0">
+                <input type="text" id="startDate" value="@Model.StartDate" class="date-input border-2 admin-form-control w-100" readonly />
+                <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ البداية</span>
+            </div>
+            <div class="forLabel border-0">
+                <input type="text" id="endDate" value="@Model.EndDate" class="date-input border-2 admin-form-control w-100" readonly />
+                <span class="sios-color" style="right:20px;transform: translateY(-8px);">تاريخ النهاية</span>
+            </div>
+        </div> 
+        <div class="nm-priv-data-box col-sm-6 col-lg-4 mx-auto ">
+            <div @*style="max-width: 80px;max-height: 60px;"*@ class="nm-priv-data-img w-100 h-100 my-auto bg-dark-subtle d-flex flex-column gap-2  rounded-2 p-2 shadow-sm ms-4">
+                <span class=" sec-overlay-bg rounded mx-auto shadow">
+                    <img class="logo-preview w-100 h-100  d-none p-3" src="~/assets/NewDesignBackAdmin/Img/Acdulrahman-card.jpg" alt="">
+                    <i class="fa-solid fa-image"></i>
+                </span>
+            </div>
         </div>
     </div>
     <div class="row bg-overlay mb-4 portlet-title">
