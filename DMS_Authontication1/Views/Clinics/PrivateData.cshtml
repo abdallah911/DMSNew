@@ -36,72 +36,114 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 <input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
-<style> 
-   .cate-box {
-       gap:10px;
-       align-items:center;
-       margin:20px 0;
-          
-   }
-    .cate-box .cate {
-        background: #324899;
-        color: white;
-        border-radius: 14px;
-        font-weight: 700;
-        font-size: 16px;
-        padding: 10px 12px;
-        BORDER: none !important;
-        border: solid 2px #eceaeb !important;
-        border-top: transparent !important;
-        border-right: transparent !important;
-        border-left: transparent !important;
+<style>
+    .cate-box-2,
+    .cate-box {
+        gap: 10px;
+        align-items: center;
+        margin: 20px 0;
     }
-.cate-box .cate:hover {
-    box-shadow: inset 0 0 7px 20px #00000026;
-}
-.cate-box .cate.active,
-.cate-box .cate:focus {
-    background: #eceaeb;
-    color: #324899;
-    border-color : #324899 !important;
-}
+
+        .cate-box-2 .cate,
+        .cate-box .cate {
+            background: #324899;
+            color: white;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 10px 12px;
+            BORDER: none !important;
+            border: solid 2px #eceaeb !important;
+            border-top: transparent !important;
+            border-right: transparent !important;
+            border-left: transparent !important;
+            cursor: pointer;
+        }
+
+            .cate-box-2 .cate:hover,
+            .cate-box .cate:hover {
+                box-shadow: inset 0 0 7px 20px #00000026;
+            }
+
+            .cate-box .cate.active,
+            .cate-box-2 .cate:focus,
+            .cate-box .cate:focus {
+                background: #eceaeb;
+                color: #324899;
+                border-color: #324899 !important;
+            }
+
     .forLabel span {
         left: unset;
         right: 10px;
     }
-    .container::before{
-        display:none;
+
+    .container::before {
+        display: none;
+    }
+
+    .forLabel select:valid, .forLabel input:valid, .forLabel textarea:valid, .forLabel select:focus, .forLabel input:focus, .forLabel textarea:focus {
+        padding: 13px 8px 1px !important;
+    }
+
+    .animate-box {
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateX(20px) scale(0.98);
+    }
+
+        .animate-box.show {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+        }
+
+    .d-none {
+        display: none !important;
+    }
+
+    .d-flex {
+        display: flex !important;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 </style>
 <div class="dms-container" dir="rtl">
     <div class="">
-        <div class=" container mx-auto d-flex gap-3 mt-4">
-            <div class="forLabel">
-                <input type="text" class=" " required />
-                <span>رقم الكارت</span>
-            </div>
-            <input type="button" value="بحث" class="btn " />
-        </div>
         <div class="portlet-title title-bg">
             <div class="fw-bold text-white p-3 fs-4 mt-4 caption" style="font-size:16px;font-weight:bold">
                 <i class="fa fa-gift"></i> عرض البيانات
             </div>
         </div>
-        <div class="container mx-auto d-flex cate-box ">
-            <input class="cate" type="button" value="البيانات الشخصية" />
-            <input class="cate" type="button" value="الموافقة" />
-            <input class="cate" type="button" value="الأمراض المزمنة" />
-            <input class="cate" type="button" value="المطالبات" />
-            <input class="cate" type="button" value="التاريخ" />
+        <div class="container mx-auto d-flex cate-box " dir="ltr">
+            <input class="cate" id="historyBtn" type="button" value="Histoy" />
+            <div class=" d-none gap-2 animate-box" id="historyCates">
+                <input class="cate" type="button" value="البيانات الشخصية" />
+                <input class="cate" type="button" value="الموافقة" />
+                <input class="cate" type="button" value="الأمراض المزمنة" />
+                <input class="cate" type="button" value="المطالبات" />
+            </div>
         </div>
-        <div class="container mx-auto d-flex flex-wrap row-cols-md-4 row-cols-lg-5 mx-auto gap-2 ">
+        <div class=" container mx-auto d-flex gap-3 mt-4">
+            <div style="position:relative">
+                <div class="forLabel">
+                    <input type="text" class=" " required />
+                    <span>رقم الكارت</span>
+                </div>
+                <input style="position:absolute;left:0;top:0;border:none !important; height:40px;" type="button" value="بحث" class="btn " />
+            </div>
+        </div>
+        <div class="container mx-auto d-flex flex-wrap row-cols-md-4 row-cols-lg-5 mt-4 mx-auto gap-2 ">
             <div class="forLabel">
                 <input type="text" class="" required />
                 <span>رقم البطاقة</span>
             </div>
             <div class="forLabel">
-                <input type="text" class="" required />
+                <input type="text" class="date-input" required />
                 <span>تاريخ البدء</span>
+            </div>
+            <div class="forLabel">
+                <input type="text" class="date-input" required />
+                <span>تاريخ الإنتهاء</span>
             </div>
             <div class="forLabel">
                 <input type="text" class="" required />
@@ -155,10 +197,37 @@
                 <input type="text" class="" required />
                 <span>الشبكة</span>
             </div>
-            <div class="forLabel">
-                <input type="text" class="" required />
-                <span>رقم الجوال 2</span>
+        </div>
+        <div class="container mx-auto d-flex flex-wrap row-cols-md-2 my-4 mx-auto gap-2 " style="justify-content:space-between">
+            <div class="d-flex flex-column row-gap-2">
+                <div class="forLabel">
+                    <input type="number" class="" required />
+                    <span>رقم الواتساب</span>
+                </div>
+                <div class="forLabel">
+                    <select required></select>
+                    <span>تخصص</span>
+                </div>
+                <div class="forLabel">
+                    <select required></select>
+                    <span>تشخيص</span>
+                </div>
             </div>
+            <div class="d-flex gap-2">
+                <div class="  cate-box-2" style="margin:0">
+                    <input class="cate" type="button" value="OTP" />
+                </div>
+                <div class="forLabel">
+                    <input type="number" required />
+                    <span>الكود</span>
+                </div>
+            </div>
+        </div>
+        <div class="forLabel container" style=" height:120px">
+            <textarea required class=" "></textarea>
+            <span style="right:25px">ملاحظات</span>
+        </div>
+        <div class="container mt-4 ms-auto d-flex justify-content-end" style="margin-right:auto;">
             <input type="button" value="حفظ" class="text-center btn" />
         </div>
     </div>
@@ -166,5 +235,30 @@
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        $('#historyBtn').on('click', function () {
+            const $target = $('#historyCates');
 
+            if ($target.hasClass('show')) {
+                // Hide with animation
+                $target.removeClass('show');
+                setTimeout(function () {
+                    $target.addClass('d-none').removeClass('d-flex');
+                    $('#historyBtn').removeClass('active');
+                }, 400);
+            } else {
+                // Show with animation
+                $target.removeClass('d-none').addClass('d-flex');
+                setTimeout(function () {
+                    $target.addClass('show');
+                    $('#historyBtn').addClass('active');
+                }, 10);
+            }
+        });
+
+        $('.cate').on('click', function () {
+            $('.cate').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
 </script>
