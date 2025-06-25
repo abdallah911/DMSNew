@@ -1,0 +1,127 @@
+﻿@model DMS_Authontication1.ViewModel.HospitalClaimPhotoesViewModel
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
+
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+@*<input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />*@
+<style>
+    .form-control {
+        background: transparent;
+    }
+
+    .form-horizontal .form-group {
+        display: flex
+    }
+
+        .form-horizontal .form-group label {
+            width: 20%;
+        }
+
+        .form-horizontal .form-group div {
+            width: 80%;
+        }
+
+    select#ddlDiagnoises,
+    input.admin-form-control {
+        border-radius: 6px;
+    }
+
+    .radio-box > div {
+        background: #e2dfe7;
+        color: #4a3756;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 10px 18px;
+        border-radius: 8px;
+    }
+</style>
+@{
+    bool showSearch = (ViewBag.stat?.ToString() ?? "") != "NoData";
+}
+<div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page container pb-4">
+    <div class="d-flex gap-3 my-4 radio-box">
+        <div>
+            <input type="radio" name="addressType" id="home" checked />
+            <label for="home">منزل</label>
+        </div>
+        <div>
+            <input type="radio" name="addressType" id="work" />
+            <label for="work">عمل</label>
+        </div>
+        <div>
+            <input type="radio" name="addressType" id="pharmacy" />
+            <label for="pharmacy">صيدلية</label>
+        </div>
+    </div>
+    <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+        <div class="forLabel admin-form-control border-0">
+            <input type="text" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">العنوان</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="number" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">تليفون ارضي</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="text" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">الدور</span>
+        </div>ٍ
+        <div class="forLabel admin-form-control border-0">
+            <input type="number" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">رقم موبايل</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="text" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">مواعيد التواجد</span>
+        </div>
+    </div>
+    <div id="workSec" class="row section row-cols-sm-2 g-2">
+        <div class="forLabel admin-form-control border-0">
+            <input type="text" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">العنوان</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="number" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">رقم موبايل</span>
+        </div>
+    </div>
+    <div id="pharmacySec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+        <div class="forLabel admin-form-control border-0">
+            <select class="w-100 rounded " required></select>
+            <span class="me-2">الصيدلية</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="text" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">العنوان</span>
+        </div>
+        <div class="forLabel admin-form-control border-0">
+            <input type="number" class="admin-form-control border-2 rounded" required />
+            <span class="me-2">رقم التواصل</span>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center justify-content-sm-end mt-3">
+        <input type="button" value="حفظ" class="btn fs-3 h3" />
+    </div>
+    <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+        <img src="~/assets/NewDesign/img/loading.gif" alt="Loading..." style="width:250px; height:250px;">
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('input[name="addressType"]').on('change', function () {
+            $('.section').hide();
+
+            const selectedId = $(this).attr('id') + 'Sec';
+
+            $('#' + selectedId).fadeIn(300);
+        });
+        $('input[name="addressType"]:checked').trigger('change');
+    });
+</script>
