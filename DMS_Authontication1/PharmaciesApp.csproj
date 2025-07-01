@@ -1585,6 +1585,10 @@
     <Content Include="assets\global\img\Events\Eid2-login-bg.png" />
     <Content Include="assets\global\img\Events\Eid2-logo.gif" />
     <Content Include="assets\global\img\Events\event-logo.png" />
+    <Content Include="assets\global\img\Events\NewYear-login-bg.png" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg.jpg" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg2.jpg" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg3.jpg" />
     <Content Include="assets\global\img\Events\ramadan-card-ld.jpeg" />
     <Content Include="assets\global\img\Events\ramadan-card.jpg" />
     <Content Include="assets\global\img\Events\Ramadan-logo.gif" />
