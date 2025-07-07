@@ -2177,7 +2177,7 @@ li.dash-filter-icon {
     border: 1px solid #186bb321;
 }
     .graph-table thead {
-        background: #337ab7;
+        background: #724494;
         /*border: 1px solid #337ab7;*/
         border-radius: 8px 8px 0 0 !important;
     }
@@ -2214,7 +2214,7 @@ li.dash-filter-icon {
     font-weight: 600;
 }
     .graph-table td:first-of-type {
-        color: #337ab7;
+        color: #724494;
         font-weight: 700;
         font-size: 11px;
     }
