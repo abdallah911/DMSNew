@@ -23,6 +23,7 @@ namespace DMS_Authontication1.Controllers
         private DMS_TESTEntities db = new DMS_TESTEntities();
         ApplicationDbContext myEntities = new ApplicationDbContext();
         DBApproval dbData = new DBApproval();
+        DBApproval106 dbData106 = new DBApproval106();
         DBData dbData2 = new DBData();
 
         [HttpGet]
@@ -43,91 +44,109 @@ namespace DMS_Authontication1.Controllers
                 //                            FROM    DMS_TEST.COMP_EMPLOYEES e
                 //                            LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
                 //                            WHERE q.CARD_ID = '" + cardId + "'");
-                dtcrd = dbData2.getData(cardId);
+                
+                //dtcrd = dbData2.getData(cardId);
 
-                if (dtcrd.Rows.Count != 0)
+
+                //SELECT to_char(e.BIRTH_DATE,'DD-MM-YYYY'), e.C_COMP_ID, e.CLASS_CODE, TO_CHAR(e.INS_START_DATE, 'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE, 'DD-MM-YYYY') INS_END_DATE, e.TERMINATE_FLAG, e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, to_char(e.TERMINATE_DATE, 'DD-MM-YYYY') TERMINATE_DATE, e.CONTRACT_NO, e.TEL1, e.TEL2, e.EMP_ID,  DECODE(e.GENDER, 1, 'Male', 2, 'Female')  Gender
+                //                                    FROM   DMS_TEST.COMP_EMPLOYEES e
+                //                            WHERE e.CARD_ID = :crd AND TRUNC(TO_DATE(SYSDATE)) BETWEEN TRUNC(TO_DATE(e.INS_START_DATE)) AND TRUNC(TO_DATE(e.INS_END_DATE))
+
+                DateTime dat = DateTime.Now.Date;
+
+                var query = db.Comp_Employees
+    .Where(x => x.CARD_ID == cardId &&
+                x.INS_START_DATE.HasValue &&
+                x.INS_END_DATE.HasValue &&
+                DbFunctions.TruncateTime(x.INS_START_DATE.Value) <= dat.Date &&
+                DbFunctions.TruncateTime(x.INS_END_DATE.Value) >= dat.Date)
+    .FirstOrDefault();
+
+                var dataCard = query == null ? null : new
                 {
-                    if (dtcrd.Rows.Count > 0 && dtcrd.Rows[0]["TERMINATE_FLAG"].ToString() == "Y" && Convert.ToDateTime(dtcrd.Rows[0]["TERMINATE_DATE"]).Date < DateTime.Now.Date)
+                    BIRTH_DATE = query.BIRTH_DATE?.ToString("dd-MM-yyyy"),
+                    query.C_COMP_ID,
+                    query.CLASS_CODE,
+                    INS_START_DATE = query.INS_START_DATE?.ToString("dd-MM-yyyy"),
+                    INS_END_DATE = query.INS_END_DATE?.ToString("dd-MM-yyyy"),
+                    query.TERMINATE_FLAG,
+                    NAME = (query.EMP_ANAME_ST ?? "") + " " + (query.EMP_ANAME_SC ?? "") + " " + (query.EMP_ANAME_TH ?? ""),
+                    TERMINATE_DATE = query.TERMINATE_DATE?.ToString("dd-MM-yyyy"),
+                    query.CONTRACT_NO,
+                    query.TEL1,
+                    query.TEL2,
+                    query.EMP_ID,
+                    Gender = query.GENDER == 1 ? "Male" : query.GENDER == 2 ? "Female" : ""
+                };
+
+                if (dataCard != null)
+                {
+                    if (dataCard.TERMINATE_FLAG == "Y" && Convert.ToDateTime(dataCard.TERMINATE_DATE).Date < DateTime.Now.Date)
                     {
-                        mod.Mesage = "تم إغلاق هذا الكارت بتاريخ " + dtcrd.Rows[0]["TERMINATE_DATE"].ToString() + "\n";
+                        mod.Mesage = "تم إغلاق هذا الكارت بتاريخ " + dataCard.TERMINATE_DATE + "\n";
 
-                        DataTable dtdelcrd = dbData.RunReader(@"SELECT CARD_ID, to_char(WITHDRAW_CARD_DATE, 'DD-MM-YYYY') FROM DMS_TEST.CLOSE_EMP_DATA WHERE WITHDRAW_CARD_DATE IS NOT NULL AND CARD_ID = '" + cardId + "'");
-
+                        DataTable dtdelcrd = dbData106.RunReader(@"SELECT CARD_ID, to_char(WITHDRAW_CARD_DATE, 'DD-MM-YYYY') FROM DMS_TEST.CLOSE_EMP_DATA WHERE WITHDRAW_CARD_DATE IS NOT NULL AND CARD_ID = '" + cardId + "'");
+                       
                         if (dtdelcrd.Rows.Count > 0)
                             mod.Mesage += " وتم استلام الكارت بتاريخ " + dtdelcrd.Rows[0][1].ToString();
                         else
                             mod.Mesage += " ولم يتم إستلام الكارت بعد ";
                     }
-                    else if (dtcrd.Rows.Count > 0 && Convert.ToDateTime(dtcrd.Rows[0]["INS_END_DATE"]).Date < DateTime.Now.Date)
+                    else if (Convert.ToDateTime(dataCard.INS_END_DATE).Date < DateTime.Now.Date)
                     {
-                        mod.Mesage = " أنتهى التعاقد مع هذا الموظف بتاريخ " + dtcrd.Rows[0]["INS_END_DATE"].ToString();
+                        mod.Mesage = " أنتهى التعاقد مع هذا الموظف بتاريخ " + dataCard.INS_END_DATE.ToString();
                     }
-                    else if (dtcrd.Rows.Count > 0 && dtcrd.Rows[0]["TERMINATE_FLAG"].ToString() == "H")
+                    else if (dataCard.TERMINATE_FLAG == "H")
                     {
                         mod.Mesage = "تم إغلاق الكارت بسبب تعديه الحد الأقصى";
                     }
                     else
                     {
                         mod.Mesage = "";
-                        string comp = dtcrd.Rows[0]["C_COMP_ID"].ToString(), contr = dtcrd.Rows[0]["CONTRACT_NO"].ToString(), cls = dtcrd.Rows[0]["CLASS_CODE"].ToString();
-
-                        //dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
-
-                        //if (dtNotes.Rows.Count == 0)
-                        //    dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
-
-                        //if (dtNotes.Rows.Count > 0)
-                        //    notes = dtNotes.Rows[0]["NOTES"].ToString();
-                                              
-                        dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' AND ACTIVE = 'Y' ORDER BY CODE_NOTES");
+                        
+                        string comp = dataCard.C_COMP_ID.ToString(), contr = dataCard.CONTRACT_NO.ToString(), cls = dataCard.CLASS_CODE.ToString();
+                        
+                        dtNotes = dbData106.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' AND ACTIVE = 'Y' ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count == 0)
-                            dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "' AND ACTIVE = 'Y' AND CARD_ID IS NULL ORDER BY CODE_NOTES");
+                            dtNotes = dbData106.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "' AND ACTIVE = 'Y' AND CARD_ID IS NULL ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count > 0)
                             mod.Notes = dtNotes.AsEnumerable().Select(row => row["NOTES"]?.ToString()).ToArray();
-
-                        //mod.Notes = dtNotes.AsEnumerable()
-                        //                                .SelectMany(row => row.ItemArray.Select(field => field.ToString()))
-                        //                                .ToArray();
-
-
+                        
                         mod.CardId = cardId;
-                        mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
-                        mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
-                        mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
-                        //mod.Notes = notes;
+                        
+                        mod.EmpName = dataCard.NAME.ToString();
+                        mod.StartDate = dataCard.INS_START_DATE.ToString();
+                        mod.EndDate = dataCard.INS_END_DATE.ToString();
+                        
+                        var medicin = (from md in db.Med_Card
+                                       join m in db.Med_Medicine
+                                       on md.CARD_NO equals m.CARD_NO
+                                       where m.ACTIVE == "Y" &&
+                                             md.LOOK_01 == 0 &&
+                                                m.CARD_NO == cardId
+                                       orderby m.CREATED_DATE ?? m.UPDATE_DATE descending
+                                       select m).ToList();
 
-                        //mod.Notes = mod.Notes.Replace("\n", "<br>");
-                        //mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                        //if(cardId.StartsWith("500172") || cardId.StartsWith("10000-VIP-100159-1"))
-                        //{
-                            var medicin = (from md in db.Med_Card
-                                           join m in db.Med_Medicine
-                                           on md.CARD_NO equals m.CARD_NO
-                                           where m.ACTIVE == "Y" &&
-                                                 md.LOOK_01 == 0 &&
-                                                    m.CARD_NO == cardId
-                                           orderby m.CREATED_DATE ?? m.UPDATE_DATE descending
-                                           select m).ToList();
+                        if (medicin != null && medicin.Count > 0)
+                            mod.ChronicCount = medicin.Count.ToString();
 
-                            if (medicin != null && medicin.Count > 0)
-                                mod.ChronicCount = medicin.Count.ToString();
+                        DateTime dat1, dat2;
 
-                            DateTime dat1, dat2;
+                        dat1 = string.IsNullOrEmpty(mod.StartDate) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(mod.StartDate)).Date;
+                        dat2 = string.IsNullOrEmpty(mod.EndDate) ? DateTime.Now.Date : (Convert.ToDateTime(mod.EndDate)).Date;
 
-                            dat1 = string.IsNullOrEmpty(mod.StartDate) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(mod.StartDate)).Date;
-                            dat2 = string.IsNullOrEmpty(mod.EndDate) ? DateTime.Now.Date : (Convert.ToDateTime(mod.EndDate)).Date;
+                        var dt = dbData2.getApproval(cardId, dat1, dat2, cardId);
 
-                            var dt = dbData2.getApproval(cardId, dat1, dat2, cardId);
-
-                            if (dt != null && dt.Rows.Count > 0)
-                                mod.ApprovalCount = dt.Rows.Count.ToString();
+                        if (dt != null && dt.Rows.Count > 0)
+                            mod.ApprovalCount = dt.Rows.Count.ToString();
                         //}
 
 
-                    }                                      
-                }
+                    }
+
+                }   
                 else                
                     mod.Mesage += "لا توجد بيانات للكارت الرجاء التأكد من رقم الكارت المدخل وحاول ثانية";
                 
@@ -507,7 +526,7 @@ namespace DMS_Authontication1.Controllers
             string ncrd = "";
 
             System.Data.DataTable dtoldcrdaprov = new System.Data.DataTable();
-            dtoldcrdaprov = dbData.RunReader(@"SELECT CLOSE_EMP_DATA.CARD_ID FROM DMS_TEST.CLOSE_EMP_DATA WHERE (CLOSE_EMP_DATA.TRANS_TYP = 'D' OR CLOSE_EMP_DATA.TRANS_TYP = 'L') AND CLOSE_EMP_DATA.N_CARD = '" + crd + "'");
+            dtoldcrdaprov = dbData106.RunReader(@"SELECT CLOSE_EMP_DATA.CARD_ID FROM DMS_TEST.CLOSE_EMP_DATA WHERE (CLOSE_EMP_DATA.TRANS_TYP = 'D' OR CLOSE_EMP_DATA.TRANS_TYP = 'L') AND CLOSE_EMP_DATA.N_CARD = '" + crd + "'");
 
             if (dtoldcrdaprov.Rows.Count > 0 && dtoldcrdaprov.Rows[0][0].ToString() != string.Empty)
                 ncrd = dtoldcrdaprov.Rows[0][0].ToString();
@@ -625,8 +644,6 @@ namespace DMS_Authontication1.Controllers
                 throw ex;
             }
         }
-
-
         public ActionResult CreateRequestMedical(string cardId)
         {
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
@@ -643,7 +660,6 @@ namespace DMS_Authontication1.Controllers
 
           //  return View();
         }
-
         public ActionResult CreateRequestChronic(string cardId)
         {
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
