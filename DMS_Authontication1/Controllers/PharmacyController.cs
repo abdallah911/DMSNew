@@ -830,7 +830,7 @@ namespace DMS_TEST.Controllers
                 if (isfamily == "Y")
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
-                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic" && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //else if (ispool == "Y")
@@ -841,20 +841,21 @@ namespace DMS_TEST.Controllers
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
-                if (ServiceCode == "11602")
-                {
-                    PersonNoPay = (from roshita in db.Roshitas
-                                   join details in db.RoshitaDetails
-                                         on roshita.Id equals details.RoshitaID
-                                   where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
-                                   && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
-                                   select new
-                                   {
-                                       Amount = details.Amount,
-                                   }).ToList().Sum(r => r.Amount);
-                }
+                //if (ServiceCode == "11602")
+                //{
+                PersonNoPay = (from roshita in db.Roshitas
+                               join details in db.RoshitaDetails
+                                     on roshita.Id equals details.RoshitaID
+                               where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                               && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                               select new
+                               {
+                                   Amount = details.Amount,
+                               }).ToList().Sum(r => r.Amount);
+                //}
                 List<Roshita> copyacumlator = new List<Roshita>();
                 copyacumlator.AddRange(AcumlatorList);
                 for (int i = 0; i < copyacumlator.Count(); i++)
@@ -1204,8 +1205,8 @@ namespace DMS_TEST.Controllers
                 double RoshitaNoPayEdit = 0;
                 string isfamily = "";
                 string ispool = "";
-                if (ServiceCode == "11602")
-                {
+                //if (ServiceCode == "11602")
+                //{
                     RoshitaNoPayEdit = (from roshita in db.Roshitas
                                         join details in db.RoshitaDetails
                                               on roshita.Id equals details.RoshitaID
@@ -1226,7 +1227,7 @@ namespace DMS_TEST.Controllers
                                    {
                                        Amount = details.Amount,
                                    }).ToList().Sum(r => r.Amount);
-                }
+                //}
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 var remainingPool = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault();
                 if (remainingconsumption != null)
@@ -1249,7 +1250,7 @@ namespace DMS_TEST.Controllers
                         if (reasons != null)
                         {
                             var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
-                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit; ;
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
                             type = true;
                             remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit; ;
 
@@ -1333,11 +1334,13 @@ namespace DMS_TEST.Controllers
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0 && r.Id != RoshitaId
                     && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
@@ -5426,6 +5429,7 @@ namespace DMS_TEST.Controllers
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
                     && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //else if (ispool == "Y")
@@ -5436,6 +5440,7 @@ namespace DMS_TEST.Controllers
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //if (ServiceCode == "11602")
@@ -5922,11 +5927,13 @@ namespace DMS_TEST.Controllers
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0 && r.Id != RoshitaId
                     && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
 

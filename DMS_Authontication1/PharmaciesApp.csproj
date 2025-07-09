@@ -7811,6 +7811,7 @@
     <Content Include="Scripts\DMS\Dashbord - Copy.js" />
     <Content Include="Scripts\DMS\Dashbord.js" />
     <Content Include="Scripts\DMS\LabApproval.js" />
+    <Content Include="Scripts\DMS\Labs\LabEditDoctor.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -308,7 +308,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     EMP_ENAME = employe.EMP_ENAME_ST + " " + employe.EMP_ENAME_SC + " " + employe.EMP_ENAME_TH,
                     INS_START_DATE = employe.INS_START_DATE,
                     INS_END_DATE = employe.INS_END_DATE,
-                    TERMINATE_DATE = DateTime.Now,
+                    TERMINATE_DATE = employe.TERMINATE_DATE,
                     TERMINATE_FLAG = employe.TERMINATE_FLAG,
                     CLASS_CODE = employe.CLASS_CODE,
                     COMP_ID = compID,
@@ -1556,12 +1556,13 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 if (isfamily == "Y")
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
-                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic" && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                       && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //Main consumption

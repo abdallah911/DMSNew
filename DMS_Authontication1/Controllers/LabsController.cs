@@ -789,6 +789,40 @@ namespace DMS_Authontication1.Controllers
                 {
                     roshta.Manager = "Lab_Stop";
                 }
+                else if (roshta.Manager == "Lab_Approve")
+                {
+                    roshta.Manager = "Lab_Approve_Stop";
+                    var roshitawithdetails = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.Id == id).FirstOrDefault();
+                    var DoctorRosita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.CardId == roshitawithdetails.CardId && (x.Manager == "Lab_Daily"))
+                        .OrderByDescending(x => x.CreatedDate).ToList();
+                    long DoctorRositaId = 0;
+                    if (roshitawithdetails.RoshitaDetails.Count() > 0)
+                    {
+                        foreach (var item in DoctorRosita)
+                        {
+                            var details = item.RoshitaDetails.Where(x => x.MedicienCode == roshitawithdetails.RoshitaDetails.ElementAt(0).MedicienCode).FirstOrDefault();
+                            if (details != null)
+                            {
+                                DoctorRositaId = details.RoshitaID;
+                                break;
+                            }
+                        }
+                        var DoctrorchronicRositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == DoctorRositaId).ToList();
+                        foreach (RoshitaDetail item in roshitawithdetails.RoshitaDetails)
+                        {
+                            foreach (RoshitaDetail item2 in DoctrorchronicRositaDetails)
+                            {
+                                if (item.MedicienCode == item2.MedicienCode)
+                                {
+                                    item2.IsDealed = false;
+                                    db.Entry(item2).State = EntityState.Modified;
+                                }
+                            }
+
+                        }
+                    }
+                    db.SaveChanges();
+                }
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
@@ -1061,20 +1095,21 @@ namespace DMS_Authontication1.Controllers
         public JsonResult UpdatePrescription(PrescriptionViewModel data)
         {
             //Roshita
-            var roshita = db.Roshitas.Where(x => x.Id == data.Id)
+            var roshita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.Id == data.Id)
                 .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
 
             Roshita roshita1 = new Roshita();
-            if (roshita.Manager == "")
+            if (roshita.Manager == "Lab_Daily")
             {
                 DateTime datenow = DateTime.Now.Date;
-                var employee = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                var employee = db.Comp_Employees.Where(c => c.CARD_ID == roshita.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
 
                 var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
 
                 roshita1.CompHolderCode = compholder;
+                roshita.CompHolderCode = compholder;
             }
-            roshita1.Manager = roshita.Manager == "Lab_Daily" ? "Lab" : roshita.Manager;
+            roshita1.Manager = roshita.Manager == "Lab_Daily" ? "Lab_Approve" : roshita.Manager;
             roshita1.CardId = roshita.CardId;
             roshita1.Speciality = roshita.Speciality;
             roshita1.Diagnose1 = roshita.Diagnose1;
@@ -1100,11 +1135,22 @@ namespace DMS_Authontication1.Controllers
             roshita1.IsPool = data.IsPool;
             roshita1.CompHolderCode = roshita.CompHolderCode;
 
-            roshita.Manager = roshita.Manager == "Lab_Daily" ? "Stop-ED-Lab_Daily" : "Stop-ED";
+            roshita.Manager = roshita.Manager == "Lab_Daily" ? "Lab_Daily" : "Stop-ED";
             roshita.SyncBy = "Update";
             roshita.UpdatedBy = User.Identity.Name;
             roshita.UpdatedDate = DateTime.Now;
-
+            if (roshita.Manager == "Lab_Daily")
+            {
+                foreach (var item in data.roshitaDetail)
+                {
+                    var medicine = roshita.RoshitaDetails.Where(x => x.MedicienCode == item.MedicienCode).FirstOrDefault();
+                    if (medicine != null)
+                    {
+                        medicine.IsDealed = true;
+                        db.Entry(medicine).State = EntityState.Modified;
+                    }
+                }
+            }
             db.Entry(roshita).State = EntityState.Modified;
             if (ModelState.IsValid)
             {
@@ -1376,7 +1422,7 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
-            rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
+            rd.SetParameterValue("PhoneNumber", data.PhoneNumber==null? "":data.PhoneNumber);
             rd.SetParameterValue("CompanyName", Company.C_ENAME);
             rd.SetParameterValue("CardId", data.CardId);
             if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
@@ -1481,6 +1527,7 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult CellingAmount(string id, string ServiceCode)
         {
+            double PersonNoPay = 0;
             string Message = "";
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
             string roshitaType = ServiceCode == "11201" ? "11204" : "11206";
@@ -1624,13 +1671,41 @@ namespace DMS_Authontication1.Controllers
                 if (isfamily == "Y")
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
-                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic" && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                PersonNoPay = (from roshita in db.Roshitas
+                               join details in db.RoshitaDetails
+                                     on roshita.Id equals details.RoshitaID
+                               where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                               && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                               select new
+                               {
+                                   Amount = details.Amount,
+                               }).ToList().Sum(r => r.Amount);
+                List<Roshita> copyacumlator = new List<Roshita>();
+                copyacumlator.AddRange(AcumlatorList);
+                for (int i = 0; i < copyacumlator.Count(); i++)
+                {
+                    var item = copyacumlator[i];
+                    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                                          join cardaception in db.CardAcceptionReasons
+                                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                                          select new
+                                          {
+                                              id = cardaception.AcceptionReasonsId,
+                                          }).ToList();
+                    if (chickpermision.Count() > 0)
+                    {
+                        AcumlatorList.Remove(item);
+                    }
                 }
                 //Main consumption
                 double AcumlatorAmount = 0;
@@ -1638,6 +1713,7 @@ namespace DMS_Authontication1.Controllers
                 {
                     AcumlatorAmount += item.CompanyPayment;
                 }
+                AcumlatorAmount -= PersonNoPay;
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
 
                 //Service consumption
@@ -2043,19 +2119,50 @@ namespace DMS_Authontication1.Controllers
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0 && r.Id != RoshitaId
                     && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //Main consumption
+                var PersonNoPay = (from roshita in db.Roshitas
+                                   join details in db.RoshitaDetails
+                                         on roshita.Id equals details.RoshitaID
+                                   where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                   && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                                   select new
+                                   {
+                                       Amount = details.Amount,
+                                   }).ToList().Sum(r => r.Amount);
+                List<Roshita> copyacumlator = new List<Roshita>();
+                copyacumlator.AddRange(AcumlatorList);
+                for (int i = 0; i < copyacumlator.Count(); i++)
+                {
+                    var item = copyacumlator[i];
+                    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                                          join cardaception in db.CardAcceptionReasons
+                                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                                          select new
+                                          {
+                                              id = cardaception.AcceptionReasonsId,
+                                          }).ToList();
+                    if (chickpermision.Count() > 0)
+                    {
+                        AcumlatorList.Remove(item);
+                    }
+                }
+
                 double AcumlatorAmount = 0;
                 foreach (var item in AcumlatorList)
                 {
                     AcumlatorAmount += item.CompanyPayment;
                 }
+                AcumlatorAmount -= PersonNoPay;
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
                 //Service Concamution
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
@@ -2064,6 +2171,7 @@ namespace DMS_Authontication1.Controllers
                 {
                     AcumlatorServiceAmount += item.CompanyPayment;
                 }
+                //AcumlatorServiceAmount -= PersonNoPay;
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService Concamution
                 List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == roshitaType).ToList();
@@ -2072,6 +2180,7 @@ namespace DMS_Authontication1.Controllers
                 {
                     AcumlatorSubServiceAmount += item.CompanyPayment;
                 }
+                //AcumlatorSubServiceAmount -= PersonNoPay;
                 double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
                 //limit
                 Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
@@ -2307,15 +2416,17 @@ namespace DMS_Authontication1.Controllers
                 ApplicationDbContext myEntities = new ApplicationDbContext();
                 var user = myEntities.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 var date = DateTime.Now.AddDays(-14);
-                var roshita = db.Roshitas.Include(x => x.RoshitaPharmcyApproveds).Where(r => r.CardId == id && r.Manager == "Lab_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
+                var roshita = db.Roshitas.Include(x => x.RoshitaPharmcyApproveds).Include(x => x.RoshitaDetails)
+                    .Where(r => r.CardId == id && r.Manager == "Lab_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
                 foreach (var item in roshita)
                 {
-                    foreach (var itemdetails in item.RoshitaPharmcyApproveds)
-                    {
-                        if (itemdetails.Pharmacy == user.Provider)
-                            return Json(new { ok = true, message = "Ok", roshitaid = itemdetails.RoshitaId }, JsonRequestBehavior.AllowGet);
+                    if (item.RoshitaDetails.Any(x => x.IsDealed == false))
+                        foreach (var itemdetails in item.RoshitaPharmcyApproveds)
+                        {
+                            if (itemdetails.Pharmacy == user.Provider)
+                                return Json(new { ok = true, message = "Ok", roshitaid = itemdetails.RoshitaId }, JsonRequestBehavior.AllowGet);
 
-                    }
+                        }
                 }
 
                 return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);

@@ -111,8 +111,8 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult Labs()
         {
-            List<Pr_Bra> Labs = new List<Pr_Bra>();
-            Labs = db.Pr_Bra.Where(x => x.PRV_TYPE == 3).GroupBy(x => x.PR_CODE).Select(x => x.FirstOrDefault()).ToList();
+            List<SERV_PROVIDERS_NEW> Labs = new List<SERV_PROVIDERS_NEW>();
+            Labs = db.SERV_PROVIDERS_NEW.Where(x => x.PRV_TYPE == 3 && x.TERMINATE_FLAG != "Y").GroupBy(x => x.PR_CODE).Select(x => x.FirstOrDefault()).ToList();
             return new JsonResult { Data = Labs, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult Branches(string id)

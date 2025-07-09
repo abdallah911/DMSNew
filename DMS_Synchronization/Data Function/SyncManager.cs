@@ -4879,7 +4879,7 @@ namespace DMS_Synchronization
                         {
                             //string d_id = "2" + string.Format("{0:dd MM yyyy}", item.CreatedDate) + sequenc.ToString();
                             rsh = FillOracleRoshitaObject(item);
-                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
+                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.Trim() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
                             //string result = string.Concat(d_id.Where(c => !char.IsWhiteSpace(c)));
                             rsh.D_SEQ = sequenc;
                             //rsh.D_ID = long.Parse(result);
@@ -5083,7 +5083,7 @@ namespace DMS_Synchronization
                                 case "Pharmacy_Chronic":
                                     rsh.MANAGER = "MON";
                                     string QueryMedCard = "SELECT NO_PAY,NO_OVER FROM Med_Card " +
-                                               " WHERE CARD_NO='" + item.CardId + "';";
+                                               " WHERE CARD_NO='" + item.CardId.Trim() + "';";
                                     var medcard = GetSqlDataTable(QueryMedCard, _connectionSettings.SQlConnection);
                                     if (medcard.Rows.Count > 0)
                                     {
@@ -5822,7 +5822,7 @@ namespace DMS_Synchronization
                         {
                             //string d_id = "2" + string.Format("{0:dd MM yyyy}", item.CreatedDate) + sequenc.ToString();
                             rsh = FillOracleRoshitaObject(item);
-                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
+                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.Trim() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
                             //string result = string.Concat(d_id.Where(c => !char.IsWhiteSpace(c)));
                             rsh.D_SEQ = sequenc;
                             //rsh.D_ID = long.Parse(result);
@@ -6070,7 +6070,7 @@ namespace DMS_Synchronization
                                 case "Pharmacy_Chronic":
                                     rsh.MANAGER = "MON";
                                     string QueryMedCard = "SELECT NO_PAY,NO_OVER FROM Med_Card " +
-                                               " WHERE CARD_NO='" + item.CardId + "';";
+                                               " WHERE CARD_NO='" + item.CardId.Trim() + "';";
                                     var medcard = GetSqlDataTable(QueryMedCard, _connectionSettings.SQlConnection);
                                     if (medcard.Rows.Count > 0)
                                     {
@@ -6754,7 +6754,7 @@ namespace DMS_Synchronization
                                 " , PERCENT_MONY=" + percent + " , MANAGER='" + manager + "' , INSU_LIMT=" + item.Limit +
                                 " , CARRY=" + item.PersonPayment + " ,OVER_INSURANCE=" + item.OverInsurance + " ,VALUE_CASH=" +
                                 item.Cash + " , VALUE_CREDIT=" + item.CompanyPayment + " , SYNC_DATE=SYSDATE WHERE D_ID=" + item.Oracle_Id +
-                                " AND CARD_ID='" + item.CardId + "'";
+                                " AND CARD_ID='" + item.CardId.Trim() + "'";
                             ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
 
                         }

@@ -100,51 +100,51 @@
             $('#Update').click();
         }
     });
-    
-   
+
+
     $(function () {
 
         var DosageForm = $('.modal-body #Dosage').val();
-        
-        
+
+
         //$('.modal-body #TotalUnits').attr("readonly", true);
         //if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
         //    $('.modal-body #TotalUnits').attr("readonly", false);
-          
+
         //}
         $('#MedicienCode').click(function () {
-         
+
             var MCode = $('#MedicienCode').val().trim();
             var MPrice = parseFloat(BasicPackagePrice.trim());
             $.ajax({
                 url: '/Chronic/Alternatives/',
                 data:
-                    {
+                {
                     id: MCode,
-                    Price:MPrice
-                    },
+                    Price: MPrice
+                },
                 dataType: 'Json',
                 success: function (r) {
-                   
+
                     $('#AlternativesModal').modal();
                     var setData = $("#Alteratives Tbody");
                     setData.empty();
                     for (var i = 0; i < r.length; i++) {
                         var data = "<tr >" +
-                    "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Change(this);'></Button>" + "</td>" +
-                    "<td>" + r[i].MED_CODE + "</td>" +
-                    "<td>" + r[i].MED_NAME + "</td>" +
-                    "<td>" + r[i].DOSAGE_FORM + "</td>" +
-                    "<td>" + r[i].Des_PACK_PRICE + "</td>" +
-                    "<td>" + r[i].PACK_SIZE + "</td>" +
-                    "<td>" + r[i].UNIT_NO + "</td>" +
-                    "<td>" + r[i].UNIT_PRICE + "</td>" +
-                    "</tr>"
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Change(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].MED_CODE + "</td>" +
+                            "<td>" + r[i].MED_NAME + "</td>" +
+                            "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                            "<td>" + r[i].Des_PACK_PRICE + "</td>" +
+                            "<td>" + r[i].PACK_SIZE + "</td>" +
+                            "<td>" + r[i].UNIT_NO + "</td>" +
+                            "<td>" + r[i].UNIT_PRICE + "</td>" +
+                            "</tr>"
                         setData.append(data);
                         //$("#LoadingData").html(" ");
                     }
                     $('#Alteratives').DataTable();
-                  
+
 
                 },
                 error: function () {
@@ -155,7 +155,7 @@
         });
 
         $('#Update').click(function () {
-         
+
             var Dose = $('.modal-body #Dose').val();
             var Duration = $('.modal-body #Duration').val();
             var TotalUnits = $('.modal-body #TotalUnits').val();
@@ -186,11 +186,11 @@
                 bootbox.alert("Please Insert Requried Data");
                 $('.modal-body #TotalUnits').focusin();
             }
-          
+
         });
-       
+
         $('#Duration , #Dose').keyup(function () {
-       
+
             var PackSize = $('.modal-body #PackageSize').val();
             var UnitNumber = $('.modal-body #UnitNumber').val();
             var Dose = $('.modal-body #Dose').val();
@@ -206,8 +206,8 @@
             Duration = parseInt(Duration);
             PackSize = parseInt(PackSize);
             UnitNumber = parseInt(UnitNumber);
-            
-       
+
+
             //BasicAmount = parseFloat(BasicAmount);
             //BasicDose = parseInt(BasicDose);
             //BasicDuration = parseInt(BasicDuration);
@@ -237,36 +237,47 @@
             //    $('.modal-body #Amount').val(BasicAmount);
             //}
             //}
-            
+
 
         });
         $('#TotalUnits').keyup(function () {
-            //debugger;
+            debugger;
             if (parseInt($('.modal-body #TotalUnits').val()) < 1) {
                 $('.modal-body #TotalUnits').val(1);
             }
             //Amount value
-            var Amount = parseFloat($('.modal-body #PackagePrice').val()) / parseFloat($('.modal-body #UnitNumber').val()) * parseFloat($('.modal-body #TotalUnits').val());
-            TotUnits = parseInt($('.modal-body #TotalUnits').val());
-            $('.modal-body #Amount').val(Amount);
-            //if (Alternative == true) {
-            //    if (BasicAmount < Amount) {
-            //        $('.modal-body #Amount').val(AlternativeAmount);
-            //        //$('.modal-body #Dose').val("");
-            //        //$('.modal-body #Duration').val("");
-            //        $('.modal-body #TotalUnits').val(1);
-            //        alert("Invalid Amount");
-            //    }
-            //}
-            //else { }
+            var totalunit = $('.modal-body #TotalUnits').val();
+            totalunit = parseInt(totalunit);
+            BasicTotalUnits = parseInt(BasicTotalUnits);
+            if (BasicTotalUnits < totalunit) {
+                $('.modal-body #TotalUnits').val(BasicTotalUnits);
+                var Amount = parseFloat($('.modal-body #PackagePrice').val()) / parseFloat($('.modal-body #UnitNumber').val()) * parseFloat($('.modal-body #TotalUnits').val());
+                //TotUnits = parseInt($('.modal-body #TotalUnits').val());
+                $('.modal-body #Amount').val(Amount);
+                alert("Invalid Total Units");
+            }
+            else {
+                var Amount = parseFloat($('.modal-body #PackagePrice').val()) / parseFloat($('.modal-body #UnitNumber').val()) * parseFloat($('.modal-body #TotalUnits').val());
+                //TotUnits = parseInt($('.modal-body #TotalUnits').val());
+                $('.modal-body #Amount').val(Amount);
+                //if (Alternative == true) {
+                //    if (BasicAmount < Amount) {
+                //        $('.modal-body #Amount').val(AlternativeAmount);
+                //        //$('.modal-body #Dose').val("");
+                //        //$('.modal-body #Duration').val("");
+                //        $('.modal-body #TotalUnits').val(1);
+                //        alert("Invalid Amount");
+                //    }
+                //}
+                //else { }
                 //if (parseInt(BasicTotalUnits.trim()) < TotUnits) {
                 //    $('.modal-body #TotalUnits').val(parseInt(BasicTotalUnits));
                 //     }
-             
+
                 //if (parseFloat(BasicAmount) < Amount) {
                 //    $('.modal-body #Amount').val(parseFloat(BasicAmount));
                 //}
-            
+            }
         })
 
 
