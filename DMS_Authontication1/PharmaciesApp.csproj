@@ -9337,6 +9337,7 @@
     <Content Include="Views\NetworkMedical\CreateRequestChronic.cshtml" />
     <Content Include="Views\Claims\UploadFamilyPhoto.cshtml" />
     <Content Include="Views\Claims\ChronicDelivery.cshtml" />
+    <Content Include="Views\NetworkMedical\NetworkData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
