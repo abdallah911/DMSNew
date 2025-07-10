@@ -12,7 +12,7 @@ namespace DMS_Authontication1.Data_Function
     {
          public static string connectionStr = @"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)
                                             (HOST=72.52.116.106)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDECATED)
-                                            (SERVICE_NAME=ora11g)));User Id=app;Password=12369";
+                                            (SERVICE_NAME=ora11g)));User Id=app;Password=15+08+2017";
 
 
         //connection
@@ -67,13 +67,16 @@ namespace DMS_Authontication1.Data_Function
 
         //return data of one table
         public DataTable RunReader(string Selectstatement)
-        {
+        {            
             SetCommand(Selectstatement);
             OracleDataAdapter da = new OracleDataAdapter(cmd);
             DataTable dt = new DataTable();
-
-            da.Fill(dt);
-            return dt;
+            try
+            {
+                da.Fill(dt);
+                return dt;
+            }
+            catch { return dt; }
         }
 
         public bool Founded(string Selectstatement)
