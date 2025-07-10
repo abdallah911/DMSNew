@@ -304,9 +304,11 @@ namespace DMS_Authontication1.Controllers
         //    ViewBag.error = "Please Complete the data";         
         //    return View(model);
         //}
-
-
         public ActionResult UploadFamilyPhoto()
+        {
+            return View();
+        }
+        public ActionResult ChronicDelivery()
         {
             return View();
         }
