@@ -45,16 +45,17 @@
     bool showSearch = (ViewBag.stat?.ToString() ?? "") != "NoData";
 }
 <div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page container pb-4">
-    <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+    <div id="Info" class="row row-cols-sm-2 row-cols-md-3 mt-4 g-2">
         <div class="forLabel admin-form-control border-0">
-            <input type="text" class="admin-form-control border-2 rounded" value=@ViewBag.cardId readonly />
-            <span class="me-2">رقم الكارت</span>
+            <input type="text" class="admin-form-control border-2 rounded" value="10000-1-1-1" readonly />
+            <span class="me-2" style="    transform: translateY(-6px);">رقم الكارت</span>
         </div>
         <div class="forLabel admin-form-control border-0">
-            <input type="text" class="admin-form-control border-2 rounded" value=@ViewBag.Name readonly />
-            <span class="me-2">اسم الموظف</span>
+            <input type="text" class="admin-form-control border-2 rounded" value="Mohamed Mohamed Mohamed" readonly />
+            <span class="me-2" style="    transform: translateY(-6px);">اسم الموظف</span>
         </div>
-        </div>
+    </div>
+
         <div class="d-flex gap-3 my-4 radio-box">
             <div>
                 <input type="radio" name="addressType" id="home" checked />
@@ -71,64 +72,71 @@
         </div>
         <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">العنوان</span>
+                <input type="text" class="admin-form-control border-2 rounded" />
+                <span class="me-2">العنوان*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
+                <input type="text" class="admin-form-control border-2 rounded"/>
                 <span class="me-2">الدور</span>
             </div>ٍ
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">رقم موبايل</span>
+                <input type="number" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">رقم موبايل*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded" required />
+                <input type="number" class="admin-form-control border-2 rounded"/>
                 <span class="me-2">تليفون ارضي</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">مواعيد التواجد</span>
+                <input type="text" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">مواعيد التواجد*</span>
             </div>
         </div>
         <div id="workSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">العنوان</span>
+                <input type="text" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">العنوان*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
+                <input type="text" class="admin-form-control border-2 rounded"/>
                 <span class="me-2">الدور</span>
             </div>ٍ
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">رقم موبايل</span>
+                <input type="number" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">رقم موبايل*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">تليفون ارضي</span>
+                <input type="number" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">تليفون ارضي*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">مواعيد التواجد</span>
+                <input type="text" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">مواعيد التواجد*</span>
             </div>
         </div>
         <div id="pharmacySec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
-                <select class="w-100 rounded " value=@ViewBag.provider></select>
-                <span class="me-2">الصيدلية</span>
+                @Html.DropDownList("provider", (SelectList)ViewBag.provider, "اختر صيدلية", new { @class = "w-100 rounded" })
+
+                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $('#provider').select2();
+                    });
+                </script>
+                <span class="me-2">الصيدلية*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="text" class="admin-form-control border-2 rounded" required />
+                <input type="text" class="admin-form-control border-2 rounded"/>
                 <span class="me-2">العنوان</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded" required />
-                <span class="me-2">رقم التواصل</span>
+                <input type="number" class="admin-form-control border-2 rounded"/>
+                <span class="me-2">رقم التواصل*</span>
             </div>
         </div>
         <div class="d-flex gap-2 justify-content-center justify-content-sm-end mt-3">
-            <input type="button" value="حفظ" class="btn fs-3 h3" />
+            <input type="button" value="حفظ" onclick="Save()" class="btn fs-3 h3" />
             <input type="button" value="رجوع" class="btn fs-3 h3" />
         </div>
 
@@ -150,4 +158,15 @@
         });
         $('input[name="addressType"]:checked').trigger('change');
     });
+    function save() {
+        if (document.getElementById('home').checked) {
+           
+        }
+        else if (document.getElementById('work').checked) {
+
+        }
+        if (document.getElementById('pharmacy').checked) {
+
+        }
+    }
 </script>
