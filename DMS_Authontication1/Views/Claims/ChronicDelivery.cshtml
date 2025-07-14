@@ -80,11 +80,11 @@
                 <span class="me-2">الدور</span>
             </div>ٍ
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded"/>
+                <input type="text" class="admin-form-control input-num border-2 rounded"/>
                 <span class="me-2">رقم موبايل*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded"/>
+                <input type="text" class="admin-form-control input-num border-2 rounded"/>
                 <span class="me-2">تليفون ارضي</span>
             </div>
             <div class="forLabel admin-form-control border-0">
@@ -102,11 +102,11 @@
                 <span class="me-2">الدور</span>
             </div>ٍ
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded"/>
+                <input type="text" class="admin-form-control input-num border-2 rounded"/>
                 <span class="me-2">رقم موبايل*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded"/>
+                <input type="text" class="admin-form-control input-num border-2 rounded"/>
                 <span class="me-2">تليفون ارضي*</span>
             </div>
             <div class="forLabel admin-form-control border-0">
@@ -131,7 +131,7 @@
                 <span class="me-2">العنوان</span>
             </div>
             <div class="forLabel admin-form-control border-0">
-                <input type="number" class="admin-form-control border-2 rounded"/>
+                <input type="text" class="admin-form-control input-num border-2 rounded"/>
                 <span class="me-2">رقم التواصل*</span>
             </div>
         </div>
@@ -158,6 +158,10 @@
         });
         $('input[name="addressType"]:checked').trigger('change');
     });
+    $('.input-num').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
     function save() {
         if (document.getElementById('home').checked) {
            
