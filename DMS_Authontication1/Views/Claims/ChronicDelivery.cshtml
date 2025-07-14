@@ -45,16 +45,16 @@
     bool showSearch = (ViewBag.stat?.ToString() ?? "") != "NoData";
 }
 <div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page container pb-4">
-    <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+    <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 mt-4 g-2">
         <div class="forLabel admin-form-control border-0">
             <input type="text" class="admin-form-control border-2 rounded" value="10000-1-1-1" readonly />
-            <span class="me-2">رقم الكارت</span>
+            <span class="me-2" style="    transform: translateY(-6px);">رقم الكارت</span>
         </div>
         <div class="forLabel admin-form-control border-0">
             <input type="text" class="admin-form-control border-2 rounded" value="Mohamed Mohamed Mohamed" readonly />
-            <span class="me-2">اسم الموظف</span>
+            <span class="me-2" style="    transform: translateY(-6px);">اسم الموظف</span>
         </div>
-        </div>
+    </div>
         <div class="d-flex gap-3 my-4 radio-box">
             <div>
                 <input type="radio" name="addressType" id="home" checked />
