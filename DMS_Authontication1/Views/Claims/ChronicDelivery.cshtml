@@ -162,105 +162,118 @@
 
 
     function Save() {
-    if (document.getElementById('home').checked) {
-        if ($('#AddressHome').val() == '' || $('#MobileHome').val() == '' || $('#AvailabilityHome').val() == '') {
-            alert("من فضلك أكمل البيانات");
-            return;
-        }
-
-        var data = {
-            CardId: $('#CardId').val(),
-            TypeDelivery: 1,
-            TypeName: 'Home',
-            Address: $('#AddressHome').val(),
-            FloorNumber: $('#FloorHome').val(),
-            Mobile: $('#MobileHome').val(),
-            Phone: $('#PhoneHome').val(),
-            Availability: $('#AvailabilityHome').val(),
-            ProviderCode: null,
-            ProviderName: null
-        };
-
-        $.ajax({
-            url: '@Url.Action("SaveChronicDelivery", "Claims")',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                alert(response.message);
-                if (response.success)
-                    GoHome();
-            },
-            error: function () {
-                alert('An unexpected error occurred.');
+        if (document.getElementById('home').checked) {
+            if ($('#AddressHome').val() == '' || $('#MobileHome').val() == '' || $('#AvailabilityHome').val() == '') {
+                alert("من فضلك أكمل البيانات");
+                return;
             }
-        });
-    }
-    else if (document.getElementById('work').checked) {
-        if ($('#AddressWork').val() == '' || $('#MobileWork').val() == '' || $('#AvailabilityWork').val() == '') {
-            alert("من فضلك أكمل البيانات");
-            return;
-        }
-
-        var data = {
-            CardId: $('#CardId').val(),
-            TypeDelivery: 2,
-            TypeName: 'Work',
-            Address: $('#AddressWork').val(),
-            FloorNumber: $('#FloorWork').val(),
-            Mobile: $('#MobileWork').val(),
-            Phone: $('#PhoneWork').val(),
-            Availability: $('#AvailabilityWork').val(),
-            ProviderCode: null,
-            ProviderName: null
-        };
-
-        $.ajax({
-            url: '@Url.Action("SaveChronicDelivery", "Claims")',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                alert(response.message);
-                if (response.success)
-                    GoHome();
-            },
-            error: function () {
-                alert('An unexpected error occurred.');
+            if ($('#MobileHome').val().length != 11) {
+                alert('رقم الموبايل يجب أن يكون 11 رقم');
+                return;
             }
-        });
-    }
-    else if (document.getElementById('pharmacy').checked) {
-        if ($('#provider').val() == '') {
-            alert("من فضلك أختر الصيدلية");
-            return;
+            var data = {
+                CardId: $('#CardId').val(),
+                TypeDelivery: 1,
+                TypeName: 'Home',
+                Address: $('#AddressHome').val(),
+                FloorNumber: $('#FloorHome').val(),
+                Mobile: $('#MobileHome').val(),
+                Phone: $('#PhoneHome').val(),
+                Availability: $('#AvailabilityHome').val(),
+                ProviderCode: null,
+                ProviderName: null
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveChronicDelivery", "Claims")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    alert(response.message);
+                    if (response.success)
+                        GoHome();
+                },
+                error: function () {
+                    alert('An unexpected error occurred.');
+                }
+            });
         }
-
-        var data = {
-            CardId: $('#CardId').val(),
-            TypeDelivery: 3,
-            TypeName: 'Pharmacy',
-            Address: $('#AddressPharmacy').val(),
-            FloorNumber: null,
-            Mobile: $('#MobilePharmacy').val(),
-            Phone: null,
-            Availability: null,
-            ProviderCode: $('#provider').val(),
-            ProviderName: $('#provider option:selected').text()
-        };
-
-        $.ajax({
-            url: '@Url.Action("SaveChronicDelivery", "Claims")',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                alert(response.message);
-                if (response.success)
-                    GoHome();
-            },
-            error: function () {
-                alert('An unexpected error occurred.');
+        else if (document.getElementById('work').checked) {
+            if ($('#AddressWork').val() == '' || $('#MobileWork').val() == '' || $('#AvailabilityWork').val() == '') {
+                alert("من فضلك أكمل البيانات");
+                return;
             }
-        });
-    }
+            if ($('#MobileWork').val().length != 11) {
+                alert('رقم الموبايل يجب أن يكون 11 رقم');
+                return;
+            }
+            var data = {
+                CardId: $('#CardId').val(),
+                TypeDelivery: 2,
+                TypeName: 'Work',
+                Address: $('#AddressWork').val(),
+                FloorNumber: $('#FloorWork').val(),
+                Mobile: $('#MobileWork').val(),
+                Phone: $('#PhoneWork').val(),
+                Availability: $('#AvailabilityWork').val(),
+                ProviderCode: null,
+                ProviderName: null
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveChronicDelivery", "Claims")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    alert(response.message);
+                    if (response.success)
+                        GoHome();
+                },
+                error: function () {
+                    alert('An unexpected error occurred.');
+                }
+            });
+        }
+        else if (document.getElementById('pharmacy').checked) {
+            if ($('#provider').val() == '') {
+                alert("من فضلك أختر الصيدلية");
+                return;
+            }
+            if ($('#MobilePharmacy').val() == '') {
+                alert("من فضلك ادخل رقم للتواصل");
+                return;
+            }
+            if ($('#MobilePharmacy').val().length != 11) {
+                alert('رقم الموبايل يجب أن يكون 11 رقم');
+                return;
+            }
+            var data = {
+                CardId: $('#CardId').val(),
+                TypeDelivery: 3,
+                TypeName: 'Pharmacy',
+                Address: $('#AddressPharmacy').val(),
+                FloorNumber: null,
+                Mobile: $('#MobilePharmacy').val(),
+                Phone: null,
+                Availability: null,
+                ProviderCode: $('#provider').val(),
+                ProviderName: $('#provider option:selected').text()
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveChronicDelivery", "Claims")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    alert(response.message);
+                    if (response.success)
+                        GoHome();
+                },
+                error: function () {
+                    alert('An unexpected error occurred.');
+                }
+            });
+        }
     }
 
     function GoHome() {
