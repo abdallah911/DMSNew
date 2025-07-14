@@ -245,6 +245,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Mobile" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar(max)" />
           <Property Name="Availability" Type="nvarchar(max)" />
+          <Property Name="ProviderCode" Type="nvarchar(max)" />
+          <Property Name="ProviderName" Type="nvarchar(max)" />
           <Property Name="IsDone" Type="bit" />
           <Property Name="DoneDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
@@ -8561,6 +8563,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="DoneDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ProviderCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -11889,6 +11893,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="ChronicDeliveries">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ChronicDelivery">
               <MappingFragment StoreEntitySet="ChronicDelivery">
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProviderCode" ColumnName="ProviderCode" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />

@@ -655,7 +655,15 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch)//.AsEnumerable()
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch, 1)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {
                         //Id = d.Oracle_Id==null?0: d.Oracle_Id.Value,
@@ -718,8 +726,15 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name)//.AsEnumerable()
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name, 1)//.AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {
                     Id = d.Id.Value,

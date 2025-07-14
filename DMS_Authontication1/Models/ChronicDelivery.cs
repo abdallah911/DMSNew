@@ -27,5 +27,7 @@ namespace DMS_Authontication1.Models
         public Nullable<System.DateTime> DoneDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string ProviderCode { get; set; }
+        public string ProviderName { get; set; }
     }
 }

@@ -307,7 +307,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_ClaimsReport")]
-        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider, Nullable<int> compHoder=1)
+        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider, Nullable<int> compHoder)
         {
             var fromParameter = from != null ?
                 new ObjectParameter("from", from) :
@@ -455,7 +455,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminRayClamsList")]
-        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder=1)
+        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :

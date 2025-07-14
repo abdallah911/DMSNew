@@ -324,5 +324,45 @@ namespace DMS_Authontication1.Controllers
             ViewBag.provider = providers;
             return View();
         }
+
+        [HttpPost]       
+        public ActionResult SaveChronicDelivery(string CardId, string TypeDelivery, string TypeName, string Address,
+                                                string FloorNumber, string Mobile, string Phone, string Availability, 
+                                                string ProviderCode, string ProviderName)
+        {
+            try
+            {
+                var chronicDelivery = new ChronicDelivery
+                {
+                    CardId = CardId,
+                    TypeDelivery = int.Parse(TypeDelivery),
+                    TypeName = TypeName,
+                    Address = Address,
+                    FloorNumber = FloorNumber,
+                    Mobile = Mobile,
+                    Phone = Phone,
+                    Availability = Availability,
+                    IsDone = false,
+                    DoneDate = null,
+                    ProviderCode = ProviderCode, 
+                    ProviderName = ProviderName, 
+                    CreatedBy = User.Identity.Name,
+                    CreatedDate = DateTime.Now
+                };
+
+                db.ChronicDeliveries.Add(chronicDelivery);
+                db.SaveChanges();
+
+                return Json(new { success = true, message = "تم الحفظ بنجاح" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "حدثت مشكلة أثناء الحفظ: " + ex.Message
+                });
+            }
+        }
     }
 }
