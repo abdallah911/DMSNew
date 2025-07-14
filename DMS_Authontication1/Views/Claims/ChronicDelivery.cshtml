@@ -40,6 +40,17 @@
         padding: 10px 18px;
         border-radius: 8px;
     }
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span {
+        color: #734992;
+        transform: translateY(0px); 
+        font-size: 14px;
+    }
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-6px); 
+        transition: all 0.2s ease-in-out;
+    }
 </style>
 @{
     bool showSearch = (ViewBag.stat?.ToString() ?? "") != "NoData";
@@ -92,7 +103,7 @@
                 <span class="me-2">مواعيد التواجد*</span>
             </div>
         </div>
-        <div id="workSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+        <div id="workSec" style="display:none" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
                 <input type="text" class="admin-form-control border-2 rounded" id="AddressWork" />
                 <span class="me-2">العنوان*</span>
@@ -114,7 +125,7 @@
                 <span class="me-2">مواعيد التواجد*</span>
             </div>
         </div>
-        <div id="pharmacySec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
+        <div id="pharmacySec" style="display:none" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
                 @Html.DropDownList("provider", (SelectList)ViewBag.provider, "اختر صيدلية", new { @class = "w-100 rounded" })
 
