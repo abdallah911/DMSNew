@@ -3488,7 +3488,9 @@ namespace DMS_TEST.Controllers
 
         }
 
-        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "", string Type = "")
+        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
+                    string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "",
+                    string Type = "", int CompHoder = 0)
         {
             //long lgSearch;
             //long.TryParse(sSearch, out lgSearch);
@@ -3513,7 +3515,7 @@ namespace DMS_TEST.Controllers
                 var PharmacyResult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -3526,8 +3528,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = PharmacyResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3545,7 +3547,7 @@ namespace DMS_TEST.Controllers
                 var Adminresult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -3558,8 +3560,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3568,7 +3570,8 @@ namespace DMS_TEST.Controllers
             var result = new
             {
                 sEcho = sEcho,
-                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).AsEnumerable()
+                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") &&
+                !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
                 .Select(l => new Roshita
                 {
@@ -3583,9 +3586,11 @@ namespace DMS_TEST.Controllers
                     CreatedBy = l.CreatedBy
                 }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray")
+                && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Count(),
-                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") &&
+                !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3595,7 +3600,8 @@ namespace DMS_TEST.Controllers
 
 
         }
-        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "", string Type = "")
+        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "",
+          string Branch = "", string ApprovalNo = "", string Type = "", int CompHoder = 0)
         {
 
 
@@ -3604,7 +3610,7 @@ namespace DMS_TEST.Controllers
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);
                 To = T.ToString();
             }
-            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).FirstOrDefault();
+            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).FirstOrDefault();
 
             return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

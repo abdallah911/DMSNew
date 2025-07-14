@@ -476,7 +476,8 @@ namespace DMS_Authontication1.Controllers
             }
             return View();
         }
-        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "")
+        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
+           string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "", int CompHoder = 0)
         {
             string Type = "Ray";
             if (!User.IsInRole("Admin") && From != "" && To != "")
@@ -498,7 +499,7 @@ namespace DMS_Authontication1.Controllers
                 var RaysResult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -511,8 +512,8 @@ namespace DMS_Authontication1.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = RaysResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -530,7 +531,7 @@ namespace DMS_Authontication1.Controllers
                 var Adminresult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -543,8 +544,8 @@ namespace DMS_Authontication1.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminRayClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -553,7 +554,7 @@ namespace DMS_Authontication1.Controllers
             var result = new
             {
                 sEcho = sEcho,
-                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop")).AsEnumerable()
+                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
                 .Select(l => new Roshita
                 {
@@ -568,9 +569,9 @@ namespace DMS_Authontication1.Controllers
                     CreatedBy = l.CreatedBy
                 }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Count(),
-                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -580,7 +581,8 @@ namespace DMS_Authontication1.Controllers
 
 
         }
-        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "")
+        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "",
+            string Branch = "", string ApprovalNo = "", int CompHoder = 0)
         {
 
 
@@ -589,7 +591,7 @@ namespace DMS_Authontication1.Controllers
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);
                 To = T.ToString();
             }
-            var Adminresult = db.fn_AdminRayClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, "Ray").FirstOrDefault();
+            var Adminresult = db.fn_AdminRayClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, "Ray", CompHoder).FirstOrDefault();
 
             return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

@@ -80,7 +80,7 @@ namespace DMS_TEST.Controllers
                 var PharmacyResult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -93,8 +93,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy,
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).Count()
                 };
                 return new JsonResult { Data = PharmacyResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -112,7 +112,7 @@ namespace DMS_TEST.Controllers
                 var Adminresult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -125,8 +125,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).Count()
                 };
                 return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -171,7 +171,7 @@ namespace DMS_TEST.Controllers
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);
                 To = T.ToString();
             }
-            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).FirstOrDefault();
+            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, 1).FirstOrDefault();
 
             return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

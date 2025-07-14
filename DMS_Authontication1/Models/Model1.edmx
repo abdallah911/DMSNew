@@ -200,6 +200,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="PatientPercent" Type="float" />
+          <Property Name="PatientAmount" Type="float" />
         </EntityType>
         <EntityType Name="CardCode">
           <Key>
@@ -227,6 +229,24 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardId" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ChronicDelivery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="nvarchar(max)" />
+          <Property Name="TypeDelivery" Type="int" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="FloorNumber" Type="nvarchar(max)" />
+          <Property Name="Mobile" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Availability" Type="nvarchar(max)" />
+          <Property Name="IsDone" Type="bit" />
+          <Property Name="DoneDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
@@ -2789,6 +2809,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="SyncDate" Type="datetime" />
+          <Property Name="DELIVERY" Type="int" />
         </EntityType>
         <EntityType Name="Serv_Providers1">
           <Key>
@@ -3874,6 +3895,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChronicDelivery" EntityType="Self.ChronicDelivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClaimPhoto" EntityType="Self.ClaimPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
@@ -4263,6 +4285,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AcceptionReason" Relationship="Self.FK_CardAcceptionReasons_AcceptionReasons" FromRole="CardAcceptionReasons" ToRole="AcceptionReasons" />
+          <Property Name="PatientPercent" Type="Double" />
+          <Property Name="PatientAmount" Type="Double" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D">
           <Key>
@@ -5258,6 +5282,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ProviderComplaints" Relationship="DB_A45413_DMSERPModel.FK_ProviderComplaint_SERV_PROVIDERS_NEW" FromRole="SERV_PROVIDERS_NEW" ToRole="ProviderComplaint" />
           <NavigationProperty Name="DeliveryRequests" Relationship="DB_A45413_DMSERPModel.FK_DeliveryRequest_SERV_PROVIDERS_NEW" FromRole="SERV_PROVIDERS_NEW" ToRole="DeliveryRequest" />
+          <Property Name="DELIVERY" Type="Int32" />
         </EntityType>
         <EntityType Name="Serv_Providers1">
           <Key>
@@ -5881,6 +5906,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="OutsideNetworkOutpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" />
           <EntitySet Name="PreXChronicReasons" EntityType="DB_A45413_DMSERPModel.PreXChronicReason" />
           <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
+          <EntitySet Name="ChronicDeliveries" EntityType="DB_A45413_DMSERPModel.ChronicDelivery" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8518,6 +8544,24 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ChronicDelivery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeDelivery" Type="Int32" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FloorNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Availability" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDone" Type="Boolean" />
+          <Property Name="DoneDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8556,6 +8600,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="CardAcceptionReasons">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardAcceptionReason">
               <MappingFragment StoreEntitySet="CardAcceptionReasons">
+                <ScalarProperty Name="PatientAmount" ColumnName="PatientAmount" />
+                <ScalarProperty Name="PatientPercent" ColumnName="PatientPercent" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="AcceptionId" ColumnName="AcceptionId" />
                 <ScalarProperty Name="AcceptionReasonsId" ColumnName="AcceptionReasonsId" />
@@ -9503,6 +9549,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="SERV_PROVIDERS_NEW">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.SERV_PROVIDERS_NEW">
               <MappingFragment StoreEntitySet="SERV_PROVIDERS_NEW">
+                <ScalarProperty Name="DELIVERY" ColumnName="DELIVERY" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PR_CODE" ColumnName="PR_CODE" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -11835,6 +11882,25 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChronicDeliveries">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ChronicDelivery">
+              <MappingFragment StoreEntitySet="ChronicDelivery">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeDelivery" ColumnName="TypeDelivery" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

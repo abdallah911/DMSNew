@@ -528,6 +528,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoriesPricing.cs" />
+    <Compile Include="Models\ChronicDelivery.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyActivity.cs" />
     <Compile Include="Models\ClaimPhoto.cs">

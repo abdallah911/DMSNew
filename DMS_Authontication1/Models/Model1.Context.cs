@@ -176,6 +176,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<OutsideNetworkOutpatientResaon> OutsideNetworkOutpatientResaons { get; set; }
         public virtual DbSet<PreXChronicReason> PreXChronicReasons { get; set; }
         public virtual DbSet<CompContractClassProvider> CompContractClassProviders { get; set; }
+        public virtual DbSet<ChronicDelivery> ChronicDeliveries { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
@@ -200,7 +201,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminClamsCounts")]
-        public virtual IQueryable<fn_AdminClamsCounts_Result> fn_AdminClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_AdminClamsCounts_Result> fn_AdminClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -264,7 +265,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminClamsList")]
-        public virtual IQueryable<fn_AdminClamsList_Result3> fn_AdminClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder=1)
+        public virtual IQueryable<fn_AdminClamsList_Result3> fn_AdminClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -306,7 +307,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_ClaimsReport")]
-        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider, Nullable<int> compHoder=1)
         {
             var fromParameter = from != null ?
                 new ObjectParameter("from", from) :
@@ -328,7 +329,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminLabClamsCounts")]
-        public virtual IQueryable<fn_AdminLabClamsCounts_Result> fn_AdminLabClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_AdminLabClamsCounts_Result> fn_AdminLabClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -370,7 +371,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminLabClamsList")]
-        public virtual IQueryable<fn_AdminLabClamsList_Result> fn_AdminLabClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_AdminLabClamsList_Result> fn_AdminLabClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -412,7 +413,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminRayClamsCounts")]
-        public virtual IQueryable<fn_AdminRayClamsCounts_Result> fn_AdminRayClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_AdminRayClamsCounts_Result> fn_AdminRayClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -454,7 +455,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminRayClamsList")]
-        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder = 1)
+        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder=1)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
