@@ -901,6 +901,7 @@ $(function () {
                     + '<option value="11206">  تحاليل </option>'
                     + '<option value="11203"> خدمة العيادة الخارجية </option>'
                     + '<option value="11105"> كشف </option>'
+                    + '<option value="11105"> استشاره </option>'
                     + '<option value="11414"> كشف أسنان </option>'
                     + '<option value="11301"> رمد </option>');
                 $("#emergancyTxt").hide();
