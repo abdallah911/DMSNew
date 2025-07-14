@@ -308,8 +308,20 @@ namespace DMS_Authontication1.Controllers
         {
             return View();
         }
-        public ActionResult ChronicDelivery()
+        public ActionResult ChronicDelivery(string cardId, string Name)
         {
+            ViewBag.cardId = cardId;
+            ViewBag.Name = Name;
+
+            var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.DELIVERY == 1 && p.TERMINATE_FLAG != "Y")
+                    .Select(
+                          s => new
+                          {
+                              Code = s.PR_CODE,
+                              Name = s.PR_ENAME
+                          }).ToList();
+            SelectList providers = new SelectList(providerList, "Code", "Name");
+            ViewBag.provider = providers;
             return View();
         }
     }

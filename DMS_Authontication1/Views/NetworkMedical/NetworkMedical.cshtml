@@ -197,7 +197,8 @@
             {
                 <input id="UploadFamilyPhoto" type="button" value="Upload Family Photo" onclick="window.location.replace('/Claims/UploadFamilyPhoto');" class="btn btn-warning" />
             }
-            <input id=" " type="button" value="Chronic Delivery" onclick="window.location.replace('/Claims/ChronicDelivery');" class="btn btn-warning" />
+            @*<input id=" " type="button" value="Chronic Delivery" onclick="window.location.replace('/Claims/ChronicDelivery');" class="btn btn-warning" />*@
+            <input id=" " type="button" value="Chronic Delivery" onclick="window.location.replace('/Claims/ChronicDelivery?cardId=@Model.CardId&Name=@Model.EmpName');" class="btn btn-warning" />
 
         </div>
  

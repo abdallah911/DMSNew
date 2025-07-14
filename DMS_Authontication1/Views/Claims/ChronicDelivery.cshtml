@@ -47,11 +47,11 @@
 <div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page container pb-4">
     <div id="homeSec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
         <div class="forLabel admin-form-control border-0">
-            <input type="text" class="admin-form-control border-2 rounded" value="10000-1-1-1" readonly />
+            <input type="text" class="admin-form-control border-2 rounded" value=@ViewBag.cardId readonly />
             <span class="me-2">رقم الكارت</span>
         </div>
         <div class="forLabel admin-form-control border-0">
-            <input type="text" class="admin-form-control border-2 rounded" value="Mohamed Mohamed Mohamed" readonly />
+            <input type="text" class="admin-form-control border-2 rounded" value=@ViewBag.Name readonly />
             <span class="me-2">اسم الموظف</span>
         </div>
         </div>
@@ -115,7 +115,7 @@
         </div>
         <div id="pharmacySec" class="row section row-cols-sm-2 row-cols-md-3 g-2">
             <div class="forLabel admin-form-control border-0">
-                <select class="w-100 rounded " required></select>
+                <select class="w-100 rounded " value=@ViewBag.provider></select>
                 <span class="me-2">الصيدلية</span>
             </div>
             <div class="forLabel admin-form-control border-0">
