@@ -42,8 +42,14 @@
     }
     .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span {
         color: #734992;
-        transform: unset;
+        transform: translateY(0px); 
         font-size: 14px;
+    }
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-6px); 
+        transition: all 0.2s ease-in-out;
     }
 </style>
 @{
