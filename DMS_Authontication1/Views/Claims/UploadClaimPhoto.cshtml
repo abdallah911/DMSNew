@@ -54,12 +54,12 @@
 
                 @*@if (ViewBag.stat != "NoData")
         {*@
-                <div id="SearchScreen" class="form-horizontal col-md-8 mx-auto row row-gap-2" style="padding-left: 93px; display:@(showSearch ? "none" : "block");">
-                    <div class="form-group d-flex gap-2" dir="rtl">
+                <div id="SearchScreen" class="form-horizontal col-md-8 mx-auto row row-gap-2" style=" display:@(showSearch ? "none" : "block");">
+                    <div class="form-group d-flex justify-content-between gap-2" dir="rtl">
                      
                         <div class="forLabel admin-form-control">
                             <input type="number" id="ClaimId" class="form-control" onkeydown="if(event.key === 'Enter'){ event.preventDefault(); searchClaim(); }"/>
-                            <span class="me-2"> ادخل رقم النموذج </span>
+                            <span class="me-2 sios-color" style="color: #734992;"> ادخل رقم النموذج </span>
                         </div>
 
                         <input id="search" type="button" value="Search" onclick="searchClaim();" class="btn btn-success" />
@@ -69,42 +69,43 @@
 
 
 
-                <div id="MainScreen" class="form-horizontal col-md-6 mx-auto row row-gap-2" style="padding-left: 93px; display:@(showSearch ? "block" : "none");">
+            <div id="MainScreen" class="form-horizontal col-md-8 mt-4 mx-auto row row-gap-2" style=" display:@(showSearch ? "block" : "none");">
 
 
-                    <div class="form-group">
+                <div class="forLabel admin-form-control border-0">
+                    @Html.TextBoxFor(m => m.CardId, new { @class = "admin-form-control border-2", @readonly = "readonly" })
+                    <span>
                         <label>Card ID</label>
-                        <div class="admin-form-control">
-                            @Html.TextBoxFor(m => m.CardId, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
-                    </div>
-                    <div class="form-group">
+                    </span>
+                </div>
+                <div class="forLabel admin-form-control border-0">
+                    @Html.TextBoxFor(m => m.ClaimNumber, new { @class = "admin-form-control border-2", @readonly = "readonly" })
+                    <span>
                         <label>Claim Number</label>
-                        <div class="admin-form-control">
-                            @Html.TextBoxFor(m => m.ClaimNumber, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
-                    </div>
+                    </span>
+                </div>
 
-                    <div class="form-group">
+                <div class="forLabel admin-form-control border-0">
+                    @Html.TextBoxFor(m => m.Speciality, new { @class = "admin-form-control border-2", @readonly = "readonly" })
+                    <span>
                         <label>Speciality</label>
-                        <div class="admin-form-control">
-                            @Html.TextBoxFor(m => m.Speciality, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Claim Photo</label>
-                        <div class="">
-                            @*<input type="file" id="wizard-picture" name="MainFileFile" accept="application/pdf" />*@
-                            <input class="form-control admin-form-control p-2 text-box single-line" id="ImageFile" name="ImageFile" capture="environment" required accept="image/*" type="File" value="" onchange="compressImage(event)">
-                        </div>
-                    </div>
-
-                    <div class="panel-footer col-md-6 mx-auto mt-3 text-center text-sm-end pe-sm-2" style="text-align:right;">
-                        <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
-                        @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
-                        <input id="submit" type="submit" value="Save" onclick="Submitform();" class="btn btn-success" />
+                    </span>
+                </div>
+                <div class="labeled-file-box admin-form-control border-0">
+                    <div class="admin-form-control border-2 d-flex align-items-center justify-content-between px-2 w-100">
+                        @*<input type="file" id="wizard-picture" name="MainFileFile" accept="application/pdf" />*@
+                        <span style="color:#734992">
+                            <label>Claim Photo</label>
+                        </span>
+                        <input class="admin-form-control w-75 bg-dark-subtle border-2 p-2 text-box single-line" id="ImageFile" name="ImageFile" capture="environment" required accept="image/*" type="File" value="" onchange="compressImage(event)">
                     </div>
                 </div>
+                <div class="panel-footer col-md-6 mx-auto mt-3 text-center text-sm-end pe-sm-2" style="text-align:right;">
+                    <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
+                    @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
+                    <input id="submit" type="submit" value="Save" onclick="Submitform();" class="btn btn-success" />
+                </div>
+            </div>
 
             </div>
 

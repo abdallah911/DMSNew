@@ -1290,6 +1290,11 @@ input.admin-form-control {
     background: #dcdcdcc7;
     border-color: var(--color-btn);
 }
+    .admin-form-control[readonly="readonly"], .admin-form-control[readonly="true"], .admin-form-control[readonly]  {
+        cursor: unset;
+        background: #f2f2f2c7;
+        border-color: var(--color-btn);
+    }
     .admin-form-control[readonly="readonly"]:focus ~ span,
     .admin-form-control[readonly="true"]:focus ~ span,
     .admin-form-control[readonly]:focus ~ span,
