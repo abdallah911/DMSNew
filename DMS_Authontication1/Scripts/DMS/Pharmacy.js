@@ -472,7 +472,6 @@ $(function () {
                                         var PrescriptionPerDay = false;
                                         var PrescriptionCount = false;
                                         var ReasonsView = "";
-                                        debugger;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].Name.includes("Cancel Co-Payment");
                                             PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent;

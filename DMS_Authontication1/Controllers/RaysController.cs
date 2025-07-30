@@ -171,7 +171,7 @@ namespace DMS_Authontication1.Controllers
             data.CreatedDate = DateTime.Now;
             data.Manager = "Ray";
             data.RoshetaType = "11204";
-            data.CompHolderCode =compholder;
+            data.CompHolderCode = compholder;
             db.Roshitas.Add(data);
             if (data.CompanyPayment > 0)
             {
@@ -480,7 +480,15 @@ namespace DMS_Authontication1.Controllers
                 var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 ViewBag.ddlUsers = new SelectList(UserDB.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
             }
-            ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+
+            }
+            else
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.Where(x => x.CompHolderCode != 0).ToList(), "CompHolderCode", "CompHolderName");
+            }
             return View();
         }
         public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
@@ -913,9 +921,21 @@ namespace DMS_Authontication1.Controllers
             //Roshita
             var roshita = db.Roshitas.Where(x => x.Id == data.Id)
                 .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
-
             Roshita roshita1 = new Roshita();
-            roshita1.Manager = roshita.Manager;
+            if (roshita.Manager == "Ray_Daily")
+            {
+                DateTime datenow = DateTime.Now.Date;
+                var employee = db.Comp_Employees.Where(c => c.CARD_ID == roshita.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+
+                roshita1.CompHolderCode = compholder;
+                roshita.CompHolderCode = compholder;
+            }
+            //Roshita roshita1 = new Roshita();
+            //roshita1.Manager = roshita.Manager;
+            roshita1.Manager = roshita.Manager == "Ray_Daily" ? "Ray_Approve" : roshita.Manager;
+
             roshita1.CardId = roshita.CardId;
             roshita1.Speciality = roshita.Speciality;
             roshita1.Diagnose1 = roshita.Diagnose1;
@@ -926,8 +946,11 @@ namespace DMS_Authontication1.Controllers
             roshita1.Limit = roshita.Limit;
             roshita1.PhoneNumber = roshita.PhoneNumber;
             roshita1.ClaimNumber = roshita.ClaimNumber;
-            roshita1.CreatedBy = roshita.CreatedBy;
-            roshita1.CreatedDate = roshita.CreatedDate;
+
+            roshita1.CreatedBy = roshita.Manager == "Ray_Daily" ? User.Identity.Name : roshita.CreatedBy;
+            roshita1.CreatedDate = roshita.Manager == "Ray_Daily" ? DateTime.Now : roshita.CreatedDate;
+            //roshita1.CreatedBy = roshita.CreatedBy;
+            //roshita1.CreatedDate = roshita.CreatedDate;
             roshita1.UpdatedBy = User.Identity.Name;
             roshita1.UpdatedDate = DateTime.Now;
 
@@ -940,11 +963,25 @@ namespace DMS_Authontication1.Controllers
             roshita1.IsFamily = data.IsFamily;
             roshita1.IsPool = data.IsPool;
             roshita1.CompHolderCode = roshita.CompHolderCode;
+            roshita.Manager = roshita.Manager == "Ray_Daily" ? "Ray_Daily" : "Stop-ED";
 
-            roshita.Manager = "Stop-ED";
+            //roshita.Manager = "Stop-ED";
             roshita.SyncBy = "Update";
             roshita.UpdatedBy = User.Identity.Name;
             roshita.UpdatedDate = DateTime.Now;
+
+            if (roshita.Manager == "Ray_Daily")
+            {
+                foreach (var item in data.roshitaDetail)
+                {
+                    var medicine = roshita.RoshitaDetails.Where(x => x.MedicienCode == item.MedicienCode).FirstOrDefault();
+                    if (medicine != null)
+                    {
+                        medicine.IsDealed = true;
+                        db.Entry(medicine).State = EntityState.Modified;
+                    }
+                }
+            }
 
             db.Entry(roshita).State = EntityState.Modified;
             if (ModelState.IsValid)
@@ -1215,7 +1252,7 @@ namespace DMS_Authontication1.Controllers
                 rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
             }
             data.RoshetaType = "Ray";
-            rd.SetParameterValue("CompType",data.CompHolderCode);
+            rd.SetParameterValue("CompType", data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
@@ -1317,5 +1354,60 @@ namespace DMS_Authontication1.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public JsonResult HaveDoctor(string id)
+        {
+            try
+            {
+                ApplicationDbContext myEntities = new ApplicationDbContext();
+                var user = myEntities.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var date = DateTime.Now.AddDays(-14);
+                var roshita = db.Roshitas.Include(x => x.RoshitaPharmcyApproveds).Include(x => x.RoshitaDetails)
+                    .Where(r => r.CardId == id && r.Manager == "Ray_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
+                foreach (var item in roshita)
+                {
+                    if (item.RoshitaDetails.Any(x => x.IsDealed == false))
+                        foreach (var itemdetails in item.RoshitaPharmcyApproveds)
+                        {
+                            if (itemdetails.Pharmacy == user.Provider)
+                                return Json(new { ok = true, message = "Ok", roshitaid = itemdetails.RoshitaId }, JsonRequestBehavior.AllowGet);
+
+                        }
+                }
+
+                return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult EditDoctor(long id)
+        {
+            var roshita = db.Roshitas.Where(r => r.Id == id && !r.Manager.Contains("Stop") && r.Manager == "Ray_Daily").FirstOrDefault();
+            if (roshita != null)
+            {
+                List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id)
+                 .Select(l => new DoctorContainerViewModel
+                 {
+                     Id = l.Id,
+                     MedicienCode = l.MedicienCode,
+                     MedicienName = l.MedicienName,
+                     Amount = l.Amount,
+                     IsDealed = l.IsDealed,
+                     PaymentGroup = l.PaymentGroup
+                 })
+                   .GroupBy(x => new { x.MedicienCode })
+                .Select(x => x.FirstOrDefault())
+                 .ToList();
+                return View(data);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
     }
 }

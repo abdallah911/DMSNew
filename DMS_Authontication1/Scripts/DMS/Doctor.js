@@ -15,6 +15,8 @@ var BasicDose;
 var BasicDuration;
 var BasicTotalUnits;
 var AnuualLimit;
+var DiscardRoshitaCount = 0;
+
 var companid = url.searchParams.get("id").split('-')[0];
 
 $(function () {
@@ -129,6 +131,20 @@ $(function () {
                                         });
                                     }
                                     else {
+
+
+                                        var PatientPercent = 0;
+                                        var PatientAmount = 0;
+                                        var Adult = false;
+                                        var Date = false;
+                                        var Diagnose = false;
+                                        var Gender = false;
+                                        var ExternalPrescription = false;
+                                        var PrescriptionPerDay = false;
+                                        var PrescriptionCount = false;
+                                        var ReasonsView = "";
+
+
                                         var Copayment = false;
                                         var LimitBool = false;
                                         var DisregardCeiling = false;
@@ -137,8 +153,22 @@ $(function () {
                                             LimitBool = LimitBool == true ? true : returndata[i].includes('Disregard OverInsurance');
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
 
-                                        }
+                                            PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent;
+                                            Limit = Limit == true ? true : returndata[i].Name.includes('Disregard OverInsurance');
+                                            PatientAmount = Limit == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
+                                            Adult = Adult == true ? true : returndata[i].Name.includes("Ignore Age");
+                                            Date = Date == true ? true : returndata[i].Name.includes("Expired Date");
+                                            Diagnose = Diagnose == true ? true : returndata[i].Name.includes("Diagnose");
+                                            Gender = Gender == true ? true : returndata[i].Name.includes("Ignore Gender");
+                                            ExternalPrescription = ExternalPrescription == true ? true : returndata[i].Name.includes("External Prescription");
+                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].Name.includes("Unlimited Examination per day");
+                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].Name.includes("Ignore Prescription Count");
+                                            ReasonsView = ReasonsView + returndata[i].Name + " , ";
 
+                                        }
+                                        if (PrescriptionCount == true) {
+                                            DiscardRoshitaCount = 1;
+                                        }
                                         if (LimitBool == true) {
                                             $("#insurance_LIVEL").val(0);
                                             AnuualLimit = $('#AllLimit').val();
@@ -175,6 +205,7 @@ $(function () {
                                                         //window.location.reload();
 
                                                     } else {
+
                                                         $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                                         AnuualLimit = r.AnnualLimit;
                                                         if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
@@ -239,6 +270,7 @@ $(function () {
                                         callback: function () {
                                             Limit = 0;
                                             co = 100;
+                                            DiscardRoshitaCount = 1;
                                             AnuualLimit = 30000;
                                             SecandCalculation();
 
@@ -488,12 +520,23 @@ function GetLimit() {
                 co = r.CeilingPert;
                 AnuualLimit = r.Limit;
                 $('#AllLimit').val(r.AnnualLimit);
-                if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                    Limit = r.CoInsurancelimit.INSURANCE_DAY;
-                } else {
-                    alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
-                    Limit = 0.001;
-                    co = 0;
+                if (DiscardRoshitaCount == 0) {
+                    if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                        Limit = r.CoInsurancelimit.INSURANCE_DAY;
+                    } else {
+                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                        Limit = 0.001;
+                        co = 0;
+                    }
+                }
+                else {
+                    if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                        Limit = r.CoInsurancelimit.INSURANCE_DAY;
+                    } else {
+                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                        Limit = 0.001;
+                        co = 0;
+                    }
                 }
 
 

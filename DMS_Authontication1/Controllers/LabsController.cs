@@ -603,7 +603,15 @@ namespace DMS_Authontication1.Controllers
                 var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 ViewBag.ddlUsers = new SelectList(UserDB.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
             }
-            ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+
+            }
+            else
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.Where(x => x.CompHolderCode != 0).ToList(), "CompHolderCode", "CompHolderName");
+            }
             return View();
         }
         public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
@@ -1422,7 +1430,7 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
-            rd.SetParameterValue("PhoneNumber", data.PhoneNumber==null? "":data.PhoneNumber);
+            rd.SetParameterValue("PhoneNumber", data.PhoneNumber == null ? "" : data.PhoneNumber);
             rd.SetParameterValue("CompanyName", Company.C_ENAME);
             rd.SetParameterValue("CardId", data.CardId);
             if (data.Diagnose1 != null && data.Diagnose1 != "Empty")

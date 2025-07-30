@@ -70,6 +70,7 @@
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
+
         .reports .dms-container {
             min-height: calc(100vh - 305.1px);
         }
@@ -97,7 +98,7 @@
         select,
         textarea {
             border: 2px solid #c2cad8 !important;
-            border-radius: 4px; 
+            border-radius: 4px;
         }
 
         .forLabel > span:not(.select2-container), .select {
@@ -412,8 +413,6 @@
 
         gtag('config', 'UA-227248876-1');
     </script>-->
-
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
         <script>
@@ -455,8 +454,8 @@
                         <a href="~/Dashboard/Index">
                             <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
                                 @*<div class="celebrate-gif">
-                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                    </div>*@
+                                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                                    </div>*@
                                 @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
                                 <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
                             </div>
@@ -464,9 +463,9 @@
                             @*<img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"  />*@
 
                             @*<div class="celebrate-gif">
-                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-                </div>
-                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                                </div>
+                                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
                         </a>
                     }
                     else
@@ -474,8 +473,8 @@
                         <a href="~/Home/Index">
                             <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
                                 @*<div class="celebrate-gif">
-                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                    </div>*@
+                                       <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                                    </div>*@
                                 @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
                                 <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
                             </div>
@@ -483,9 +482,9 @@
                             @*<img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"  />*@
 
                             @*<div class="celebrate-gif">
-                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-                </div>
-                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                                    <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                                </div>
+                                <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
                         </a>
                     }
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
@@ -666,7 +665,7 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                                                        {
+                                                                                                                        {
                                            "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance",
@@ -680,7 +679,7 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                                                        {
+                                                                                                                        {
                                             "dr.mohsen", "it.admin", "super-admin"
                                         };
 
@@ -689,9 +688,9 @@
                                             <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
                                         }
                                         @*if (User.Identity.GetUserName() == "hr.misr.insurance")
-                            {
-                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                            }*@
+                                            {
+                                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                            }*@
                                         //}
                                     }
                                 }
@@ -822,6 +821,12 @@
                                             {
 
                                                 <li><a href="/labApprovals/index">Lab Daily </a></li>
+                                            }
+                                            @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
+                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+
+                                                <li><a href="/RayApprovals/index">Ray Daily </a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
                                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
@@ -1384,10 +1389,10 @@
 
 
 
-            //==========================================
-            //$(document).ready(function () {
-            //    $('footer').insertAfter($('.body-content'));
-            //});
+                //==========================================
+                //$(document).ready(function () {
+                //    $('footer').insertAfter($('.body-content'));
+                //});
     </script>
 
 </body>

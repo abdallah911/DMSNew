@@ -3438,7 +3438,15 @@ namespace DMS_TEST.Controllers
                 var CurrentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
             }
-            ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
+
+            }
+            else
+            {
+                ViewBag.comphoder = new SelectList(db.CompHolders.Where(x => x.CompHolderCode != 0).ToList(), "CompHolderCode", "CompHolderName");
+            }
             return View();
         }
 
