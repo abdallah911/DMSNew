@@ -182,6 +182,9 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<CompanyEvent> CompanyEvents { get; set; }
         public virtual DbSet<CompContractClassProvider> CompContractClassProviders { get; set; }
         public virtual DbSet<HospitalClaimQR> HospitalClaimQRs { get; set; }
+        public virtual DbSet<ReviewClaim> ReviewClaims { get; set; }
+        public virtual DbSet<ReviewClaimsNew> ReviewClaimsNews { get; set; }
+        public virtual DbSet<DisComp> DisComps { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

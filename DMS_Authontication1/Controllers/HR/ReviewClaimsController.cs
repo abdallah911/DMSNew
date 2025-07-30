@@ -161,164 +161,567 @@ namespace DMS_Authontication1.Controllers.HR
             }
             //return View();
         }
+        //here update this old 
+        //public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //                                    string invocNo, string batchNo, string provNo, string claimNo)
+        //{
+        //    //string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //    //                        string aprovNo, string cardId, string invocNo, string batchNo
 
-        public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                            string invocNo, string batchNo, string provNo, string claimNo)
+        //    Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
+
+        //    DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+        //    regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+        //    regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+        //    servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+        //    servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+        //    comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
+        //    comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
+
+        //    invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+        //    invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+        //    batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+        //    batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+        //    prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+        //    prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+        //    clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+        //    clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+
+
+
+        //    var filteredClaims = db.ReviewClaims
+        //        .Where(rc => rc.CompId >= comp1 && rc.CompId <= comp2)
+        //        .Where(rc => rc.CreatedDate >= regDateFrom && rc.CreatedDate <= regDateTo)
+        //        .Where(rc => rc.ClaimDate >= servDateFrom && rc.ClaimDate <= servDateTo)
+        //        .Where(rc => (rc.InvoiceNo ?? 0) >= invocNoFrom && (rc.InvoiceNo ?? 0) <= invocNoTo)
+        //        .Where(rc => (rc.BatchNo ?? 0) >= batchNoFrom && (rc.BatchNo ?? 0) <= batchNoTo)
+        //        .Where(rc => (rc.PrvNo ?? 0) >= prov1 && (rc.PrvNo ?? 0) <= prov2)
+        //        .Where(rc => (rc.ClaimNo ?? 0) >= clm1 && (rc.ClaimNo ?? 0) <= clm2);
+
+
+        //    var groupedClaims = filteredClaims
+        //        .GroupBy(rc => new { rc.CompId, rc.InvoiceNo })
+        //        .Select(g => new
+        //        {
+        //            g.Key.CompId,
+        //            g.Key.InvoiceNo,
+        //            CountBatch = g.Select(x => x.BatchNo).Distinct().Count(),
+        //            CountClaim = g.Select(x => x.ClaimNo).Distinct().Count(),
+        //            Gross = g.Sum(x => x.ClaimSubmitted),
+        //            Net = g.Sum(x => x.Net)
+        //        });
+
+        //    var query = groupedClaims
+        //        .Join(db.DisComps,
+        //                g => g.CompId,
+        //                comp => comp.CompId,
+        //                (g, comp) => new
+        //                {
+        //                    CompId = g.CompId,
+        //                    CompName = comp.CompAname,
+        //                    StartDate = comp.StartDate,
+        //                    EndDate = comp.EndDate,
+        //                    g.CountBatch,
+        //                    g.CountClaim,
+        //                    g.Gross,
+        //                    g.Net,
+        //                    g.InvoiceNo
+        //                });
+
+        //    //var result = query.ToList();
+
+        //    //DataTable dt = new DataTable();
+
+        //    //dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
+        //    //                        invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
+
+        //    var result = query.ToList();
+        //    List<InvoiceViewModel> invo = result
+        //            .Select(x => new InvoiceViewModel
+        //            {
+        //                CompId = x.CompId.ToString(),
+        //                CompName = x.CompName,
+        //                StartDate = x.StartDate.HasValue ? x.StartDate.Value.ToString("dd-MM-yyyy") : "",
+        //                EndDate = x.EndDate.HasValue ? x.EndDate.Value.ToString("dd-MM-yyyy") : "",
+        //                CountOfBatch = x.CountBatch.ToString(),
+        //                CountOfClaim = x.CountClaim.ToString(),
+        //                Gross = x.Gross.ToString(),
+        //                Net = x.Net.ToString(),
+        //                InvoiceNo = x.InvoiceNo.ToString()
+        //            })
+        //            .ToList();
+
+        //    if (invo.Any())             
+        //        return new JsonResult { Data = new { invoicelist = invo, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };            
+        //    else
+        //        return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        //}
+        private (DateTime from, DateTime to) ParseDateRange(string fromStr, string toStr, DateTime defaultFrom, DateTime defaultTo)
         {
-            //string compId, string servFrom, string servTo, string regFrom, string regTo,
-            //                        string aprovNo, string cardId, string invocNo, string batchNo
+            DateTime from = DateTime.TryParse(fromStr, out var f) ? f.Date : defaultFrom;
+            DateTime to = DateTime.TryParse(toStr, out var t) ? t.Date : defaultTo;
+            return (from, to);
+        }
+        private (long from, long to) ParseLongRange(string value)
+        {
+            return long.TryParse(value, out var num) ? (num, num) : (0, long.MaxValue);
+        }
+        private List<Int32> GetUserCompanies(string username)
+        {
 
-            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
-
-            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
-
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
-
-            comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
-            comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
-           
-            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
-            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
-            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
-
-            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
-            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
-            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
-            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
-
-            DataTable dt = new DataTable();
-
-            dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
-                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
-
-            List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
-      
-            if (dt.Rows.Count != 0)
+            if (User.IsInRole("HR_Admin"))
             {
-                foreach (DataRow row in dt.Rows)
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
                 {
-                    invo.Add(new InvoiceViewModel
-                    {
-                        CompId = row["COMP_ID"].ToString(),
-                        CompName = row["C_ANAME"].ToString(),
-                        StartDate = row["START_DATE"].ToString(),
-                        EndDate = row["END_DATE"].ToString(),
-                        CountOfBatch = row["COUNT_BATCH"].ToString(),
-                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
-                        Gross = row["GROSS"].ToString(),
-                        Net = row["NET"].ToString(),
-                        InvoiceNo = row["INVOICE_NO"].ToString()
-                    });
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");                   
                 }
-                return new JsonResult { Data = new { invoicelist = invo, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }               
             }
             else
-                return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                int compa = int.Parse(myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider);
+
+                var Companies = db.Contract_Comp.Where(x => x.C_COMP_ID == compa)
+                    .Select(c => new
+                    {
+                        Code = c.C_COMP_ID,
+                        Name = c.C_ENAME + " || " + c.C_COMP_ID
+                    }).ToList(); ;
+
+                SelectList companylist = new SelectList(Companies, "Code", "Name"); 
+            }
+
+            List<int> companies = new List<int>();
+
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies
+                                 .Where(x => x.UserId == userid)
+                                 .Select(c => c.CompId)
+                                 .ToList();
+
+
+                if (compines.Count > 0 && compines[0] == "All")                
+                    companies = db.Contract_Comp
+                        .Select(c => c.C_COMP_ID)
+                        .ToList();                
+                else              
+                    companies = compines.Select(c => int.Parse(c)).ToList();
+                
+            }
+            else
+            {
+                var HrUserName = User.Identity.GetUserName();
+                int compa = int.Parse(myEntities.Users.Where(u => u.UserName == HrUserName).FirstOrDefault().Provider);
+
+                companies.Add(compa);                
+            }
+
+            return companies;
+        }
+        private List<InvoiceViewModel> getCompanyInvoiceData(string compId, string invocNo,
+                                                     string regFrom, string regTo, string servFrom, string servTo,
+                                                     string batchNo, string provNo, string claimNo)
+        {
+            var regRange = ParseDateRange(regFrom, regTo, new DateTime(2020, 1, 1), DateTime.Now);
+            var servRange = ParseDateRange(servFrom, servTo, new DateTime(2017, 1, 1), DateTime.Now);
+
+            var defaultCompanies = GetUserCompanies(User.Identity.Name);
+            var hasCompId = long.TryParse(compId, out long compUser);
+            var useMain = !hasCompId;
+
+           
+            var invocRange = ParseLongRange(invocNo);
+            var batchRange = ParseLongRange(batchNo);
+            var provRange = ParseLongRange(provNo);
+            var claimRange = ParseLongRange(claimNo);            
+            var hasClaimNo = !string.IsNullOrEmpty(claimNo);
+
+
+            var filteredClaims = db.ReviewClaims.AsQueryable();
+
+            if (hasCompId)
+            {
+                filteredClaims = compUser == 1
+                    ? filteredClaims.Where(rc => rc.MainCompId == compUser)
+                    : filteredClaims.Where(rc => rc.CompId == compUser);
+            }
+            else
+            {
+                filteredClaims = filteredClaims.Where(rc => rc.CompId.HasValue && defaultCompanies.Contains(rc.CompId.Value));
+            }
+
+            filteredClaims = filteredClaims
+                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
+                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to);
+
+            if (long.TryParse(invocNo, out var invocVal))
+                filteredClaims = filteredClaims.Where(rc => rc.InvoiceNo == invocVal);
+
+            if (long.TryParse(batchNo, out var batchVal))
+                filteredClaims = filteredClaims.Where(rc => rc.BatchNo == batchVal);
+
+            if (long.TryParse(provNo, out var provVal))
+                filteredClaims = filteredClaims.Where(rc => rc.PrvNo == provVal);
+
+            if (long.TryParse(claimNo, out var claimVal))
+                filteredClaims = filteredClaims.Where(rc => rc.ClaimNo == claimVal);
+
+            var groupedClaims = filteredClaims
+                .GroupBy(rc => new
+                {
+                    CompId = useMain ? rc.MainCompId : rc.CompId,
+                    rc.InvoiceNo
+                })
+                .Select(g => new
+                {
+                    g.Key.CompId,
+                    g.Key.InvoiceNo,
+                    CompNameFromReview = useMain ? g.Select(x => x.MainCompName).FirstOrDefault() : null,
+                    CountBatch = g.Select(x => x.BatchNo).Distinct().Count(),
+                    CountClaim = g.Select(x => x.ClaimNo).Distinct().Count(),
+                    Gross = g.Sum(x => x.ClaimSubmitted),
+                    Net = g.Sum(x => x.Net)
+                }).ToList();
+
+            var disCompsList = db.DisComps.ToList();
+
+            var joinedData = from g in groupedClaims
+                             join dc in disCompsList on g.CompId equals dc.CompId into comps
+                             from dc in comps.DefaultIfEmpty()
+                             select new
+                             {
+                                 g.CompId,
+                                 CompName = useMain
+                                            ? (!string.IsNullOrEmpty(g.CompNameFromReview)
+                                                ? g.CompNameFromReview
+                                                : (dc != null ? dc.CompAname : ""))
+                                            : (dc != null ? dc.CompAname : ""),
+                                 dc?.StartDate,
+                                 dc?.EndDate,
+                                 g.CountBatch,
+                                 g.CountClaim,
+                                 g.Gross,
+                                 g.Net,
+                                 g.InvoiceNo
+                             };
+
+            var result = joinedData.Select(x => new InvoiceViewModel
+            {
+                CompId = x.CompId.ToString(),
+                CompName = x.CompName,
+                StartDate = x.StartDate?.ToString("dd-MM-yyyy") ?? "",
+                EndDate = x.EndDate?.ToString("dd-MM-yyyy") ?? "",
+                CountOfBatch = x.CountBatch.ToString(),
+                CountOfClaim = x.CountClaim.ToString(),
+                Gross = x.Gross.ToString(),
+                Net = x.Net.ToString(),
+                InvoiceNo = x.InvoiceNo.ToString()
+            }).ToList();
+
+            return result;
         }
 
+        public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                    string invocNo, string batchNo, string provNo, string claimNo)
+        {
+
+            //var regRange = ParseDateRange(regFrom, regTo, new DateTime(2020, 1, 1), DateTime.Now);
+            //var servRange = ParseDateRange(servFrom, servTo, new DateTime(2017, 1, 1), DateTime.Now);
+            //var invocRange = ParseLongRange(invocNo);
+            //var batchRange = ParseLongRange(batchNo);
+            //var provRange = ParseLongRange(provNo);
+            //var claimRange = ParseLongRange(claimNo);
+
+            //var defaultCompanies = GetUserCompanies(User.Identity.Name);
+            //var hasCompId = long.TryParse(compId, out long compUser);
+            //var hasClaimNo = !string.IsNullOrEmpty(claimNo);
+            ////var useMain = !(hasCompId || hasClaimNo);
+            //var useMain = !hasCompId;
+
+            //var filteredClaims = db.ReviewClaims.AsQueryable()
+            //    .Where(rc => hasCompId
+            //        ? rc.CompId == compUser
+            //        : rc.CompId.HasValue && defaultCompanies.Contains(rc.CompId.Value))
+            //    .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
+            //    .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to)
+            //    .Where(rc => (rc.InvoiceNo ?? 0) >= invocRange.from && (rc.InvoiceNo ?? 0) <= invocRange.to)
+            //    .Where(rc => (rc.BatchNo ?? 0) >= batchRange.from && (rc.BatchNo ?? 0) <= batchRange.to)
+            //    .Where(rc => (rc.PrvNo ?? 0) >= provRange.from && (rc.PrvNo ?? 0) <= provRange.to)
+            //    .Where(rc => (rc.ClaimNo ?? 0) >= claimRange.from && (rc.ClaimNo ?? 0) <= claimRange.to);
+
+            //var groupedClaims = filteredClaims
+            //    .GroupBy(rc => new
+            //    {
+            //        CompId = useMain ? rc.MainCompId : rc.CompId,
+            //        rc.InvoiceNo
+            //    })
+            //    .Select(g => new
+            //    {
+            //        g.Key.CompId,
+            //        g.Key.InvoiceNo,
+            //        CompNameFromReview = useMain ? g.Select(x => x.MainCompName).FirstOrDefault() : null,
+            //        CountBatch = g.Select(x => x.BatchNo).Distinct().Count(),
+            //        CountClaim = g.Select(x => x.ClaimNo).Distinct().Count(),
+            //        Gross = g.Sum(x => x.ClaimSubmitted),
+            //        Net = g.Sum(x => x.Net)
+            //    }).ToList();
+
+            //var disCompsList = db.DisComps.ToList();
+
+            //var joinedData = from g in groupedClaims
+            //                 join dc in disCompsList on g.CompId equals dc.CompId into comps
+            //                 from dc in comps.DefaultIfEmpty()
+            //                 select new
+            //                 {
+            //                     g.CompId,
+            //                     CompName = useMain
+            //                                ? (!string.IsNullOrEmpty(g.CompNameFromReview)
+            //                                    ? g.CompNameFromReview
+            //                                    : (dc != null ? dc.CompAname : ""))
+            //                                : (dc != null ? dc.CompAname : ""),
+            //                     dc?.StartDate,
+            //                     dc?.EndDate,
+            //                     g.CountBatch,
+            //                     g.CountClaim,
+            //                     g.Gross,
+            //                     g.Net,
+            //                     g.InvoiceNo
+            //                 };
+
+            //var invo = joinedData.Select(x => new InvoiceViewModel
+            //{
+            //    CompId = x.CompId.ToString(),
+            //    CompName = x.CompName,
+            //    StartDate = x.StartDate?.ToString("dd-MM-yyyy") ?? "",
+            //    EndDate = x.EndDate?.ToString("dd-MM-yyyy") ?? "",
+            //    CountOfBatch = x.CountBatch.ToString(),
+            //    CountOfClaim = x.CountClaim.ToString(),
+            //    Gross = x.Gross.ToString(),
+            //    Net = x.Net.ToString(),
+            //    InvoiceNo = x.InvoiceNo.ToString()
+            //}).ToList();
+            
+            var invo = getCompanyInvoiceData(compId, invocNo, regFrom, regTo, servFrom, servTo, batchNo, provNo, claimNo);
+            return new JsonResult
+            {
+                Data = new { invoicelist = invo, msg = invo.Any() ? "ok" : "empty" },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
+        }
+
+        private List<BatchViewModel> getBatchData(string compNo, string invocNo, string servFrom, string servTo, 
+                                                           string regFrom, string regTo, string batchNo, string provNo, 
+                                                           string claimNo, string providerType = "")
+        {
+            var regRange = ParseDateRange(regFrom, regTo, new DateTime(2020, 1, 1), DateTime.Now);
+            var servRange = ParseDateRange(servFrom, servTo, new DateTime(2017, 1, 1), DateTime.Now);
+
+            long comp = long.TryParse(compNo, out var cVal) ? cVal : 0;
+            long invoc = long.TryParse(invocNo, out var iVal) ? iVal : 0;
+
+            var filteredClaims = db.ReviewClaims
+                .Where(rc => comp == 1 ? rc.MainCompId == comp : rc.CompId == comp)
+                .Where(rc => rc.InvoiceNo == invoc)
+                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
+                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to);
+
+            if (long.TryParse(batchNo, out var batchVal))
+                filteredClaims = filteredClaims.Where(rc => rc.BatchNo == batchVal);
+
+            if (long.TryParse(provNo, out var provVal))
+                filteredClaims = filteredClaims.Where(rc => rc.PrvNo == provVal);
+
+            if (long.TryParse(claimNo, out var claimVal))
+                filteredClaims = filteredClaims.Where(rc => rc.ClaimNo == claimVal);
+
+           if (!string.IsNullOrEmpty(providerType))
+                filteredClaims = filteredClaims.Where(rc => rc.ProviderType == providerType);
+                       
+            var result = filteredClaims
+                .GroupBy(rc => new
+                {
+                    rc.BatchNo,
+                    rc.PrvNo,
+                    rc.PrvName,
+                    rc.ProviderType
+                })
+                .Select(g => new BatchViewModel
+                {
+                    BatchNumber = g.Key.BatchNo.ToString(),
+                    ProviderID = g.Key.PrvNo.ToString(),
+                    ProviderName = g.Key.PrvName,
+                    ProviderType = g.Key.ProviderType,
+                    CountOfClaim = g.Select(x => x.ClaimNo).Distinct().Count().ToString(),
+                    Gross = g.Sum(x => x.ClaimSubmitted).ToString(),
+                    Net = g.Sum(x => x.Net).ToString()
+                })
+                .OrderBy(x => x.ProviderType)
+                .ToList();
+
+            return result;
+        }
         public JsonResult GetBatchDetails(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, 
                                           string batchNo, string provNo, string claimNo)
         {
-            DataTable dt = new DataTable();
-
-            Int64 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2;
-
-            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
-
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
-
-            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
-
-            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
-            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
-            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
-            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
 
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
-                                 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
+            //        DataTable dt = new DataTable();
 
-            List<BatchViewModel> clms = new List<BatchViewModel>();
+            //        var regRange = ParseDateRange(regFrom, regTo, new DateTime(2020, 1, 1), DateTime.Now);
+            //        var servRange = ParseDateRange(servFrom, servTo, new DateTime(2017, 1, 1), DateTime.Now);
 
-            if (dt.Rows.Count != 0)
+            //        var batchRange = ParseLongRange(batchNo);
+            //        var provRange = ParseLongRange(provNo);
+            //        var clmRange = ParseLongRange(claimNo);
+
+            //        long comp = long.TryParse(compNo, out var cVal) ? cVal : 0;
+            //        long invoc = long.TryParse(invocNo, out var iVal) ? iVal : 0;
+            //        string providerType = "";
+
+            //        var filteredClaims = db.ReviewClaims
+            //.Where(rc => comp == 1 ? rc.MainCompId == comp : rc.CompId == comp)
+            //.Where(rc => rc.InvoiceNo == invoc)
+            //.Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
+            //.Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to)
+            //.Where(rc => (rc.BatchNo ?? 0) >= batchRange.from && (rc.BatchNo ?? 0) <= batchRange.to)
+            //.Where(rc => (rc.PrvNo ?? 0) >= provRange.from && (rc.PrvNo ?? 0) <= provRange.to)
+            //.Where(rc => (rc.ClaimNo ?? 0) >= clmRange.from && (rc.ClaimNo ?? 0) <= clmRange.to)
+            //.Where(rc => string.IsNullOrEmpty(providerType) || rc.ProviderType == providerType);
+
+            //        var clm = filteredClaims
+            //.GroupBy(rc => new
+            //{
+            //    rc.BatchNo,
+            //    rc.PrvNo,
+            //    rc.PrvName,
+            //    rc.ProviderType
+            //})
+            //.Select(g => new BatchViewModel
+            //{
+            //    BatchNumber = g.Key.BatchNo.ToString(),
+            //    ProviderID = g.Key.PrvNo.ToString(),
+            //    ProviderName = g.Key.PrvName,
+            //    ProviderType = g.Key.ProviderType,
+            //    CountOfClaim = g.Select(x => x.ClaimNo).Distinct().Count().ToString(),
+            //    Gross = g.Sum(x => x.ClaimSubmitted).ToString(),
+            //    Net = g.Sum(x => x.Net).ToString()
+            //}).OrderBy(x => x.ProviderType)
+            //.ToList();
+
+            var clm = getBatchData(compNo, invocNo, servFrom, servTo, regFrom, regTo, batchNo, provNo, claimNo);
+
+            return new JsonResult
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    clms.Add(new BatchViewModel
-                    {
-                        BatchNumber = row["BATCH_NO"].ToString(),
-                        ProviderID = row["PRV_NO"].ToString(),
-                        ProviderName = row["PRV_NAME"].ToString(),
-                        ProviderType = row["PROVIDER_TYPE"].ToString(),
-                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
-                        Gross = row["GROSS"].ToString(),
-                        Net = row["NET"].ToString()
-                    });
-                }
-                return new JsonResult { Data = new { batchlist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-            }
-            else
-                return new JsonResult { Data = new { batchlist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-        }
+                Data = new { batchlist = clm, msg = clm.Any() ? "ok" : "empty" },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
 
+
+            //dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
+            //                     batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
+
+            //List<BatchViewModel> clms = new List<BatchViewModel>();
+
+            //if (dt.Rows.Count != 0)
+            //{
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        clms.Add(new BatchViewModel
+            //        {
+            //            BatchNumber = row["BATCH_NO"].ToString(),
+            //            ProviderID = row["PRV_NO"].ToString(),
+            //            ProviderName = row["PRV_NAME"].ToString(),
+            //            ProviderType = row["PROVIDER_TYPE"].ToString(),
+            //            CountOfClaim = row["COUNT_CLAIM"].ToString(),
+            //            Gross = row["GROSS"].ToString(),
+            //            Net = row["NET"].ToString()
+            //        });
+            //    }
+            //    return new JsonResult { Data = new { batchlist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+            //}
+            //else
+            //    return new JsonResult { Data = new { batchlist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        }
         public ActionResult PrintCompanyInvoiceReport(string compId, string servFrom, string servTo, string regFrom, string regTo,
                                                       string invocNo, string batchNo, string provNo, string claimNo, int typ)
         {
-            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
+            //Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2, prov1, prov2, clm1, clm2;
 
-            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+            //DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+            //regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            //regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            //servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            //servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
 
-            comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
-            comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
+            //comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
+            //comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
 
-            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
-            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
-            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+            //invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            //invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            //batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            //batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
-            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
-            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
-            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
-            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+            //prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            //prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            //clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            //clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
 
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
 
-            dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
-                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
+            //dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
+            //                        invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2);
 
-            List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
+            //List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
 
-            if (dt.Rows.Count != 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    invo.Add(new InvoiceViewModel
-                    {
-                        CompId = row["COMP_ID"].ToString(),
-                        CompName = row["C_ANAME"].ToString(),
-                        StartDate = row["START_DATE"].ToString(),
-                        EndDate = row["END_DATE"].ToString(),
-                        CountOfBatch = row["COUNT_BATCH"].ToString(),
-                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
-                        Gross = row["GROSS"].ToString(),
-                        Net = row["NET"].ToString(),
-                        InvoiceNo = row["INVOICE_NO"].ToString()
-                    });
-                }              
-            }
+            //if (dt.Rows.Count != 0)
+            //{
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        invo.Add(new InvoiceViewModel
+            //        {
+            //            CompId = row["COMP_ID"].ToString(),
+            //            CompName = row["C_ANAME"].ToString(),
+            //            StartDate = row["START_DATE"].ToString(),
+            //            EndDate = row["END_DATE"].ToString(),
+            //            CountOfBatch = row["COUNT_BATCH"].ToString(),
+            //            CountOfClaim = row["COUNT_CLAIM"].ToString(),
+            //            Gross = row["GROSS"].ToString(),
+            //            Net = row["NET"].ToString(),
+            //            InvoiceNo = row["INVOICE_NO"].ToString()
+            //        });
+            //    }              
+            //}
+            var invo = getCompanyInvoiceData(compId, invocNo, regFrom, regTo, servFrom, servTo, batchNo, provNo, claimNo);
 
             ReportDocument rd = new ReportDocument();
 
@@ -363,44 +766,47 @@ namespace DMS_Authontication1.Controllers.HR
         {
             DataTable dt = new DataTable();
 
-            Int64 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2;
+            //Int64 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2;
 
-            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+            //DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+            //regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            //regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            //servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            //servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
 
-            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+            //batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            //batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
 
-            prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
-            prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
-            clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
-            clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
+            //prov1 = string.IsNullOrEmpty(provNo) ? 0 : Convert.ToInt64(provNo);
+            //prov2 = string.IsNullOrEmpty(provNo) ? 999999999999999999 : Convert.ToInt64(provNo);
+            //clm1 = string.IsNullOrEmpty(claimNo) ? 0 : Convert.ToInt64(claimNo);
+            //clm2 = string.IsNullOrEmpty(claimNo) ? 999999999999999999 : Convert.ToInt64(claimNo);
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
-                                 batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2, provTyp);
+            //dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, 
+            //                     batchNoFrom, batchNoTo, prov1, prov2, clm1, clm2, provTyp);
 
-            List<BatchViewModel> clms = new List<BatchViewModel>();
+            //List<BatchViewModel> clms = new List<BatchViewModel>();
 
-            if (dt.Rows.Count != 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    clms.Add(new BatchViewModel
-                    {
-                        BatchNumber = row["BATCH_NO"].ToString(),
-                        ProviderID = row["PRV_NO"].ToString(),
-                        ProviderName = row["PRV_NAME"].ToString(),
-                        ProviderType = row["PROVIDER_TYPE"].ToString(),
-                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
-                        Gross = row["GROSS"].ToString(),
-                        Net = row["NET"].ToString()
-                    });
-                }
-            }
+            //if (dt.Rows.Count != 0)
+            //{
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        clms.Add(new BatchViewModel
+            //        {
+            //            BatchNumber = row["BATCH_NO"].ToString(),
+            //            ProviderID = row["PRV_NO"].ToString(),
+            //            ProviderName = row["PRV_NAME"].ToString(),
+            //            ProviderType = row["PROVIDER_TYPE"].ToString(),
+            //            CountOfClaim = row["COUNT_CLAIM"].ToString(),
+            //            Gross = row["GROSS"].ToString(),
+            //            Net = row["NET"].ToString()
+            //        });
+            //    }
+            //}
+
+            var clms = getBatchData(compNo, invocNo, servFrom, servTo, regFrom, regTo, batchNo, provNo, claimNo, provTyp);
+
 
             ReportDocument rd = new ReportDocument();
 
@@ -459,92 +865,107 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.CompName = compName;
             ViewBag.ClaimNo = ClaimNo;  
             return View();
-        }              
+        }
+        private List<ClaimsViewModel> getClaimsData(string RegFrom, string RegTo, string ServFrom, string ServTo, string compId, 
+                                                    string aprovNo, string cardId, string invocNo, string batchNo)
+        {
+            var regRange = ParseDateRange(RegFrom, RegTo, new DateTime(2020, 1, 1), DateTime.Now);
+            var servRange = ParseDateRange(ServFrom, ServTo, new DateTime(2017, 1, 1), DateTime.Now);
+
+            var aprovRange = ParseLongRange(aprovNo);
+            var invocRange = ParseLongRange(invocNo);
+            var batchRange = ParseLongRange(batchNo);
+
+            long comp = long.Parse(compId); 
+
+            var query = db.ReviewClaims
+                .Where(rc => comp == 1 ? rc.MainCompId == comp : rc.CompId == comp)
+                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
+                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to)
+                .Where(rc => (rc.ClaimNo ?? 0) >= aprovRange.from && (rc.ClaimNo ?? 0) <= aprovRange.to)
+                .Where(rc => (rc.InvoiceNo ?? 0) >= invocRange.from && (rc.InvoiceNo ?? 0) <= invocRange.to)
+                .Where(rc => (rc.BatchNo ?? 0) >= batchRange.from && (rc.BatchNo ?? 0) <= batchRange.to)
+                .Where(rc => rc.Net != null);
+
+            if (!string.IsNullOrEmpty(cardId))
+                query = query.Where(rc => rc.CardNo == cardId);
+
+            var result = query
+           .AsEnumerable()
+           .Select(rc => new ClaimsViewModel
+           {
+               ClaimNo = rc.ClaimNo.ToString(),
+               CreatedDate = rc.CreatedDate?.ToString("dd-MM-yyyy") ?? "",
+               ClaimDate = rc.ClaimDate?.ToString("dd-MM-yyyy") ?? "",
+               CardNo = rc.CardNo,
+               EmpName = rc.EmpAname,
+               Diagnosis = rc.Takhasos,
+               ServType = rc.ServType,
+               Gross = rc.ClaimSubmitted.ToString(),
+               Net = rc.Net.ToString()
+           })
+           .Distinct()
+           .ToList();
+
+            return result;
+        }
         public JsonResult GetClaims(string RegFrom, string RegTo, string ServFrom, string ServTo,
                                     string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
-            //string compId, string servFrom, string servTo, string regFrom, string regTo,
-            //                        string aprovNo, string cardId, string invocNo, string batchNo
-            Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
-            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+            var clms = getClaimsData(RegFrom, RegTo, ServFrom, ServTo, compId, aprovNo, cardId, invocNo, batchNo);
 
-            regDateFrom = string.IsNullOrEmpty(RegFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(RegFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(RegTo) ? DateTime.Now.Date : (Convert.ToDateTime(RegTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(ServFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(ServTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServTo)).Date;
-           
-
-            aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
-            aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
-            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
-            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
-            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
-
-            int comp = Convert.ToInt32(compId);
-
-            DataTable dt = new DataTable();
-
-            dt = dbData.getClaims(regDateFrom, regDateTo, servDateFrom, servDateTo, comp, aprovNoFrom, aprovNoTo, cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
-
-            List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
-
-            if (dt.Rows.Count != 0)
+            return new JsonResult
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    clms.Add(new ClaimsViewModel
-                    {
-                        ClaimNo = row["CLAIM_NO"].ToString(),
-                        CreatedDate = row["CREATED_DATE"].ToString(),
-                        ClaimDate = row["CLAIM_DATE"].ToString(),
-                        CardNo = row["CARD_NO"].ToString(),
-                        EmpName = row["EMP_NAME"].ToString(),
-                        Diagnosis = row["DIAGNOSIS"].ToString(),
-                        ServType = row["SERV_TYPE"].ToString(),
-                        Gross = row["GROSS"].ToString(),
-                        Net = row["NET"].ToString()                       
-                    });
-                }
-                return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-            }
-            else
-                return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                Data = new
+                    {claimslist = clms, msg = clms.Any() ? "ok" : "empty"}, 
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet, 
+                    MaxJsonLength = Int32.MaxValue
+            };
         }
+
+        public List<ClaimDetailsViewModel> GetClaimServiceDetails(string claimNo)
+        {
+            if (!long.TryParse(claimNo, out var claimVal))
+                return new List<ClaimDetailsViewModel>();
+
+            var services = db.ReviewClaims
+                .Where(rc => rc.ClaimNo == claimVal)
+                .OrderByDescending(rc => rc.Net ?? 0)
+                .AsEnumerable() // ⬅️ بعد هذا يمكن استخدام ?.ToString()
+                .Select(rc => new ClaimDetailsViewModel
+                {
+                    Services = rc.Services,
+                    SercvName = rc.ServName,
+                    ClaimSubmitted = rc.ClaimSubmitted?.ToString() ?? "",
+                    OverInsurance = rc.OverInsurance?.ToString() ?? "",
+                    Discount = rc.Discount?.ToString() ?? "",
+                    ApprovAmount = rc.ApprovAmount?.ToString() ?? "",
+                    CopayAmt = rc.CopayAmt?.ToString() ?? "",
+                    AfterCopay = rc.AfterCopay?.ToString() ?? "",
+                    LocalAmount = rc.LocalAmount?.ToString() ?? "",
+                    ImportAmount = rc.ImportAmount?.ToString() ?? "",
+                    LocalDisc = rc.LocalDisc?.ToString() ?? "",
+                    ImportDisc = rc.ImportDisc?.ToString() ?? "",
+                    TotalDiscount = rc.TotalDiscount?.ToString() ?? "",
+                    Net = rc.Net?.ToString() ?? ""
+                }).ToList();
+
+            return services;
+        }
+
+
         public JsonResult GetClaimDetails(string claimNo)
         {
             DataTable dt = new DataTable();
 
-            dt = dbData.getClaimDetails(Int64.Parse(claimNo));
+            var clms = GetClaimServiceDetails(claimNo); 
 
-            List<ClaimDetailsViewModel> clms = new List<ClaimDetailsViewModel>();
-
-            if (dt.Rows.Count != 0)
+            return new JsonResult
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    clms.Add(new ClaimDetailsViewModel
-                    {
-                        Services = row["SERVICES"].ToString(),
-                        SercvName = row["SERCV_NAME"].ToString(),
-                        ClaimSubmitted = row["CLAIM_SUBMITTED"].ToString(),
-                        OverInsurance = row["OVER_INSURANCE"].ToString(),
-                        Discount = row["DISCOUNT"].ToString(),
-                        ApprovAmount = row["APPROV_AMOUNT"].ToString(),
-                        CopayAmt = row["COPAY_AMT"].ToString(),
-                        AfterCopay = row["AFTER_COPAY"].ToString(),
-                        LocalAmount = row["LOCAL_AMOUNT"].ToString(),
-                        ImportAmount = row["IMPORT_AMOUNT"].ToString(),
-                        LocalDisc = row["LOCAL_DISC"].ToString(),
-                        ImportDisc = row["IMPORT_DISC"].ToString(),
-                        TotalDiscount = row["TOTAL_DISCOUNT"].ToString(),
-                        Net = row["NET"].ToString()
-                    });
-                }
-                return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-            }
-            else
-                return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                Data = new { claimslist = clms, msg = clms.Any() ? "ok" : "empty" },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+            };
         }
         public JsonResult GetActiveEmployess(string search, int page)
         {
@@ -691,6 +1112,18 @@ namespace DMS_Authontication1.Controllers.HR
         public ActionResult PrintAllClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
                                             string aprovNo, string cardId, string invocNo, string batchNo)
         {
+
+
+            /*
+            var clms = getClaimsData(regFrom, regTo, servFrom, servTo, compId, aprovNo, cardId, invocNo, batchNo);
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsNew.rpt"));
+            rd.SetDataSource(clms);
+            rd.SetParameterValue("comp", compId);
+            */
+
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;

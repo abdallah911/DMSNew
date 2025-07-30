@@ -2608,6 +2608,79 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="ReasonRefuse" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="ReviewClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimNo" Type="bigint" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="ClaimDate" Type="date" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompId" Type="int" />
+          <Property Name="ClassCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="EmpCode" Type="int" />
+          <Property Name="EmpAname" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmpEname" Type="nvarchar" MaxLength="500" />
+          <Property Name="Takhasos" Type="nvarchar(max)" />
+          <Property Name="PrvNo" Type="int" />
+          <Property Name="PrvName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProviderType" Type="nvarchar" MaxLength="250" />
+          <Property Name="ServType" Type="nvarchar(max)" />
+          <Property Name="Services" Type="nvarchar(max)" />
+          <Property Name="ServName" Type="nvarchar(max)" />
+          <Property Name="ClaimSubmitted" Type="float" />
+          <Property Name="OverInsurance" Type="float" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="ApprovAmount" Type="float" />
+          <Property Name="CopayAmt" Type="float" />
+          <Property Name="AfterCopay" Type="float" />
+          <Property Name="LocalAmount" Type="float" />
+          <Property Name="ImportAmount" Type="float" />
+          <Property Name="LocalDisc" Type="float" />
+          <Property Name="ImportDisc" Type="float" />
+          <Property Name="TotalDiscount" Type="float" />
+          <Property Name="Net" Type="float" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="BatchNo" Type="int" />
+          <Property Name="InvoiceNo" Type="bigint" />
+          <Property Name="UploadBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="MainCompId" Type="int" />
+          <Property Name="MainCompName" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ReviewClaimsNew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompId" Type="bigint" />
+          <Property Name="CompName" Type="nvarchar" MaxLength="500" />
+          <Property Name="DoneDate" Type="date" />
+          <Property Name="BatchNo" Type="int" />
+          <Property Name="EmpCode" Type="int" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="ServName" Type="nvarchar(max)" />
+          <Property Name="Gross" Type="float" />
+          <Property Name="CopayAmt" Type="float" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="Net" Type="float" />
+          <Property Name="ClaimDate" Type="date" />
+          <Property Name="ServCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="PrvNo" Type="int" />
+          <Property Name="PrvName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TypeEmp" Type="int" />
+          <Property Name="TaxCard" Type="bigint" />
+          <Property Name="TaxFile" Type="bigint" />
+          <Property Name="MissionCode" Type="int" />
+          <Property Name="ClaimNo" Type="bigint" />
+          <Property Name="MainCompId" Type="int" />
+          <Property Name="MainCompName" Type="nvarchar" MaxLength="500" />
+          <Property Name="UploadBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UploadDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Roshita">
           <Key>
             <PropertyRef Name="Id" />
@@ -2854,6 +2927,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="SyncDate" Type="datetime" />
+          <Property Name="DELIVERY" Type="int" />
         </EntityType>
         <EntityType Name="Serv_Providers1">
           <Key>
@@ -3028,6 +3102,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="InternalCode" Type="nvarchar" MaxLength="250" />
           <Property Name="MobileNumber" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.DisComp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DisComp">
+          <Key>
+            <PropertyRef Name="CompId" />
+          </Key>
+          <Property Name="CompId" Type="int" Nullable="false" />
+          <Property Name="CompEname" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompAname" Type="nvarchar" MaxLength="100" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
         </EntityType>
         <Association Name="FK_ApprovalDetails_ApprovalMaster">
           <End Role="ApprovalMaster" Type="Self.ApprovalMaster" Multiplicity="0..1" />
@@ -4110,6 +4196,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="RenewalServicePool" EntityType="Self.RenewalServicePool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalStepTwo" EntityType="Self.RenewalStepTwo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestAddProvider" EntityType="Self.RequestAddProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewClaims" EntityType="Self.ReviewClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewClaimsNew" EntityType="Self.ReviewClaimsNew" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roshita" EntityType="Self.Roshita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaAcceptions" EntityType="Self.RoshitaAcceptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaDetails" EntityType="Self.RoshitaDetails" Schema="dbo" store:Type="Tables" />
@@ -4138,6 +4226,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <DefiningQuery>SELECT 
     [Swap].[Id] AS [Id]
     FROM [dbo].[Swap] AS [Swap]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DisComp" EntityType="Self.DisComp" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DisComp].[CompId] AS [CompId], 
+    [DisComp].[CompEname] AS [CompEname], 
+    [DisComp].[CompAname] AS [CompAname], 
+    [DisComp].[StartDate] AS [StartDate], 
+    [DisComp].[EndDate] AS [EndDate]
+    FROM [dbo].[DisComp] AS [DisComp]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_ApprovalDetails_ApprovalMaster" Association="Self.FK_ApprovalDetails_ApprovalMaster">
             <End Role="ApprovalMaster" EntitySet="ApprovalMaster" />
@@ -5389,6 +5486,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ProviderComplaints" Relationship="DB_A45413_DMSERPModel.FK_ProviderComplaint_SERV_PROVIDERS_NEW" FromRole="SERV_PROVIDERS_NEW" ToRole="ProviderComplaint" />
           <NavigationProperty Name="DeliveryRequests" Relationship="DB_A45413_DMSERPModel.FK_DeliveryRequest_SERV_PROVIDERS_NEW" FromRole="SERV_PROVIDERS_NEW" ToRole="DeliveryRequest" />
+          <Property Name="DELIVERY" Type="Int32" />
         </EntityType>
         <EntityType Name="Serv_Providers1">
           <Key>
@@ -6029,6 +6127,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="HospitalClaim" EntitySet="HospitalClaims" />
             <End Role="HospitalClaimQR" EntitySet="HospitalClaimQRs" />
           </AssociationSet>
+          <EntitySet Name="ReviewClaims" EntityType="DB_A45413_DMSERPModel.ReviewClaim" />
+          <EntitySet Name="ReviewClaimsNews" EntityType="DB_A45413_DMSERPModel.ReviewClaimsNew" />
+          <EntitySet Name="DisComps" EntityType="DB_A45413_DMSERPModel.DisComp" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8776,6 +8877,89 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ReviewClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimNo" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ClaimDate" Type="DateTime" Precision="0" />
+          <Property Name="CardNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompId" Type="Int32" />
+          <Property Name="ClassCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="EmpCode" Type="Int32" />
+          <Property Name="EmpAname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpEname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Takhasos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrvNo" Type="Int32" />
+          <Property Name="PrvName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderType" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ServType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Services" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimSubmitted" Type="Double" />
+          <Property Name="OverInsurance" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="ApprovAmount" Type="Double" />
+          <Property Name="CopayAmt" Type="Double" />
+          <Property Name="AfterCopay" Type="Double" />
+          <Property Name="LocalAmount" Type="Double" />
+          <Property Name="ImportAmount" Type="Double" />
+          <Property Name="LocalDisc" Type="Double" />
+          <Property Name="ImportDisc" Type="Double" />
+          <Property Name="TotalDiscount" Type="Double" />
+          <Property Name="Net" Type="Double" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BatchNo" Type="Int32" />
+          <Property Name="InvoiceNo" Type="Int64" />
+          <Property Name="UploadBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="MainCompId" Type="Int32" />
+          <Property Name="MainCompName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ReviewClaimsNew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompId" Type="Int64" />
+          <Property Name="CompName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DoneDate" Type="DateTime" Precision="0" />
+          <Property Name="BatchNo" Type="Int32" />
+          <Property Name="EmpCode" Type="Int32" />
+          <Property Name="CardNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="ServName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gross" Type="Double" />
+          <Property Name="CopayAmt" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="Net" Type="Double" />
+          <Property Name="ClaimDate" Type="DateTime" Precision="0" />
+          <Property Name="ServCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrvNo" Type="Int32" />
+          <Property Name="PrvName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TypeEmp" Type="Int32" />
+          <Property Name="TaxCard" Type="Int64" />
+          <Property Name="TaxFile" Type="Int64" />
+          <Property Name="MissionCode" Type="Int32" />
+          <Property Name="ClaimNo" Type="Int64" />
+          <Property Name="MainCompId" Type="Int32" />
+          <Property Name="MainCompName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UploadBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DisComp">
+          <Key>
+            <PropertyRef Name="CompId" />
+          </Key>
+          <Property Name="CompId" Type="Int32" Nullable="false" />
+          <Property Name="CompEname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompAname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9763,6 +9947,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="SERV_PROVIDERS_NEW">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.SERV_PROVIDERS_NEW">
               <MappingFragment StoreEntitySet="SERV_PROVIDERS_NEW">
+                <ScalarProperty Name="DELIVERY" ColumnName="DELIVERY" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PR_CODE" ColumnName="PR_CODE" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -12188,6 +12373,92 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="ImageQR" ColumnName="ImageQR" />
                 <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewClaims">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ReviewClaim">
+              <MappingFragment StoreEntitySet="ReviewClaims">
+                <ScalarProperty Name="MainCompName" ColumnName="MainCompName" />
+                <ScalarProperty Name="MainCompId" ColumnName="MainCompId" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="UploadBy" ColumnName="UploadBy" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+                <ScalarProperty Name="ImportDisc" ColumnName="ImportDisc" />
+                <ScalarProperty Name="LocalDisc" ColumnName="LocalDisc" />
+                <ScalarProperty Name="ImportAmount" ColumnName="ImportAmount" />
+                <ScalarProperty Name="LocalAmount" ColumnName="LocalAmount" />
+                <ScalarProperty Name="AfterCopay" ColumnName="AfterCopay" />
+                <ScalarProperty Name="CopayAmt" ColumnName="CopayAmt" />
+                <ScalarProperty Name="ApprovAmount" ColumnName="ApprovAmount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="OverInsurance" ColumnName="OverInsurance" />
+                <ScalarProperty Name="ClaimSubmitted" ColumnName="ClaimSubmitted" />
+                <ScalarProperty Name="ServName" ColumnName="ServName" />
+                <ScalarProperty Name="Services" ColumnName="Services" />
+                <ScalarProperty Name="ServType" ColumnName="ServType" />
+                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
+                <ScalarProperty Name="PrvName" ColumnName="PrvName" />
+                <ScalarProperty Name="PrvNo" ColumnName="PrvNo" />
+                <ScalarProperty Name="Takhasos" ColumnName="Takhasos" />
+                <ScalarProperty Name="EmpEname" ColumnName="EmpEname" />
+                <ScalarProperty Name="EmpAname" ColumnName="EmpAname" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewClaimsNews">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ReviewClaimsNew">
+              <MappingFragment StoreEntitySet="ReviewClaimsNew">
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="UploadBy" ColumnName="UploadBy" />
+                <ScalarProperty Name="MainCompName" ColumnName="MainCompName" />
+                <ScalarProperty Name="MainCompId" ColumnName="MainCompId" />
+                <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
+                <ScalarProperty Name="MissionCode" ColumnName="MissionCode" />
+                <ScalarProperty Name="TaxFile" ColumnName="TaxFile" />
+                <ScalarProperty Name="TaxCard" ColumnName="TaxCard" />
+                <ScalarProperty Name="TypeEmp" ColumnName="TypeEmp" />
+                <ScalarProperty Name="PrvName" ColumnName="PrvName" />
+                <ScalarProperty Name="PrvNo" ColumnName="PrvNo" />
+                <ScalarProperty Name="ServCode" ColumnName="ServCode" />
+                <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="CopayAmt" ColumnName="CopayAmt" />
+                <ScalarProperty Name="Gross" ColumnName="Gross" />
+                <ScalarProperty Name="ServName" ColumnName="ServName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DisComps">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.DisComp">
+              <MappingFragment StoreEntitySet="DisComp">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CompAname" ColumnName="CompAname" />
+                <ScalarProperty Name="CompEname" ColumnName="CompEname" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

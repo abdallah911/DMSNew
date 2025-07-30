@@ -92,6 +92,7 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsSync { get; set; }
         public string SyncBy { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
+        public Nullable<int> DELIVERY { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProviderComplaint> ProviderComplaints { get; set; }
