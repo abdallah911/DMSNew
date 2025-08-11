@@ -331,6 +331,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\RayApprovalsController.cs" />
+    <Compile Include="Controllers\LabApprovalsController.cs" />
     <Compile Include="Controllers\HR\CompIcdCpController.cs" />
     <Compile Include="Controllers\HR\ReviewClaimsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
@@ -7824,7 +7826,11 @@
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
     <Content Include="Scripts\DMS\Dashbord - Copy.js" />
     <Content Include="Scripts\DMS\Dashbord.js" />
+    <Content Include="Scripts\DMS\RayApproval.js" />
+    <Content Include="Scripts\DMS\LabApproval.js" />
+    <Content Include="Scripts\DMS\Labs\LabEditDoctor.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\Ray\RayEditDoctor.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8899,6 +8905,16 @@
     <Content Include="Views\Dashboard\Test.cshtml" />
     <Content Include="Views\EmployeeRequest\FamiliesSubscription.cshtml" />
     <Content Include="Views\Clinics\PrivateData.cshtml" />
+    <Content Include="Views\LabApprovals\_Branches.cshtml" />
+    <Content Include="Views\LabApprovals\_Cards.cshtml" />
+    <Content Include="Views\LabApprovals\_Labs.cshtml" />
+    <Content Include="Views\LabApprovals\Index.cshtml" />
+    <Content Include="Views\Labs\EditDoctor.cshtml" />
+    <Content Include="Views\RayApprovals\_Branches.cshtml" />
+    <Content Include="Views\RayApprovals\_Cards.cshtml" />
+    <Content Include="Views\RayApprovals\_Rays.cshtml" />
+    <Content Include="Views\RayApprovals\Index.cshtml" />
+    <Content Include="Views\Rays\EditDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
