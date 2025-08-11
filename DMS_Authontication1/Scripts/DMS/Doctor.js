@@ -150,19 +150,18 @@ $(function () {
                                         var DisregardCeiling = false;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
-                                            LimitBool = LimitBool == true ? true : returndata[i].includes('Disregard OverInsurance');
+                                            LimitBool = LimitBool == true ? true : returndata[i].includes("Disregard OverInsurance");
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
 
                                             PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent;
-                                            Limit = Limit == true ? true : returndata[i].Name.includes('Disregard OverInsurance');
-                                            PatientAmount = Limit == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
-                                            Adult = Adult == true ? true : returndata[i].Name.includes("Ignore Age");
-                                            Date = Date == true ? true : returndata[i].Name.includes("Expired Date");
-                                            Diagnose = Diagnose == true ? true : returndata[i].Name.includes("Diagnose");
-                                            Gender = Gender == true ? true : returndata[i].Name.includes("Ignore Gender");
-                                            ExternalPrescription = ExternalPrescription == true ? true : returndata[i].Name.includes("External Prescription");
-                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].Name.includes("Unlimited Examination per day");
-                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].Name.includes("Ignore Prescription Count");
+                                            PatientAmount = LimitBool == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
+                                            Adult = Adult == true ? true : returndata[i].includes("Ignore Age");
+                                            Date = Date == true ? true : returndata[i].includes("Expired Date");
+                                            Diagnose = Diagnose == true ? true : returndata[i].includes("Diagnose");
+                                            Gender = Gender == true ? true : returndata[i].includes("Ignore Gender");
+                                            ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
+                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].includes("Ignore Prescription Count");
                                             ReasonsView = ReasonsView + returndata[i].Name + " , ";
 
                                         }
@@ -170,9 +169,18 @@ $(function () {
                                             DiscardRoshitaCount = 1;
                                         }
                                         if (LimitBool == true) {
+                                            var alllimitchick = parseInt($('#AllLimit').val());
                                             $("#insurance_LIVEL").val(0);
-                                            AnuualLimit = $('#AllLimit').val();
-                                            Limit = 0;
+                                            if (PatientAmount > 0) {
+                                                if (alllimitchick <= PatientAmount)
+                                                    AnuualLimit = parseInt$('#AllLimit').val();
+                                                else
+                                                    AnuualLimit = PatientAmount;
+                                            }
+                                            else {
+                                                AnuualLimit = $('#AllLimit').val();
+                                                Limit = 0;
+                                            }
                                             SecandCalculation();
                                         }
                                         if (Copayment == true) {

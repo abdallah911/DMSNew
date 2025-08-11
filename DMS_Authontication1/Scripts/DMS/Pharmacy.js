@@ -459,6 +459,7 @@ $(function () {
                                         });
                                     }
                                     else {
+                                        debugger;
                                         var Copayment = false;
                                         var PatientPercent = 0;
                                         var Limit = false;
@@ -475,7 +476,7 @@ $(function () {
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].Name.includes("Cancel Co-Payment");
                                             PatientPercent = Copayment == true && PatientPercent != 0 ? PatientPercent : returndata[i].PatientPercent == null ? 0 : returndata[i].PatientPercent;
-                                            Limit = Limit == true ? true : returndata[i].Name.includes('Disregard OverInsurance');
+                                            Limit = Limit == true ? true : returndata[i].Name.includes("Disregard OverInsurance");
                                             PatientAmount = Limit == true && PatientAmount != 0 ? PatientAmount : returndata[i].PatientAmount == null ? 0 : returndata[i].PatientAmount;
                                             Adult = Adult == true ? true : returndata[i].Name.includes("Ignore Age");
                                             Date = Date == true ? true : returndata[i].Name.includes("Expired Date");
