@@ -46,9 +46,9 @@ namespace DMS_Authontication1.Controllers.HR
         {
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
-            dbData = new DB106();
-            dbOra = new DBApproval106();
-            dbApproval = new DBData();
+            //dbData = new DB106();
+            //dbOra = new DBApproval106();
+            //dbApproval = new DBData();
         }
         //public ActionResult History()
         //{
@@ -1420,21 +1420,37 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsNew.rpt"));
 
-            rd.SetDatabaseLogon("APP", "15+08+2017");
+            //rd.SetDatabaseLogon("APP", "15+08+2017");
+            //rd.SetParameterValue("reg1", regDateFrom);
+            //rd.SetParameterValue("reg2", regDateTo);
 
-            rd.SetParameterValue("reg1", regDateFrom);
-            rd.SetParameterValue("reg2", regDateTo);
+            //rd.SetParameterValue("serv1", servDateFrom);
+            //rd.SetParameterValue("serv2", servDateTo);
 
-            rd.SetParameterValue("serv1", servDateFrom);
-            rd.SetParameterValue("serv2", servDateTo);
+            //rd.SetParameterValue("crd1", cardStart);
+            //rd.SetParameterValue("crd2", cardEnd);
 
-            rd.SetParameterValue("crd1", cardStart);
-            rd.SetParameterValue("crd2", cardEnd);
+            //rd.SetParameterValue("aprov1", aprovNoFrom);
+            //rd.SetParameterValue("aprov2", aprovNoTo);
+            //rd.SetParameterValue("cmp", comp);
+            //rd.SetParameterValue("btch", batchNoFrom);
 
-            rd.SetParameterValue("aprov1", aprovNoFrom);
-            rd.SetParameterValue("aprov2", aprovNoTo);
-            rd.SetParameterValue("cmp", comp);
-            rd.SetParameterValue("btch", batchNoFrom);
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@reg1", regDateFrom);
+            rd.SetParameterValue("@reg2", regDateTo);
+
+            rd.SetParameterValue("@serv1", servDateFrom);
+            rd.SetParameterValue("@serv2", servDateTo);
+
+            rd.SetParameterValue("@crd1", cardStart);
+            rd.SetParameterValue("@crd2", cardEnd);
+
+            rd.SetParameterValue("@aprov1", aprovNoFrom);
+            rd.SetParameterValue("@aprov2", aprovNoTo);
+            rd.SetParameterValue("@cmp", comp);
+            rd.SetParameterValue("@btch", batchNoFrom);
 
             Response.Buffer = false;
             Response.ClearContent();
