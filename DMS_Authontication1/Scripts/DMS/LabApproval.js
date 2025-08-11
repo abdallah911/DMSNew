@@ -722,7 +722,8 @@ function SelectLab(event) {
                                                 label: "Pending",
                                                 className: 'btn-info',
                                                 callback: function () {
-                                                    Group = "Pending";
+                                                    Group = "Auto Accepted";
+                                                    //Group = "Pending";
                                                     AppendRow();
                                                     Calculation();
                                                 }
