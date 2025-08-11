@@ -378,8 +378,8 @@ namespace DMS_Authontication1.Controllers.HR
             }
 
             filteredClaims = filteredClaims
-                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
-                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to);
+                .Where(rc => DbFunctions.TruncateTime(rc.CreatedDate) >= regRange.from.Date && rc.CreatedDate <= regRange.to.Date)
+                .Where(rc => DbFunctions.TruncateTime(rc.ClaimDate) >= servRange.from.Date && rc.ClaimDate <= servRange.to.Date);
 
             if (long.TryParse(invocNo, out var invocVal))
                 filteredClaims = filteredClaims.Where(rc => rc.InvoiceNo == invocVal);
@@ -550,8 +550,8 @@ namespace DMS_Authontication1.Controllers.HR
             var filteredClaims = db.ReviewClaims
                 .Where(rc => comp == 1 ? rc.MainCompId == comp : rc.CompId == comp)
                 .Where(rc => rc.InvoiceNo == invoc)
-                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
-                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to);
+                .Where(rc => DbFunctions.TruncateTime(rc.CreatedDate) >= regRange.from.Date && rc.CreatedDate <= regRange.to.Date)
+                .Where(rc => DbFunctions.TruncateTime(rc.ClaimDate) >= servRange.from.Date && rc.ClaimDate <= servRange.to.Date);
 
             if (long.TryParse(batchNo, out var batchVal))
                 filteredClaims = filteredClaims.Where(rc => rc.BatchNo == batchVal);
@@ -880,8 +880,8 @@ namespace DMS_Authontication1.Controllers.HR
 
             var query = db.ReviewClaims
                 .Where(rc => comp == 1 ? rc.MainCompId == comp : rc.CompId == comp)
-                .Where(rc => rc.CreatedDate >= regRange.from && rc.CreatedDate <= regRange.to)
-                .Where(rc => rc.ClaimDate >= servRange.from && rc.ClaimDate <= servRange.to)
+                .Where(rc => DbFunctions.TruncateTime(rc.CreatedDate) >= regRange.from.Date && rc.CreatedDate <= regRange.to.Date)
+                .Where(rc => DbFunctions.TruncateTime(rc.ClaimDate) >= servRange.from.Date && rc.ClaimDate <= servRange.to.Date)
                 .Where(rc => (rc.ClaimNo ?? 0) >= aprovRange.from && (rc.ClaimNo ?? 0) <= aprovRange.to)
                 .Where(rc => (rc.InvoiceNo ?? 0) >= invocRange.from && (rc.InvoiceNo ?? 0) <= invocRange.to)
                 .Where(rc => (rc.BatchNo ?? 0) >= batchRange.from && (rc.BatchNo ?? 0) <= batchRange.to)
@@ -1625,9 +1625,10 @@ namespace DMS_Authontication1.Controllers.HR
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "OneClaimReport.rpt"));
 
-            rd.SetDatabaseLogon("APP", "15+08+2017");
+            //rd.SetDatabaseLogon("APP", "15+08+2017");
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            rd.SetParameterValue("clm", claimNo);
+            rd.SetParameterValue("@clm", claimNo);
             
             Response.Buffer = false;
             Response.ClearContent();
