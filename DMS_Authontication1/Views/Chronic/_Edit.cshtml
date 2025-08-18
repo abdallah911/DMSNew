@@ -20,7 +20,7 @@
 
                 <div class="form-group row col-md-6">
                     <label for="MedicienCode" class="col-form-label">Medicien Code</label>
-                    <input type="text" id="MedicienCode" class="form-control" @*ReadOnly="readonly"*@ />
+                    <input type="text" id="MedicienCode" class="form-control" ReadOnly="readonly" />
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="MedicienName" class="col-form-label">MedicienName</label>
@@ -107,52 +107,52 @@
         var DosageForm = $('.modal-body #Dosage').val();
 
 
-        //$('.modal-body #TotalUnits').attr("readonly", true);
-        //if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
-        //    $('.modal-body #TotalUnits').attr("readonly", false);
+        ////$('.modal-body #TotalUnits').attr("readonly", true);
+        ////if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+        ////    $('.modal-body #TotalUnits').attr("readonly", false);
 
-        //}
-        $('#MedicienCode').click(function () {
+        ////}
+        //$('#MedicienCode').click(function () {
 
-            var MCode = $('#MedicienCode').val().trim();
-            var MPrice = parseFloat(BasicPackagePrice.trim());
-            $.ajax({
-                url: '/Chronic/Alternatives/',
-                data:
-                {
-                    id: MCode,
-                    Price: MPrice
-                },
-                dataType: 'Json',
-                success: function (r) {
+        //    var MCode = $('#MedicienCode').val().trim();
+        //    var MPrice = parseFloat(BasicPackagePrice.trim());
+        //    $.ajax({
+        //        url: '/Chronic/Alternatives/',
+        //        data:
+        //        {
+        //            id: MCode,
+        //            Price: MPrice
+        //        },
+        //        dataType: 'Json',
+        //        success: function (r) {
 
-                    $('#AlternativesModal').modal();
-                    var setData = $("#Alteratives Tbody");
-                    setData.empty();
-                    for (var i = 0; i < r.length; i++) {
-                        var data = "<tr >" +
-                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Change(this);'></Button>" + "</td>" +
-                            "<td>" + r[i].MED_CODE + "</td>" +
-                            "<td>" + r[i].MED_NAME + "</td>" +
-                            "<td>" + r[i].DOSAGE_FORM + "</td>" +
-                            "<td>" + r[i].Des_PACK_PRICE + "</td>" +
-                            "<td>" + r[i].PACK_SIZE + "</td>" +
-                            "<td>" + r[i].UNIT_NO + "</td>" +
-                            "<td>" + r[i].UNIT_PRICE + "</td>" +
-                            "</tr>"
-                        setData.append(data);
-                        //$("#LoadingData").html(" ");
-                    }
-                    $('#Alteratives').DataTable();
+        //            $('#AlternativesModal').modal();
+        //            var setData = $("#Alteratives Tbody");
+        //            setData.empty();
+        //            for (var i = 0; i < r.length; i++) {
+        //                var data = "<tr >" +
+        //                    "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Change(this);'></Button>" + "</td>" +
+        //                    "<td>" + r[i].MED_CODE + "</td>" +
+        //                    "<td>" + r[i].MED_NAME + "</td>" +
+        //                    "<td>" + r[i].DOSAGE_FORM + "</td>" +
+        //                    "<td>" + r[i].Des_PACK_PRICE + "</td>" +
+        //                    "<td>" + r[i].PACK_SIZE + "</td>" +
+        //                    "<td>" + r[i].UNIT_NO + "</td>" +
+        //                    "<td>" + r[i].UNIT_PRICE + "</td>" +
+        //                    "</tr>"
+        //                setData.append(data);
+        //                //$("#LoadingData").html(" ");
+        //            }
+        //            $('#Alteratives').DataTable();
 
 
-                },
-                error: function () {
-                    alert("No Alternatives");
-                }
+        //        },
+        //        error: function () {
+        //            alert("No Alternatives");
+        //        }
 
-            });
-        });
+        //    });
+        //});
 
         $('#Update').click(function () {
 
