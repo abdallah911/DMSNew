@@ -8915,6 +8915,8 @@
     <Content Include="Views\RayApprovals\_Rays.cshtml" />
     <Content Include="Views\RayApprovals\Index.cshtml" />
     <Content Include="Views\Rays\EditDoctor.cshtml" />
+    <Content Include="Views\Pharmacy\MedicalReply.cshtml" />
+    <Content Include="Views\ABTest\MedicalReply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

@@ -952,6 +952,12 @@ p:last-of-type {
 .ms-2 {
     margin-left: 8px !important;
 }
+.ms-1 {
+    margin-left: .25rem !important;
+}
+.me-1 {
+    margin-right: .25rem !important;
+}
 .ms-auto {
     margin-left: auto !important;
 }
