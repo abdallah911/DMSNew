@@ -357,7 +357,7 @@
             alert("من فضلك ادخل تاريخ للبحث");
             return;
         }
-        if ($("#CompNum").val() != '' || $("#ClaimNo").val() != '') {
+       /* if ($("#CompNum").val() != '' || $("#ClaimNo").val() != '') {*/
                 var table = $('#InvoiceData').DataTable();
                 table.clear().draw();
                 table.destroy();
@@ -441,9 +441,9 @@
                         $("#loading").hide();
                     }
                 });
-            }
-            else
-                alert("من فضلك اختر رقم الشركة او ادخل رقم المطالبة");
+            //}
+            //else
+            //    alert("من فضلك اختر رقم الشركة او ادخل رقم المطالبة");
         }
 
         function GetAllBatch(compNo, invocNo) {

@@ -135,6 +135,45 @@ $(function () {
                                     $('#txtSearchCard').val(CardId);
                                     $('#CardsModal').modal('hide');
 
+                                    //Get Doctor
+
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/Rays/HaveDoctor',
+                                        data: { id: CardId },
+                                        success: function (returndata) {
+                                            if (returndata.ok) {
+                                                bootbox.dialog({
+                                                    closeButton: false,
+                                                    title: 'Lab',
+                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                    message: "هذا العميل لدية موافقه مسبقه هل تود صرفها ",
+                                                    buttons: {
+                                                        Print: {
+                                                            label: "Yes",
+                                                            className: 'btn-info',
+                                                            callback: function () {
+                                                                window.location.replace("/Rays/EditDoctor/" + returndata.roshitaid);
+                                                            }
+                                                        },
+                                                        New: {
+                                                            label: "No",
+                                                            className: 'btn-danger',
+                                                            callback: function () {
+
+                                                            }
+                                                        }
+
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                //bootbox.alert(' No Company Name ');
+                                            }
+                                        }
+                                    });
+
                                     $.ajax({
                                         type: "POST",
                                         dataType: "json",

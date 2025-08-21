@@ -209,6 +209,9 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" Width="1.5" PointX="3.375" PointY="45.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HospitalClaimQR" Width="1.5" PointX="34.625" PointY="45.875" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ReviewClaim" Width="1.5" PointX="21.375" PointY="45.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ReviewClaimsNew" Width="1.5" PointX="23.375" PointY="45.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DisComp" Width="1.5" PointX="45.375" PointY="39.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

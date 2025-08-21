@@ -22,7 +22,7 @@
     <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <!-- Add By Mohamed Yasser //START-->
     <!---->
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
@@ -71,6 +71,7 @@
             min-height: calc(100vh - 300.1px);
             margin-bottom: 0;
         }
+
         .reports .dms-container {
             min-height: calc(100vh - 305.1px);
         }
@@ -98,7 +99,7 @@
         select,
         textarea {
             border: 2px solid #c2cad8 !important;
-            border-radius: 4px; 
+            border-radius: 4px;
         }
 
         .forLabel > span:not(.select2-container), .select {
@@ -408,16 +409,14 @@
         }
     </style>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
+    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-227248876-1');
-    </script>
-
-
+    </script>-->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
         <script>
@@ -651,7 +650,7 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                                                        {
+                                                                                                                        {
                                            "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance",
@@ -666,7 +665,7 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                                                        {
+                                                                                                                        {
                                             "dr.mohsen", "it.admin", "super-admin"
                                         };
 
@@ -675,9 +674,9 @@
                                             <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
                                         }
                                         @*if (User.Identity.GetUserName() == "hr.misr.insurance")
-                            {
-                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                            }*@
+                                            {
+                                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                            }*@
                                         //}
                                     }
                                 }
@@ -802,6 +801,18 @@
                                             {
 
                                                 <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
+                                            }
+                                            @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
+                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+
+                                                <li><a href="/labApprovals/index">Lab Daily </a></li>
+                                            }
+                                            @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
+                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+
+                                                <li><a href="/RayApprovals/index">Ray Daily </a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
                                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
@@ -1374,10 +1385,10 @@
 
 
 
-            //==========================================
-            //$(document).ready(function () {
-            //    $('footer').insertAfter($('.body-content'));
-            //});
+                //==========================================
+                //$(document).ready(function () {
+                //    $('footer').insertAfter($('.body-content'));
+                //});
     </script>
 
 </body>

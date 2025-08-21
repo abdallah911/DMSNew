@@ -612,7 +612,7 @@ div.field-labeled div {
     padding-left: 80px;
     border: 1px solid #436b8d;
 }
-.search-box::after {fuj
+.search-box::after {  
     top: 0;
     left: 0;
     background: #337ab7;

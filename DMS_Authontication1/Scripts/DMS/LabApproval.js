@@ -14,14 +14,6 @@ var companid;
 var haveClaim = 0;
 
 $(function () {
-    //$("#btnClaim").click(function () {
-    //    window.location.replace('/labs/index?id=' + CardId);
-    //});
-    $("#PrescriptionDate").datepicker({
-        maxDate: '0',
-        minDate: '-13D',
-        dateFormat: 'dd-mm-yy',
-    });
     $("#Help").click(function () {
         introJs().start();
     });
@@ -31,12 +23,6 @@ $(function () {
             if (companid.startsWith("500") || companid == "10560") {
                 alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والتحاليل علي السيستم");
 
-            }
-            if (companid == "888") {
-                $('#phone').hide();
-            }
-            else {
-                $('#phone').show();
             }
             $("#wait").css("display", "block");
             if ($('#txtSearchCard').val() == "500172-1-11462-1") {
@@ -138,45 +124,6 @@ $(function () {
                                     $('#txtSearchCard').val(CardId);
                                     $('#CardsModal').modal('hide');
 
-                                    //Get Doctor
-
-                                    $.ajax({
-                                        type: "POST",
-                                        dataType: "json",
-                                        url: '/Labs/HaveDoctor',
-                                        data: { id: CardId },
-                                        success: function (returndata) {
-                                            if (returndata.ok) {
-                                                bootbox.dialog({
-                                                    closeButton: false,
-                                                    title: 'Lab',
-                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
-                                                    message: "هذا العميل لدية موافقه مسبقه هل تود صرفها ",
-                                                    buttons: {
-                                                        Print: {
-                                                            label: "Yes",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                window.location.replace("/Labs/EditDoctor/" + returndata.roshitaid);
-                                                            }
-                                                        },
-                                                        New: {
-                                                            label: "No",
-                                                            className: 'btn-danger',
-                                                            callback: function () {
-
-                                                            }
-                                                        }
-
-                                                    }
-                                                });
-                                            }
-                                            else {
-                                                //bootbox.alert(' No Company Name ');
-                                            }
-                                        }
-                                    });
-
                                     $.ajax({
                                         type: "POST",
                                         dataType: "json",
@@ -227,18 +174,18 @@ $(function () {
                                                                 Calculation();
                                                                 //Get ClaimNumber
 
-                                                                $.ajax({
-                                                                    type: "POST",
-                                                                    dataType: "json",
-                                                                    url: '/Labs/HaveClaim',
-                                                                    data: { id: CardId },
-                                                                    success: function (Code) {
-                                                                        if (Code == "0") {
-                                                                            haveClaim = 1;
-                                                                            alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
-                                                                        }
-                                                                    }
-                                                                });
+                                                                //$.ajax({
+                                                                //    type: "POST",
+                                                                //    dataType: "json",
+                                                                //    url: '/Labs/HaveClaim',
+                                                                //    data: { id: CardId },
+                                                                //    success: function (Code) {
+                                                                //        if (Code == "0") {
+                                                                //            haveClaim = 1;
+                                                                //            alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
+                                                                //        }
+                                                                //    }
+                                                                //});
                                                             }
                                                         },
                                                         error: function (err) {
@@ -347,25 +294,6 @@ $(function () {
         location.replace("/Labs/Pending2?id=" + CardId);
     });
 
-    //$("#PrescriptionDate").datepicker({
-    //    maxDate: '0',
-    //    minDate: '-6D',
-    //    dateFormat: 'dd-mm-yy',
-    //});
-    function DatePickerModel(flag) {
-        if (flag == 0) {
-            $("#PrescriptionDate").datepicker({
-                maxDate: '0',
-                minDate: '-13D',
-                dateFormat: 'dd-mm-yy',
-            });
-        }
-        else {
-            $("#PrescriptionDate").datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
-        }
-    }
     $("#ddlSpeciality").change(function () {
         $("#wait").css("display", "block");
         $.ajax({
@@ -470,10 +398,11 @@ $(function () {
     $("#AddLab").select2({
         placeholder: "Select a Lab",
         ajax: {
-            url: 'GetList',
+            url: '/LabApprovals/GetList/',
             dataType: 'json',
             data: function (params) {
                 var query = {
+                    userProvider: LabId,
                     sEcho: params.page || 1,
 
                     sSearch: params.term,
@@ -500,59 +429,15 @@ $(function () {
     });
     $('#AddLab').on('select2:selecting', function (event) {
         if ($('#txtSearchCard').val() != '') {
-            if (companid == "888") {
-                if ($('#ddlDiagnoises').val().length != 0) {
-                    if (haveClaim == 1) {
-                        if ($('#ClaimNumber').val() != "") {
-                            var ze = document.getElementById('ClaimNumber').value;
-                            $.ajax({
-                                url: '/Labs/GetCardCode',
-                                data: { id: $('#txtSearchCard').val(), calimNumber: ze },
-                                dataType: 'Json',
-                                success: function (Code) {
-                                    if (Code == "0") {
-                                        SelectLabCompany(event);
-                                    }
-                                    else {
-                                        bootbox.alert("غير مسموح اجراء تحاليل لهذا الكارت من خلالكم");
-                                        event.preventDefault();
-                                    }
-                                },
-                                error: function () {
-                                    bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
-                                    $("#wait").css("display", "none");
-                                }
-                            });
-                        }
-                        else {
-                            toastr.info("Please enter Claim Number");
-                            event.preventDefault();
-                        }
-                    }
-                    else {
-                        SelectLabCompanyPending(event);
-                    }
-                }
-                else {
-                    toastr.info("Please insert Diagnoise Data");
-                    event.preventDefault();
-                }
+            if ($('#ddlDiagnoises').val().length != 0) {
+                SelectLab(event);
             }
             else {
-                if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
-                    if ($('#ddlDiagnoises').val().length != 0) {
-                        SelectLab(event);
-                    }
-                    else {
-                        toastr.info("Please insert Diagnoise Data");
-                        event.preventDefault();
-                    }
-                }
-                else {
-                    toastr.info("Please insert Phone number");
-                    event.preventDefault();
-                }
+                toastr.info("Please insert Diagnoise Data");
+                event.preventDefault();
             }
+
+
         }
         else {
             toastr.info("Please Insert Card Number");
@@ -568,25 +453,75 @@ $(function () {
         });
 
     });
+    $('#LabTxt').click(function () {
 
-    function phonenumber(inputtxt) {
-        var phoneno = /01\d{9}$/;
-        if (inputtxt.match(phoneno)) {
-            return true;
+        $.ajax({
+            url: '/LabApprovals/Labs',
+            dataType: 'Json',
+            success: function (r) {
+                $('#BranchTxt').val(' ');
+                $('#Labs').dataTable().fnDestroy();
+                $('#LabsModal').modal();
+                var setData = $("#Labs Tbody");
+                setData.empty();
+
+                for (var i = 0; i < r.length; i++) {
+
+                    var data = "<tr >" +
+                        "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select1(this);'></Button>" + "</td>" +
+                        "<td>" + r[i].PR_CODE + "</td>" +
+                        "<td>" + r[i].PR_ANAME + "</td>" +
+                        "</tr>";
+                    setData.append(data);
+
+                }
+                $('#Labs').DataTable();
+
+            },
+            error: function () {
+                alert("Error Retrieve");
+            }
+
+        });
+    });
+    $('#BranchTxt').click(function () {
+        if ($('#LabTxt').val() != '') {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/LabApprovals/Branches',
+                data: { id: $('#LabTxt').val() },
+                success: function (r) {
+                    $('#Branches').dataTable().fnDestroy();
+                    $('#BranchesModal').modal();
+                    var setData = $("#Branches Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+
+                        var data = "<tr >" +
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select2(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].PR_CODE + "</td>" +
+                            "<td>" + r[i].PR_ANAME + "</td>" +
+                            "<td>" + r[i].ADDRESS1 + "</td>" +
+                            "</tr>";
+                        setData.append(data);
+
+                    }
+                    $('#Branches').DataTable();
+
+
+                },
+                error: function (r) {
+                    window.alert(' No Company Branches');
+                }
+
+            });
         }
         else {
-            return false;
+            bootbox.alert("Please Insert Lab First");
         }
-
-    }
-    function number(v) {
-        if (isNaN(v)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
+    });
     var approval = " ";
     $('#submit').click(function () {
         var Id; var Mediciens = new Array();
@@ -604,278 +539,94 @@ $(function () {
         var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
         var DiagnosisListData = [];
         for (var i = 0; i < SelectedDiagnosisList.length; i++) {
+            //var current = {};
+            //current.DiagnoiseName = SelectedDiagnosisList[i].text;
+            //DiagnosisListData.push(current);
             var current = {};
-            current.DiagnoiseName = SelectedDiagnosisList[i].text;
+            current.DIAG_CODE = SelectedDiagnosisList[i].id;
+            current.DIAG_ANAME = SelectedDiagnosisList[i].text;
             DiagnosisListData.push(current);
         }
+        console.log(Mediciens);
+        console.log(DiagnosisListData);
         if ($('#txtSearchCard').val() != "") {
-            if (companid == "888") {
-                $('#PhoneNumber').val("01000000001");
-            }
-            if ($('#PhoneNumber').val() != "" && $("#PhoneNumber").val().length == 11) {
-                var te = document.getElementById('PhoneNumber').value;
-                //phonenumber(te)
-                var TotalDuration = $("TD", row).find(".TotalDuration").val();
-                var row = $(this);
-                if (phonenumber(te) == true && number(te) == true) {
-                    if ($('#PrescriptionDate').val() != '') {
-                        if (row.val != "") {
-                            if (TotalDuration != 0) {
-                                if (Mediciens.length != 0) {
+            var TotalDuration = $("TD", row).find(".TotalDuration").val();
+            var row = $(this);
+            if (row.val != "") {
+                if (TotalDuration != 0) {
+                    if (Mediciens.length != 0) {
 
-                                    $("#submit").attr("disabled", "disabled");
+                        $("#submit").attr("disabled", "disabled");
 
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '/Labs/SAVE/',
-                                        dataType: 'Json',
+                        $.ajax({
+                            type: 'POST',
+                            url: '/LabApprovals/SavePrescription/',
+                            dataType: 'Json',
 
-                                        data: {
-                                            CardId: $('#txtSearchCard').val(),
-                                            CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
-                                            Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
-                                            Speciality: $('#ddlSpeciality option:selected').text(),
-                                            Diagnose1: $('#Diagnoise').val(),
-                                            //calculation
-                                            TotalValue: $('#txtTotalInvoice').val(),
-                                            PersonPayment: $('#txtTotalCopayment').val(),
-                                            CompanyPayment: $('#txtValueCredit').val(),
-                                            OverInsurance: $('#txtOverInsurance').val(),
-                                            Cash: $('#txtValueCash').val(),
-                                            PhoneNumber: $('#PhoneNumber').val(),
-                                            ClaimNumber: $('#ClaimNumber').val(),
-                                            //Diagnose1: $('#Comments').val(),
-                                            Diagnose2: NationalId,
-                                            createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
-                                            IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
-                                            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
-                                            RoshitaDetails: Mediciens,
-                                            PrescriptionRoshitaDignosis: DiagnosisListData,
+                            data: {
+                                CardId: $('#txtSearchCard').val(),
+                                CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
+                                Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
+                                Speciality: $('#ddlSpeciality option:selected').text(),
+                                Diagnose1: $('#Diagnoise').val(),
+                                //calculation
+                                TotalValue: $('#txtTotalInvoice').val(),
+                                PersonPayment: $('#txtTotalCopayment').val(),
+                                CompanyPayment: $('#txtValueCredit').val(),
+                                OverInsurance: $('#txtOverInsurance').val(),
+                                Cash: $('#txtValueCash').val(),
+                                PhoneNumber: $('#PhoneNumber').val(),
+                                ClaimNumber: $('#ClaimNumber').val(),
+                                //Diagnose1: $('#Comments').val(),
+                                Diagnose2: LabId,
+                                RoshetaType: "11206",
+                                PhoneNumber: $('#BranchTxt').val(),
+                                createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
+                                IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
+                                roshitaDetail: Mediciens,
+                                diagnose: DiagnosisListData,
 
 
-                                        },
-                                        success: function (Oracle_Id) {
-                                            //var ReportId = r;
+                            },
+                            success: function (Oracle_Id) {
 
-                                            //Date.prototype.yyyymmdd = function () {
-                                            //    var mm = this.getMonth() + 1; // getMonth() is zero-based
-                                            //    var dd = this.getDate();
-                                            //    return [(dd > 9 ? '' : '0') + dd,
-                                            //    (mm > 9 ? '' : '0') + mm,
-                                            //    this.getFullYear()
-                                            //    ].join('');
-                                            //};
-                                            //var date = new Date();
-                                            //d = date.yyyymmdd()
-                                            //r = d + r;
-                                            //approval = r;
-                                            //bootbox.alert("Roshita ID : " + r);
-                                            if (Oracle_Id == "Failed") {
-                                                window.location.replace("/Labs/Lab");
+                                bootbox.dialog({
+                                    closeButton: false,
+                                    title: 'Added Sucessfully',
+                                    message: "Roshita ID : " + Oracle_Id,
+                                    buttons: {
+
+                                        New: {
+                                            label: "New",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                window.location.reload();
                                             }
-                                            else {
-                                                bootbox.dialog({
-                                                    closeButton: false,
-                                                    title: 'Added Sucessfully',
-                                                    message: "Roshita ID : " + Oracle_Id,
-                                                    buttons: {
-                                                        Print: {
-                                                            label: "Print",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                window.location.reload();
-                                                                window.open('/Labs/ControlPenelReport?id=' + Oracle_Id);
-                                                            }
-                                                        },
-                                                        New: {
-                                                            label: "New",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                window.location.reload();
-                                                            }
-                                                        }
-
-                                                    }
-                                                });
-                                            }
-                                        },
-                                        error: function (err) {
-                                            bootbox.alert("Error Roshita");
-                                            $("#submit").attr("disabled", false);
                                         }
-                                    });
-                                    //    .done(function () {
 
-                                    //    $.ajax({
-                                    //        type: 'POST',
-                                    //        url: '/Labs/SaveMediciens/',
-                                    //        dataType: 'Json',
-                                    //        contentType: "application/json; charset=utf-8",
-                                    //        data: JSON.stringify(Mediciens),
-                                    //        success: function (r) {
-                                    //            $("#submit").attr("disabled", false);
-                                    //        },
-                                    //        error: function (err) {
-                                    //            $("#submit").attr("disabled", false);
-                                    //            bootbox.alert("Error Medicien");
-                                    //        }
-                                    //    });
-                                    //    var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
-                                    //    var DiagnosisList = [];
-                                    //    for (var i = 0; i < SelectedDiagnosisList.length; i++) {
-                                    //        var current = {};
-                                    //        current.DIAG_CODE = SelectedDiagnosisList[i].id;
-                                    //        current.DIAG_ANAME = SelectedDiagnosisList[i].text;
-                                    //        DiagnosisList.push(current);
-                                    //    }
-                                    //    //Diagnoises
-                                    //    $.ajax({
-                                    //        type: 'POST',
-                                    //        url: '/Labs/SaveDiagnoises/',
-                                    //        dataType: 'Json',
-                                    //        contentType: "application/json; charset=utf-8",
-                                    //        data: JSON.stringify(DiagnosisList),
-                                    //        success: function (r) {
-                                    //        },
-                                    //        error: function (err) {
-                                    //            bootbox.alert("Error Diagnoises,please check your connection");
-                                    //            $("#submit").attr("disabled", false);
-                                    //        }
-
-                                    //    });
-                                    //});
-                                } else {
-                                    bootbox.alert("Please Insert Medical tests");
-                                }
+                                    }
+                                });
+                            },
+                            error: function (err) {
+                                bootbox.alert("Error Roshita");
+                                $("#submit").attr("disabled", false);
                             }
-
-                            else {
-                                bootbox.alert("Invalid Total Duration");
-                            }
-                        }
+                        });
+                    } else {
+                        bootbox.alert("Please Insert Medical tests");
                     }
-                    else {
-                        toastr.info("Please insert Prescription Date");
-                        event.preventDefault();
-                    }
-                } else { bootbox.alert("Please Insert Valid PhoneNumber"); }
+                }
 
-            } else {
-                bootbox.alert("Please Insert phoneNumber ");
+                else {
+                    bootbox.alert("Invalid Total Duration");
+                }
             }
         }
         else
             bootbox.alert("Please Insert Card ID");
     });
-    $("#ClaimNumber").on("focusout", function () {
-        //Get Claim photo
-
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: '/Pharmacy/HaveClaimPhoto',
-            data: { id: CardId, claimnum: $("#ClaimNumber").val(), type: 'Lab' },
-            success: function (returndata) {
-                if (returndata.ok) {
-                    bootbox.dialog({
-                        closeButton: false,
-                        title: 'Claim Photo',
-                        message: "هل تود تحميل الصورة" + " claim " + "هذا العميل له نموذج",
-                        buttons: {
-                            Print: {
-                                label: "Yes",
-                                className: 'btn-info',
-                                callback: function () {
-                                    $('#ClaimNumber').prop('readonly', true);
-                                    window.open("/Claim/Download/" + returndata.Id);
-                                }
-                            },
-                            New: {
-                                label: "No",
-                                className: 'btn-danger',
-                                callback: function () {
-
-                                }
-                            }
-
-                        }
-                    });
-                }
-                else {
-                    //bootbox.alert(' No Company Name ');
-                }
-            }
-        });
-    });
 });
-function SelectLabCompany(event) {
-    var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var Name;
-    var Amount;
-    var Group;
-
-    //var edit = 0;
-    $.ajax({
-        type: 'Get',
-        url: 'GetLabByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            LabCode = r.SERV_CODE;
-            Name = r.SERV_ANAME;
-            Group = r.GRUOP_TYPE;
-            Amount = r.SERV_AMOUNT;
-            $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Lab Data.');
-        }
-
-    }).done(function () {
-
-        // Not exchanged today
-        $('#Lab TBODY TR').each(function () {
-
-            var row = $(this);
-            var table = $("#Lab")[0];
-            if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
-                table.deleteRow(row[0].rowIndex);
-            }
-        });
-
-        Group = "Accepted";
-        AppendRow();
-        Calculation();
-
-        $('#LabsModal').modal('hide');
-
-    });
-
-    function AppendRow() {
-        var tBody = $("#Lab > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(Code);
-        cell = $(row.insertCell(-1));
-        cell.html(Name);
-        cell = $(row.insertCell(-1));
-        //cell.html(Amount);
-        var AmountText = $("<input  />");
-        AmountText.attr("type", "number");
-        AmountText.attr("min", "1");
-        AmountText.addClass("form-control");
-        AmountText.addClass("Amount");
-        AmountText.attr("onkeyup", "Calculation();");
-        AmountText.val(Amount);
-        cell.append(AmountText);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
-    }
-}
 function SelectLab(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");
@@ -886,9 +637,9 @@ function SelectLab(event) {
     //var edit = 0;
     $.ajax({
         type: 'Get',
-        url: 'GetLabByCode/',
+        url: '/LabApprovals/GetLabByCode/',
         dataType: 'json',
-        data: { code: Code },
+        data: { userProvider: LabId, code: Code },
         success: function (r) {
             LabCode = r.SERV_CODE;
             Name = r.SERV_ANAME;
@@ -899,6 +650,7 @@ function SelectLab(event) {
         },
         error: function (ex) {
             bootbox.alert('Failed to retrieve Lab Data.');
+            $("#wait").css("display", "none");
         }
 
     }).done(function () {
@@ -970,7 +722,8 @@ function SelectLab(event) {
                                                 label: "Pending",
                                                 className: 'btn-info',
                                                 callback: function () {
-                                                    Group = "Pending";
+                                                    Group = "Auto Accepted";
+                                                    //Group = "Pending";
                                                     AppendRow();
                                                     Calculation();
                                                 }
@@ -1038,73 +791,6 @@ function SelectLab(event) {
 
     });
 
-    function AppendRow() {
-        var tBody = $("#Lab > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(Code);
-        cell = $(row.insertCell(-1));
-        cell.html(Name);
-        cell = $(row.insertCell(-1));
-        //cell.html(Amount);
-        var AmountText = $("<input  />");
-        AmountText.attr("type", "number");
-        AmountText.attr("min", "1");
-        AmountText.addClass("form-control");
-        AmountText.addClass("Amount");
-        AmountText.attr("onkeyup", "Calculation();");
-        AmountText.val(Amount);
-        cell.append(AmountText);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
-    }
-}
-function SelectLabCompanyPending(event) {
-    var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var Name;
-    var Amount;
-    var Group;
-
-    //var edit = 0;
-    $.ajax({
-        type: 'Get',
-        url: 'GetLabByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            LabCode = r.SERV_CODE;
-            Name = r.SERV_ANAME;
-            Group = r.GRUOP_TYPE;
-            Amount = r.SERV_AMOUNT;
-            $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Lab Data.');
-        }
-
-    }).done(function () {
-
-        // Not exchanged today
-        $('#Lab TBODY TR').each(function () {
-
-            var row = $(this);
-            var table = $("#Lab")[0];
-            if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
-                table.deleteRow(row[0].rowIndex);
-            }
-        });
-
-        Group = "Pending";
-        AppendRow();
-        Calculation();
-
-        $('#LabsModal').modal('hide');
-
-    });
     function AppendRow() {
         var tBody = $("#Lab > TBODY")[0];
         var row = tBody.insertRow(-1);

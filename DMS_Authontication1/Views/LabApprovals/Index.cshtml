@@ -1,0 +1,218 @@
+﻿@model DMS_TEST.ViewModel.Container1
+@{
+    ViewBag.Title = "Lab";
+}
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+@*<style>
+        #ddlCard {
+            margin-top: -55px;
+            margin-left: 430px;
+            width: 200px;
+        }
+
+        #ddlM_Code {
+            margin-top: -55px;
+            margin-left: 450px;
+            width: 200px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-size: 90%;
+        }
+
+        tr.error {
+            background-color: rgba(255,0,0,0.35);
+        }
+    </style>*@
+<!--Dynamic table-->
+<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+</div>
+<!--Card Id Row-->
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>labratory
+        </div>
+    </div>
+    <div hidden>
+        <input id="IsFamily" name="IsFamily" value="" />
+        <input id="IsPool" name="IsPool" value="" />
+    </div>
+    <br />
+    <div class="portlet-body">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3" data-step="1" data-hint='Step one!' data-intro="Enter Card ID">
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+                </div>
+                <div class="col-sm-3" data-step="2" data-intro="click Search">
+                    <button id="Search" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+            </div>
+        </div><br />
+        @Html.Partial("_Cards")
+        @Html.Partial("_Labs")
+        @Html.Partial("_Branches")
+        <div class="panel panel-info">
+            <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+
+                        @*<div class="col-sm-2">
+                                @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>*@
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+
+                        <div class="col-sm-2" data-step="4" data-intro="Enter speciality ">
+                            @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                        </div>
+                        <div class="col-sm-2" data-step="5" data-intro="Select Diagnoises">
+                            @Html.Label("Diagnoise", new { @class = "control-label" })
+                            <select id="ddlDiagnoises" style="width:100%" multiple></select>
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.Label("Lab", new { @class = "control-label" })
+                            <input id="LabTxt" type="text" class="form-control col-md-2" placeholder="Lab" />
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Branch", new { @class = "control-label" })
+                            <input id="BranchTxt" type="text" class="form-control col-md-2" placeholder="Branch" />
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Co_insurance.INSURANCE_DAY_LAB, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Co_insurance.INSURANCE_DAY_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    @*<div class="col-sm-2">
+                            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>*@
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <h2 class="panel-heading" style="margin:1px;">Chemical Analysis</h2>
+            <div class="panel-body">
+                <!--Search Medicine-->
+                <div class="row">
+                    <div class="col-sm-12" data-step="7" data-intro="Select Test to Despense">
+                        <select id="AddLab" multiple="multiple" style="width:100%">
+                            <option value="0">Select Test</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Dynamic table-->
+                <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
+                    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+                </div>
+                <div class="container-fluid">
+                    <div class="master">
+                        <div class="table-responsive">
+                            <table class="table" id="Lab">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-3">Lab Code</th>
+                                        <th class="col-md-3">Lab Name</th>
+                                        <th class="col-md-3">Amount</th>
+                                        <th class="col-md-3">Group</th>
+                                        @*<th scope="col">&nbsp;</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                        <!--Caculation-->
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">Total</label>
+                                    <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Person Payments</label>
+                                    <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Value Credit</label>
+                                    <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">Over Insurance</label>
+                                    <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Cash</label>
+                                    <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">Total cash</label>
+                                    <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" style="text-align:right;">
+                <input style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Lab" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+                <input data-step="8" data-intro="Reset Labs" id="reset" type="button" value="Reset" onclick="ClearLabData();" class="btn btn-warning" />
+                <input data-step="9" data-intro="Save Labs" id="submit" type="button" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*scripts*@
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script src="~/Scripts/DMS/LabApproval.js?V=1.0"></script>
