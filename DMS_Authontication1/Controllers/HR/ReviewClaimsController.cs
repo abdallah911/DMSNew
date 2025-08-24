@@ -46,9 +46,9 @@ namespace DMS_Authontication1.Controllers.HR
         {
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
-            //dbData = new DB106();
-            //dbOra = new DBApproval106();
-            //dbApproval = new DBData();
+            dbData = new DB106();
+            dbOra = new DBApproval106();
+            dbApproval = new DBData();
         }
         //public ActionResult History()
         //{

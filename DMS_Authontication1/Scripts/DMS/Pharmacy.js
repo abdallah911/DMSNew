@@ -733,9 +733,9 @@ $(function () {
             $("#Pharmacy >tbody").empty();
             $("#AddMedicine").empty();
 
-            $("#Approval").removeClass('active');
-            $('#Approval').attr('disabled', false);
-            $('#HasApproval').prop("checked", false);
+            //$("#Approval").removeClass('active');
+            //$('#Approval').attr('disabled', false);
+            //$('#HasApproval').prop("checked", false);
             //$("#Approval").removeClass('active');
             //$("#Approval").prop("checked", false);
             //$('#HasApproval').prop("checked", false);

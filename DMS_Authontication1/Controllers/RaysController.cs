@@ -1256,7 +1256,7 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
-            rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
+            rd.SetParameterValue("PhoneNumber", data.PhoneNumber == null ? "" : data.PhoneNumber);
             rd.SetParameterValue("CompanyName", Company.C_ENAME);
             rd.SetParameterValue("CardId", data.CardId);
             if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
