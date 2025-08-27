@@ -675,6 +675,41 @@ namespace DMS_Authontication1.Controllers
                 {
                     roshta.Manager = "Ray_Stop";
                 }
+                else if (roshta.Manager == "Ray_Approve")
+                {
+                    roshta.Manager = "Ray_Approve_Stop";
+                    var roshitawithdetails = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.Id == id).FirstOrDefault();
+                    var DoctorRosita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.CardId == roshitawithdetails.CardId && (x.Manager == "Ray_Daily"))
+                        .OrderByDescending(x => x.CreatedDate).ToList();
+                    long DoctorRositaId = 0;
+                    if (roshitawithdetails.RoshitaDetails.Count() > 0)
+                    {
+                        foreach (var item in DoctorRosita)
+                        {
+                            var details = item.RoshitaDetails.Where(x => x.MedicienCode == roshitawithdetails.RoshitaDetails.ElementAt(0).MedicienCode).FirstOrDefault();
+                            if (details != null)
+                            {
+                                DoctorRositaId = details.RoshitaID;
+                                break;
+                            }
+                        }
+                        var DoctrorchronicRositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == DoctorRositaId).ToList();
+                        foreach (RoshitaDetail item in roshitawithdetails.RoshitaDetails)
+                        {
+                            foreach (RoshitaDetail item2 in DoctrorchronicRositaDetails)
+                            {
+                                if (item.MedicienCode == item2.MedicienCode)
+                                {
+                                    item2.IsDealed = false;
+                                    db.Entry(item2).State = EntityState.Modified;
+                                }
+                            }
+
+                        }
+                    }
+                    db.SaveChanges();
+                }
+
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
