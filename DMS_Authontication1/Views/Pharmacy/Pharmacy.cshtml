@@ -23,12 +23,12 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-@Html.Partial("_Cards")
+@*@Html.Partial("_Cards")*@
 <!--Card Id Row-->
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Pharmacies
+<div class="portlet box mb-0 dms-container">
+    <div class="portlet-title title-bg">
+        <div class="caption text-white fw-bold">
+            <i class="fa-solid fa-home me-1"></i>Pharmacies
         </div>
         <div class="actions">
             <a id="Pending" href="javascript:;" class="btn btn-primary  btn-sm" disabled>
@@ -152,7 +152,7 @@
             <div class="panel-body">
                 <!--Search Medicine-->
                 <div class="row">
-                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                    <div class="col-sm-12 select2-no-overflow" data-step="9" data-intro="Select Medicines to Despense">
                         <select id="AddMedicine" multiple="multiple" style="width:100%">
                             <option value="0">select medicine</option>
                         </select>
@@ -241,5 +241,5 @@
 </div>
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
-<script src="~/Scripts/DMS/Pharmacy.js?V=4.7"></script>
+<script src="~/Scripts/DMS/Pharmacy.js?V=4.8"></script>
 

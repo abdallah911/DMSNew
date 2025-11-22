@@ -88,10 +88,30 @@ namespace DMS_Authontication1.Controllers
         public ActionResult Login(string returnUrl)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
+            
             if (user != null)
                 return RedirectToAction("Main", "ControlPanel");
+            
+            var dayy = DateTime.Now.Date;
+
+            //var evnt = tESTEntities.CompanyEvents.Where(e => DateTime.Now >= e.DateFrom && DateTime.Now <= e.DateTo
+            //         && e.Active == true).ToList();
+            var evnt = tESTEntities.CompanyEvents
+                                   .Where(e => System.Data.Entity.DbFunctions.TruncateTime(e.DateFrom) <= dayy
+                                             && System.Data.Entity.DbFunctions.TruncateTime(e.DateTo) >= dayy
+                                             && e.Active == true)
+                                   .ToList();
+
+
+            if (evnt.Count > 0)
+                ViewBag.evnt = 1;
+            else
+                ViewBag.evnt = 0;
+
             ViewBag.ReturnUrl = returnUrl;
+
             return View();
+
         }
         //
         // POST: /Account/Login
@@ -118,6 +138,15 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
+                    //var servProviderNew = tESTEntities.SERV_PROVIDERS_NEW.Where(x => x.MAIN_CODE == user.TypeId).FirstOrDefault();
+                    //if (servProviderNew != null)
+                    //{
+                    //    if (servProviderNew.TERMINATE_FLAG == "Y")
+                    //    {
+                    //        ModelState.AddModelError("", "You'r account locked.");
+                    //        return View(model);
+                    //    }
+                    //}
                     var _ERPRolesUsersPages = tESTEntities.ERPUsersModulesPages.Where(x => x.UserId == user.Id)
                          .Join(tESTEntities.ERPModulesPages, rmp => rmp.PageId, mp => mp.Id, (rmp, mp) => new { rmp, mp })
                          .Select(l => new ModulesPagesViewModel
@@ -174,13 +203,19 @@ namespace DMS_Authontication1.Controllers
                                     return RedirectToLocal("/Rays/Ray");
                                 case "Doctor":
                                     return RedirectToLocal("/DoctorApprovals");
-                                case "Admin":
+                                case "Admin":                                   
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "AdminHelth":
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":
                                     return RedirectToLocal("/EmployeeRequest/Index");
+                                //return RedirectToLocal("/Dashboard/Dashboard");
                                 case "HR_Admin":
+                                    if (model.UserName.ToLower() == "dr.mohsen" || model.UserName.ToLower() == "it.admin" || model.UserName.ToLower() == "super-admin" || model.UserName.ToLower() == "matarat5-admin")  
+                                    {
+                                        //return RedirectToLocal("/Reports/Index");
+                                        return RedirectToLocal("/Dashboard/Index");
+                                    }
                                     return RedirectToLocal("/Reports/Index");
                                 case "Hospital":
                                     return RedirectToLocal("/Hospital/Index");

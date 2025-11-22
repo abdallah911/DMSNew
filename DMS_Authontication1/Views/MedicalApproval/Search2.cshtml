@@ -36,34 +36,131 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 <input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
-<br />
+<style>
+    span.select2.select2-container.select2-container--default {
+        height: 40px;
+        width: 100% !important;
+    }
+</style>
+<div class="dms-container">
 
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Approvals", "Search2", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-list ", @style = " text-transform: none" })
-            @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
+    <div>
+        <p class="ms-4">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Approvals", "Search2", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-list ", @style = " text-transform: none;margin-right:3px" })
+                @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
 
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Approval Search
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Approval Search
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                            <!-- BEGIN PAGE HEADER-->
+                            <!-- BEGIN THEME PANEL -->
+
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                        <div class="row">
+
+                                        </div>
+
+                                        <div class="row" style="padding-bottom: 15px;">
+                                            @if (User.IsInRole("HR_Admin"))
+                                            {
+                                                <div class="col-md-2">
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
+
+                                                </div>
+                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $('#CopmanyNumber').select2();
+                                                    });
+                                                </script>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-6" hidden>
+                                                    <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.CompId" min="0" readonly="readonly" />
+                                                    @*@ViewBag.CompId*@
+                                                </div>
+
+
+                                            }
+                                        </div>
+                                        <div class="row" style="padding-bottom: 15px;">
+                                            <div class="col-md-2">
+                                                <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="Registration From" />
+                                                @*<input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />*@
+
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="Registration To" />
+                                                @*<input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />*@
+
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input id="txtSearchCard" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                                                @*<input class="form-control col-md-6" id="txtSearchCard" type="text" placeholder="search  card ..." />*@
+
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                @*<input class="form-control col-md-6" id="txtSearchCode" type="text" placeholder="search  code..." />*@
+
+                                                <input id="txtSearchCode" type="text" class="col-md-2 form-control " placeholder="Code" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div style=" text-align:right">
+                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="ResetSearch()"><span class="fa fa-refresh"></span> Reset</button>
+                    @* <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>*@
+                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintApprovalXsl()" />
+
+                    @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                        <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+
+                </div>
             </div>
         </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+
+
+        <div class="portlet box   ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Approvals
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        @*<form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">*@
                         <!-- BEGIN PAGE HEADER-->
                         <!-- BEGIN THEME PANEL -->
 
@@ -73,211 +170,118 @@
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
                                     <div class="row">
-
-                                    </div>
-
-                                    <div class="row" style="padding-bottom: 15px;">
-                                        @if (User.IsInRole("HR_Admin"))
-                                        {
-                                            <div class="col-md-2">
-                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
-
-                                            </div>
-                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                            <script>
-                                                $(document).ready(function () {
-                                                    $('#CopmanyNumber').select2();
-                                                });
-                                            </script>
-                                        }
-                                        else
-                                        {
-                                    <div class="col-md-6" hidden>
-                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.CompId" min="0" readonly="readonly" />
-                                        @*@ViewBag.CompId*@
-                                    </div>
-
-                                            
-                                        }
-                                    </div>
-                                    <div class="row" style="padding-bottom: 15px;">
-                                        <div class="col-md-2">
-                                            <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="Registration From" />
-                                            @*<input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />*@
-
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="Registration To" />
-                                            @*<input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />*@
-
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <input id="txtSearchCard" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-                                            @*<input class="form-control col-md-6" id="txtSearchCard" type="text" placeholder="search  card ..." />*@
-
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            @*<input class="form-control col-md-6" id="txtSearchCode" type="text" placeholder="search  code..." />*@
-
-                                            <input id="txtSearchCode" type="text" class="col-md-2 form-control " placeholder="Code" />
-                                        </div>
-                                      
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div style=" text-align:right">
-                <button id="new" type="button" class="btn btn-secondary-outline" onclick="ResetSearch()"><span class="fa fa-refresh"></span> Reset</button>
-                @* <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>*@
-                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintApprovalXsl()" />
-
-                @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                    <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
-
-            </div>
-        </div>
-    </div>
-
-
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Approvals
-            </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    @*<form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">*@
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
-
-                    <div class="form-wizard">
-                        <div class="form-body">
-                            <div class="tab-content">
-                                <div asp-validation-summary="All" class="text-danger"></div>
-
-                                <div class="row">
-                                    <div class="col-md-12" style="width:100%;" id="list_div">
-                                        @if (User.IsInRole("HR_Admin"))
-                                        {
-                                            <div class="form-group col-md-6">
-                                                @*<input id="CARD_ID" value="@ViewBag.CardId" hidden />*@
-                                                @Html.Label("Select Company", new { @class = "col-md-3 control-label sbold" })
-                                                @*<span class="required"> * </span>*@
-                                                <div class="col-md-5">
-                                                    @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-
-                                                    @*@Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })*@
+                                        <div class="col-md-12" style="width:100%;" id="list_div">
+                                            @if (User.IsInRole("HR_Admin"))
+                                            {
+                                                <div class="forLabel col-md-6">
+                                                    @*<input id="CARD_ID" value="@ViewBag.CardId" hidden />*@
+                                                  
+                                                    @*<span class="required"> * </span>*@ 
+                                                        @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                    <span>  @Html.Label("Select Company", new { @class = "col-md-3 control-label sbold" })</span>
+                                                        @*@Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })*@
+                                                    <br />
                                                 </div>
                                                 <br />
-                                            </div>
-                                            <br />
-                                            <hr />
-                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                            <script>
+                                                <hr />
+                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
                                             $(function () {
                                             $("#CompanyId").select2();
                                             $("#CompanyId").val(@ViewBag.CompId).change();
                                             });
 
-                                            </script>
-                                        }
-                                        @*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-        <script>
-            $('#AproveList').dataTable().fnClearTable();
-            $('#AproveList').dataTable().fnDestroy();
-        </script>*@
-                                        <table class="table" id="AproveList">
-                                            <thead>
-                                                <tr>
+                                                </script>
+                                            }
+                                            @*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
+                                                    $('#AproveList').dataTable().fnClearTable();
+                                                    $('#AproveList').dataTable().fnDestroy();
+                                                </script>*@
+                                            <table class="table" id="AproveList">
+                                                <thead>
+                                                    <tr>
 
-                                                    <th>
-                                                        @Html.DisplayName("Code")
-                                                    </th>
+                                                        <th>
+                                                            @Html.DisplayName("Code")
+                                                        </th>
 
-                                                    <th>
-                                                        @Html.DisplayName("Type")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Card Id")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Medical Replay")
-                                                    </th>
+                                                        <th>
+                                                            @Html.DisplayName("Type")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Card Id")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Medical Replay")
+                                                        </th>
 
-                                                    <th>
-                                                        @Html.DisplayName("Value After")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Recieve Date")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Created Date")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Created By")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("End Date")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Expaire Date")
-                                                    </th>
-                                                    <th></th>
+                                                        <th>
+                                                            @Html.DisplayName("Value After")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Recieve Date")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Created Date")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Created By")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("End Date")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Expaire Date")
+                                                        </th>
+                                                        <th></th>
 
-                                                </tr>
+                                                    </tr>
 
-                                            </thead>
-                                            <tbody id="AproveListBody">
-                                                @if (Model.Count() > 0)
-                                                {
-
-
-                                                    foreach (var item in Model)
+                                                </thead>
+                                                <tbody id="AproveListBody">
+                                                    @if (Model.Count() > 0)
                                                     {
-                                                        <tr>
 
-                                                            <td> @item.Code</td>
-                                                            <td> @item.Approval_Type </td>
-                                                            <td> @item.CardId </td>
-                                                            <td> @item.Medical_Replay </td>
-                                                            <td> @item.Value_After </td>
-                                                            <td> @item.Recieve_Date </td>
-                                                            <td> @item.Created_Date </td>
-                                                            <td> @item.CreatedBy </td>
-                                                            <td> @item.End_Date </td>
-                                                            <td> @item.Expaire_Date </td>
-                                                            <td> <Button class="btn btn-Primary" onclick="Print('@item.Code');">Print</Button> </td>
-                                                        </tr>
+
+                                                        foreach (var item in Model)
+                                                        {
+                                                            <tr>
+
+                                                                <td> @item.Code</td>
+                                                                <td> @item.Approval_Type </td>
+                                                                <td> @item.CardId </td>
+                                                                <td> @item.Medical_Replay </td>
+                                                                <td> @item.Value_After </td>
+                                                                <td> @item.Recieve_Date </td>
+                                                                <td> @item.Created_Date </td>
+                                                                <td> @item.CreatedBy </td>
+                                                                <td> @item.End_Date </td>
+                                                                <td> @item.Expaire_Date </td>
+                                                                <td> <Button class="btn btn-Primary" onclick="Print('@item.Code');">Print</Button> </td>
+                                                            </tr>
+                                                        }
                                                     }
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <br />
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br />
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @*</form>*@
                     </div>
-                    @*</form>*@
                 </div>
+
             </div>
 
         </div>
 
-    </div>
 
-
-}
-
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

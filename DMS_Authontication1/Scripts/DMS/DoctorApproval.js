@@ -688,16 +688,6 @@ $(function () {
                             title: 'Added Sucessfully',
                             message: "Approval Number : " + OracleId,
                             buttons: {
-                                //Print: {
-                                //    label: "Print",
-                                //    className: 'btn-info',
-                                //    callback: function () {
-                                //        window.location.reload();
-                                //        window.open('/DoctorApprovals/RoshitaReport?id=' + OracleId);
-                                //        $("#submit").attr("disabled", false);
-
-                                //    }
-                                //},
                                 New: {
                                     label: "New",
                                     className: 'btn-info',

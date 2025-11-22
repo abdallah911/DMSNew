@@ -1,170 +1,39 @@
 ﻿
 @{
     ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<h2>Index</h2>*@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Inquiries about an Invoice
+  
+<div class="portlet box  green border-0 bg-transparent shadow-none mb-0">
+    <div class="overlay-bg portlet-title">
+        <div class="fs-3 m-3 text-white fw-bold caption">
+            <i class="fa-solid fa-home me-2 fs-1  "></i>DMS Medical Network Core
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="row ">
-
-            @*Date of company *@
-            @*@if (User.IsInRole("HR_Admin"))
-                {
-                    <div class="col-md-4">
-
-                        <div class="form-group" id="Company_Number">
-                            <div class="col-sm-6">
-
-                                @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div class=" col-md-6">
-                                @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $("#CompanyNumber").select2();
-                        });
-                    </script>
-                }
-                else
-                {
-                    <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
-
-                }
-
-                <br />*@
-
-            <div class="col-md-12">
-                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
-                    <div class="form-wizard">
-                        <div class="form-body">
-                            <div class="tab-content">
-                                <div asp-validation-summary="All" class="text-danger"></div>
-                                <div class="row">
-                                    
-
-                                    <div class="portlet box  green  col-md-6" style="margin-left:340px;">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="fa fa-search"></i>Search
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="portlet-body">
-                                            <div class="row " style="margin-left:30px;margin-right:30px">
-                                                <div class="form-group">
-
-                                                    <div class="col-sm-4">
-                                                        @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control", id = "provider_Type" })
-                                                    </div>
-
-                                                    <div class="col-sm-12" id="SpecialistDiv" style="margin-top:25px" hidden>
-                                                        <div class="col-sm-4">
-                                                            @Html.Label("Specialist", htmlAttributes: new { @class = "control-label" })
-                                                        </div>
-                                                        <div class=" col-sm-8">
-                                                            @Html.DropDownList("Specialist", new SelectList(""), new { @class = "form-control", id = "SpecialistId" })
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-12" style="margin-top:25px">
-                                                        <div class="col-sm-4">
-                                                            @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
-                                                        </div>
-                                                        <div class="col-sm-8">
-                                                            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "form-control", id = "Country_select" })
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12" style="margin-top:25px">
-                                                        <div class="col-sm-4">
-                                                            @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
-                                                        </div>
-                                                        <div class=" col-sm-8">
-                                                            @Html.DropDownList("Region", new SelectList(""), new { @class = "form-control", id = "Region_select" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="col-sm-6">
-                                            <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()">
-                                                <span class="glyphicon glyphicon-search"></span> Search
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-6" id="div_of_serv">
-                                            <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
-                                                <span class="fa fa-reply"></span> New
-                                            </button>
-
-                                        </div>
-                                    </div>
-
-                                    @*Date of Service*@
-
-                                    <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:100px" id="list_div">
-
-                                        <table class="table" id="ProviderList">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        @Html.DisplayName("PRENAME")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("ADDRESS 1")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("ADDRESS 2")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("TEL 1")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("TEL 2")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("Specialist")
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="ProviderListBody"></tbody>
-                                        </table>
-                                    </div>
-                                    <br />
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+    <div class="portlet-body container mx-auto py-5">
+        <div class="row px-5"> 
+            <div class="text-box col-sm-6 d-grid gap-3 px-4" style="height:fit-content;">
+                <div class="subtitle"><h3><span>1</span>Comprehensive access to geographically distributed medical providers.</h3></div>
+                <div class="subtitle"><h3><span>2</span>Support medical cases, especially those who are considered critically ill.</h3></div>
+                <div class="subtitle"><h3><span>3</span>Health protection and management require their expertise and skills to keep medicalcosts under control while making quality healthcare available to as many people aspossible.</h3></div>
+                <div class="subtitle"><h3><span>4</span>Supporting clinics and medical doctors, DMS ensures that patients receive excellent service and the best care possible.</h3></div>
+                <div class="subtitle"><h3><span>5</span>Case management techniques for all inpatient cases for the better medical and financial outcomes.</h3></div>
             </div>
-        </div>
-
-    </div>
-
+            <div class="text-box col-sm-6 d-grid gap-3 px-4">
+                <div class="subtitle"><h3><span>6</span>24/7 doctor availability inside the contact center for medical support to cardholders.</h3></div>
+                <div class="subtitle"><h3><span>7</span>Case management and case steering team for better medical outcomes with the best value for money approach.</h3></div>
+                <div class="subtitle"><h3><span>8</span>All our core teams are medical professionals with an in-depth experience in health insurance and risk management.</h3></div>
+                <div class="subtitle"><h3><span>9</span>Complete control over all medical service payments.</h3></div>
+                <div class="subtitle"><h3><span>10</span>International access to medical providers.</h3></div>
+                <div class="subtitle"><h3><span>11</span>Obtaining many medical opinions both locally and internationally for important or difficult cases.</h3></div>
+                <div class="subtitle"><h3><span>12</span>Obtaining many medical opinions both locally and internationally for important or difficult cases.</h3></div>
+            </div>
+        </div> 
+    </div> 
 </div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

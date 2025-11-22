@@ -19,14 +19,15 @@
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/assets/HomeTemplete/Content/css/all.min.css" rel="stylesheet" />   <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <!-- Add By Mohamed Yasser //START-->
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/global/plugins/design/css/style.css">
     <link rel="stylesheet" href="~/assets/global/plugins/design/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/style.css">
+    @*=========================bootstrap5===============================*@
+    <link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/global/plugins/design/css/all.min.css">
 
     <!-- Add By Mohamed Yasser //END-->
@@ -47,6 +48,8 @@
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/global/plugins/design/tabs/themetwo/css/animate.css">
     <link rel="stylesheet" href="~/assets/global/plugins/design/tabs/themetwo/css/style.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/style.css">
+
     <!--Tabs Two End-->
     <!-- END THEME LAYOUT STYLES -->
     @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
@@ -120,6 +123,22 @@
             background-color: #09b4d0;
             opacity: 0.5;
             filter: alpha(opacity=50);
+        } 
+
+        /*======Event edits==========================*/
+        nav{
+            padding-bottom:20px;
+        }
+
+        .site-navigation ul li a {
+            margin-top: 0; 
+        }
+        .site-navigation > ul > li > a,
+        #patientServices,
+        #loginBtn {
+            margin-top: 0;
+            padding-top: 16px;
+            padding-bottom: 0;
         }
     </style>
     <!-- Google tag (gtag.js) -->
@@ -145,271 +164,234 @@
 
 </head>
 <body>
-    <div id="topheader">
-        <div class="container">
-            <div class="row cus-nav">
-                <div class="col-sm-2 col-xs-10 cus-nav-elem">
-                    <div class="row">
-                        <div class="col-sm-12 cus-brand">
-                            @*@Html.ActionLink("DMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #000; font-size: 24px;" })*@
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 hidden-xs cus-nav-elem">
-                    <div class="row">
-                        <div class="col-sm-2 elem text-center">
-                            <i class="fas fa-map"></i>
-                        </div>
-                        <div class="col-sm-10">
-                            <span class="text">12 Abdelazim Awadallah St., Heliopolis, Cairo</span>
-                            @*<span class="text">24 El Montazah St., Heliopolis, Cairo</span>*@
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 hidden-xs cus-nav-elem">
-                    <div class="row">
-                        <div class="col-sm-3 elem text-center">
-                            <i class="fas fa-paper-plane "></i>
-                        </div>
-                        <div class="col-sm-9">
-                            <span class="text">Contact@dms-eg.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 hidden-xs cus-nav-elem">
-                    <div class="row">
-                        <div class="col-sm-3 elem  text-center">
-                            <i class="fas fa-phone fa-rotate-90 "></i>
-                        </div>
-                        <div class="col-sm-9">
-                            <span class="text">+ 0226390390</span>
-                        </div>
 
-                    </div>
+    <header class="site-header">
+        <div class="nav-bar ">
+            <div class="container">
+                <div class="row">
+                    <nav class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="site-branding p-0 d-flex align-items-center">
+                            @*<a id="EventLogoDms" class="d-block" href="/home/index" rel="home">
+
+
+            <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                <div style="display: none;" class="celebrate-gif">
+                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
                 </div>
+                <img style="display: none;" class="w-100 " src="~/assets/global/img/Events/event-logo.png" />
+            </div>
+        </a>*@
 
-                @*<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top:10px">
-                        <a class="d-block" href="/home/index" rel="home">
-                            <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
+                            @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin" || User.Identity.GetUserName().Trim() == "super-admin" || User.Identity.GetUserName().Trim() == "matarat5-admin")
+                            {
+                                <a class="d-block" href="/Dashboard/index" rel="home">
+                                    <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                                        <img id="EventLogoDms" class="w-100 " src="~/assets/HomeTemplete/img/DMS_Logo.png" /> 
+                                        @*<img id="EventLogoDms" class="w-100 " src="~/assets/global/img/Events/30-june-logo.gif" />*@ 
 
-                            </div>
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
-                                    <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
-                                    <li><a href="/IndemnitiesPolice/index" class="link-cus">Indemnities Police</a></li>
-                                    <li><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
-                                    <li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>
-                                    <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Chronic</a></li>
-                                    <li><a href="/Employee/DeliveryService" class="link-cus">Delivery Service</a></li>
-                                    <li><a href="/Employee/Approvales" class="link-cus">Approvales</a></li>
 
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="d-block" href="/home/index" rel="home">
+                                    <div style="width: 100px; border-radius: 16px;" class="img d-flex align-self-stretch">
+                                        <img id="EventLogoDms" class="w-100 " src="~/assets/HomeTemplete/img/DMS_Logo.png" />  
+                                        @*<img id="EventLogoDms" class="w-100 " src="~/assets/global/img/Events/30-june-logo.gif" />*@  
+                                    </div>
+                                </a>
+                            }
+
+                            <div class="site-navigation d-flex justify-content-end align-items-center menu ps-3">
+                                <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center p-3" id="navbarUL">
+                                    @{ if (!User.IsInRole("Admin"))
+                                        {
+                                            <li>
+                                                <div class="dropdown" style=" display: unset;">
+                                                    <a href="#" class="link-item" id="patientServices">
+                                                        Patient Services
+                                                        <i class="fa fa-caret-down"></i>
+                                                    </a>
+                                                    <div class="dropdown-content">
+                                                        <a href="/HrChronic/InquiryAboutCard">Chronic Medication </a>
+                                                        <a href="/Employee/DeliveryService2">Medication Delievery</a>
+                                                        <a href="/IndemnitiesAdmin/index">Indemnity</a>
+                                                        <a href="/MedicalNetwork/Search">Medical Network</a>
+                                                        <a href="/Employee/Approvales">Medical Approval</a>
+                                                        <a href="#">Help(How To Use Service)</a>
+                                                        <a href="/Account/Login">Login(User/Hr)</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            @*<li><a href="@Url.Action("CompanyProfile", "Home")">Patient Services</a></li>*@
+                                            <li><a href="@Url.Action("Search", "Home")" class="link-item" id="medicalNetworkCore">Medical Network Core</a></li>
+                                            @*<li><a href="@Url.Action("CompanyProfile", "Home")" class="link-item" id="profile">Profile</a></li>*@
+                                            <li><a href="@Url.Action("index", "home")#companyProfile" class="link-item" id="profile">Profile</a></li>
+                                            <li><a href="@Url.Action("Clients", "Home")" class="link-item" id="ourClients">Success Partners</a></li>
+                                            @*<li><a href="@Url.Action("OnlineSystem", "Home")class="link-item" id="onlineSystem">Online System</a></li>*@
+                                            <li><a href="@Url.Action("Services", "Home")" class="link-item" id="dMSServices">DMS Services</a></li>
+                                            <li><a data-position='right' href="@Url.Action("Department", "Home")" class="link-item" id="benefits">Our Benefits</a></li>
+                                            <li class="link-item">@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { id = "contactUs" })</li>
+                                            @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="http://195.154.167.181:9001/forms/frmservlet?config=jpi&form=C:%5CFUTSHER%5CMS%5CIT%5CIT_AR%5CLogin_dms.fmx&userid=&otherparams=useSDI=yes&lookAndFeel=generic&colorScheme=blue">oracle Login</a></li>*@
+                                            @*<li>@Html.ActionLink("Register", "Register", "Employee", null, null)</li>*@
+                                            @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="/Employee/Register">Register</a></li>*@
+                                            @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="http://72.52.116.106/Account/Login">Hospital Login</a></li>*@
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                                        {
+                                            <li>@Html.ActionLink("ControlPanal", "Main", "ControlPanel", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                                        {
+                                            <li>@Html.ActionLink("Doctor", "Index", "DoctorApprovals", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")) && User.Identity.IsAuthenticated)
+                                        {
+                                            <li>@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin") || User.IsInRole("Rays"))
+                                        {
+                                            <li>@Html.ActionLink("Radio Centers", "Ray", "Rays", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin") || User.IsInRole("Lab"))
+                                        {
+                                            <li>@Html.ActionLink("Labs", "Lab", "Labs", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <li>@Html.ActionLink("Role", "Index", "Role", null, null)</li>
+                                        }
+                                    }
+                                    @{
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <li>@Html.ActionLink("Register", "Register", "Account", null, null)</li>
+
+
+
+                                        }
+                                    }
 
                                 </ul>
                             </div>
-                        </div>
-                    </nav>*@
-            </div>
-        </div>
-    </div>
-    <header class="site-header">
-        <div class="nav-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="site-branding d-flex align-items-center">
-                            <a class="d-block" href="/home/index" rel="home">
-                                <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
-
-                                </div>
-                            </a>
                         </div><!-- .site-branding -->
-                        <nav class="site-navigation d-flex justify-content-end align-items-center menu">
-                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
-                                @{ if (!User.IsInRole("Admin"))
-                                    {
-                                        <li>
-                                            <div class="dropdown">
-                                                <a href="#">
-                                                    Patient Services
-                                                    <i class="fa fa-caret-down"></i>
-                                                </a>
-                                                <div class="dropdown-content">
-                                                    <a href="/HrChronic/InquiryAboutCard">Chronic Medication </a>
-                                                    <a href="/Employee/DeliveryService2">Medication Delievery</a>
-                                                    <a href="/IndemnitiesAdmin/index">Indemnity</a>
-                                                    <a href="/MedicalNetwork/Search">Medical Network</a>
-                                                    <a href="/Employee/Approvales">Medical Approval</a>
-                                                    <a href="#">Help(How To Use Service)</a>
-                                                    <a href="/Account/Login">Login(User/Hr)</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        @*<li><a href="@Url.Action("CompanyProfile", "Home")">Patient Services</a></li>*@
-                                        <li><a href="@Url.Action("Search", "Home")">Our Network</a></li>
-                                        <li><a href="@Url.Action("CompanyProfile", "Home")">Profile</a></li>
-                                        <li><a href="@Url.Action("Clients", "Home")">Our Clients</a></li>
-                                        <li><a href="@Url.Action("OnlineSystem", "Home")">Online System</a></li>
-                                        <li><a href="@Url.Action("Services", "Home")">DMS Services</a></li>
-                                        <li><a data-position='right' href="@Url.Action("Department", "Home")">Departments</a></li>
-                                        <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, null)</li>
-                                        @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="http://195.154.167.181:9001/forms/frmservlet?config=jpi&form=C:%5CFUTSHER%5CMS%5CIT%5CIT_AR%5CLogin_dms.fmx&userid=&otherparams=useSDI=yes&lookAndFeel=generic&colorScheme=blue">oracle Login</a></li>*@
-                                        @*<li>@Html.ActionLink("Register", "Register", "Employee", null, null)</li>*@
-                                        @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="/Employee/Register">Register</a></li>*@
-                                        @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="http://72.52.116.106/Account/Login">Hospital Login</a></li>*@
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
-                                    {
-                                        <li>@Html.ActionLink("ControlPanal", "Main", "ControlPanel", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
-                                    {
-                                        <li>@Html.ActionLink("Doctor", "Index", "DoctorApprovals", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")) && User.Identity.IsAuthenticated)
-                                    {
-                                        <li>@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin") || User.IsInRole("Rays"))
-                                    {
-                                        <li>@Html.ActionLink("Radio Centers", "Ray", "Rays", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin") || User.IsInRole("Lab"))
-                                    {
-                                        <li>@Html.ActionLink("Labs", "Lab", "Labs", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        <li>@Html.ActionLink("Role", "Index", "Role", null, null)</li>
-                                    }
-                                }
-                                @{
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        <li>@Html.ActionLink("Register", "Register", "Account", null, null)</li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    }
-                                }
-                                <!-- //////////////////////////// Login LogOut Start-->
+                        <!-- //////////////////////////// Login LogOut Start-->
+                        <div class="  menu" id="loginUL">
+                            <ul class="mb-0" id="loginBtn">
                                 @if (Request.IsAuthenticated)
                                 {
                                     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                                     {
-                                        @Html.AntiForgeryToken()
-                                        <!--<li> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" }) </li>-->
-                                        <div class="dropdown">
-                                            <img src="~/assets/global/plugins/design\images\user_img.jpg" alt="User Name" id="userImg" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                        <li >
+                                            @Html.AntiForgeryToken()
+                                            <!--<li> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" }) </li>-->
+                                            <div class="dropdown">
+                                                <img src="~/assets/global/plugins/design\images\user_img.jpg" alt="User Name" id="userImg" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </li>
+
                                     }
                                 }
                                 else
                                 {
-                                    <div>
-                                        @{
-                                            if (User.IsInRole("Admin"))
-                                            {
-                                                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                            }
-                                        }
-                                        <li class="call-btn button gradient-bg mt-3 mt-md-0">
-                                            <a href="/Account/Login" id="loginLink"><span class="d-flex justify-content-center align-items-center">Login</span></a>
-                                        </li>
-                                    </div>
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+
+                                    }
+                                    <li class="call-btn button gradient-bg mt-3 mt-md-0  ms-0 ms-lg-4">
+                                        <a href="/Account/Login" id="loginLink" class="fw-bold mt-0" style="width:fit-content;"><span class="d-flex justify-content-center align-items-center">Login</span></a>
+                                    </li>
+
                                 }
                             </ul>
-                        </nav><!-- .site-navigation -->
+                        </div>
                         <div class="hamburger-menu d-lg-none">
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
                         </div><!-- .hamburger-menu -->
-                    </div><!-- .col -->
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .nav-bar -->
+                    </nav><!-- .site-navigation -->
+
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
     </header><!-- .site-header -->
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="body-content">
-        <div">
+    <div class="body-content page-container p-0">
+        <div>
             @RenderBody()
+        </div>
     </div>
-    <footer class="site-footer">
-        <div class="footer-widgets">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
+    <footer style="background: var(--color-gradient); ">
+        <div class="footer ">
+            <div class="container-fluid ">
+                <div class="row m-auto d-flex justify-content-center">
+                    <div class="col-md-3 me-4">
                         <div class="foot-about">
-                            <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
+                            <div class="img d-flex align-self-stretch">
                                 <a href="#"></a>
+                                <img class="logo-white"
+                                     src="~/assets/HomeTemplete/img/dms-silver-logo.png"
+                                     alt="" />
+                                </div>
                             </div>
-                            <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
-                            <p class="copyright">
-                            <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                            </p>
-                        </div><!-- .foot-about -->
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                        <div class="foot-contact">
-                            <h2>Contact</h2>
-                            <ul class="p-0 m-0">
-                                <li><span>Address:</span> 12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                        </div>
+                    <div class="col-md-4">
+                        <div class="footerP2">
+                            <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
+                            <div class="line ms-0 mb-3" style="width:95px"></div>
+                            <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                <li>
+                                    <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                    <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
+
+                                </li>
                                 @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                <li><span>Phone:</span>+ 0226390390</li>
-                                <li><span>Email:</span>Contact@dms-eg.com</li>
+                                <li>
+                                    <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
+                                    <h6> + 0226390390</h6>
+                                </li>
+                                <li>
+                                    <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
+                                    <h6> Contact@dms-eg.com</h6>
+
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                            <div class="foot-links">
-                                <h2>Get DMS For Mobile</h2>
-                                <ul class="p-0 m-0">
-                                    <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                                    <li><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
-                                </ul>
-                            </div>
-                        </div>*@<!-- .col -->
-                </div><!-- .row -->
-            </div><!-- .container -->
-        </div><!-- .footer-widgets -->
-    </footer><!-- .site-footer -->
+                    <div class="col-md-4 ms-lg-4">
+                        <div class="footerP3">
+                            <p style=" font-size: 14px; line-height: 2;">
+                                Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.
+                                <br />
+                                <i class="copyright mt-0">
+                                    <span>&copy; @DateTime.Now.Year - DMS Application</span>
+                                </i>
+                            </p>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -427,12 +409,115 @@
     <!--Tabs Two Strat-->
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/jquery.min.js"></script>
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/bootstrap.min.js"></script>
+    <script src="~/assets/HomeTemplete/js/bootstrap.bundle.js"></script>
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/jquery.waypoints.min.js"></script>
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/jquery.animateNumber.min.js"></script>
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/main.js"></script>
     <!--Tabs Two End-->
     <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            // Get the section position (change the ID to your section)
+            //var sectionTop = $('#section2').offset().top;
+         
+            // Listen for scroll events
+            $(window).on('scroll', function () {
+                // Check how far you've scrolled
+                var scrollPosition = $(window).scrollTop();
+         
+                // If the scroll position is greater than or equal to the top of the section, change style
+                if (scrollPosition >= 100) {
+                    $('.nav-bar').css({
+                        'position': 'fixed',  // New style
+                        'background-color': 'white',
+                        'box-shadow': '0 0 7px 3px #210d203d'
+                    });
+                } else {
+                    // Revert to the original style when not in the section
+                    $('.nav-bar').css({
+                        'position': 'unset',  // New style
+                        'background-color': 'transparent',
+                        'box-shadow': 'none'
+
+                    });
+                }
+            }); 
+            $(function () {
+                $(".date-input").datepicker();
+            });
+        });
+        $(document).ready(function () {
+            // Get the current path of the URL
+            var currentPath = window.location.pathname; 
+            // Check if the URL matches 'Home/Services'
+            if (currentPath.includes('Home/Search')) { 
+                $('#medicalNetworkCore').addClass('active');
+            } else if (currentPath.includes('Home/CompanyProfile')) {
+                $('#profile').addClass('active');
+            } else if (currentPath.includes('Home/Clients')) {
+                $('#ourClients').addClass('active');
+            } else if (currentPath.includes('Home/Services')) {
+                $('#dMSServices').addClass('active');
+            } else if (currentPath.includes('Home/Department')) {
+                $('#benefits').addClass('active');
+            } else if (currentPath.includes('Home/ContactUs')) {
+                $('#contactUs').addClass('active');
+            }
+        });
+        $(document).ready(function () {
+            function moveSelector() {
+                var screenWidth = $(window).width();
+
+                if (screenWidth <= 991) {
+                    // Move selector to small-container for medium/small screens
+                    $('#loginBtn li').appendTo('#navbarUL');
+                    $('#loginUL').hide();
+
+                } else {
+                    // Move selector back to large-container for large screens
+                    $('#loginUL').show();
+                    $('#loginBtn li').appendTo('#loginBtn');
+               
+
+                }
+            }
+
+            // Call the function on page load
+            moveSelector();
+
+            // Call the function whenever the window is resized
+            $(window).resize(function () {
+                moveSelector();
+            });
+
+            checkEvent();
+        });
+
+        //function checkEvent() {
+        //    $.ajax({
+        //        url: '/Home/getEventState',
+
+        //        success: function (result) {
+        //            //debugger;
+        //            $('#LogoDmsTop').hide();
+        //            $('#EventLogoDms').hide();
+        //            $('#EventLogoDms2').hide();
+        //            //$('#LogoDmsTop').css('display', 'none');
+        //            //$('#EventLogoDms').css('display', 'none');
+
+        //            if (result.evntStat == 1) {
+        //                $('#EventLogoDms').show();
+        //                $('#EventLogoDms2').show();
+        //            }
+        //            else {
+        //                $('#LogoDmsTop').show();
+        //            }
+        //        }
+        //    });
+        //}
+
+    </script>
 </body>
 
 </html>

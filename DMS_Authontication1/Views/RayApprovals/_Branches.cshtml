@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="BranchesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Branches</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Branches">
+                    <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">Pharmacy Code</th>
+                            <th scope="col" align="center">Phrmacy Name</th>
+                            <th scope="col" align="center">Branch</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    
+    function Select2(button) {
+        var row = $(button).closest("TR");
+
+        var BranchName = $("TD", row).eq(3).html();
+        $('#BranchTxt').val(BranchName);
+        $('#BranchesModal').modal('hide');
+    }
+  
+</script>

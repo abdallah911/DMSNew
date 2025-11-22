@@ -30,71 +30,71 @@
             }
         }
     }
-}
-
-<br />
-
-<div style="margin-top:40px">
-    @if (!User.IsInRole("Admin"))
-    {
-        <p>
-            @if (fullcontroll || view)
-            {
-                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
-            }
-            @if (fullcontroll || Create)
-            {
-                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
-            }
-        </p>
-    }
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Operation
-            </div>
-
-        </div>
-        <br />
-        <div class="portlet-body">
-
-            <table class="ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Card Id
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Request Type
-                        </th>
-                        <th>
-                            status
-                        </th>
-                        <th>
-                            CreatedDate
-                        </th>
-                        <th></th>
-                        @*<th></th>
-                            <th></th>
-                            <th></th>*@
-                    </tr>
-                </thead>
-                <tbody></tbody>
-
-            </table>
-        </div>
+} 
+<div class="dms-container">
+    <div>
+        @if (!User.IsInRole("Admin"))
+        {
+            <p class="ms-4">
+                @if (fullcontroll || view)
+                {
+                    @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+                }
+                @if (fullcontroll || Create)
+                {
+                    @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+                }
+            </p>
+        }
     </div>
-}
+
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box">
+            <div class="portlet-title title-bg text-white fw-bold">
+                <div class="caption">
+                    <i class="fa-solid fa-home"></i>Operation
+                </div>
+
+            </div>
+            <br />
+            <div class="portlet-body">
+
+                <table class="ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Request Type
+                            </th>
+                            <th>
+                                status
+                            </th>
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                            @*<th></th>
+                                <th></th>
+                                <th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+    }
+</div> 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
@@ -143,7 +143,8 @@
 
                     }
                 },
-                { "data": "APPROVE_FLAG", "name": "APPROVE FLAG" },
+                0  000
+        { "data": "APPROVE_FLAG", "name": "APPROVE FLAG" },
 
                 {
                     "data": "CREATED_DATE",

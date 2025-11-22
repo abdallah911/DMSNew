@@ -33,78 +33,79 @@
 }
 
 <br />
+<div class="dms-container">
+    <div class="ms-4">
+        <p class="m-0 py-3" style="margin:0;">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search ", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i> Search
+                </div>
+            </div>
+            <div class="portlet-body">
+                <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+                <div class="row" style="padding-bottom: 15px;">
+                    <div class="col-sm-4" data-step="6" data-intro="Select Contract type Default is Contract">
+                        @Html.DropDownList("Provider Type", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control", @id = "ProviderType" })
+                    </div>
+                    <div class="col-sm-4" data-step="6" data-intro="Select Contract type Default is Contract">
+                        @Html.DropDownList("Provider", new SelectList(""), " Select Provider Name", new
+                   {
+                       @class = "form-control",
+                            @id = "Provider"
+                   })
+                    </div>
+                    <div class="col-sm-4" data-step="6" data-intro="Select Contract type Default is Contract">
+                        <select id="ddlType" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Endorsement">Endorsement </option>
+                        </select>
+                    </div>
+                </div>
+                <div style=" text-align:right">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-search" />
+                    @*<input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+                </div>
+            </div>
+        </div>
 
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search ", @style = " text-transform: none" })
-        }
-    </p>
+        <div class="portlet box   ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Company Contract
+                </div>
+
+            </div>
+            <br />
+            <div class="portlet-body">
+
+                <table class="ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="contractImage"></tbody>
+
+                </table>
+            </div>
+        </div>
+    }
 </div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Search
-            </div>
-        </div>
-        <div class="portlet-body">
-            <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
-            <div class="row" style="padding-bottom: 15px;">
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    @Html.DropDownList("Provider Type", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control", @id = "ProviderType" })
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    @Html.DropDownList("Provider", new SelectList(""), " Select Provider Name", new
-               {
-                   @class = "form-control",
-                        @id = "Provider"
-               })
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Endorsement">Endorsement </option>
-                    </select>
-                </div>
-            </div>
-            <div style=" text-align:right">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-search" />
-                @*<input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
-            </div>
-        </div>
-    </div>
-
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Company Contract
-            </div>
-
-        </div>
-        <br />
-        <div class="portlet-body">
-
-            <table class="ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="contractImage"></tbody>
-
-            </table>
-        </div>
-    </div>
-}
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

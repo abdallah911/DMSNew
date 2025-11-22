@@ -1,0 +1,1208 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<style>
+    .forLabel span.select2.select2-container.select2-container--default {
+        height: 100%;
+    }
+
+    .forLabel {
+        height: 34px;
+    }
+
+    select {
+        color: #333341 !important;
+        font-weight: 700;
+    }
+
+    .forLabel > span:not(.select2-container), .select {
+        color: #333333;
+    }
+
+    .forLabel > span:last-of-type {
+        right: 10px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        left: 10px;
+        right: unset;
+    }
+
+    span.select2.select2-container.select2-container--default {
+        direction: rtl;
+    }
+
+    .field-group-parent {
+        padding: 0 4px;
+        min-height: 34px;
+    }
+
+    .field-group {
+        border: 1px solid #c2cad8;
+        border-radius: 4px;
+        height: 34px;
+        padding: 0px 10px;
+    }
+
+    .child-input {
+        border: 1px solid #c2cad8 !important;
+        background: #e1e1e187 !important;
+        border-radius: 8px;
+        padding: 0 !important;
+    }
+
+    .child-input {
+        height: 100% !important;
+        border-radius: 6px !important;
+    }
+
+        .child-input select {
+            background: transparent !important;
+            border: none !important;
+            padding: 0px 10px;
+        }
+
+    #clientCompName,
+    #formerClient,
+    #formerClientCompName,
+    .compName-field,
+    .add-del-dentity,
+    .check-type,
+    .recollection-type,
+    .discount-card,
+    .annual-installment {
+        display: none;
+    }
+
+    label {
+        font-weight: 700;
+    }
+
+    ::placeholder {
+        direction: rtl;
+        right: 10px;
+        position: absolute;
+    }
+
+    i.fa-minus, i.fa-plus {
+        position: absolute;
+        left: 35px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+    }
+
+    .title-bg.group {
+        background: transparent;
+        border: 3px solid #337ab7;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+        .title-bg.group > div.caption {
+            position: absolute;
+            top: -2px;
+            transform: translateY(-50%);
+            background: white;
+            color: #337ab7 !important;
+        }
+</style>
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
+<div class="dms-container" style="direction:rtl !important;">
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Basic Company Contract Data
+            </div>
+        </div>
+        @*<div class="search-box mt-4">
+                <input type="search" class="w-100 h-100 " placeholder="Search" />
+            </div>*@
+        <div class="row no-wrap mt-4 mx-auto col-md-12">
+            <div class="d-flex col-md-6 align-items-center gap-4 mb-3 px-2" style="min-height: 34px;">
+                <div class="d-flex align-items-center gap-4 px-2">
+                    <label class="mb-0 dms-color fw-bold">مستقل</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="Independent" id="yesRadio" />
+                            <label class="mb-0" for="yesRadio">نعم</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="Independent" id="noRadio" />
+                            <label class="mb-0" for="noRadio">لا</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="compName-field forLabel sec-field-labeled w-100 px-2  " style="height:34px">
+                    <select class="compName w-100 h-100 " required><option></option></select>
+                    <span>أسم الشركة</span>
+                </div>
+            </div>
+            <div class="d-flex col-md-6 align-items-center gap-4 mb-3 px-0">
+                <div class="forLabel sec-field-labeled w-50 px-2" style="height:34px">
+                    <select class="w-100 h-100 rounded" style="padding:8px 10px !important" required>
+                        <option>Premium</option>
+                        <option>ASO</option>
+                        <option>TPA</option>
+                        <option>Individual</option>
+                    </select>
+                    <span>نوع العقد</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox" id="justFmily" />
+                    <label class="mb-0 dms-color fw-bold" for="justFmily">أسر فقط</label>
+                </div>
+                <div class="forLabel sec-field-labeled w-50 px-2" style="height:34px">
+                    <select class="w-100 h-100 rounded" style="padding:8px 10px !important" required>
+                        <option>Outomatic</option>
+                        <option>Entered</option>
+                    </select>
+                    <span>كود الموظف</span>
+                </div>
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="number" class="w-100 h-100 " placeholder="الكود" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="number" class="w-100 h-100 " placeholder="رقم العقد" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="تاريخ العقد" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="تاريخ الإنتهاء" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="الإسم بالعربية" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="الإسم بالإنجليزية" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="email" class="w-100 h-100 " placeholder="الإيميل" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="الفاكس" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="الوظيفة" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="تاريخ الطباعة" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="موبايل 1" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="موبايل 2" />
+            </div>
+        </div>
+        <div class="row no-wrap mt-4 mx-auto col-md-12">
+            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                <textarea class="w-100 rounded px-3 py-3" style="resize:vertical" rows="6" placeholder="ملاحظات"></textarea>
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="العنوان" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="المحافظة" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="المنطقة" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="ممثل الشركة" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="تخصص الشركة" />
+            </div>
+            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2" style="height:34px">
+                <select class="w-100 h-100 " required>
+                    <option>Active</option>
+                    <option>Not Active</option>
+                    <option>Hold</option>
+                </select>
+                <span>حالة العقد</span>
+            </div>
+            <div class="d-flex align-items-center sec-field-labeled col-md-8 px-0 mb-2">
+                <div class="w-50 px-2">
+                    <div class="w-100 d-flex rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                        <div class="d-flex align-items-center gap-2 " style="margin-right:20px;">
+                            <input type="checkbox" id="insurance" class="" />
+                            <label class="mb-0" for="insurance">مؤمن من قبل</label>
+                        </div>
+                        <div class="align-items-center gap-4 px-3 rounded" id="formerClient">
+                            <label class="mb-0 dms-color fw-bold">عميل سابق</label>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="formerclient" id="yesRadio2" />
+                                    <label class="mb-0" for="yesRadio2">نعم</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="formerclient" id="noRadio2" />
+                                    <label class="mb-0" for="noRadio2">لا</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="formerClientCompName" class="forLabel sec-field-labeled w-50 px-2  " style="height: 34px; ">
+                    <select class="select2 w-100 h-100 " required><option></option></select>
+                    <span>أسم الشركة</span>
+                </div>
+                <div id="clientCompName" class="sec-field-labeled w-50 px-2 " style="height:34px ; ">
+                    <input type="text" class="w-100 h-100 " placeholder="أسم الشركة" />
+                </div>
+            </div>
+        </div>
+        <div class="row  mt-4 mx-auto col-md-12">
+            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                <input type="button" class="btn" value="جديد" />
+                <input type="button" class="btn" value="تعديل" />
+                <input type="button" class="btn" value="حفظ" />
+            </div>
+        </div>
+
+        <div class="row  mt-4 mx-auto col-md-12">
+            <div class="table-responsive no-wrap">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>الكود</th>
+                            <th>الإسم بالعربية</th>
+                            <th>الإسم بالإنجليزية</th>
+                            <th>العنوان 1</th>
+                            <th>العنوان 2</th>
+                            <th>الموبايل 1</th>
+                            <th>الموبايل 2</th>
+                            <th>الفاكس</th>
+                            <th>الإيميل</th>
+                            <th>الحالة</th>
+                            <th>الملاحظات</th>
+                            <th>كود الموظف</th>
+                            <th>نوع العقد</th>
+                            <th>نائب الشركة</th>
+                            <th>الوظيفة</th>
+                            <th>رقم العقد</th>
+                            <th>تاريخ بداية العقد</th>
+                            <th>تاريخ نهاية العقد</th>
+                            <th>الشركة الأم</th>
+                            <th>تخصص الشركة</th>
+                            <th>مستقل</th>
+                            <th>Insured</th>
+                            <th>Former Client</th>
+                            <th>OldComp-ID</th>
+                            <th>CompName-Other</th>
+                            <th>تاريخ الطباعة</th>
+                            <th>أسر فقط</th>
+                            <th>كود شركة التأمين</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="row  my-4 mx-auto col-md-12">
+                <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                    <input type="button" class="btn" value="نسخ" />
+                    <input type="button" class="btn" value="تمديد" />
+                    <input type="button" class="btn" value="تجديد" />
+                </div>
+            </div>
+            <div class="portlet-body pt-4">
+                <input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#costCenter" data-toggle="tab">الفرع</a></li>
+                    <li @*class="active"*@><a href="#departments" data-toggle="tab">الأقسام</a></li>
+                    <li><a href="#persons" data-toggle="tab">الأشخاص</a></li>
+                    <li><a href="#addDelConditions" data-toggle="tab">شروط الحذف و الإضافة</a></li>
+                    <li><a href="#stopSequence" data-toggle="tab">فترة إيقاف الخدمات</a></li>
+                    <li><a href="#addGroup" data-toggle="tab">إضافة مجموعة</a></li>
+                    <li><a href="#paymentMethod" data-toggle="tab">طريقة الدفع</a></li>
+                    <li><a href="#addCheckUp" data-toggle="tab">إضافة فحص</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="costCenter" class="tab-pane fade active in">
+                        <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12">
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الكود" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="الإسم بالعربية" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " style="direction:ltr;" placeholder="الإسم باإنجليزية" />
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المحافظة</span>
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المنطقة</span>
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="العنوان" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل 1" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل 2" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="email" class="w-100 h-100 " placeholder="إيميل" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="فاكس" />
+                            </div>
+                        </div>
+
+                        <div class="row  mt-4 mx-auto col-md-12">
+                            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                <input type="button" class="btn" value="جديد" />
+                                <input type="button" class="btn" value="تعديل" />
+                                <input type="button" class="btn" value="حفظ" />
+                            </div>
+                        </div>
+
+                        <div class="row px-4 pt-4 table-responsive no-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>الإيميل</th>
+                                        <th>الفاكس</th>
+                                        <th>الموبايل 1</th>
+                                        <th>الموبايل 2</th>
+                                        <th>العنوان 1</th>
+                                        <th>العنوان 2</th>
+                                        <th>الإسم بالعربية</th>
+                                        <th>الإسم بالإنجليزية</th>
+                                        <th>الكود</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="departments" class="tab-pane fade ">
+                        <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12">
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الكود" />
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>الفرع</span>
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="الإسم بالعربية" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " style="direction:ltr;" placeholder="الإسم باإنجليزية" />
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المحافظة</span>
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المنطقة</span>
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="العنوان" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل 1" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل 2" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="email" class="w-100 h-100 " placeholder="إيميل" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="فاكس" />
+                            </div>
+                        </div>
+
+                        <div class="row  mt-4 mx-auto col-md-12">
+                            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                <input type="button" class="btn" value="جديد" />
+                                <input type="button" class="btn" value="تعديل" />
+                                <input type="button" class="btn" value="حفظ" />
+                            </div>
+                        </div>
+
+                        <div class="row px-4 pt-4 table-responsive no-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>الإيميل</th>
+                                        <th>الفاكس</th>
+                                        <th>الموبايل 1</th>
+                                        <th>الموبايل 2</th>
+                                        <th>العنوان 1</th>
+                                        <th>العنوان 2</th>
+                                        <th>الإسم بالعربية</th>
+                                        <th>الإسم بالإنجليزية</th>
+                                        <th>كودالفرع</th>
+                                        <th>الكود</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="persons" class="tab-pane fade">
+                        <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12">
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الكود" />
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>القسم</span>
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="الإسم بالعربية" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " style="direction:ltr;" placeholder="الإسم باإنجليزية" />
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المحافظة</span>
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>المنطقة</span>
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="العنوان" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="الوظيفة" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل 1" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="number" class="w-100 h-100 " placeholder="الموبايل" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="email" class="w-100 h-100 " placeholder="إيميل" />
+                            </div>
+                            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                <input type="text" class="w-100 h-100 " placeholder="فاكس" />
+                            </div>
+                        </div>
+
+                        <div class="row  mt-4 mx-auto col-md-12">
+                            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                <input type="button" class="btn" value="جديد" />
+                                <input type="button" class="btn" value="تعديل" />
+                                <input type="button" class="btn" value="حفظ" />
+                            </div>
+                        </div>
+
+                        <div class="row px-4 pt-4 table-responsive no-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>الحالة</th>
+                                        <th>الإيميل</th>
+                                        <th>الفاكس</th>
+                                        <th>الموبايل 1</th>
+                                        <th>الموبايل 2</th>
+                                        <th>العنوان 1</th>
+                                        <th>العنوان 2</th>
+                                        <th>كود القسم</th>
+                                        <th>الإسم بالعربية</th>
+                                        <th>الإسم بالإنجليزية</th>
+                                        <th>الكود</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="addDelConditions" class="tab-pane fade ">
+                        <div class="row d-flex flex-column gap-2 no-wrap mt-4 mx-auto col-md-12">
+                            <div class=" sec-field-labeled col-md-4 px-2 mb-0">
+                                <select class=" w-100  " style="height:34px" required>
+                                    <option>العملية</option>
+                                </select>
+                            </div>
+                            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-0">
+                                <select class="select2 w-100 h-100 " required>
+                                </select>
+                                <span>الكود</span>
+                            </div>
+                            <div class="sec-field-labeled w-50 " style="padding-right:4px;">
+                                <textarea class="w-100 rounded px-3 py-3" style="resize:vertical" rows="6" placeholder="ملاحظات"></textarea>
+                            </div>
+
+                            <div class="row  mt-4 mx-auto col-md-12">
+                                <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                    <input type="button" class="btn" value="جديد" />
+                                    <input type="button" class="btn" value="تعديل" />
+                                    <input type="button" class="btn" value="حفظ" />
+                                </div>
+                            </div>
+                            <div class="table-responsive no-wrap">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>الوصف</th>
+                                            <th>الحالة</th>
+                                            <th>الكود</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="stopSequence" class="tab-pane fade">
+                        <div class="row no-wrap mt-4 mx-auto col-md-12">
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">اندمنتي</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">يوم</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">موافقات</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">يوم</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Operation</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">يوم</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Claims</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">يوم</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Issue Card</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">يوم</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Stop Loss</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">%</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">صافي الأقساط</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">EGP</label>
+                                </div>
+                            </div>
+                            <div class="sec-field-labeled w-50 mb-2 " style="padding-right:4px;">
+                                <textarea class="w-100 rounded px-3 py-3" style="resize:vertical" rows="6" placeholder="ملاحظات"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row  mt-4 mx-auto col-md-12">
+                            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                <input type="button" class="btn" value="حفظ" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addGroup" class="tab-pane fade" style="direction:rtl">
+                        <div class="d-flex justify-content-center flex-column">
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12">
+                                <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                    <select class="w-100 h-100 " required>
+                                    </select>
+                                    <span>الفئة</span>
+                                </div>
+                                <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                    <select class="w-100 h-100 " required>
+                                        <option>Critecal | Catrl</option>
+                                        <option>Pre-x | Px</option>
+                                    </select>
+                                    <span>النوع</span>
+                                </div>
+                                <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                    <select class="select2 w-100 h-100 " required>
+                                    </select>
+                                    <span>الجروب</span>
+                                </div>
+                                <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                    <input type="text" class="w-100 h-100 " placeholder="المدة" />
+                                </div>
+                            </div>
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12 portlet-title title-bg group text-white fw-bold">
+                                <div class="caption mb-0 p-3 text-white fw-bold">
+                                    التشخيصات
+                                </div>
+                                <div class="row gap-2 no-wrap mt-4 mx-auto col-md-10">
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>التشخيص</span>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>حذف</span>
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Diagnose EName</th>
+                                                <th>Diagnose Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12 portlet-title title-bg group text-white fw-bold">
+                                <div class="caption mb-0 p-3 text-white fw-bold">
+                                    مجموعات الدوائية
+                                </div>
+                                <div class="row gap-2 no-wrap mt-4 mx-auto col-md-10">
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>مجموعة دوائية</span>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>حذف</span>
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Group Name</th>
+                                                <th>Group ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12 portlet-title title-bg group text-white fw-bold">
+                                <div class="caption mb-0 p-3 text-white fw-bold">
+                                    الخدمات
+                                </div>
+                                <div class="row gap-2 no-wrap mt-4 mx-auto col-md-10">
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>الخدمة</span>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>حذف</span>
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Service Name</th>
+                                                <th>ServiceCode</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row  mt-4 mx-auto col-md-12">
+                                <div class="d-flex justify-content-center justify-content-mdend me-4 gap-2 ">
+                                    <input type="button" class="btn" value="جديد" />
+                                    <input type="button" class="btn" value="تعديل" />
+                                    <input type="button" class="btn" value="حفظ" />
+                                </div>
+                            </div>
+
+                            <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class Code</th>
+                                            <th>Type</th>
+                                            <th>Duration</th>
+                                            <th>Diagnosis Code</th>
+                                            <th>Code</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="paymentMethod" class="tab-pane fade col-12">
+                        <div class=" d-flex justify-content-center mt-4">
+                            <div class="col-md-10 row gap-2 mx-auto ">
+                                <div class="field-group-parent col-md-12 d-flex flex-column flex-lg-row gap-2">
+                                    <div class="field-group-parent col-md-6 px-0">
+                                        <div class="forLabel sec-field-labeled w-100 px-0 mb-0" style="height:34px">
+                                            <select class="w-100 h-100 rounded" style="padding: 8px 10px 4px !important" required>
+                                                <option>إختيار طريقة</option>
+                                                <option>Half</option>
+                                                <option>Quarterly</option>
+                                                <option>Annual</option>
+                                                <option>Triple</option>
+                                            </select>
+                                            <span>طريقة الدفع</span>
+                                        </div>
+                                    </div>
+                                    <div class="field-group-parent col-md-6 px-0">
+                                        <div class="sec-field-labeled w-100 px-0" style="padding-right:4px;">
+                                            <div class="w-100 d-flex align-items-center py-0 rounded field-group">
+                                                <label class="mb-0 w-25">مصاريف إدارية</label>
+                                                <div class="sec-field-labeled w-50 px-2 ">
+                                                    <input type="number" class="w-100 h-100 bg-transparent text-center outline-0 child-input" placeholder="000" />
+                                                </div>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="radio" name="administrativeExpenses" id="value" />
+                                                        <label class="mb-0" for="value">قيمة</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="radio" name="administrativeExpenses" id="ratio" />
+                                                        <label class="mb-0" for="ratio">نسبة</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-group-parent col-md-12 d-flex flex-column flex-lg-row gap-2">
+                                    <div class="field-group-parent col-md-6 px-0">
+                                        <div class="field-group w-100 d-flex justify-content-between">
+                                            <div class="sec-field-labeled d-flex align-items-center justify-content-between gap-2 px-2" style="padding-right:4px;">
+                                                <label class="mb-0" for="checkType">فحوصات ما قبل التعيين</label>
+                                                <input type="checkbox" name="" id="checkType" />
+                                            </div>
+                                            <div class="check-type w-50">
+                                                <div class=" child-input sec-field-labeled w-50 px-2">
+                                                    <select class="w-100 h-100 " required>
+                                                        <option>النوع</option>
+                                                        <option name="eachPeriod">مفصلة كل فترة</option>
+                                                        <option>مع الفاتورة الأساسية</option>
+                                                    </select>
+                                                </div>
+                                                <div class="check-type-input sec-field-labeled w-50 px-2 " style="display:none">
+                                                    <input type="number" class="w-100 h-100 bg-transparent text-center outline-0 child-input" placeholder="يوم" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field-group-parent col-md-6 px-0">
+                                        <div class="field-group w-100 d-flex justify-content-between">
+                                            <div class="sec-field-labeled d-flex align-items-center justify-content-between gap-2 px-2" style="padding-right:4px;">
+                                                <label class="mb-0" for="recollectionType">إعادة التحصيل</label>
+                                                <input type="checkbox" name="" id="recollectionType" />
+                                            </div>
+                                            <div class="recollection-type child-input sec-field-labeled w-50 px-2">
+                                                <select class="w-100 h-100 " required>
+                                                    <option>النوع</option>
+                                                    <option>مفصلة كل فترة</option>
+                                                    <option>مع الفاتورة الأساسية</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-group-parent col-md-12">
+                                    <div class="field-group w-100 d-flex justify-content-between">
+                                        <div class="sec-field-labeled d-flex align-items-center gap-2 col-md-6 px-2" style="padding-right:4px;">
+                                            <label class="mb-0" for="discountCard">كروت تخفيض</label>
+                                            <input type="checkbox" name="" id="discountCard" />
+                                        </div>
+                                        <div class="discount-card w-50 gap-3">
+                                            <div class="sec-field-labeled w-50 px-2 ">
+                                                <input type="number" class="w-100 h-100 bg-transparent text-center outline-0 child-input" placeholder="قيمة كارت التخفيض" />
+                                            </div>
+                                            <div class="sec-field-labeled w-50 px-2 ">
+                                                <input type="number" class="w-100 h-100 bg-transparent text-center outline-0 child-input" placeholder="عدد كروت التخفيض" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-group-parent col-md-12 d-flex flex-column flex-lg-row gap-2">
+                                    <style>
+                                        ::placeholder {
+                                            color: #333333 !important;
+                                            font-weight: 700;
+                                        }
+                                    </style>
+                                    <div class="sec-field-labeled col-md-6 px-0 ">
+                                        <input type="text" class="w-100 h-100 " placeholder="مصاريف اصدار الكارت الأول" />
+                                    </div>
+                                    <div class="sec-field-labeled col-md-6 px-0 " style="height:34px ;">
+                                        <input type="text" class="w-100 h-100 " placeholder="مصاريف اصدار الكارت الثاني" />
+                                    </div>
+                                </div>
+                                <div class="field-group-parent col-md-12 d-flex justify-content-center">
+                                    <div class="field-group w-100 px-0 d-flex flex-column flex-lg-row gap-2" style="height: 37px;padding: 1px !important;">
+                                        <div id="addDelIdentity" class="forLabel sec-field-labeled w-100 px-0" style="height:33px">
+                                            <select class="w-100 h-100 " required>
+                                                <option name="">أختر التسوية</option>
+                                                <option name="">التسوية مع فاتورة الربع</option>
+                                                <option name="separateInvoice">التسوية بفاتورة منفصلة</option>
+                                            </select>
+                                            <span>هوية الإضافة والحذف</span>
+                                        </div>
+                                        <div class="add-del-dentity forLabel sec-field-labeled col-md-6 px-0" style="height:33px">
+                                            <select class="w-100 h-100 rounded" style="padding: 8px 10px 4px !important" required>
+                                                <option>إختيار طريقة</option>
+                                                <option>Half</option>
+                                                <option>Quarterly</option>
+                                                <option>Annual</option>
+                                                <option>Triple</option>
+                                            </select>
+                                            <span>طريقة الدفع</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-group-parent w-100">
+                                    <div class="field-group w-100 d-flex justify-content-between">
+                                        <div class="sec-field-labeled d-flex align-items-center gap-2 col-md-6 px-2" style="padding-right:4px;">
+                                            <label class="mb-0" for="annualInstallment">فترة السماح للقسط السنوي</label>
+                                            <input type="checkbox" name="" id="annualInstallment" />
+                                        </div>
+                                        <div class="annual-installment sec-field-labeled w-50 px-2 ">
+                                            <input type="number" class="w-100 h-100 bg-transparent text-center outline-0 child-input" placeholder="عدد أيام التسوية" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row  mt-4 mx-auto col-md-12">
+                                    <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                                        <input type="button" class="btn" value="حفظ" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addCheckUp" class="tab-pane fade ">
+                        <div class="d-flex justify-content-center flex-column">
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12">
+                                <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2">
+                                    <select class="select2 w-100 h-100 " required>
+                                    </select>
+                                    <span>الجروب</span>
+                                </div>
+                                <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                    <input type="text" class="w-100 h-100 " placeholder="عدد الموظفين" />
+                                </div>
+                                <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                                    <input type="text" class="w-100 h-100 " placeholder="القيمة" />
+                                </div>
+                            </div>
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12 portlet-title title-bg group text-white fw-bold">
+                                <div class="caption mb-0 p-3 text-white fw-bold">
+                                    مقدم الخدمة
+                                </div>
+                                <div class="row gap-2 no-wrap mt-4 mx-auto col-md-10">
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>نوع مقدم الخدمة</span>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>مقدم الخدمة</span>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>حذف</span>
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Provider EName</th>
+                                                <th>Provider Code</th>
+                                                <th>Provider Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row gap-2 no-wrap mt-4 mx-auto col-md-12 portlet-title title-bg group text-white fw-bold">
+                                <div class="caption mb-0 p-3 text-white fw-bold">
+                                    الخدمات
+                                </div>
+                                <div class="row gap-2 no-wrap mt-4 mx-auto col-md-10">
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>الخدمة</span>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-0">
+                                        <select class="select2 w-100 h-100 " required>
+                                        </select>
+                                        <span>حذف</span>
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Service Name</th>
+                                                <th>Service Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row  mt-4 mx-auto col-md-12">
+                                <div class="d-flex justify-content-center justify-content-mdend me-4 gap-2 ">
+                                    <input type="button" class="btn" value="جديد" />
+                                    <input type="button" class="btn" value="تعديل" />
+                                    <input type="button" class="btn" value="حفظ" />
+                                </div>
+                            </div>
+
+                            <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Provider Type</th>
+                                            <th>Provider Code</th>
+                                            <th>Provider Name</th>
+                                            <th>Service Code</th>
+                                            <th>Service Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row px-4 pt-4 table-responsive no-wrap mx-auto col-md-10">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Checkup Group Code</th>
+                                            <th>AName</th>
+                                            <th>Nomemp</th>
+                                            <th>Amo...</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize select2 and DataTables
+        $('.select2').select2();
+        $('#table').DataTable();
+        $('.table').DataTable();
+
+        // Handle Independent input change
+        $('input[name="Independent"]').on('change', function () {
+            if ($('#noRadio').is(':checked')) {
+                $('.compName-field').show();
+                $('.compName').select2();
+            } else {
+                $('.compName-field').hide();
+            }
+        });
+
+        // Handle formerclient input change
+        $('input[name="formerclient"]').on('change', function () {
+            if ($('#yesRadio2').is(':checked')) {
+                $('#clientCompName').hide();
+                $('#formerClientCompName').show();
+            } else if ($('#noRadio2').is(':checked')) {
+                $('#formerClientCompName').hide();
+                $('#clientCompName').show();
+            } else {
+                $('#formerClientCompName').hide();
+                $('#clientCompName').hide();
+            }
+        });
+
+        // Handle insurance checkbox change
+        $('#insurance').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#formerClient').css('display', 'flex');
+            } else {
+                $('#formerClientCompName').hide();
+                $('#clientCompName').hide();
+                $('#formerClient').hide();
+            }
+        });
+
+        // Handle annualInstallment checkbox change
+        $('#annualInstallment').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('.annual-installment').show();
+            } else {
+                $('.annual-installment').hide();
+            }
+        });
+
+        // Handle discountCard checkbox change
+        $('#discountCard').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('.discount-card').css('display', 'flex');
+            } else {
+                $('.discount-card').hide();
+            }
+        });
+
+        // Handle recollectionType checkbox change
+        $('#recollectionType').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('.recollection-type').show();
+            } else {
+                $('.recollection-type').hide();
+            }
+        });
+
+        // Handle checkType checkbox change
+        $('#checkType').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('.check-type').css('display', 'flex');
+            } else {
+                $('.check-type').hide();
+            }
+        });
+
+        // Handle addDelIdentity dropdown change
+        $('#addDelIdentity select').on('change', function () {
+            if ($(this).find('option:selected').attr('name') === 'separateInvoice') {
+                $('.add-del-dentity').show();
+                $('#addDelIdentity').css('width', '50%');
+            } else {
+                $('#addDelIdentity').css('width', '100%');
+                $('.add-del-dentity').hide();
+            }
+        });
+
+        // Handle check-type dropdown change
+        $('.check-type select').on('change', function () {
+            if ($(this).find('option:selected').attr('name') === 'eachPeriod') {
+                $('.check-type-input').show();
+            } else {
+                $('.check-type-input').hide();
+            }
+        });
+    });
+</script>
+ 

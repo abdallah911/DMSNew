@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+<div class="dms-container reports">
+
+     
+    <style>
+        .dms-container {
+            height: 100%;
+        }
+    </style>
+
+    <div class="portlet box mb-0 dms-container">
+
+        <div class="dashboard-box px-0 mx-auto d-flex flex-wrap">
+            <div class="sidebar-btn navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="dashboard-categories navbar-collapse  collapse" id="categories">
+                <ul>
+                    <li><a class="side-cate active" href="#" onclick="event.preventDefault(); loadScreen('_Live');"><img class="white" src="~/assets/global/img/Dashboard/live-icon-white.svg" onclick="loadScreen('_Screen1')" /><img class="black" style="display:none;" src="~/assets/global/img/Dashboard/live-icon-black.svg" onclick="loadScreen('_Screen1')" /> Live </a></li>
+                    <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Consumptions');"><img class="white" src="~/assets/global/img/Dashboard/consumption-icon-white.svg"  /><img class="black"style="display:none;" src="~/assets/global/img/Dashboard/consumption-icon-black.svg" /> Consumptions</a></li>
+                    <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Providers');"><img class="white" src="~/assets/global/img/Dashboard/provider-icon-white.svg" /><img class="black" style="display:none;" src="~/assets/global/img/Dashboard/provider-icon-black.svg" />Providers</a></li>
+                    <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Employees');"><img class="white" src="~/assets/global/img/Dashboard/leadership-icon-white.svg" /><img class="black"style="display:none;" src="~/assets/global/img/Dashboard/leadership-icon-black.svg"  />Employees</a></li>
+                    <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Comparison');"><img class="white" src="~/assets/global/img/Dashboard/comparison-icon-white.svg" /><img class="black"style="display:none;" src="~/assets/global/img/Dashboard/comparison-icon-black.svg"  />comparison</a></li>
+                    @*<li><a><i class="fas fa-phone"></i>Contact</a></li>*@
+                </ul>
+            </div>
+           
+            <div class="dashboard-body" id="mainScreen">
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+
+<script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>
+<script>
+    $(document).ready(function () {
+        $('.side-cate').on('click', function () {
+            $('.side-cate').removeClass('active');  // إزالة الكلاس من الكل
+            $(this).addClass('active');             // إضافة الكلاس للعنصر اللي اتضغط عليه
+        });
+    }); 
+    function loadScreen(viewName = "_Live") {
+        $("#mainScreen").load("/Dashboard/LoadPartial?viewName=" + viewName, function () {
+            
+            if (viewName === "_Live") {
+                ChartLiveScreenMonth();
+                /*ChartLiveScreen(); */
+
+                setInterval(updatCard, 60000);
+            }
+            else if (viewName === "_Consumptions")
+                ChartConsumptionsScreen();
+            else if (viewName === "_Providers")
+                ChartProvidersScreen();
+            else if (viewName === "_Employees")
+                ChartEmployeesScreen();
+            else if (viewName === "_Comparison")
+                ChartComparisonScreen();
+        });
+    }
+
+    loadScreen();
+
+    </script>

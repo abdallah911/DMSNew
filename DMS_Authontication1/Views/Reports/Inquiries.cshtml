@@ -30,261 +30,225 @@
         }
     }
 }
+<div class="dms-container reports">
 
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || edit)
-        {
-            @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || delete)
-        {
-            @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
+    <div>
+        <p class="ms-4 mt-0 pt-4">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || edit)
+            {
+                @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || delete)
+            {
+                @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Inquiries about an invoice
+                </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                        <!-- BEGIN PAGE HEADER-->
-                        <!-- BEGIN THEME PANEL -->
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                            <!-- BEGIN PAGE HEADER-->
+                            <!-- BEGIN THEME PANEL -->
 
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                                    <div class="row">
-                                        @*Date of Registration*@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Date of Registration :
+                                        <div class="row d-flex flex-column row-gap-2">
+                                            @*Date of Registration*@
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="">
+                                                            Date of Registration
 
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
+                                                        </label>
+                                                    </span>
+                                                    <div class="selected-date">
                                                         <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
                                                     </div>
+                                                    
                                                 </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            </div> 
 
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                                            </div>
-                                        </div>
+                                            @*Date of Service*@
 
-                                        @*Date of Service*@
+                                            <div class="labeled-file-box col-md-8">
+                                                <div >
+                                                    <span> 
+                                                        <label class="">
+                                                            Date of Service
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Date of Service :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
+                                                        </label>
+                                                    </span>
+                                                    <div class="selected-date">
                                                         <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
                                                     </div>
                                                 </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            </div> 
+                                            @* Claim Number *@
 
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                                            </div>
-                                        </div>
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="">
+                                                            Claim Number
 
-                                        @* Claim Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Claim Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
+                                                        </label>
+                                                    </span>
+                                                    <div class="selected-date">
                                                         <input id="ClaimFrom" type="number" class="col-md-2 form-control " placeholder="From" min="0" step="1" />
+                                                        <input id="ClaimTo" type="number" class="col-md-2 form-control " placeholder="To" min="0" step="1" />
                                                     </div>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
-
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="ClaimTo" type="number" class="col-md-2 form-control " placeholder="To" min="0" step="1" />
-                                            </div>
-                                        </div>
-
-                                        @* Copmany Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Copmany Number :
-                                                </label>
-
-                                                @if (User.IsInRole("HR_Admin"))
-                                                {
-                                                    <div class="col-md-6">
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
-
-                                                    </div>
-                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            $('#CopmanyNumber').select2();
-                                                        });
-                                                    </script>
-                                                }
-                                                else
-                                                {
-                                                    <div class="col-md-6">
-                                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                    </div>
-                                                }
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-
-                                        @* Service provider number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    Service Provider Number :
-
-                                                </label>
-                                                <div class="col-md-5">
-                                                    <input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />
 
                                                 </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
+                                            </div> 
+                                            @* Copmany Number *@
 
-                                        @*Print Type*@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Print Type :
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                        <label for="pdf">
-                                                            PDF
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="">
+                                                            Copmany Number
                                                         </label>
+                                                    </span>
+                                                    <div class="selected-date">
+                                                        @if (User.IsInRole("HR_Admin"))
+                                                        {
+
+                                                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
+
+                                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#CopmanyNumber').select2();
+                                                                });
+                                                            </script>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id="CopmanyNumber" type="number" class="  form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                      
+                                                    }
+                                                        <input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />
                                                     </div>
                                                 </div>
+                                            </div>
+                                            
 
-                                                @*<div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                        <label for="excel">
-                                                            EXCEL
+                                            @* Service provider number *@
+
+                                            <div class="labeled-file-box col-md-8"> 
+                                                <div>
+                                                    <span>
+                                                        <label class="control-label fw-bold col-md-4">
+                                                            Service Provider Number
+
                                                         </label>
+                                                    </span>
+                                                    <div class="field" style="width:60%">
+                                                        <input id="SerProvNumber" required type="number" class="w-100 form-control " min="0" />
                                                     </div>
-                                                </div>*@
-                                                <br />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <br />
+                                            
 
-                                        @* For Buttons *@
+                                            @*Print Type*@
 
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px">
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="">
+                                                            Print Type
+                                                        </label>
+                                                    </span>
+                                                    <div class=" ">
+                                                        <div class="checkbox-inline">
+                                                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                            <label for="pdf">
+                                                                PDF
+                                                            </label>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="MedicalServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('MedicalServices')">
-                                                    <span class="fa fa-save"></span> Medical Services
-                                                </button>
+                                                    @*<div class="col-md-2">
+                                                         <div class="checkbox-inline">
+                                                             <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                             <label for="excel">
+                                                                 EXCEL
+                                                             </label>
+                                                         </div>
+                                                     </div>*@
+
+                                                </div>
+                                            </div>
+                                            
+
+                                            @* For Buttons *@
+
+                                            <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:20px;margin-bottom:20px">
+
+                                                <div class="col-sm-4" id="div_of_serv">
+                                                    <button id="MedicalServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('MedicalServices')">
+                                                        <span class="fa fa-save"></span> Medical Services
+                                                    </button>
+
+                                                </div>
+
+                                                <div class="col-sm-4" id="div_of_serv">
+                                                    <button id="OtherServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('OtherServices')">
+                                                        <span class="fa fa-save"></span> Other Services
+                                                    </button>
+
+                                                </div>
+
+                                                <div class="col-sm-4" id="div_of_serv">
+                                                    <button id="SerOutMediAuth" type="button" class="btn btn-primary" onclick="PrintMedicalServices('SerOutMediAuth')">
+                                                        <span class="fa fa-save"></span> Services Outside the Medical Authority
+                                                    </button>
+
+                                                </div>
 
                                             </div>
-
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="OtherServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('OtherServices')">
-                                                    <span class="fa fa-save"></span> Other Services
-                                                </button>
-
-                                            </div>
-
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="SerOutMediAuth" type="button" class="btn btn-primary" onclick="PrintMedicalServices('SerOutMediAuth')">
-                                                    <span class="fa fa-save"></span> Services Outside the Medical Authority
-                                                </button>
-
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        @*<div class="panel-footer" style="text-align:right;">
-                                <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearSaveRequest();" class="btn btn-warning" />
-                                <input type="submit" id="submit" value="Create" class="btn btn-success" style="text-transform: none" />
+                            @*<div class="panel-footer" style="text-align:right;">
+                                    <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearSaveRequest();" class="btn btn-warning" />
+                                    <input type="submit" id="submit" value="Create" class="btn btn-success" style="text-transform: none" />
 
-                            </div>*@
-                    </form>
+                                </div>*@
+                        </form>
+                    </div>
                 </div>
+
             </div>
 
         </div>
-
-    </div>
-}
-
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

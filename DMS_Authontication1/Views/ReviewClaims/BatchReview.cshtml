@@ -1,0 +1,1055 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+    //var edit = false;
+    //var delete = false;
+    //var view = false;
+    //var fullcontroll = false;
+    //var Create = false;
+    //var modellist = new List<ModulesPagesViewModel>();
+    //var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    //if (claim != null)
+    //{
+    //    modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+    //    if (modellist != null)
+    //    {
+    //        var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 12 && (x.FullControl || x.EditPermission
+    //                                      || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+    //        if (obj != null)
+    //        {
+    //            edit = obj.EditPermission;
+    //            delete = obj.ActivationControl;
+    //            view = obj.Preview;
+    //            fullcontroll = obj.FullControl;
+    //            Create = obj.AddPermission;
+
+    //        }
+    //    }
+    //}
+}
+<div class="dms-container">
+    @*<div>
+            @if (!User.IsInRole("Admin"))
+            {
+                <p>
+                    @if (fullcontroll || view)
+                    {
+                        @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+                    }
+                    @if (fullcontroll || Create)
+                    {
+                        @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+                    }
+                </p>
+            }
+        </div>*@
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Data
+            </div>
+        </div>
+        <div class="w-100 mx-auto row portlet-body">
+            <div class="row  col-md-9">
+                
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="RegFrom" type="text" class="w-100 h-100 " placeholder="Create Date From" value="@ViewBag.RegFrom" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="RegTo" type="text" class="w-100 h-100 " placeholder="Create Date To" value="@ViewBag.RegTo" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="ServFrom" type="text" class="w-100 h-100 " value="@ViewBag.ServFrom" placeholder="Service Date From" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="ServTo" type="text" class="w-100 h-100 " value="@ViewBag.ServTo" placeholder="Service Date To" readonly />
+                </div>
+
+
+
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" value="@ViewBag.BatchNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" value="@ViewBag.InvoiceNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="number" class="w-100 h-100 " value="@ViewBag.ProviderID" placeholder="Provider Number" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="text" class="w-100 h-100 " value="@ViewBag.ProviderName" placeholder="Provider Name" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <input id="CompNum" type="number" class="w-100 h-100 " placeholder="Comp ID" value="@ViewBag.CompNumber" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <input id="" class="w-100 h-100 " placeholder="Comp Name" value="@ViewBag.CompName" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <select id="CardId" class="w-100 h-100 form-control "></select>
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @if (!string.IsNullOrEmpty(ViewBag.ClaimNo as string))
+                    {
+                        <input id="ApprovalNo" type="number" class="w-100 h-100" value="@ViewBag.ClaimNo" placeholder="Approval Number" readonly />
+                    }
+                    else
+                    {
+                        <input id="ApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-3 text-end">
+                <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetClaim();" />
+                <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
+            </div>
+
+        </div>
+    </div>
+    <div class="portlet box" id="MainScreenClaims">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Claims
+            </div>
+        </div>
+        <div class="d-flex justify-content-end gap-2 container text-center">
+            <input type="button" value="Download" class="btn my-3" onclick="DownloadBatch()" id="DownloadBatch" />
+            <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
+            <div class="d-flex gap-2 justify-content-center align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="pdf" />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="excel" />
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="portlet-body" id="list_div">
+
+            <div class="table-responsive">
+                <table class="table" id="ClaimsData">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Claim No</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center">Service Date</th>
+                            <th scope="col" align="center">Card No</th>
+                            <th scope="col" align="center">Employee Name</th>
+                            <th scope="col" align="center">Diagnosis</th>
+                            <th scope="col" align="center">Service Type</th>
+                            <th scope="col" align="center">Gross</th>
+                            <th scope="col" align="center">Net</th>
+                            @*<th scope="col" align="center"></th>*@
+                        </tr>
+                    </thead>
+                    <tbody id="ClaimsBody"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    @*<div class="form-group row col-xl-12">
+            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="list_div">
+                <table class="table" id="ClaimsData">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Claim No</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center">Service Date</th>
+                            <th scope="col" align="center">Card No</th>
+                            <th scope="col" align="center">Employee Name</th>
+                            <th scope="col" align="center">Provider Name</th>
+                            <th scope="col" align="center">Provider Type</th>
+                            <th scope="col" align="center">Diagnosis</th>
+                            <th scope="col" align="center">Service Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ClaimsBody"></tbody>
+                </table>
+            </div>
+
+        </div>*@
+
+<div class="portlet box no-wrap">
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Claims Details
+        </div>
+    </div>
+    <div class="d-flex justify-content-end gap-2 container text-center">
+        <input type="button" value="Print" class="btn my-3" onclick="PrintRoshita()" id="PrintOneClaim" style="display:none;"/>
+        <input type="button" value="Download" class="btn my-3" onclick="DownloadClaim()" id="DownloadOneClaim" style="display:none;" />
+    </div>
+    <div class="portlet-body" id="list_div2">
+        <div class="table-responsive">
+            <input id="ClaimNumber" class="form-control" type="text" style="display:none;" />
+
+            <table class="table" id="ClaimDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Services</th>
+                        <th scope="col" align="center">Sercv Name</th>
+                        <th scope="col" align="center">Claim Submitted</th>
+                        <th scope="col" align="center">Over Insurance</th>
+                        <th scope="col" align="center">Discount</th>
+                        <th scope="col" align="center">Approv Amount</th>
+                        <th scope="col" align="center">Copay Amt</th>
+                        <th scope="col" align="center">After Copay</th>
+                        <th scope="col" align="center">Local Amount</th>
+                        <th scope="col" align="center">Import Amount</th>
+                        <th scope="col" align="center">Local Disc</th>
+                        <th scope="col" align="center">Import Disc</th>
+                        <th scope="col" align="center">Total Discount</th>
+                        <th scope="col" align="center">Net</th>
+                    </tr>
+                </thead>
+                <tbody id="ClaimDetailsBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <!--<div class="row" style=" text-align:right">
+        <div class="col-md-12">
+            <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
+            <input id="ShowInformation" type="button" value="Show Information" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowInformationCard()" />-->
+    <!--<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
+                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
+
+        </div>
+    </div>-->
+    <div class="portlet box" id="CardInformationDetails" hidden>
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Card Information
+            </div>
+        </div>
+        <br />
+        <div class="col-md-12">
+
+            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()" />
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()" />
+            <input id="ShowChronic" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()" />
+            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsDetails()" />
+
+            @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+        <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+        <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+        <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+        <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+        <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+        <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+        <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
+        </div>
+
+        <div class="panel-body">
+
+            <div class="col-md-12" style="width:100%;" id="InformationScreen" hidden>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="CardID" class="control-label">Card ID</label>
+                        <input id="CardID" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="EmployeeName" class="control-label">Employee Name</label>
+                        <input id="EmployeeName" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="BirthDate" class="control-label">Birth Date</label>
+                        <input id="BirthDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Age" class="control-label">Age</label>
+                        <input id="Age" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="StartDate" class="control-label">Start Date</label>
+                        <input id="StartDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="EndDate" class="control-label">End Date</label>
+                        <input id="EndDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="MaxAmount" class="control-label">Max Amount</label>
+                        <input id="MaxAmount" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ClassName" class="control-label">Class Name</label>
+                        <input id="ClassName" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="HospitalDegree" class="control-label">Hospital Degree</label>
+                        <input id="HospitalDegree" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="MedicalNetwork" class="control-label">Medical Network</label>
+                        <input id="MedicalNetwork" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ExceptionPayment" class="control-label">Exception Payment</label>
+                        <input id="ExceptionPayment" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ExceptionOver" class="control-label">Exception Over</label>
+                        <input id="ExceptionOver" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="NationalId" class="control-label">National ID</label>
+                        <input id="NationalId" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="CardColor" class="control-label">Card Color</label>
+                        <input id="CardColor" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Mobile1" class="control-label">Mobile 1</label>
+                        <input id="Mobile1" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Mobile2" class="control-label">Mobile 2</label>
+                        <input id="Mobile2" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2" id="OldCardScreen" hidden="hidden">
+                        <label for="OldCard" class="control-label">Old Card</label>
+                        <input id="OldCard" class="form-control" type="text" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="width:100%;" id="ApprovalsScreen" hidden>
+                <table class="ui celled table" id="ApprovalsDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Approval No</th>
+                            <th scope="col" align="center">Approval Type</th>
+                            <th scope="col" align="center">Reply</th>
+                            <th scope="col" align="center">Approval Amount</th>
+                            <th scope="col" align="center">Medical Reply</th>
+                            <th scope="col" align="center">Created By</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center" hidden>Created Date1</th>  .
+                            <th scope="col" align="center"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+
+            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="ChronicScreen" hidden>
+                <table class="table" id="ChronicDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">MED CODE</th>
+                            <th scope="col" align="center">MED NAME</th>
+                            <th scope="col" align="center">DOSE</th>
+                            <th scope="col" align="center">MED DURATION</th>
+                            <th scope="col" align="center">UNIT NO</th>
+                            <th scope="col" align="center">DOSAGE FORM</th>
+                            <th scope="col" align="center">MONTH DATE STOP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="MonthlyDetailsBody"></tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="ClaimsCardScreen" hidden>
+                <table class="table" id="ClaimsCardDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Claim No</th>
+                            <th scope="col" align="center">Claim Date</th>
+                            <th scope="col" align="center">Batch No</th>
+                            <th scope="col" align="center">Provider Name</th>   
+                            <th scope="col" align="center">Serv Name</th>                            
+                            <th scope="col" align="center">Gross</th>
+                            <th scope="col" align="center">Net</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ClaimsCardDetailsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+        <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+@*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
+<script>
+
+    $(function () {
+        $('#CardId').select2({
+            placeholder: 'Search for a card',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+
+        GetClaim();
+    })
+
+    $('#ClaimsData tbody').on('click', 'tr', function () {
+        $('#ClaimsData tbody tr').removeClass('selected');
+        $(this).addClass('selected');
+        $('#ClaimNumber').val("");
+
+        var claimNo = $(this).find('td').eq(0).text();
+        GetClaimDetails(claimNo);
+
+        $('#ClaimNumber').val(claimNo);        
+
+        var servNam = $(this).find('td').eq(6).text();
+        if (servNam == 'MEDICATION' || servNam == 'ادوية' || servNam == 'أدويه' || servNam == 'تحاليل طبية' || servNam == 'أشعات') {
+            $('#PrintOneClaim').show();
+            $('#DownloadOneClaim').hide();
+        }
+        else if (servNam == 'خدمات داخل المستشفيات' || servNam == 'عمليات جراحية') {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').show();
+        }
+        else {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').hide();
+        }
+        
+        $('#CardID').val($(this).find('td').eq(3).text());
+        //alert('Selected Claim No:' + claimNo);
+        $('#CardInformationDetails').show();
+
+    });
+
+
+    function ClearSearchData() {
+        
+        $("#ApprovalNo").val("");
+        $('#CardId').val(null).trigger('change');
+        
+        $('#CardID').val("");
+        $('#EmployeeName').val("");
+        $('#BirthDate').val("");
+        $('#Age').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+        $('#MaxAmount').val("");
+        $('#ClassName').val("");
+        $('#HospitalDegree').val("");
+        $('#MedicalNetwork').val("");
+        $('#ExceptionPayment').val("");
+        $('#ExceptionOver').val("");
+        $('#NationalId').val("");
+        $('#Mobile1').val("");
+        $('#Mobile2').val("");
+        $('#CardColor').val("");
+        $('#OldCard').val("");
+        $('#ClaimNumber').val("");
+
+        $('#CardInformationDetails').hide();
+        $('#PrintOneClaim').show();
+        $('#DownloadOneClaim').hide();
+        //var table = $('#ClaimsData').DataTable({
+        //    "pageLength": 5
+        //});
+
+        var table = $('#ClaimsData').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        var table2 = $('#ClaimDetails').DataTable();
+        table2.clear().draw();
+        table2.destroy();
+
+        var table3 = $('#ApprovalsDetails').DataTable();
+        table3.clear().draw();
+        table3.destroy();
+
+        var table4 = $('#ChronicDetails').DataTable();
+        table4.clear().draw();
+        table4.destroy();
+
+        var table4 = $('#ClaimsCardDetails').DataTable();
+        table4.clear().draw();
+        table4.destroy();
+
+        $("#pdf").prop("checked", false);
+        $("#excel").prop("checked", false);
+
+    }
+
+    function GetClaim() {
+
+        $('#CardInformationDetails').hide();
+
+        var table = $('#ClaimsData').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        var table2 = $('#ClaimDetails').DataTable();
+        table2.clear().draw();
+        table2.destroy();
+
+        $('#list_div').hide();
+        if ($("#CompNum").val() != "") {
+
+
+            var RegFrom = $("#RegFrom").val();
+            var RegTo = $("#RegTo").val();
+            var ServFrom = $("#ServFrom").val();
+            var ServTo = $("#ServTo").val();
+
+
+            var compId = $("#CompNum").val();
+            var aprovNo = $("#ApprovalNo").val();
+            var cardId = $("#CardId").val();
+            var invocNo = $("#InvoicNo").val();
+            var batchNo = $("#BatchNo").val();
+
+            $("#loading").css("display", "flex");
+
+            $.ajax({
+                url: '/ReviewClaims/GetClaims/',
+                data: {
+                    RegFrom: RegFrom, RegTo: RegTo, ServFrom: ServFrom, ServTo: ServTo,
+                    compId: compId, aprovNo: aprovNo, cardId: cardId, invocNo: invocNo, batchNo: batchNo
+                },
+                dataType: 'Json',
+                success: function (r) {
+                    $('#ClaimsData').dataTable({
+                        "pageLength": 5
+                    }).fnDestroy();
+                    if (r.msg == "ok") {
+                        var setData = $("#ClaimsData Tbody");
+                        setData.empty();
+                        for (var i = 0; i < r.claimslist.length; i++) {
+                            var data = "<tr>" +
+                                "<td>" + (r.claimslist[i].ClaimNo || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CreatedDate || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ClaimDate || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CardNo || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].EmpName || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Diagnosis || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ServType || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Gross || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Net || "--") + "</td>" +
+                                //"<td class='text-center'>" +
+                                //        "<button class='btn btn-primary' onclick=\"PrintRoshita('" + r.claimslist[i].ClaimNo + "')\">" +
+                                //                "Print" +
+                                //        "</button>" +
+                                //"</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+                        $('#ClaimsData').DataTable({
+                            "pageLength": 5
+                        });
+                        $('#list_div').show();
+
+
+                        $('html, body').animate({
+                            scrollTop: $('#MainScreenClaims').offset().top
+                        }, 'slow');
+                    }
+                    else {
+                        alert(r.msg);
+                    }
+
+                },
+                complete: function () {
+                    $("#loading").hide();
+                }
+            });
+        }
+        else
+            alert("Comp Id is empty");
+    }
+
+    function GetClaimDetails(clm) {
+
+        $('#list_div2').hide();
+        if (clm != "") {
+
+
+            $("#loading").css("display", "flex");
+
+            $.ajax({
+                url: '/ReviewClaims/GetClaimDetails/',
+                data: {
+                    claimNo: clm
+                },
+                dataType: 'Json',
+                success: function (r) {
+                    $('#ClaimDetails').dataTable().fnDestroy();
+                    if (r.msg == "ok") {
+                        var setData = $("#ClaimDetails Tbody");
+                        setData.empty();
+                        for (var i = 0; i < r.claimslist.length; i++) {
+                            var data = "<tr>" +
+                                "<td>" + (r.claimslist[i].Services || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].SercvName || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ClaimSubmitted || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].OverInsurance || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Discount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ApprovAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CopayAmt || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].AfterCopay || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].LocalAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ImportAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].LocalDisc || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ImportDisc || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].TotalDiscount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Net || "--") + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+                        $('#ClaimDetails').DataTable();
+                        $('#list_div2').show();
+
+                    }
+                    else {
+                        alert(r.msg);
+                    }
+
+                },
+                complete: function () {
+                    $("#loading").hide();
+                }
+            });
+        }
+        else
+            alert("Comp Id is empty");
+    }
+
+    function PrintAllClaims() {
+        if ($("#CompNum").val() != "") {
+
+            var compId = $("#CompNum").val();
+            var servFrom = $("#ServDateFrom").val();
+            var servTo = $("#ServDateTo").val();
+            var regFrom = $("#RegDateFrom").val();
+            var regTo = $("#RegDateTo").val();
+            var aprovNo = $("#ApprovalNo").val();
+            var cardId = $("#CardId").val();
+            var invocNo = $("#InvoicNo").val();
+            var batchNo = $("#BatchNo").val();
+
+            $("#loading").css("display", "flex");
+
+            window.open('/ReviewClaims/PrintAllClaims?compId=' + compId +
+                '&&cardId=' + cardId + '&&servFrom=' + servFrom + '&&servTo=' +
+                servTo + '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                '&&aprovNo=' + aprovNo + '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+
+            $("#loading").hide();
+        }
+        else
+            alert('Comp Id is empty')
+    }
+
+
+    function ShowApprovalDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
+        
+        $('#ApprovalsScreen').show();
+
+        if ($('#CardID').val() != "")
+            getApprovalData($('#CardID').val());
+    }
+    function ShowCardInformation() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
+
+        $('#InformationScreen').show();
+        if ($('#CardID').val() != "")
+            getData($('#CardID').val());
+    }
+    function ShowChronicDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
+
+        $('#ChronicScreen').show();
+
+        if ($('#CardID').val() != "")
+            getChronicData($('#CardID').val());
+    }
+
+    function ShowClaimsDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
+
+        $('#ClaimsCardScreen').show();
+
+        if ($('#CardID').val() != "")
+            getClaimsCardData($('#CardID').val());
+    }
+
+    function getApprovalData(crd) {
+
+        var table = $('#ApprovalsDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        if ($('#CardID').val() != "") {
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/getAprovalData',
+                data: { CardId: $('#CardID').val() },
+                success: function (apprs) {
+
+                    if (apprs.approval.length > 0) {
+
+                        $('#ApprovalsDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ApprovalsDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.approval.length; i++) {
+
+                            var data = "<tr >" +
+
+                                "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
+                                "<td>" + apprs.approval[i].ApprovalType + "</td>" +
+                                "<td>" + apprs.approval[i].Reply + "</td>" +
+                                "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
+                                "<td>" + apprs.approval[i].MedicalReply + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedBy + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedDate1 + "</td>" +
+                                "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+
+                        $("#ApprovalsDetails").DataTable({
+                            "ordering": true,
+                            "order": [[7, "desc"]],
+                            "columnDefs": [
+                                {
+                                    targets: [7],  // Column index to hide (8th column, index 7)
+                                    "visible": false  // Hide the column
+                                }
+                            ]
+                        });
+                    }
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
+    function getChronicData(crd) {
+
+        var table = $('#ChronicDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        if ($('#CardID').val() != "") {
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/getChornicData',
+                data: { CardId: $('#CardID').val() },
+                success: function (apprs) {
+
+                    if (apprs.clmD.length > 0) {
+
+                        $('#ChronicDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ChronicDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.clmD.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                                "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                                "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                                "<td>" + apprs.clmD[i].MED_DURATION + "</td>" +
+                                "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                                "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                                "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+
+                        $("#ChronicDetails").DataTable();
+                    }
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
+
+    function getClaimsCardData(crd) {
+
+        var table = $('#ClaimsCardDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        if ($('#CardID').val() != "") {
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/GetClaimsCardData',
+                data: { CardId: $('#CardID').val() },
+                success: function (apprs) {
+
+                    if (apprs.clmD.length > 0) {
+
+                        $('#ClaimsCardDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ClaimsCardDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.clmD.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + apprs.clmD[i].Claim_No + "</td>" +
+                                "<td>" + apprs.clmD[i].Claim_Date + "</td>" +
+                                "<td>" + apprs.clmD[i].Batch_No + "</td>" +
+                                "<td>" + apprs.clmD[i].Provider_Name + "</td>" +
+                                "<td>" + apprs.clmD[i].Serv_Name + "</td>" +
+                                "<td>" + apprs.clmD[i].Gross + "</td>" +
+                                "<td>" + apprs.clmD[i].Net + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+
+                        $("#ClaimsCardDetails").DataTable();
+                    }
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
+
+    function getData(crd) {
+        debugger;
+        $('#EmployeeName').val("");
+        $('#BirthDate').val("");
+        $('#Age').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+        $('#MaxAmount').val("");
+        $('#ClassName').val("");
+        $('#HospitalDegree').val("");
+        $('#MedicalNetwork').val("");
+        $('#ExceptionPayment').val("");
+        $('#ExceptionOver').val("");
+        $('#NationalId').val("");
+        $('#Mobile1').val("");
+        $('#Mobile2').val("");
+        $('#CardColor').val("");
+        $('#OldCard').val("");
+        $("#loading").css("display", "flex");
+        $.ajax({
+
+            type: "POST",
+            dataType: "json",
+            url: '/ReviewClaims/getData/',
+            data: { CardId: crd },
+
+            success: function (cardDetails) {
+
+                $('#EmployeeName').val(cardDetails.dtDetails[0].EmployeeName);
+                $('#BirthDate').val(cardDetails.dtDetails[0].BirthDate);
+                $('#Age').val(cardDetails.dtDetails[0].Age);
+                $('#StartDate').val(cardDetails.dtDetails[0].StartDate);
+
+                $('#EndDate').val(cardDetails.dtDetails[0].EndDate);
+                $('#MaxAmount').val(cardDetails.dtDetails[0].MaxAmount);
+                $('#ClassName').val(cardDetails.dtDetails[0].ClassName);
+                $('#HospitalDegree').val(cardDetails.dtDetails[0].HospitalDegree);
+                $('#MedicalNetwork').val(cardDetails.dtDetails[0].MedicalNetwork);
+
+                $('#ExceptionPayment').val(cardDetails.dtDetails[0].ExceptionPayment);
+                $('#ExceptionOver').val(cardDetails.dtDetails[0].ExceptionOver);
+                $('#NationalId').val(cardDetails.dtDetails[0].NationalId);
+                $('#Mobile1').val(cardDetails.dtDetails[0].Mobile1);
+                $('#Mobile2').val(cardDetails.dtDetails[0].Mobile2);
+
+                $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
+                $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
+            },
+            complete: function () {
+                $("#loading").hide();
+            }
+
+        });
+
+        if ($('#OldCard').val() != "")
+            $('#OldCardScreen').show;
+        else
+            $('#OldCardScreen').hide;
+    }
+
+    function PrintApproval(AppCode) {
+        debugger;
+        var x = String(AppCode);
+        //  window.location.reload();
+        window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+    }
+    function PrintRoshita(clm) {
+        var clm = $('#ClaimNumber').val();
+        window.open('/ReviewClaims/PrintRoshita?claimNo=' + clm);
+    }
+    function DownloadClaim() {
+        var clm = $('#ClaimNumber').val();
+        $.ajax({
+            url: '/ReviewClaims/DownloadClaim', 
+            type: 'GET',
+            data: { claimNo: clm }, 
+            success: function (response) {
+                if (response.success === false) {
+                    alert(response.message);
+                } else {                    
+                    var fileUrl = '/ReviewClaims/DownloadClaim?claimNo=' + encodeURIComponent(clm);
+                    window.open(fileUrl, '_blank');
+                }
+            },
+            error: function () {
+                alert("An error occurred while trying to download the file.");
+            }
+        });
+    }
+
+    function DownloadBatch() {
+        var btch = $('#BatchNo').val();
+        $.ajax({
+            url: '/ReviewClaims/DownloadBatch',
+            type: 'GET',
+            data: { batchNo: btch },
+            success: function (response) {
+                if (response.success === false) {
+                    alert(response.message);
+                } else {
+                    var fileUrl = '/ReviewClaims/DownloadBatch?batchNo=' + encodeURIComponent(btch);
+                    window.open(fileUrl, '_blank');
+                }
+            },
+            error: function () {
+                alert("An error occurred while trying to download the file.");
+            }
+        });
+    }
+    //function PrintSummary() {
+
+    //    if ($("#CompNum").val() != "") {
+
+    //        var compId = $("#CompNum").val();          
+    //        var aprovNo = $("#ApprovalNo").val();
+    //        var cardId = $("#CardId").val();
+    //        var invocNo = $("#InvoicNo").val();
+    //        var batchNo = $("#BatchNo").val();
+
+    //        if ($("#excel").is(":checked"))
+    //            window.open('/ReviewClaims/PrintExcel?compId=' + compId +                   
+    //                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+    //                '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+    //        else
+    //            window.open('/ReviewClaims/PrintPdf?compId=' + compId +                   
+    //                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+    //                '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+    //    }
+    //    else
+    //        alert("Comp Id is empty");
+    //}
+    function PrintSummary() {
+
+        if ($("#CompNum").val() != "") {
+
+            var RegFrom = $("#RegFrom").val();
+            var RegTo = $("#RegTo").val();
+            var ServFrom = $("#ServFrom").val();
+            var ServTo = $("#ServTo").val();
+
+            var compId = $("#CompNum").val();
+            var aprovNo = $("#ApprovalNo").val();
+            var cardId = $("#CardId").val();
+            var invocNo = $("#InvoicNo").val();
+            var batchNo = $("#BatchNo").val();
+            var typ = 1;
+
+            if ($("#excel").is(":checked"))
+                typ = 2;
+            
+            window.open('/ReviewClaims/PrintReviewClaimsNew?RegFrom=' + RegFrom + '&&RegTo=' + RegTo +
+                '&&ServFrom=' + ServFrom + '&&ServTo=' + ServTo + '&&compId=' + compId +
+                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId + '&&invocNo=' + invocNo +
+                '&&batchNo=' + batchNo + '&&typ=' + typ);
+        }
+        else
+            alert("Comp Id is empty");
+    }
+</script>
+
+<style>
+    .selected {
+        background-color: #f0f8ff !important;
+    }
+
+    #ClaimsData tbody tr:hover {
+        cursor: pointer;
+        background-color: #e0e0e0;
+    }
+</style>

@@ -4,6 +4,17 @@
     ViewBag.Title = "Log in";
 }
 
+<style>
+    .body-content {
+        overflow: hidden;
+        min-height: calc(100vh - 283.1px);
+        height: unset !important;
+    }
+
+        .body-content > div {
+            height: 100%;
+        }
+</style>
 <!--
 <h2>@ViewBag.Title</h2>
 
@@ -82,16 +93,43 @@
 <link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/main_styles.css">
 <link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/responsive.css">
 
+<style>
+    .page-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-<br />
-<br />
+    .event-welcome {
+        display: grid;
+    }
 
-<div class="intro">
-    <div class="container">
-        <div class="row">
+        .event-welcome img {
+            height: 150px;
+            margin: auto;
+        }
+        /*=========event==============*/
+    img {
+        padding-bottom:20px;
+    }
+    nav{
+        padding-bottom:0;
+    }
+</style> 
+<div class="position-relative d-flex align-items-center h-100" style=" min-height: calc(100vh - 283.1px);">
 
-            <!-- Intro Content -->
-            <!--<div class="col-lg-6 intro_col">
+
+
+    <div class=" h-100 img img-2 d-none d-lg-inline-block position-absolute end-0 ps-5 login-img">
+        <img src="~/assets/global/img/login-bg.png" />
+    </div>
+
+    <div class="intro" style=" padding: 20px 0 !important;">
+        <div class="container">
+            <div class="row justify-content-start">
+
+                <!-- Intro Content -->
+                <!--<div class="col-lg-6 intro_col">
                 <div class="intro_content">
                     <div class="section_title_container">
                         <div class="section_subtitle">This is DMS</div>
@@ -103,90 +141,101 @@
                         This system depends mainly on the service provider and the customer service at the same time with a reliance on providing the easiest and quickest and most reliable considerate service to the time of
                         the service provider and also for the benefit of the customer.</p>
                     </div>-->
-            <!--<div class="milestones">
+                <!--<div class="milestones">
                 <div class="row milestones_row">-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                <div class="milestone text-center">
-                    <div class="milestone_counter" data-end-value="5000" data-sign-before="+">0</div>
-                    <div class="milestone_text">Satisfied Patients</div>
-                </div>
-            </div>-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                <div class="milestone text-center">
-                    <div class="milestone_counter" data-end-value="352">0</div>
-                    <div class="milestone_text">Face Liftings</div>
-                </div>
-            </div>-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                        <div class="milestone text-center">
-                            <div class="milestone_counter" data-end-value="718">0</div>
-                            <div class="milestone_text">Injectibles</div>
-                        </div>
+                <!-- Milestone -->
+                <!--<div class="col-md-4 milestone_col">
+                    <div class="milestone text-center">
+                        <div class="milestone_counter" data-end-value="5000" data-sign-before="+">0</div>
+                        <div class="milestone_text">Satisfied Patients</div>
                     </div>
+                </div>-->
+                <!-- Milestone -->
+                <!--<div class="col-md-4 milestone_col">
+                    <div class="milestone text-center">
+                        <div class="milestone_counter" data-end-value="352">0</div>
+                        <div class="milestone_text">Face Liftings</div>
+                    </div>
+                </div>-->
+                <!-- Milestone -->
+                <!--<div class="col-md-4 milestone_col">
+                            <div class="milestone text-center">
+                                <div class="milestone_counter" data-end-value="718">0</div>
+                                <div class="milestone_text">Injectibles</div>
+                            </div>
+                        </div>
 
-                </div>
-            </div>-->
-            <!--</div>
-            </div>-->
-            <!-- Intro Form -->
-            <div class="col-lg-6 intro_col col-lg-offset-3" id="loginForm">
-                <div class="intro_form_container">
-                    <div class="intro_form_title">Login</div>
+                    </div>
+                </div>-->
+                <!--</div>
+                </div>-->
+                <!-- Intro Form -->
+                <div class="col-11 col-sm-10 mx-auto ml-lg-0 col-lg-6 intro_col " id="loginForm">
 
-                    <section id="loginForm">
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
+                    @if (ViewBag.evnt == 1)
+                    {
+                        <div class="event-welcome" style="width: 300px; margin: auto; padding-bottom: 30px;">
+                            @*<img class="w-100" src="~/assets/global/img/Events/NewYear-login-bg.png" style="width: 250px; margin: auto; display: block;" />*@
+                        </div>
+                    }
 
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control intro_input", @placeholder = "User Name" })
-                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-
-
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control intro_input", @placeholder = "Password" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
+                    <div class="intro_form_container">
+                        @*<div class="intro_form_title">Login</div>*@
+                        @*<img src="~/assets/global/img/Events/NewYear-login-bg.png" style=" width: 300px; margin: auto; display: block;" />*@
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
+                                    <div class="login-input-box">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control intro_input", @placeholder = "User Name" })
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                        <i class="fa-solid fa-user me-1"></i>
+                                    </div>
+                                    <div class="login-input-box">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control intro_input", @placeholder = "Password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        <i class="fa-solid fa-lock me-1"></i>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="cus-ememberme">
+                                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check cus-rem-input" })
+                                        @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label", @style = "color: #2d2d2d;" })
+                                    </div>
+
+
+                                    <input type="submit" value="Login" class="button button_1 intro_button trans_200" />
+                                    <br />
+                                    <br />
+                                    <br />
+
+                                    @*<input type="reset" id="New" value="Reset" class="button cus-reset" />*@
+
+
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword", null, new { @class = "cus-forg-pass", @style = "margin-top:10px" })
+
+                                    <a href="~/Employee/Register" class="cus-forg-pass" style="color: #757686; margin-top: 10px;">
+                                        Create User Account
+
+                                    </a>
                                 </div>
-                                <div class="cus-ememberme">
-                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check cus-rem-input" })
-                                    @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label" })
-                                </div>
 
-
-                                <input type="submit" value="Login" class="button button_1 intro_button trans_200" />
-                                <br />
-                                <br />
-                                <br />
-
-                                @*<input type="reset" id="New" value="Reset" class="button cus-reset" />*@
-
-
-                                @Html.ActionLink("Forgot your password?", "ForgotPassword", null, new{ @class = "cus-forg-pass", @style = "margin-top:10px" } )
-
-                                <a href="~/Employee/Register" class="btn  btn-circle" style="background: #57ccc3; color:white;margin-top:20px;">
-                                    Create User Account
-
-                                </a>
-                            </div>
-
-                        }
-                    </section>
+                            }
+                        </section>
+                    </div>
                 </div>
+
             </div>
 
         </div>
     </div>
 </div>
-
 
 
 <!-- ~/assets/global/plugins/design/login/-->
@@ -202,5 +251,9 @@
 <script>
     $('#New').click(function () {
         location.reload();
+    });
+    $(document).ready(function () {
+        $('.body-content').removeClass('page-container');
+        $('.body-content').css('height', 'calc(100vh - 203.1px)');
     });
 </script>

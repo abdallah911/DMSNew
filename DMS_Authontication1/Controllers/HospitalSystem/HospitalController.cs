@@ -17,6 +17,9 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using QRCoder;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace DMS_Authontication1.Controllers.HospitalSystem
 {
@@ -305,7 +308,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     EMP_ENAME = employe.EMP_ENAME_ST + " " + employe.EMP_ENAME_SC + " " + employe.EMP_ENAME_TH,
                     INS_START_DATE = employe.INS_START_DATE,
                     INS_END_DATE = employe.INS_END_DATE,
-                    TERMINATE_DATE = DateTime.Now,
+                    TERMINATE_DATE = employe.TERMINATE_DATE,
                     TERMINATE_FLAG = employe.TERMINATE_FLAG,
                     CLASS_CODE = employe.CLASS_CODE,
                     COMP_ID = compID,
@@ -928,8 +931,49 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         }
 
+        private byte[] GenerateQrCode(Int64 id)
+        {
+            using (var qrGenerator = new QRCodeGenerator())
+            {
+                string site = "https://sios-eg.com/Claims/UploadClaimPhoto/";
+                string data = "";
 
+                data = site + id;
 
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+                using (var qrCode = new QRCode(qrCodeData))
+                {
+                    using (Bitmap qrCodeImage = qrCode.GetGraphic(20))
+                    {
+                        // Convert Bitmap to Byte Array
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            qrCodeImage.Save(ms, ImageFormat.Png);
+                            return ms.ToArray(); // Return as byte array
+                        }
+                    }
+                }
+            }
+        }
+        void saveQrClaim(Int64 id)
+        {
+            try
+            {
+                byte[] qrCodeImageBytes = GenerateQrCode(id);
+
+                HospitalClaimQR hospitalClaimQR = new HospitalClaimQR
+                {
+                    ClaimId = id,
+                    ImageQR = qrCodeImageBytes
+                };
+
+                db.HospitalClaimQRs.Add(hospitalClaimQR);
+                db.SaveChanges();
+
+                //db2.SaveQrCode(CompNo.Text, CardNo.Text, qrCodeImageBytes) == 1
+            }
+            catch(Exception ex) { }
+        }
 
         /// <summary>
         /// 
@@ -1016,11 +1060,17 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 // Services = "كشف دكتور ";
                 else
                 {
-                    var x = db.HospitalClaims.Add(hospitalClaim);
-                    var xx = db.SaveChanges();
+                    var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == C_Com_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+                    hospitalClaim.CompHolderCode = compholder;
 
-                    if (xx > 0)
+                    db.HospitalClaims.Add(hospitalClaim);
+                    var result = db.SaveChanges();
+
+                    if (result > 0)
+                    {
+                        saveQrClaim(hospitalClaim.IdPrimary);
                         return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
                     else
                         return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -1033,10 +1083,12 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
                 if (Services_ID == 11104)
                     Services = "Emergency_Service";
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == C_Com_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+                hospitalClaim.CompHolderCode = compholder;
                 hospitalClaim.SERVICES = Services;
-                var x = db.HospitalClaims.Add(hospitalClaim);
-                var xx = db.SaveChanges();
-                if (xx > 0)
+                db.HospitalClaims.Add(hospitalClaim);
+                var result = db.SaveChanges();
+                if (result > 0)
                 {
                     if (HospitalException != 0 && HospitalException != null)
                     {
@@ -1053,6 +1105,9 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         db.Entry(exc).State = EntityState.Modified;
                         db.SaveChanges();
                     }
+
+                    saveQrClaim(hospitalClaim.IdPrimary);
+
                     return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary + "\n", msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 else
@@ -1119,15 +1174,19 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             // for print report for doctor chick
             if (model.SpecialistId != null)
             {
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == model.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
                 rd.Load(Path.Combine(Server.MapPath("~/Reports/Hospital"), "HospitalClaimReport.rpt"));
                 rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
                 rd.SetParameterValue("@idd", model.IdPrimary);
+                rd.SetParameterValue("CompType", compholder);
             }
 
             // fro print report that belongs to rays and labs claim
             else
             {
+
                 rd.Load(Path.Combine(Server.MapPath("~/Reports/Hospital"), "PatientRequest.rpt"));
+
                 rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
                 rd.SetParameterValue("@COD", model.ID);
             }
@@ -1497,12 +1556,13 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 if (isfamily == "Y")
                 {
                     AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
-                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic" && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 else
                 {
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Lab_Daily" && r.Manager != "Stop-ED-Lab_Daily"
                       && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
                 //Main consumption

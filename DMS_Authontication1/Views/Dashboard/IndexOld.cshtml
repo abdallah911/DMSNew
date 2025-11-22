@@ -1,0 +1,276 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 17 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+<div class="dms-container reports">
+
+    
+ 
+        <style>
+            .dashboard-body {
+                padding: 20px;
+            }
+
+            .doughnut-box {
+                height: 300px;
+            }
+
+                .doughnut-box .box {
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                    .doughnut-box .box div {
+                        height: 100%;
+                    }
+
+            #doughnutChart {
+                height: 300px !important;
+            }
+        </style>
+        <div class="portlet box dms-container">
+
+            <div class="dashboard-box container pe-0 mx-auto row d-flex flex-wrap">
+                <div class="dashboard-categories col-sm-4">
+                    <ul>
+                        <li><a>Dashboard</a></li>
+                        <li><a>Message</a></li>
+                        <li><a>Leads</a></li>
+                        <li><a>Tasks</a></li>
+                        <li><a>Calender</a></li>
+                        <li><a>Contact</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-body col-sm-8" id="MainDashbord">
+                    <div class="col-sm-6">
+                        <div class="w-100 mb-4">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartTwo"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 ">
+                        <div class="cards-box mb-4 w-100">
+                            <div class="card-body">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="Consum"></h4>
+                                <h4 class="card-name">Consumption</h4>
+                                <p class="ratio" id="RatioConsum">100%</p>
+                            </div>
+                            <div class="card-body">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="NumberEmployee"></h4>
+                                <h4 class="card-name">Employees Active</h4>
+                                <p class="ratio" id="RatioEmployee"></p>
+                            </div>
+                            <div class="card-body">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="NumberMed"></h4>
+                                <h4 class="card-name">Medication Counsumption</h4>
+                                <p class="ratio" id="RatioMed"></p>
+                            </div>
+                            <div class="card-body">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="NumberOther"></h4>
+                                <h4 class="card-name">Medication Counsumption</h4>
+                                <p class="ratio" id="RatioOther"></p>
+                            </div>
+                        </div>
+                        <div class="doughnut-box chart-card w-100">
+                            <div class="doughnut-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="doughnutChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12"></div>
+                </div>
+            </div>
+        </div>
+    
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('doughnutChart');
+    const ctxTwo = document.getElementById('graphChart');
+    const ctxThree = document.getElementById('graphChartTwo');
+    const ctxFour = document.getElementById('graphChartThree');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Blue',
+                'Dark Blue'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [12, 19],
+                backgroundColor: [
+                    '#8389eb',
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+    new Chart(ctxTwo, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    '#8389eb',
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    new Chart(ctxThree, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    '#8389eb',
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart(ctxFour, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    '#8389eb',
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+
+
+    $(function () {
+
+    })
+
+    function getInfoCard() {
+
+    }
+
+</script>

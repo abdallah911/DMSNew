@@ -1,0 +1,299 @@
+﻿<div class="consumption">
+   
+    <div class="cards-parent mb-4 ">
+
+        <div class="cards-box w-100">
+
+            <div class="card-body one">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberMed">
+                    152,373,434.72
+                </h4>
+                <h5 class="card-name">
+                    Gross Consumptions Per Servies Date
+                </h5>
+                @*<p class="ratio" id="RatioMed"></p>*@
+            </div>
+            <div class="card-body two">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberOther">
+                    127,436,344.19
+                </h4>
+                <h5 class="card-name">
+                    Net Consumptions Per Servies Date
+                </h5>
+                @*<p class="ratio" id="RatioOther"></p>*@
+            </div>
+            <div class="card-body three">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberMed">
+                    186,229,715.13
+                </h4>
+                <h5 class="card-name">Gross Consumptions Per Record Date</h5>
+                @*<p class="ratio" id="RatioMed"></p>*@
+            </div>
+            <div class="card-body four">
+                <i class="fa fa-user"></i>
+                <h4 class="card-number" id="NumberOther">
+                    156,615,312.56
+                </h4>
+                <h5 class="card-name">Net Consumptions Per Record Date</h5>
+                @*<p class="ratio" id="RatioOther"></p>*@
+            </div>
+
+        </div>
+        <div class="card-graph">
+            <div class="graph-box">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChart"></canvas>
+                    </div>
+                </div>
+                <label>Consumptions Per Companies</label>
+                <div class="graph-table table-responsive w-100">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Company Name</th>
+                                <th>500118</th>
+                                <th>500119</th>
+                                <th>500120</th>
+                                <th>500121</th>
+                                <th>500122</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Gross Value</td>
+                                <td>6,654,890.57</td>
+                                <td>39,170,102.90</td>
+                                <td>35,585,983.51</td>
+                                <td>69,714,725.80</td>
+                                <td>1,247,731.94</td>
+
+                            </tr>
+                            <tr>
+                                <td>Net Value</td>
+                                <td>5,906,272.04</td>
+                                <td>33,095,029.03</td>
+                                <td>27,667,279.53</td>
+                                <td>59,737,417.55</td>
+                                <td>1,030,346.04</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="graph-parent ">
+
+        <div class="w-100">
+            <div class="graph-box table">
+                <div class="box w-100">
+                    <div>
+                        <canvas id="graphChartSeven"></canvas>
+                    </div>
+                </div>
+                <label>
+                    Consumptions Per Servies Type
+                </label>
+                <div class="graph-table table-responsive w-100">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service Type</th>
+                                <th>عمليات جراحية</th>
+                                <th>أدويه</th>
+                                <th>كشف طبيب</th>
+                                <th>أشعات</th>
+                                <th>تحاليل طبية</th>
+                                <th>خدمات عيادة خارجية</th>
+                                <th>علاج طبيعي</th>
+                                <th>اسنان</th>
+                                <th>بصريات</th>
+                                <th>خدمات داخل المستشفيات</th>
+                                <th>ولادة</th>
+                                <th>مناظير</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Gross Value</td>
+                                <td>66,241,152.59</td>
+                                <td>59,330,518.40</td>
+                                <td>7,877,715.50</td>
+                                <td>7,798,013.90</td>
+                                <td>6,398,044.34</td>
+                                <td>2,672,600.46</td>
+                                <td>897,078.06</td>
+                                <td>662,699.50</td>
+                                <td>195,044.00</td>
+                                <td>174,310.00</td>
+                                <td>118,364.22</td>
+                                <td>7,893.75</td>
+
+                            </tr>
+                            <tr>
+                                <td>Net Value</td>
+                                <td>56,334,589.72</td>
+                                <td>48,362,434.90</td>
+                                <td>6,068,378.32</td>
+                                <td>7,424,979.61</td>
+                                <td>6,152,742.20</td>
+                                <td>1,531,471.36</td>
+                                <td>834,315.06</td>
+                                <td>419,370.50</td>
+                                <td>93,587.00</td>
+                                <td>173,444.00</td>
+                                <td>34,332.76</td>
+                                <td>6,698.75</td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100">
+            <div class="graph-box table">
+                <div class="box">
+                    <div>
+                        <canvas id="graphChartEight"></canvas>
+                    </div>
+                </div>
+                <label>
+                    Consumptions Per Services Name
+                </label>
+                <div class="graph-table">
+                    <table>
+                        <thead>
+                            <tr>
+
+                                <th>Service Name</th>
+                                <th>باكدج عمليات - داخل الهيئة الطبية</th>
+                                <th>ادوية مزمن - داخل الهيئة الطبية</th>
+                                <th>كشف طبيب - داخل المستشفيات</th>
+                                <th>ادوية يومي - داخل الهيئة الطبية</th>
+                                <th>اشعات - داخل الهيئة الطبية</th>
+                                <th>تحاليل طبية - داخل الهيئة الطبية</th>
+                                <th>خدمات عيادة خارجية - داخل الهيئة الطبية</th>
+                                <th>ادوية شهري - داخل الهيئة الطبية</th>
+                                <th>اشعات - داخل المستشفيات</th>
+                                <th>تحاليل طبية - داخل المستشفيات</th>
+                                <th>خدمات اسنان - خارج الهيئة الطبية</th>
+                                <th>علاج طبيعي - داخل الهيئة الطبية</th>
+                                <th>علاج طبيعي - داخل المستشفيات</th>
+                                <th>بصريات - خارج الهيئة الطبية</th>
+                                <th>خدمات عيادة خارجية - خارج الهيئة الطبية</th>
+                                <th>ولادة قيصيرية - خارج الهيئة الطبية</th>
+                                <th>ادوية يومي - خارج الهيئة الطبية</th>
+                                <th>كشف طبيب - داخل الهية الطبية</th>
+                                <th>تحاليل طبية - خارج الهيئة الطبية</th>
+                                <th>مناظير</th>
+                                <th>اشعات - خارج الهيئة الطبية</th>
+                                <th>ادوية مزمن - خارج الهيئة الطبية</th>
+                                <th>ولادة طبيعية - خارج الهيئة الطبية</th>
+                                <th>كشف طبيب - خارج الهيئة الطبية</th>
+                                <th>خدمات اسنان - داخل المستشفيات</th>
+                                <th>ادوية شهري - خارج الهيئة الطبية</th>
+                                <th>ادوية - داخل المستشفيات</th>
+                                <th>علاج طبيعي - خارج الهيئة الطبية</th>
+                                <th>خدمات اسنان - داخل الهيئة الطبية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td> Gross Value</td>
+                                <td>66,241,152.59</td>
+                                <td>50,023,043.87</td>
+                                <td>7,828,190.50</td>
+                                <td>7,059,739.64</td>
+                                <td>5,677,829.85</td>
+                                <td>5,037,100.53</td>
+                                <td>2,694,065.69</td>
+                                <td>2,178,380.85</td>
+                                <td>2,111,052.80</td>
+                                <td>1,323,613.81</td>
+                                <td>660,241.50</td>
+                                <td>575,770.00</td>
+                                <td>322,378.06</td>
+                                <td>195,044.00</td>
+                                <td>144,312.52</td>
+                                <td>113,364.22</td>
+                                <td>58,687.04</td>
+                                <td>50,610.00</td>
+                                <td>32,505.00</td>
+                                <td>13,826.00</td>
+                                <td>9,836.25</td>
+                                <td>8,127.00</td>
+                                <td>5,000.00</td>
+                                <td>4,085.00</td>
+                                <td>2,433.00</td>
+                                <td>1,617.00</td>
+                                <td>923.00</td>
+                                <td>480.00</td>
+                                <td>25.00</td>
+
+
+
+                            </tr>
+                            <tr>
+                                <td>Net Value</td>
+                                <td>56,334,589.72</td>
+                                <td>40,827,419.29</td>
+                                <td>6,020,270.32</td>
+                                <td>5,802,715.22</td>
+                                <td>5,671,391.77</td>
+                                <td>5,037,010.34</td>
+                                <td>1,561,604.00</td>
+                                <td>1,675,117.32</td>
+                                <td>1,746,732.84</td>
+                                <td>1,082,170.86</td>
+                                <td>417,263.50</td>
+                                <td>556,822.00</td>
+                                <td>278,659.06</td>
+                                <td>93,587.00</td>
+                                <td>134,878.11</td>
+                                <td>32,832.76</td>
+                                <td>49,593.88</td>
+                                <td>50,610.00</td>
+                                <td>28,736.00</td>
+                                <td>12,532.00</td>
+                                <td>7,560.00</td>
+                                <td>5,512.70</td>
+                                <td>1,500.00</td>
+                                <td>2,668.00</td>
+                                <td>2,082.00</td>
+                                <td>1,302.20</td>
+                                <td>774.30</td>
+                                <td>384.00</td>
+                                <td>25.00</td>
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="col-sm-12"></div>
+</div>
+
+@*<script src="~/Scripts/DMS/Dashbord.js?V=0.2"></script>*@

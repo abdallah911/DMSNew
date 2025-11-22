@@ -17,8 +17,5 @@ namespace DMS_Authontication1.ViewModel.CustomerService
         public string MedicalReply { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedDate { get; set; }
-   
-
-      
     }
 }

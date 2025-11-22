@@ -75,7 +75,7 @@ namespace DMS_Authontication1.Controllers.HR
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
-                 if (User.Identity.Name == "sofico-hr")
+                if (User.Identity.Name == "sofico-hr")
                 {
                     return View("~/Views/Reports/ConsumptionHR.cshtml");
                 }
@@ -87,7 +87,7 @@ namespace DMS_Authontication1.Controllers.HR
                 var HrUserNamre = User.Identity.GetUserName();
                 string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
                 ViewBag.compnum = compa;
-                
+
                 if (compa.Contains("500") || compa.Contains("800"))
                 {
                     return View();
@@ -739,6 +739,7 @@ namespace DMS_Authontication1.Controllers.HR
                     }
                     data.RoshetaType = "Lab";
 
+                rd.SetParameterValue("CompType", data.CompHolderCode);
                     rd.SetParameterValue("Type", data.RoshetaType);
                     rd.SetParameterValue("Pharmacy", data.CreatedBy);
                     rd.SetParameterValue("Approval", id);
@@ -828,6 +829,7 @@ namespace DMS_Authontication1.Controllers.HR
                         rd.SetParameterValue("PatientName", patient.EMP_ENAME);
                     }
                     data.RoshetaType = "Ray";
+                rd.SetParameterValue("CompType",data.CompHolderCode);
                     rd.SetParameterValue("Type", data.RoshetaType);
                     rd.SetParameterValue("Pharmacy", data.CreatedBy);
                     rd.SetParameterValue("Approval", id);
@@ -878,7 +880,7 @@ namespace DMS_Authontication1.Controllers.HR
                     string accptionlistString = "";
                     var DataService1 = new Comp_Customized_D_D();
                     var med_card = new Med_Card();
-                    int? NoOver = 0, NoPay = 0, AcceptionId = 0; 
+                    int? NoOver = 0, NoPay = 0, AcceptionId = 0;
                     double CellingPert;
                     var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
                     if (DataService == null)
@@ -994,6 +996,7 @@ namespace DMS_Authontication1.Controllers.HR
                     }
                     rd.SetParameterValue("hasApprovalCode", AcceptionId);
 
+                    rd.SetParameterValue("CompType", data.CompHolderCode);
                     rd.SetParameterValue("pay", NoPay);
                     rd.SetParameterValue("over", NoOver);
                     rd.SetParameterValue("perc", CellingPert);

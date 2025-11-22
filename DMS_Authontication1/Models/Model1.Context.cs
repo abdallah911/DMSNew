@@ -179,7 +179,12 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<IcdData> IcdDatas { get; set; }
         public virtual DbSet<CompIcdCpt> CompIcdCpts { get; set; }
         public virtual DbSet<ClaimPhotoDiagnoise> ClaimPhotoDiagnoises { get; set; }
+        public virtual DbSet<CompanyEvent> CompanyEvents { get; set; }
         public virtual DbSet<CompContractClassProvider> CompContractClassProviders { get; set; }
+        public virtual DbSet<HospitalClaimQR> HospitalClaimQRs { get; set; }
+        public virtual DbSet<ReviewClaim> ReviewClaims { get; set; }
+        public virtual DbSet<ReviewClaimsNew> ReviewClaimsNews { get; set; }
+        public virtual DbSet<DisComp> DisComps { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
@@ -204,7 +209,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminClamsCounts")]
-        public virtual IQueryable<fn_AdminClamsCounts_Result> fn_AdminClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminClamsCounts_Result> fn_AdminClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -238,7 +243,11 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_MedicalApprovalSearsh")]
@@ -264,7 +273,7 @@ namespace DMS_Authontication1.Models
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminClamsList")]
-        public virtual IQueryable<fn_AdminClamsList_Result3> fn_AdminClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminClamsList_Result3> fn_AdminClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -298,11 +307,15 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminClamsList_Result3>("[DMS_TESTEntities].[fn_AdminClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminClamsList_Result3>("[DMS_TESTEntities].[fn_AdminClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_ClaimsReport")]
-        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider)
+        public virtual IQueryable<fn_ClaimsReport_Result3> fn_ClaimsReport(string from, string to, string provider, Nullable<int> compHoder)
         {
             var fromParameter = from != null ?
                 new ObjectParameter("from", from) :
@@ -316,11 +329,15 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("provider", provider) :
                 new ObjectParameter("provider", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_ClaimsReport_Result3>("[DMS_TESTEntities].[fn_ClaimsReport](@from, @to, @provider)", fromParameter, toParameter, providerParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_ClaimsReport_Result3>("[DMS_TESTEntities].[fn_ClaimsReport](@from, @to, @provider, @CompHoder)", fromParameter, toParameter, providerParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminLabClamsCounts")]
-        public virtual IQueryable<fn_AdminLabClamsCounts_Result> fn_AdminLabClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminLabClamsCounts_Result> fn_AdminLabClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -354,11 +371,15 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminLabClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminLabClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminLabClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminLabClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminLabClamsList")]
-        public virtual IQueryable<fn_AdminLabClamsList_Result> fn_AdminLabClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminLabClamsList_Result> fn_AdminLabClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -392,11 +413,15 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminLabClamsList_Result>("[DMS_TESTEntities].[fn_AdminLabClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminLabClamsList_Result>("[DMS_TESTEntities].[fn_AdminLabClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminRayClamsCounts")]
-        public virtual IQueryable<fn_AdminRayClamsCounts_Result> fn_AdminRayClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminRayClamsCounts_Result> fn_AdminRayClamsCounts(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -430,11 +455,15 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminRayClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminRayClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminRayClamsCounts_Result>("[DMS_TESTEntities].[fn_AdminRayClamsCounts](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_AdminRayClamsList")]
-        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        public virtual IQueryable<fn_AdminRayClamsList_Result> fn_AdminRayClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE, Nullable<int> compHoder)
         {
             var fROMParameter = fROM != null ?
                 new ObjectParameter("FROM", fROM) :
@@ -468,7 +497,11 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", tYPE) :
                 new ObjectParameter("TYPE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminRayClamsList_Result>("[DMS_TESTEntities].[fn_AdminRayClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+            var compHoderParameter = compHoder.HasValue ?
+                new ObjectParameter("CompHoder", compHoder) :
+                new ObjectParameter("CompHoder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_AdminRayClamsList_Result>("[DMS_TESTEntities].[fn_AdminRayClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE, @CompHoder)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter, compHoderParameter);
         }
     
         [DbFunction("DMS_TESTEntities", "fn_searchCompEmployees")]
@@ -576,6 +609,16 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("userName", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateMedMedicicen", medicineCodeParameter, statusParameter, userNameParameter);
+        }
+    
+        [DbFunction("DMS_TESTEntities", "fn_searchCompEmployeesFullName")]
+        public virtual IQueryable<fn_searchCompEmployeesFullName_Result> fn_searchCompEmployeesFullName(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesFullName_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesFullName](@search)", searchParameter);
         }
     }
 }

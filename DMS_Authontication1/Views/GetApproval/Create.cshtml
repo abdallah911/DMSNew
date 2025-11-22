@@ -3,120 +3,135 @@
 @{
     ViewBag.Title = "Create";
 }
-<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
-    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Get Approval
-        </div>
-
+<div class="dms-container" style="margin-bottom: 25px; ">
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
-    <br />
-    <div class="portlet-body">
+    <div class="portlet box  ">
+        <div class="portlet-title title-bg">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Get Approval
+            </div>
 
-        <div class="row">
-            <div style="margin-left:1px;" class="form-group">
-                <div class="col-sm-3">
-                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="form-control" />
-                </div>
-                <div class="col-sm-3">
-                    <button id="Search" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                    </button>
+        </div>
+        <br />
+        <div class="portlet-body">
+
+            <div class="row">
+                <div style="margin-left:1px;" class="form-group">
+                    <div class="col-sm-3">
+                        <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="form-control" />
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="Search" type="button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        @Html.Partial("Cards")
+            @Html.Partial("Cards")
 
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card </h2> </div>
-        <div class="row">
-            <div class="form-group">
+            <br />
+            <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card </h2> </div>
+            <div class="row">
+                <div class="form-group">
 
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                @*<div class="col-sm-2">
-                        @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>*@
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    @*<div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>*@
 
-
-            </div>
-        </div>
-
-        <div class="row">
-
-        </div>
-
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Permissions</h2> </div>
-
-        <div class="row">
-            <div class="form-group">
-
-                <div class="col-sm-2">
-
-                    <label style="font-size:medium">Approval Type</label>
-                    <div></div>
-                    <label class="custom-control custom-radio">
-                        <input onclick="myFunction()" id="radio1" name="radio" value="Normal" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Normal</span>
-                    </label>
-                    <label class="custom-control custom-radio">
-                        <input onclick="Function()" id="radio2" name="radio" value="Vip" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Vip</span>
-                    </label>
 
                 </div>
-                <div hidden id="Hidde" style="margin-left:10px;" class="col-sm-2">
-                    <label>Provider</label>
-                    @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
-        new { @class = "form-control", id = "Provider" })
-
-                </div>
-
-                <div class="col-sm-2" hidden id="Hidden">
-                    <label style="font-size:medium; margin-left:12px;">Reasons</label>
-
-                    @* <input type="hidden" id="textBoxVal" />*@
-                    <select class="mySelect2" multiple style="width :280px;" name="SelectVal" id="SelectVal"></select>
-                </div>
-
             </div>
 
             <div class="row">
 
-                <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
+            </div>
+
+            <br />
+            <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Permissions</h2> </div>
+
+            <div class="row">
+                <div class="form-group">
+
+                    <div class="col-sm-2">
+
+                        <label style="font-size:medium">Approval Type</label>
+                        <div></div>
+                        <label class="custom-control custom-radio">
+                            <input onclick="myFunction()" id="radio1" name="radio" value="Normal" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Normal</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input onclick="Function()" id="radio2" name="radio" value="Vip" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Vip</span>
+                        </label>
+
+                    </div>
+                    <div hidden id="Hidde" style="margin-left:10px;" class="col-sm-2">
+                        <label>Provider</label>
+                        @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
+            new { @class = "form-control", id = "Provider" })
+
+                    </div>
+
+                    <div class="col-sm-2" hidden id="Hidden">
+                        <label style="font-size:medium; margin-left:12px;">Reasons</label>
+
+                        <select class="mySelect2" multiple style="width :200px;" name="SelectVal" id="SelectVal"></select>
+                    </div>
+
+                    <div class="col-sm-2" hidden id="Patient">
+                        <label style="font-size:medium; margin-left:12px;">Patient Amount</label>
+
+                        <input class="form-control" name="PatientAmount" id="PatientAmount" type="number" />
+                    </div>
+
+                    <div class="col-sm-2" hidden id="Percent">
+                        <label style="font-size:medium; margin-left:12px;">Patient Percent</label>
+
+                        <input class="form-control" name="PatientPercent" id="PatientPercent" type="number" min="0" max="100" />
+                    </div>
+
+                </div>
+
+                @*<div class="row">
+
+                    <button style="width: 110px; margin-left: 750px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
 
 
+                </div>*@
+            </div>
+            <div class="panel-footer" style="text-align:right;">
+                <button style="width: 110px; margin-left: 750px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
             </div>
         </div>
     </div>
+
 </div>
-
-
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script src="~/assets/HomeTemplete/Scripts/select2.min.js"></script>
@@ -136,11 +151,14 @@
         document.getElementById("Hidden").hidden = false;
         document.getElementById("Hidde").hidden = false;
 
+
     }
     function Function() {
 
         document.getElementById("Hidden").hidden = true;
         document.getElementById("Hidde").hidden = true;
+        document.getElementById("Patient").hidden = true;
+        document.getElementById("Percent").hidden = true;
 
     }
     $(document).ready(function () {
@@ -155,7 +173,8 @@
                 delay: 250,
                 data: function (Params) {
                     return {
-                        SearchTerm: Params.term
+                        SearchTerm: Params.term,
+                        CardId: $("#txtSearchCard").val()
                     };
                 },
                 processResults: function (data, Params) {
@@ -166,7 +185,32 @@
             }
 
         });
+        $('.mySelect2').on('select2:selecting', function (event) {
+            var Code = event.params.args.data.id;
+
+            if (Code == "1") {
+                document.getElementById("Percent").hidden = false;
+
+            }
+            else if (Code == "2") {
+                document.getElementById("Patient").hidden = false;
+            }
+
+        });
+        $('.mySelect2').on("select2:unselecting", function (event) {
+            var Code = event.params.args.data.id;
+            if (Code == "1") {
+                document.getElementById("Percent").hidden = true;
+
+            }
+            else if (Code == "2") {
+                document.getElementById("Patient").hidden = true;
+
+            }
+
+        });
     });
+
     var dat1;
     var StartDate;
     var birthdate;
@@ -233,7 +277,7 @@
                         var data = "<tr >" +
                             "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
                             "<td>" + r[i].CARD_ID + "</td>" +
-                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ANAME_ST + " " + r[i].EMP_ANAME_SC + " " + r[i].EMP_ANAME_TH + "</td>" +
                             "<td>" + r[i].EMP_ENAME + "</td>" +
                             "<td>" + StartDate + "</td>" +
                             "<td>" + dat1 + "</td>" +
@@ -251,7 +295,7 @@
                         $('#txtSearchCard').val(CardId);
                         var ArName;
                         for (var i = 0; i < r.length; i++) {
-                            ArName = r[i].EMP_ANAME;
+                            ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                         }
 
                         var EndDate = dat1;
@@ -418,6 +462,8 @@
                     ProvidersId: $('#Provider').val(),
                     ApprovalType: $("input[name='radio']:checked").val(),
                     Array: $('#SelectVal').val(),
+                    PatientPercent: $('#PatientPercent').val(),
+                    PatientAmount: $('#PatientAmount').val(),
 
 
                 },

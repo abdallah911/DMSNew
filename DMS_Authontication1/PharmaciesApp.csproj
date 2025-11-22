@@ -172,6 +172,11 @@
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.2.20190115\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -271,6 +276,7 @@
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -324,8 +330,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\RayApprovalsController.cs" />
+    <Compile Include="Controllers\LabApprovalsController.cs" />
     <Compile Include="Controllers\HR\CompIcdCpController.cs" />
+    <Compile Include="Controllers\HR\ReviewClaimsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
+    <Compile Include="Controllers\Clinics\Clinics.cs" />
+    <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
@@ -378,6 +390,7 @@
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data Function\DBApproval106.cs" />
+    <Compile Include="Data Function\DB106.cs" />
     <Compile Include="Data Function\DBData106.cs" />
     <Compile Include="Data Function\DBData.cs" />
     <Compile Include="Data Function\DBApproval.cs" />
@@ -533,6 +546,9 @@
     <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyEvent.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -618,6 +634,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Diagnosi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisComp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DMSComplaint.cs">
@@ -720,6 +739,9 @@
     <Compile Include="Models\fn_searchCompEmployeesForNextContract_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\fn_searchCompEmployeesFullName_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\fn_searchCompEmployees_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -742,6 +764,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HospitalClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HospitalClaimQR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HospitalDoctor.cs">
@@ -962,6 +987,12 @@
     <Compile Include="Models\RequestAddProvider.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReviewClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReviewClaimsNew.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Hub\NotificationHub.cs" />
     <Compile Include="Models\Roshita.cs">
@@ -1052,11 +1083,11 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Reports\Hospital\HospitalClaimReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Reports\Hospital\HospitalClaimReport1.cs">
       <DependentUpon>HospitalClaimReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\Hospital\PatientRequest.cs">
       <AutoGen>True</AutoGen>
@@ -1071,6 +1102,12 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\HR\CompanyBatchReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyBatchReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\LetterTransfer.cs">
       <AutoGen>True</AutoGen>
@@ -1388,6 +1425,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\Chart\CardDataViewModel.cs" />
     <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
@@ -1403,6 +1441,14 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ClaimsCardDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\BatchViewModel.cs" />
+    <Compile Include="ViewModel\HR\InvoiceViewModel.cs" />
+    <Compile Include="ViewModel\HR\MedicalApprovalViewModel.cs" />
+    <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\ClaimsViewModel.cs" />
+    <Compile Include="ViewModel\HR\CardInformationViewModel.cs" />
     <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
     <Compile Include="ViewModel\CompEmployees.cs" />
@@ -1495,7 +1541,73 @@
     <Content Include="assets\global\img\ajax-modal-loading.gif" />
     <Content Include="assets\global\img\bg_1.jpg" />
     <Content Include="assets\global\img\bg_2.jpg" />
+    <Content Include="assets\global\img\clients\aca.png" />
+    <Content Include="assets\global\img\clients\alpha.png" />
+    <Content Include="assets\global\img\clients\arkan.jfif" />
+    <Content Include="assets\global\img\clients\avit.jpg" />
+    <Content Include="assets\global\img\clients\bit.png" />
+    <Content Include="assets\global\img\clients\brilliance.png" />
+    <Content Include="assets\global\img\clients\cloud.jfif" />
+    <Content Include="assets\global\img\clients\daniel-hechter-hd-logo.png" />
+    <Content Include="assets\global\img\clients\eaa.png" />
+    <Content Include="assets\global\img\clients\ecs.png" />
+    <Content Include="assets\global\img\clients\ENOIA.png" />
+    <Content Include="assets\global\img\clients\frogz.png" />
+    <Content Include="assets\global\img\clients\Hilton.png" />
+    <Content Include="assets\global\img\clients\kapci.png" />
+    <Content Include="assets\global\img\clients\mega.png" />
+    <Content Include="assets\global\img\clients\mems-vision.png" />
+    <Content Include="assets\global\img\clients\petrotrade.png" />
+    <Content Include="assets\global\img\clients\quip.jfif" />
+    <Content Include="assets\global\img\clients\rayah.png" />
+    <Content Include="assets\global\img\clients\riva.png" />
+    <Content Include="assets\global\img\clients\tele teck.png" />
+    <Content Include="assets\global\img\clients\terra.png" />
+    <Content Include="assets\global\img\clients\The-Ministry-of-Environment.png" />
+    <Content Include="assets\global\img\clients\today-news.png" />
+    <Content Include="assets\global\img\clients\universal.png" />
+    <Content Include="assets\global\img\clients\vscct.png" />
+    <Content Include="assets\global\img\clients\التموين العربي للاطعمة.png" />
+    <Content Include="assets\global\img\clients\الشركة_المصرية_القابضة_للمطارات_والملاحة_الجوية.png" />
+    <Content Include="assets\global\img\clients\الهيئة_العامة_للأرصاد_الجوية_المصرية.png" />
+    <Content Include="assets\global\img\clients\حلواني اخوان.png" />
+    <Content Include="assets\global\img\clients\سيمادكو.png" />
+    <Content Include="assets\global\img\clients\شركة_ميناء_القاهرة_الجوي.png" />
+    <Content Include="assets\global\img\clients\لوجو-مكتبة-الإسكندرية.png" />
+    <Content Include="assets\global\img\clients\وزارة_الطيران_المدني.png" />
+    <Content Include="assets\global\img\Dashboard\comparison-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\comparison-icon-white.svg" />
+    <Content Include="assets\global\img\Dashboard\consumption-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\consumption-icon-white.svg" />
+    <Content Include="assets\global\img\Dashboard\dashboard-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\dashboard-icon-white.svg" />
+    <Content Include="assets\global\img\Dashboard\leadership-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\leadership-icon-white.svg" />
+    <Content Include="assets\global\img\Dashboard\live-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\live-icon-white.svg" />
+    <Content Include="assets\global\img\Dashboard\provider-icon-black.svg" />
+    <Content Include="assets\global\img\Dashboard\provider-icon-white.svg" />
     <Content Include="assets\global\img\datatable-row-openclose.png" />
+    <Content Include="assets\global\img\Events\1.gif" />
+    <Content Include="assets\global\img\Events\Canon-gif.gif" />
+    <Content Include="assets\global\img\Events\Eid-Card.gif" />
+    <Content Include="assets\global\img\Events\Eid-login-bg.png" />
+    <Content Include="assets\global\img\Events\Eid-Logo.gif" />
+    <Content Include="assets\global\img\Events\Eid2-login-bg.png" />
+    <Content Include="assets\global\img\Events\Eid2-logo.gif" />
+    <Content Include="assets\global\img\Events\event-logo.png" />
+    <Content Include="assets\global\img\Events\NewYear-login-bg.png" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg.jpg" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg2.jpg" />
+    <Content Include="assets\global\img\Events\NewYear-Welcome-bg3.jpg" />
+    <Content Include="assets\global\img\Events\ramadan-card-ld.jpeg" />
+    <Content Include="assets\global\img\Events\ramadan-card.jpg" />
+    <Content Include="assets\global\img\Events\Ramadan-logo.gif" />
+    <Content Include="assets\global\img\Events\ramadan-pattern-14.png" />
+    <Content Include="assets\global\img\Events\ramadan-pattern.jpg" />
+    <Content Include="assets\global\img\Events\ramadan-pattern2.jpg" />
+    <Content Include="assets\global\img\Events\Ramadan-welcome-bg.png" />
+    <Content Include="assets\global\img\Events\welcome-event.png" />
     <Content Include="assets\global\img\flags\ad.png" />
     <Content Include="assets\global\img\flags\ae.png" />
     <Content Include="assets\global\img\flags\af.png" />
@@ -1749,6 +1861,8 @@
     <Content Include="assets\global\img\loading-spinner-default.gif" />
     <Content Include="assets\global\img\loading-spinner-grey.gif" />
     <Content Include="assets\global\img\loading.gif" />
+    <Content Include="assets\global\img\newloading.gif" />
+    <Content Include="assets\global\img\login-bg.png" />
     <Content Include="assets\global\img\overlay-icon.png" />
     <Content Include="assets\global\img\portfolio\1200x900\01.jpg" />
     <Content Include="assets\global\img\portfolio\1200x900\02.jpg" />
@@ -1993,6 +2107,7 @@
     <Content Include="assets\global\img\portlet-remove-icon-white.png" />
     <Content Include="assets\global\img\portlet-remove-icon.png" />
     <Content Include="assets\global\img\remove-icon-small.png" />
+    <Content Include="assets\global\img\shape.svg" />
     <Content Include="assets\global\img\social\aboutme.png" />
     <Content Include="assets\global\img\social\amazon.png" />
     <Content Include="assets\global\img\social\behance.png" />
@@ -4809,11 +4924,18 @@
     <Content Include="assets\global\plugins\design\homecontent\js\scrollax.min.js" />
     <Content Include="assets\global\plugins\design\images\emergency-call.png" />
     <Content Include="assets\global\plugins\design\images\user_img.jpg" />
+    <Content Include="assets\global\plugins\design\js\bootstrap.bundle.min.js" />
     <Content Include="assets\global\plugins\design\js\bootstrap.min.js" />
     <Content Include="assets\global\plugins\design\js\circle-progress.min.js" />
     <Content Include="assets\global\plugins\design\js\custom.js" />
+    <Content Include="assets\global\plugins\design\js\jquery-3.6.0.js" />
+    <Content Include="assets\global\plugins\design\js\jquery-ui.js" />
     <Content Include="assets\global\plugins\design\js\jquery.barfiller.js" />
     <Content Include="assets\global\plugins\design\js\jquery.collapsible.min.js" />
+    <Content Include="assets\global\plugins\design\js\jquery.min.js" />
+    <Content Include="assets\global\plugins\design\js\main-reports.js" />
+    <Content Include="assets\global\plugins\design\js\popper.min.js" />
+    <Content Include="assets\global\plugins\design\js\select2.min.js" />
     <Content Include="assets\global\plugins\design\js\swiper.js" />
     <Content Include="assets\global\plugins\design\js\swiper.min.js" />
     <Content Include="assets\global\plugins\design\login\js\about.js" />
@@ -6213,6 +6335,8 @@
     <Content Include="assets\HomeTemplete\Content\bootstrap-theme.min.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.min.css" />
+    <Content Include="assets\HomeTemplete\Content\css\bootstrap.min.css" />
+    <Content Include="assets\HomeTemplete\Content\css\jquery.dataTables.min.css" />
     <Content Include="assets\HomeTemplete\Content\css\select2.css" />
     <Content Include="assets\HomeTemplete\Content\css\select2.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\autoFill.bootstrap.css" />
@@ -6261,6 +6385,7 @@
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.jqueryui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.material.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="assets\HomeTemplete\Content\DataTables\css\datatables.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.semanticui.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.semanticui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.uikit.css" />
@@ -6364,6 +6489,7 @@
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.jqueryui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.semanticui.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="assets\HomeTemplete\Content\DataTables\dataTables.min.js" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\details_close.png" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\details_open.png" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\sort_asc.png" />
@@ -6441,6 +6567,7 @@
     <Content Include="assets\HomeTemplete\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\HomeTemplete\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\HomeTemplete\fonts\themify.svg" />
+    <Content Include="assets\HomeTemplete\img\Animation\Dms-Video.mp4" />
     <Content Include="assets\HomeTemplete\img\background\bg1.jpg" />
     <Content Include="assets\HomeTemplete\img\background\bg_1.png" />
     <Content Include="assets\HomeTemplete\img\background\bg_2.png" />
@@ -6498,6 +6625,7 @@
     <Content Include="assets\HomeTemplete\img\brand\3.png" />
     <Content Include="assets\HomeTemplete\img\brand\4.png" />
     <Content Include="assets\HomeTemplete\img\brand\5.png" />
+    <Content Include="assets\HomeTemplete\img\dms-silver-logo.png" />
     <Content Include="assets\HomeTemplete\img\DMS_Logo.png" />
     <Content Include="assets\HomeTemplete\img\elements\a.jpg" />
     <Content Include="assets\HomeTemplete\img\elements\a2.jpg" />
@@ -7696,6 +7824,17 @@
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
+    <Content Include="Scripts\DMS\Dashbord - Copy.js" />
+    <Content Include="Scripts\DMS\Dashbord.js" />
+    <Content Include="Scripts\DMS\RayApproval.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\LabApproval.js" />
+    <Content Include="Scripts\DMS\Labs\LabEditDoctor.js" />
+    <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\Ray\RayEditDoctor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8408,7 +8547,6 @@
     <Content Include="Views\EmployeeRequest\Delete.cshtml" />
     <Content Include="Views\EmployeeRequest\Details.cshtml" />
     <Content Include="Views\EmployeeRequest\Edit.cshtml" />
-    <Content Include="Views\EmployeeRequest\Index.cshtml" />
     <Content Include="Views\EmployeeRequest\Termination.cshtml" />
     <Content Include="Views\EmployeeRequest\EditRequest.cshtml" />
     <Content Include="Views\MedicalNetwork\Index.cshtml" />
@@ -8442,7 +8580,7 @@
     <Content Include="Views\User\AdminResetPassword.cshtml" />
     <Content Include="Views\User\ChangeSuccess.cshtml" />
     <Content Include="Views\Reports\ConsumptionPremium.cshtml" />
-    <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\AfterSales\FeedBack-Created.cshtml" />
     <Content Include="Views\AfterSales\Details.cshtml" />
     <Content Include="Views\AfterSales\Edit.cshtml" />
     <Content Include="Views\AfterSales\Delete.cshtml" />
@@ -8625,6 +8763,162 @@
     <Content Include="Views\CompIcdCp\Index.cshtml" />
     <Content Include="Views\CompIcdCp\Details.cshtml" />
     <Content Include="Views\Pharmacy\Send.cshtml" />
+    <Content Include="Views\AfterSales\HRData.cshtml" />
+    <Content Include="Views\AfterSales\HRCompany.cshtml" />
+    <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\ReviewClaims\History.cshtml" />
+    <Content Include="Views\EmployeeRequest\DashboardHR.cshtml" />
+    <Content Include="Reports\HR\ReviewCliamsReport.rpt" />
+    <Content Include="Reports\HR\ReviewCliamsReportSummary.rpt" />
+    <Content Include="Views\ReviewClaims\History - Copy.cshtml" />
+    <Content Include="Views\ReviewClaims\CompanyInvoice.cshtml" />
+    <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
+    <Content Include="Reports\HR\CompanyInvoiceReport.rpt" />
+    <Content Include="Reports\HR\OneClaimReport.rpt" />
+    <Content Include="Reports\HR\File\3040924684898.pdf" />
+    <Content Include="Reports\HR\File\3091024700345.pdf" />
+    <Content Include="Reports\HR\File\3241124705958.pdf" />
+    <Content Include="Reports\HR\File\3311024694755.pdf" />
+    <Content Include="Views\Abuse\Index.cshtml" />
+    <Content Include="Views\BasicCimpanyContract\Index.cshtml" />
+    <Content Include="Views\Clinics\BasicData.cshtml" />
+    <Content Include="Views\Clinics\Booking.cshtml" />
+    <Content Include="Views\Clinics\ClinicState.cshtml" />
+    <Content Include="Reports\HR\ReviewCliamsNew.rpt" />
+    <Content Include="Views\NewReports\ApprovalReports.cshtml" />
+    <Content Include="Views\NewReports\ConsumptionReport.cshtml" />
+    <Content Include="Views\NewReports\Index.cshtml" />
+    <Content Include="Views\NewReports\OperationReport.cshtml" />
+    <Content Include="Views\NewReports\ReportsContract.cshtml" />
+    <Content Include="Views\NewReports\ReportsCustomerServices.cshtml" />
+    <Content Include="Views\NewReports\ReportsLoseRatio.cshtml" />
+    <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
+    <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
+    <Content Include="Views\Shared\_Reports.cshtml" />
+    <Content Include="Reports\ContractReports\ReportEndComp11.rpt" />
+    <Content Include="Reports\ContractReports\ReportEndCompBefore1.rpt" />
+    <Content Include="Reports\CustomerServicesReports\ReportMonitor.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioLastReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReportCompareContract.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioStateReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpY.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYLimit.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCode.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCodeandleval.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationTransction.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrintPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderWithoutPrint.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithDelivery.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithoutReview.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithReview.rpt" />
+    <Content Include="Reports\PrintingReports\TransactionWithoutPrint.rpt" />
+    <Content Include="Reports\SoficoReports\ActivationReport.rpt" />
+    <Content Include="Reports\SoficoReports\ActiveMedicineChronicReport.rpt" />
+    <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
+    <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
+    <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmtDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalByCard.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCardDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompany.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompanyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDate.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServ.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalddd2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDelete.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalException.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalExceptionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalold.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrv.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrvDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollection.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollectionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReply.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReplyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdnt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdntDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServBy.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServByDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalService.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceComp.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceCompDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov1.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov10.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov11.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov12.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov13.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov14.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
+    <Content Include="Views\NetworkMedical\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\Index.cshtml" />
+    <Content Include="Views\Dashboard\IndexOld.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\_Live.cshtml" />
+    <Content Include="Views\Dashboard\_Live - Copy.cshtml" />
+    <Content Include="Views\Dashboard\22222.cshtml" />
+    <Content Include="Views\Dashboard\_Consumptions.cshtml" />
+    <Content Include="Views\Dashboard\_Providers.cshtml" />
+    <Content Include="Views\Dashboard\_Employees.cshtml" />
+    <Content Include="Views\Dashboard\_Comparison.cshtml" />
+    <Content Include="Views\Dashboard\Test.cshtml" />
+    <Content Include="Views\EmployeeRequest\FamiliesSubscription.cshtml" />
+    <Content Include="Views\Clinics\PrivateData.cshtml" />
+    <Content Include="Views\LabApprovals\_Branches.cshtml" />
+    <Content Include="Views\LabApprovals\_Cards.cshtml" />
+    <Content Include="Views\LabApprovals\_Labs.cshtml" />
+    <Content Include="Views\LabApprovals\Index.cshtml" />
+    <Content Include="Views\Labs\EditDoctor.cshtml" />
+    <Content Include="Views\RayApprovals\_Branches.cshtml" />
+    <Content Include="Views\RayApprovals\_Cards.cshtml" />
+    <Content Include="Views\RayApprovals\_Rays.cshtml" />
+    <Content Include="Views\RayApprovals\Index.cshtml" />
+    <Content Include="Views\Rays\EditDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8653,6 +8947,8 @@
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
     <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
+    <Folder Include="Reports\HR\File\Batch\" />
+    <Folder Include="Views\Booking\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>
@@ -8888,6 +9184,14 @@
     <EmbeddedResource Include="Reports\AllClaimsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Hospital\HospitalClaimReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>HospitalClaimReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\CompanyBatchReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CompanyBatchReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\LetterTransfer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

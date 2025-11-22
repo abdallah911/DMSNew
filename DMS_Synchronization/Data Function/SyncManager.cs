@@ -63,14 +63,14 @@ namespace DMS_Synchronization
             //connectionSettings.SQlConnection = "data source=171.0.1.93;Database=DB_A45413_DMSERP;persist security info=True;user id=sa; password =123;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DMSERP_develop;persist security info=True;user id=sa;password=gouda2003;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=.\\;Database=TEST;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;App=EntityFramework";
-            connectionSettings.OrcaleConnection = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = dms_test; Password = ***";
-            connectionSettings.OrcaleConnectionApp = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
+            connectionSettings.OrcaleConnection = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = dms_test; Password = 15/08/2017";
+            connectionSettings.OrcaleConnectionApp = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 15+08+2017";
             connectionSettings.OrcaleConnectionApp129 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             connectionSettings.OrcaleConnectionSH = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
             connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = TRN_SQL; Password = ***";
             //connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             //connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 62.210.148.165)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
-            connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
+            connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = 15/08/2017";
 
             if (connectionSettings.SQlConnection == null)
             {
@@ -398,8 +398,9 @@ namespace DMS_Synchronization
 
                 SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
+                SyncToSqlTable<COMP_CONTRACT_CLASS_PROVIDER>(StringHelper.GetQyertCOMP_CONTRACT_CLASS_PROVIDER, StringHelper.GetTableNameCOMP_CONTRACT_CLASS_PROVIDER);
                 CLOSE_EMP_DATASyncToSqlTable();
-                COMP_EMPLOYEES_DSyncToSqlTable();
+                //COMP_EMPLOYEES_DSyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -423,10 +424,6 @@ namespace DMS_Synchronization
                 SyncToSqlTable<PollDataService>(StringHelper.GetQyertPOLL_DATA_SERVICE, StringHelper.GetTableNamePOLL_DATA_SERVICE);
                 SyncToSqlTable<PollData>(StringHelper.GetQyertPOLL_DATA, StringHelper.GetTableNamePOLL_DATA);
 
-
-                PushMedicineData();
-                UpdatePushMedicineData();
-                PushMedicineGroup();
                 #region DMS_Test
                 //PushSqlTables<MEDICINE_DATA>(StringHelper.GetQyertMedicineData, StringHelper.GetTableNameMedicineData);
                 //PushSqlTables<MedicineGroup>(StringHelper.GetQyertMedicineGroup, StringHelper.GetTableNameMedicineGroup);
@@ -486,6 +483,10 @@ namespace DMS_Synchronization
 
                 #endregion
 
+
+                PushMedicineData();
+                UpdatePushMedicineData();
+                PushMedicineGroup();
             }
 
             #endregion
@@ -723,10 +724,10 @@ namespace DMS_Synchronization
                         var message = ex.Message;
                     }
  
-                    if (dataTable.Columns.Contains("Oracle_Id_Top"))
-                    {
-                        dataTable.Columns.Remove("Oracle_Id_Top");
-                    }
+                    //if (dataTable.Columns.Contains("Oracle_Id_Top"))
+                    //{
+                    //    dataTable.Columns.Remove("Oracle_Id_Top");
+                    //}
                     var options = GetDefaultSyncOptions();
                     if (keepIdentity)
                     {
@@ -739,6 +740,15 @@ namespace DMS_Synchronization
                             sqlBulk.BatchSize = _batchSize.Value;
                         }
                         sqlBulk.DestinationTableName = tableName;
+                        
+                        foreach (DataColumn column in dataTable.Columns)
+                        {
+                            if (column.ColumnName != "Oracle_Id_Top")  
+                            {
+                                sqlBulk.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+                            }
+                        }
+
                         sqlBulk.WriteToServer(dataTable);
 
 
@@ -1203,7 +1213,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_DATA_SERVICE" || tableName == "APP.POLL_PERCENT"
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
-                || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
+                || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"|| tableName == "APP.COMP_CONTRACT_CLASS_PROVIDER"
                 || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION" || tableName == "APP.CONSUMPTION_POOL")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
@@ -1302,6 +1312,9 @@ namespace DMS_Synchronization
                                 break;
                             case "REMAIN_CONSUMATION":
                                 SqlTableName = "RemainConsumption";
+                                break;
+                            case "COMP_CONTRACT_CLASS_PROVIDER":
+                                SqlTableName = "CompContractClassProvider";
                                 break;
                             //case "DMS_02_EMP_D_ENT_MAN":
                             //    SqlTableName = "DMS_02_EMP_D_ENT_MAN3";
@@ -4866,7 +4879,7 @@ namespace DMS_Synchronization
                         {
                             //string d_id = "2" + string.Format("{0:dd MM yyyy}", item.CreatedDate) + sequenc.ToString();
                             rsh = FillOracleRoshitaObject(item);
-                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
+                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper().Trim() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
                             //string result = string.Concat(d_id.Where(c => !char.IsWhiteSpace(c)));
                             rsh.D_SEQ = sequenc;
                             //rsh.D_ID = long.Parse(result);
@@ -5070,7 +5083,7 @@ namespace DMS_Synchronization
                                 case "Pharmacy_Chronic":
                                     rsh.MANAGER = "MON";
                                     string QueryMedCard = "SELECT NO_PAY,NO_OVER FROM Med_Card " +
-                                               " WHERE CARD_NO='" + item.CardId + "';";
+                                               " WHERE CARD_NO='" + item.CardId.Trim() + "';";
                                     var medcard = GetSqlDataTable(QueryMedCard, _connectionSettings.SQlConnection);
                                     if (medcard.Rows.Count > 0)
                                     {
@@ -5809,7 +5822,7 @@ namespace DMS_Synchronization
                         {
                             //string d_id = "2" + string.Format("{0:dd MM yyyy}", item.CreatedDate) + sequenc.ToString();
                             rsh = FillOracleRoshitaObject(item);
-                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
+                            var empName = GetOracleDataTable(@"select* from comp_employees where card_id='" + item.CardId.ToUpper().Trim() + "' order by contract_no desc", _connectionSettings.OrcaleConnection);
                             //string result = string.Concat(d_id.Where(c => !char.IsWhiteSpace(c)));
                             rsh.D_SEQ = sequenc;
                             //rsh.D_ID = long.Parse(result);
@@ -6057,7 +6070,7 @@ namespace DMS_Synchronization
                                 case "Pharmacy_Chronic":
                                     rsh.MANAGER = "MON";
                                     string QueryMedCard = "SELECT NO_PAY,NO_OVER FROM Med_Card " +
-                                               " WHERE CARD_NO='" + item.CardId + "';";
+                                               " WHERE CARD_NO='" + item.CardId.Trim() + "';";
                                     var medcard = GetSqlDataTable(QueryMedCard, _connectionSettings.SQlConnection);
                                     if (medcard.Rows.Count > 0)
                                     {
@@ -6741,7 +6754,7 @@ namespace DMS_Synchronization
                                 " , PERCENT_MONY=" + percent + " , MANAGER='" + manager + "' , INSU_LIMT=" + item.Limit +
                                 " , CARRY=" + item.PersonPayment + " ,OVER_INSURANCE=" + item.OverInsurance + " ,VALUE_CASH=" +
                                 item.Cash + " , VALUE_CREDIT=" + item.CompanyPayment + " , SYNC_DATE=SYSDATE WHERE D_ID=" + item.Oracle_Id +
-                                " AND CARD_ID='" + item.CardId + "'";
+                                " AND CARD_ID='" + item.CardId.ToUpper().Trim() + "'";
                             ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
 
                         }

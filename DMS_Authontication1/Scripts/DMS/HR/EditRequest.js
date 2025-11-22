@@ -630,7 +630,7 @@
                             bootbox.dialog({
                                 closeButton: false,
                                 title: 'Added Sucessfully',
-                                message: "Request Number : " + result,
+                                message: result,
                                 buttons: {
                                     New: {
                                         label: "New",

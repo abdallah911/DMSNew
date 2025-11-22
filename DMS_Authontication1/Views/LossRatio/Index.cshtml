@@ -3,11 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
-
-<br />
-<br />
-
-
+ <br />
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
@@ -23,84 +19,84 @@
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 </div>*@
+<div class="dms-container">
+    <div class="portlet box panel panel-info" id="CardDetails">
+        <h3 class="  title-bg p-3 text-white fw-bold" style="margin:1px;">Loss Ratio Details</h3>
+        <div class="portlet-body panel-body">
+            <div class="row">
+                <div class="form-group col-md-10 mx-auto">
 
-<div class="panel panel-info" id="CardDetails">
-    <h2 class="panel-heading" style="margin:1px;">Loss Ratio Details</h2>
-    <div class="panel-body">
-        <div class="row">
-            <div class="form-group">
-
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.CompId, htmlAttributes: new { @class = "control-label" })
-                    @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })
-                </div>
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.ContractNo, htmlAttributes: new { @class = "control-label" })
-                    <select id="ContractNo" class="form-control " placeholder="ContractNo" readonly="readonly"></select>
-                </div>
-                <div class="col-sm-4" data-step="4" data-intro="click Search">
-                    <br>
-                    <button id="SearchRelation" type="button" class="btn btn-primary" style="padding-top: 15px;">
-                        <i class="glyphicon glyphicon-search"></i> Search
-                    </button>
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.CompId, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.ContractNo, htmlAttributes: new { @class = "control-label" })
+                        <select id="ContractNo" class="form-control " placeholder="ContractNo" readonly="readonly"></select>
+                    </div>
+                    <div class="col-sm-4" data-step="4" data-intro="click Search">
+                        <br>
+                        <button id="SearchRelation" type="button" class="btn btn-primary" style="padding-top: 15px;">
+                            <i class="glyphicon glyphicon-search"></i> Search
+                        </button>
+                    </div>
 
 
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.ClaimCreatedDate, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.ClaimCreatedDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.ClaimCreatedDate, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ClaimCreatedDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
 
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.LossRatio, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.LossRatio, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.LossRatio, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.LossRatio, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
 
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.PoolPercent, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.PoolPercent, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.PoolPercent, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.PoolPercent, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
 
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.PoolValue, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.PoolValue, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.PoolValue, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.PoolValue, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
 
-                <div class="col-sm-4">
-                    @Html.LabelFor(model => model.PoolState, htmlAttributes: new { @class = "control-label" })
-                    @Html.CheckBoxFor(model => model.PoolState, new { @class = "form-check cus-rem-input" })
-                </div>
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.PoolState, htmlAttributes: new { @class = "control-label" })
+                        @Html.CheckBoxFor(model => model.PoolState, new { @class = "form-check cus-rem-input" })
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
-    <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
-    <div class="row" style=" text-align:left">
-        <div class="col-md-12">
-            <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-            <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-            <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-            <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-            <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-            <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
+    <div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
+        <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
+        <div class="row" style=" text-align:left">
+            <div class="col-md-12">
+                <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
+            </div>
         </div>
+
     </div>
-
 </div>
-
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/LossRatio.js?V=3.2"></script>

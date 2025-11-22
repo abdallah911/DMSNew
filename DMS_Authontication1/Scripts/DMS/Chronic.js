@@ -711,7 +711,7 @@ function Edit(button) {
     var UnitPrice = $("TD", row).eq(7).html();
     var Dose = $("TD", row).eq(8).html();
     var Duration = $("TD", row).eq(9).html();
-    var TotalUnits = $("TD", row).eq(10).html();;
+    var TotalUnits = $("TD", row).eq(10).html();
     var Amount = $("TD", row).eq(11).html();
 
     $('.modal-body #Id').val(parseInt(Id));

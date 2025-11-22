@@ -80,7 +80,7 @@ namespace DMS_TEST.Controllers
                 var PharmacyResult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -93,8 +93,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy,
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).Count()
                 };
                 return new JsonResult { Data = PharmacyResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -112,7 +112,7 @@ namespace DMS_TEST.Controllers
                 var Adminresult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -125,8 +125,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).Count()
                 };
                 return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -171,7 +171,7 @@ namespace DMS_TEST.Controllers
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);
                 To = T.ToString();
             }
-            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).FirstOrDefault();
+            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type,1).FirstOrDefault();
 
             return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -584,6 +584,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
+                rd.SetParameterValue("CompType",data.CompHolderCode);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
                 rd.SetParameterValue("perc", CellingPert);
@@ -655,7 +656,15 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch)//.AsEnumerable()
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch,1)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {
                         //Id = d.Oracle_Id==null?0: d.Oracle_Id.Value,
@@ -718,8 +727,15 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name)//.AsEnumerable()
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name,1)//.AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {
                     Id = d.Id.Value,
@@ -781,10 +797,10 @@ namespace DMS_TEST.Controllers
                 {
                     RoshitaId = Roshitaid,
                     DiagnoiseName = item,
-                    SpecialistName= Speciality,
-                    CreatedBy=User.Identity.Name,
-                    CreatedDate=DateTime.Now,
-                    IsDeleted=false
+                    SpecialistName = Speciality,
+                    CreatedBy = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false
                 };
                 Diagnosis.Add(dignosi);
             }

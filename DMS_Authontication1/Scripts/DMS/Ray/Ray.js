@@ -26,6 +26,10 @@ $(function () {
     $('#Search').click(function () {
         if ($('#txtSearchCard').val() != "") {
             companid = $('#txtSearchCard').val().split('-')[0];
+            if (companid.startsWith("500") || companid == "10560") {
+                alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والاشعة علي السيستم");
+
+            }
             if (companid == "888") {
                 $('#phone').hide();
             }
@@ -83,7 +87,7 @@ $(function () {
                         var data = "<tr >" +
                             "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
                             "<td>" + r[i].CARD_ID + "</td>" +
-                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ANAME_ST + " " + r[i].EMP_ANAME_SC + " " + r[i].EMP_ANAME_TH + "</td>" +
                             "<td>" + r[i].EMP_ENAME + "</td>" +
                             "<td>" + dat + "</td>" +
                             "<td>" + dat1 + "</td>" +
@@ -102,7 +106,7 @@ $(function () {
                         var ArName;
                         var CompHolderName;
                         for (var i = 0; i < r.length; i++) {
-                            ArName = r[i].EMP_ANAME;
+                            ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                             CompHolderName = r[i].CompHolderName;
                         }
                         var EndDate = dat1;
@@ -130,6 +134,45 @@ $(function () {
                                     $("#wait").css("display", "none");
                                     $('#txtSearchCard').val(CardId);
                                     $('#CardsModal').modal('hide');
+
+                                    //Get Doctor
+
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/Rays/HaveDoctor',
+                                        data: { id: CardId },
+                                        success: function (returndata) {
+                                            if (returndata.ok) {
+                                                bootbox.dialog({
+                                                    closeButton: false,
+                                                    title: 'Lab',
+                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                    message: "هذا العميل لدية موافقه مسبقه هل تود صرفها ",
+                                                    buttons: {
+                                                        Print: {
+                                                            label: "Yes",
+                                                            className: 'btn-info',
+                                                            callback: function () {
+                                                                window.location.replace("/Rays/EditDoctor/" + returndata.roshitaid);
+                                                            }
+                                                        },
+                                                        New: {
+                                                            label: "No",
+                                                            className: 'btn-danger',
+                                                            callback: function () {
+
+                                                            }
+                                                        }
+
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                //bootbox.alert(' No Company Name ');
+                                            }
+                                        }
+                                    });
 
                                     $.ajax({
                                         type: "POST",
@@ -163,7 +206,15 @@ $(function () {
                                                                 AnuualLimit = r.Limit;
                                                                 $('#IsFamily').val(r.IsFamily);
                                                                 $('#IsPool').val(r.IsPool);
-                                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+
+                                                                if (r.LimitDailyPreceptionCount == true) {
+                                                                    $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                                } else {
+                                                                    alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                                    $("#Co_insurance_INSURANCE_DAY_LAB").val("0.001");
+
+                                                                    $('#ddEmp_CEILING_PERT').val("0");
+                                                                }
                                                                 Calculation();
                                                                 //Get ClaimNumber
 

@@ -9,213 +9,215 @@
 @Html.Partial("_Cards")
 @Html.Partial("_Pharmacies")
 @Html.Partial("_Branches")
-<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
-    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Doctor Daily
-        </div>
-
+<div class="dms-container">
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
-    <div class="portlet-body">
-        <div class="row">
-            <div class="form-group">
-                <div class="col-sm-3">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
-                </div>
-                <div class="col-sm-3">
-                    <button id="Search" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                    </button>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card ID</h2> </div>
-        <div class="row">
-            <div class="form-group">
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
-                    @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
-                </div>
-                <div class="col-sm-2">
-                    @Html.Label("Diagnoise", new { @class = "control-label" })
-                    <select id="ddlDiagnoises" style="width:100%" multiple></select>
-                </div>
-
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+    <div class="portlet box  ">
+        <div class="portlet-title title-bg">
+            <div class="caption">
+                <i class="fa fa-gift text-white"></i>Doctor Daily
             </div>
 
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="Search" type="button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                    </div>
+                </div>
             </div>
-            @*<div class="col-sm-2">
-                    @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
-                    <select id="ddlType" class="form-control">
-                        <option value="11601">Daily</option>
-                        <option value="11603">Monthly</option>
-                    </select>
-                </div>*@
+            <br />
+            <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card ID</h2> </div>
+            <div class="row">
+                <div class="form-group">
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
 
 
-        </div>
-        <br />
-        @*//History*@
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">History</h2>
-        </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Diagnoise", new { @class = "control-label" })
+                        <select id="ddlDiagnoises" style="width:100%" multiple></select>
+                    </div>
 
-        <div class="table-responsive col-md-10" style="HEIGHT: 250px;position:relative">
-            <table class="table" id="History">
-                <thead>
-                    <tr>
-                        <th scope="col">Medicien Code</th>
-                        <th scope="col" align="center">Name</th>
-                        <th scope="col">Dosage</th>
-                        <th scope="col">Dose</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Total Duration</th>
-                        <th scope="col">Total Units</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Group</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Pharmacy</th>
-                        <th scope="col">&nbsp;</th>
-                        <th scope="col">&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
 
-            </table>
-        </div>
-        <br />
-        <div class="col-md-2">
-            <label class="control-label" for="From">From</label>
-            <input id="From" type="text" class="form-control" placeholder="From" disabled />
-            <label class="control-label" for="To">To</label>
-            <input id="To" type="text" class="form-control" placeholder="To" disabled />
-        </div>
-        <div class="row">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                @*<div class="col-sm-2">
+                        @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
+                        <select id="ddlType" class="form-control">
+                            <option value="11601">Daily</option>
+                            <option value="11603">Monthly</option>
+                        </select>
+                    </div>*@
+
+
+            </div>
+            <br />
+            @*//History*@
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">History</h2>
+            </div>
+
+            <div class="table-responsive col-md-10" style="HEIGHT: 250px;position:relative">
+                <table class="table" id="History">
+                    <thead>
+                        <tr>
+                            <th scope="col">Medicien Code</th>
+                            <th scope="col" align="center">Name</th>
+                            <th scope="col">Dosage</th>
+                            <th scope="col">Dose</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Total Duration</th>
+                            <th scope="col">Total Units</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Group</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Pharmacy</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+            <br />
             <div class="col-md-2">
+                <label class="control-label" for="From">From</label>
+                <input id="From" type="text" class="form-control" placeholder="From" disabled />
+                <label class="control-label" for="To">To</label>
+                <input id="To" type="text" class="form-control" placeholder="To" disabled />
+            </div>
+            <div class="row">
+                <div class="col-md-2">
 
-            </div>
-            <div class="col-md-3">
-                <input id="PharmacyTxt" type="text" class="form-control col-md-2" placeholder="Pharmacy" />
-            </div>
-            <div class="col-md-3">
-                <input id="BranchTxt" type="text" class="form-control col-md-2" placeholder="Branch" />
-            </div>
-        </div>
-        <br />
-        <br />
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
-        </div>
-        <!--Dynamic table-->
-        <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
-            <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <select id="AddMedicine" multiple="multiple" style="width:100%">
-                    <option value="0">select medicine</option>
-                </select>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="master">
-                <div class="table-responsive">
-                    <table class="table" id="Pharmacy">
-                        <thead>
-                            <tr>
-                                <th scope="col">Medicien Code</th>
-                                <th scope="col" align="center">name</th>
-                                <th scope="col">Dosage</th>
-                                <th scope="col">Package Size</th>
-                                <th scope="col">Package Price</th>
-                                <th scope="col">Unit Number</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Dose</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">Total Duration</th>
-                                <th scope="col">Total Units</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Group</th>
-                                <th scope="col">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-
-                    </table>
                 </div>
-                <!--Caculation-->
+                <div class="col-md-3">
+                    <input id="PharmacyTxt" type="text" class="form-control col-md-2" placeholder="Pharmacy" />
+                </div>
+                <div class="col-md-3">
+                    <input id="BranchTxt" type="text" class="form-control col-md-2" placeholder="Branch" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
+            </div>
+            <!--Dynamic table-->
+            <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
+                <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="AddMedicine" multiple="multiple" style="width:100%">
+                        <option value="0">select medicine</option>
+                    </select>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="master">
+                    <div class="table-responsive">
+                        <table class="table" id="Pharmacy">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Medicien Code</th>
+                                    <th scope="col" align="center">name</th>
+                                    <th scope="col">Dosage</th>
+                                    <th scope="col">Package Size</th>
+                                    <th scope="col">Package Price</th>
+                                    <th scope="col">Unit Number</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Dose</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Total Duration</th>
+                                    <th scope="col">Total Units</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Group</th>
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
 
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Total</label>
-                            <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Person Payments</label>
-                            <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Value Credit</label>
-                            <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                        </table>
+                    </div>
+                    <!--Caculation-->
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Total</label>
+                                <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label">Person Payments</label>
+                                <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label">Value Credit</label>
+                                <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Over Insurance</label>
-                            <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Cash</label>
-                            <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Total cash</label>
-                            <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Over Insurance</label>
+                                <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label">Cash</label>
+                                <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="control-label">Total cash</label>
+                                <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                            </div>
+
                         </div>
 
                     </div>
-
                 </div>
             </div>
-        </div>
-        <!--Save-->
-        <div style="padding:10px 0; text-align:right">
-            <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn btn-warning" />
-            <input id="submit" type="button" value="Save" class="btn btn-success" />
+            <!--Save-->
+            <div style="padding:10px 0; text-align:right">
+                <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn btn-warning" />
+                <input id="submit" type="button" value="Save" class="btn btn-success" />
+            </div>
         </div>
     </div>
 </div>

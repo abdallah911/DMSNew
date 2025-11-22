@@ -48,234 +48,233 @@
         }
     }
 }
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
+<div class="dms-container">
+
+    <div>
+        <p class="ms-4">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search  ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Inquiries about an invoice
+                </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
 
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                    <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
-                                    <div class="row">
-                                        @* Search Element and buttons *@
-                                        <div class="col-md-12">
-                                            @if (User.IsInRole("HR_Admin"))
-                                            {
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
-                                                            Copmany Number :
-                                                        </label>
-                                                        <div class="col-md-7">
-                                                            @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                <script>
-                                                    $(function () {
-                                                        $("#CompanyId").select2();
-                                                    });
-                                                </script>
-                                            }
-                                            else
-                                            {
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
-                                                            Copmany Number :
-                                                        </label>
-                                                        <div class="col-md-7">
-                                                            <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Card Number :
-                                                    </label>
-                                                    @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
+                                        <div class="row">
+                                            @* Search Element and buttons *@
+                                            <div class="col-md-12">
+                                                <div class="d-flex flex-wrap row-gap-2 mb-3">
+                                                    @if (User.IsInRole("HR_Admin"))
                                                     {
-                                                        <div class="col-md-8">
-                                                            <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                        <div class="labeled-file-box col-md-6">
+                                                            <div>
+                                                                <span>
+                                                                    <label class="">
+                                                                        Copmany Number
+                                                                    </label>
+                                                                </span>
+                                                                @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                            </div>
                                                         </div>
-                                                        <br />
+                                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                        <script>
+                                                            $(function () {
+                                                                $("#CompanyId").select2();
+                                                            });
+                                                        </script>
                                                     }
                                                     else
                                                     {
-                                                        <div class="col-md-8">
-                                                            @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                        <div class="labeled-file-box col-md-6">
+                                                            <div>
+                                                                <span>
+                                                                    <label class="">
+                                                                        Copmany Number
+                                                                    </label>
+                                                                </span>
+                                                                <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                            </div>
                                                         </div>
-                                                        <br />
                                                     }
+                                                    <div class="forLabel col-md-6">
+                                                        @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                                        {
+                                                            <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                            <br />
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                            <br />
+                                                        }
+                                                        <span>
+                                                            <label class="">
+                                                                Card Number
+                                                            </label>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="col-md-6">
-                                                    <button id="Search" type="button" class="btn btn-success" onclick="SearchEmployee()">
-                                                        <span class="glyphicon glyphicon-search"></span> Search
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
-                                                        <span class="fa fa-reply"></span> New
-                                                    </button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        @*Data Table for result employee data*@
-                                        <div class="col-md-offset-1 col-md-10" style="margin-top:30px" id="Employe_Data">
-
-                                            <table class="table" id="EmployeeDataList">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            @Html.DisplayName("Card Number")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("First Name")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Second Name")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Third Name")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Provider Code")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Provider Name")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Group Name")
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="ProviderListBody"></tbody>
-                                            </table>
-                                        </div>
-
-                                        @*Data Table for result Medicine data*@
-                                        <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:30px" id="listMedicine_div">
-
-                                            <table class="table" id="MedicineDataList">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            @Html.DisplayName("Medicine Code")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Medicine Name")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Dosage From")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Unit Number")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Packet Size")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Dose Duration")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Total Duration")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Created Date")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Active Status")
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="ProviderListBody"></tbody>
-                                            </table>
-                                        </div>
-
-                                        @*Footer*@
-                                        <div class="col-md-12" id="details">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-5">
-                                                        Last Exchange  Date  :
-                                                    </label>
-                                                    <div class="col-md-7">
-                                                        <input id="ExchangeDate" type="text" class="form-control " readonly="readonly" />
+                                                <div class="col-md-4">
+                                                    <div class="col-md-6">
+                                                        <button id="Search" type="button" class="btn btn-success" onclick="SearchEmployee()">
+                                                            <span class="glyphicon glyphicon-search"></span> Search
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
+                                                            <span class="fa fa-reply"></span> New
+                                                        </button>
 
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-5">
-                                                        Pharmacy Name  :
-                                                    </label>
-                                                    <div class="col-md-7">
-                                                        <input id="PharmacyName" type="text" class="form-control " readonly="readonly" />
 
+                                            @*Data Table for result employee data*@
+                                            <div class="col-md-offset-1 col-md-10" style="margin-top:30px" id="Employe_Data">
+
+                                                <table class="table" id="EmployeeDataList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayName("Card Number")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("First Name")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Second Name")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Third Name")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Provider Code")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Provider Name")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Group Name")
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="ProviderListBody"></tbody>
+                                                </table>
+                                            </div>
+
+                                            @*Data Table for result Medicine data*@
+                                            <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:30px" id="listMedicine_div">
+
+                                                <table class="table" id="MedicineDataList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayName("Medicine Code")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Medicine Name")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Dosage From")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Unit Number")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Packet Size")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Dose Duration")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Total Duration")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Created Date")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Active Status")
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="ProviderListBody"></tbody>
+                                                </table>
+                                            </div>
+
+                                            @*Footer*@
+                                            <div class="col-md-12" id="details">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="sbold col-md-5">
+                                                            Last Exchange  Date  :
+                                                        </label>
+                                                        <div class="col-md-7">
+                                                            <input id="ExchangeDate" type="text" class="form-control " readonly="readonly" />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="sbold col-md-5">
+                                                            Pharmacy Name  :
+                                                        </label>
+                                                        <div class="col-md-7">
+                                                            <input id="PharmacyName" type="text" class="form-control " readonly="readonly" />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="sbold col-md-4">
+                                                            Branch Name  :
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input id="BranchName" type="text" class="form-control " readonly="readonly" />
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Branch Name  :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        <input id="BranchName" type="text" class="form-control " readonly="readonly" />
 
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-}
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

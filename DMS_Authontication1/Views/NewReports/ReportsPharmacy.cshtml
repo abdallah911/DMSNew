@@ -1,0 +1,454 @@
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+@using Microsoft.AspNet.Identity;
+@{
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+
+<div class="reports-container">
+    <div class="sidebar-parent">
+        <div class="sideBar">
+            <div class="operation-btns">
+                @if (User.Identity.GetUserName().Trim() == "dr.mohsen" || User.Identity.GetUserName().Trim() == "it.admin")
+                {
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPrinting">
+                        <button class="sidebar-item" id="reportsPrinting">
+                            Printing
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsLoseRatio">
+                        <button class="sidebar-item" id="reportsLoseRatio">
+                            Lose Ratio
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsCustomerServices">
+                        <button class="sidebar-item" id="reportsCustomerServices">
+                            Customer Services
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsContract">
+                        <button class="sidebar-item" id="reportsContract">
+                            Contract
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+
+                }
+                else
+                {
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+                }
+            </div>
+            @*<div class="operation-btns">
+                    <a href="/NewReports/OperationReport">
+                        <button class="sidebar-item " id="reportsOperation">
+                            Operation
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ApprovalReports">
+                        <button class="sidebar-item" id="reportsApproval">
+                            Medical Approval
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPrinting">
+                        <button class="sidebar-item" id="reportsPrinting">
+                            Printing
+                        </button>
+                    </a>
+                    <br />
+                    <a href="/NewReports/ConsumptionReport">
+                        <button class="sidebar-item" id="reportsConsumption">
+                            Consumption
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsLoseRatio">
+                        <button class="sidebar-item" id="reportsLoseRatio">
+                            Lose Ratio
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsCustomerServices">
+                        <button class="sidebar-item" id="reportsCustomerServices">
+                            Customer Services
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsContract">
+                        <button class="sidebar-item" id="reportsContract">
+                            Contract
+                        </button>
+                    </a>
+                    <a href="/NewReports/ReportsPharmacy">
+                        <button class="sidebar-item" id="reportsPharmacy">
+                            Pharmacy
+                        </button>
+                    </a>
+                </div>*@
+        </div>
+    </div>
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Pharmacy
+        </div>
+    </div>
+    <!-- Start Section -->
+    <ul class="nav nav-tabs d-flex" style=" padding-left: 60px; margin-top: 24px;" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation"><a class="nav-link active" id="First-tab" data-bs-toggle="tab" data-bs-target="#First" type="button" role="tab" aria-controls="First" aria-selected="true">أدوية مزمنة</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link" id="Second-tab" data-bs-toggle="tab" data-bs-target="#Second" type="button" role="tab" aria-controls="Second" aria-selected="false">مراجعة الأدوية</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link" id="Third-tab" data-bs-toggle="tab" data-bs-target="#Third" type="button" role="tab" aria-controls="Third" aria-selected="false">تقرير الأدوية</a></li>
+    </ul>
+    <form class="reports-form overflow-hidden " action="Reports.html">
+        <div class="container dms-container justify-content-center d-flex">
+            <div class="tab-content row col-10 col-sm-8 col-lg-10" id="myTabContent">
+                <div id="First" class="tab-pane fade in show active " role="tabpanel" aria-labelledby="First-tab">
+                    <div class="Pharmacy-form-parent  mx-auto">
+                        <div class="Pharmacy-form">
+                            <div class=" m-auto">
+                                <div style="background-color: #d8d8d859 !important" class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                                    @*<h3 class="me-3 fw-bold text-end">أدوية مزمنة</h3>*@
+                                    <div class="reports-field">
+                                        <h6>تاريخ التسجيل</h6>
+                                        <div class="reports-input-parent gap-2">
+                                            <input type="text" class="date-input reports-inp ms-0" placeholder="من" id="RegistrationFrom">
+                                            <input type="text" class="date-input reports-inp ms-0" placeholder="الى" id="RegistrationTo">
+                                        </div>
+                                    </div>
+                                    @*<div class="reports-field">
+                                            <h6>تاريخ التسجيل</h6>
+                                            <div class="reports-input-parent">
+                                                <select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>*@
+                                    <div class="reports-field">
+                                        <h6>رقم الشركة</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <div class="w-100 ps-0">
+
+                                                @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "Select Company", new { @class = "reports-select w-100", id = "CompNo" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>رقم الكارت</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            <div class="w-100 ps-0">
+
+                                                <select class="reports-select w-100" id="CardNo">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>اسم المستخدم</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <div class="w-100 ps-0">
+                                                @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "reports-select w-100", @id = "userName" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>Manager</h6>
+                                        <div class="reports-input-parent">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <select id="TypeManager" class="reports-select w-100">
+                                                <option value="All">All</option>
+                                                <option value="Daily">Daily</option>
+                                                <option value="Monthly">Monthly</option>
+                                                <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                                                <option value="Pharmacy_Doctor">Pharmacy_Doctor</option>
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>كود الدواء</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <div class="w-100 ps-0">
+                                                <select id="AddMedicine" class="reports-select w-100">
+                                                    <option value="">select medicine</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>نوع الحالة</h6>
+                                        <div class="reports-input-parent">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <select id="Type" class="reports-select w-100">
+                                                <option value="All">All</option>
+                                                <option value="New">New</option>/option>
+                                                <option value="Edit">Edit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>نوع التقرير</h6>
+                                        <div class="reports-input-parent">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <select id="RepotType" class="reports-select w-100">
+                                                <option value="1">Report Edit Medicine Monthly</option>
+                                                <option value="2">Medication dispensing details</option>/option>
+                                                <option value="3">Online medication dispensing per card</option>
+                                                <option value="4">Repeat Dispensing Medicine</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>نوع الطباعة</h6>
+                                        <div class="reports-input-parent  ">
+                                            <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
+                                                <div class="d-flex ms-4">
+                                                    <input class="ms-2" id="excel" name="radio1" type="radio">
+                                                    <label for="excel">Excel</label>
+                                                </div>
+                                                <div class="d-flex ">
+                                                    <input class="ms-2" id="pdf" name="radio1" type="radio">
+                                                    <label for="pdf">pdf</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                        <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                            <button type="button" class="action-btn btn fw-bold" onclick="ClearAll()">
+                                                جديد
+                                            </button>
+                                            <button type="button" class=" d-flex align-items-center action-btn btn fw-bold" onclick="PrintReport()">
+                                                طباعة
+                                                <i class="fa-solid fa-print me-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Second" class="tab-pane in show fade" role="tabpanel" aria-labelledby="Second-tab">
+                    <div class="Pharmacy-form-parent  mx-auto">
+                        <div class="Pharmacy-form ">
+                            <div class=" m-auto">
+                                <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                                    @*<h3 class="me-3 fw-bold text-end">مراجعة الأدوية</h3>*@
+                                    <div class="reports-field">
+                                        <h6>تاريخ التسجيل</h6>
+                                        <div class="reports-input-parent gap-2">
+                                            <input type="text" class="date-input reports-inp ms-0" placeholder="من" id="RegistrationFromMed">
+                                            <input type="text" class="date-input reports-inp ms-0" placeholder="الى" id="RegistrationToMed">
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>رقم الشركة</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <div class="w-100 ps-0">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>رقم الكارت</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            <div class="w-100 ps-0">
+                                                <select class="reports-select w-100 " name="" id="CardNoMed">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>نوع التقرير</h6>
+                                        <div class="reports-input-parent">
+                                            <select class="reports-select w-100 " name="" id="RepotTypeMed">
+                                                <option value="1">Report Audit Medicine Chronic Details</option>
+                                                <option value="2">Report Audit Medicine Chronic Summary</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>نوع الطباعة</h6>
+                                        <div class="reports-input-parent  ">
+                                            <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
+                                                <div class="d-flex ms-4">
+                                                    <input class="ms-2" id="excelMed" name="radio2" type="radio">
+                                                    <label for="excelMed">Excel</label>
+                                                </div>
+                                                <div class="d-flex ">
+                                                    <input class="ms-2" id="pdfMed" name="radio2" type="radio">
+                                                    <label for="pdfMed">pdf</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                        <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                            <button type="button" class="action-btn btn fw-bold" onclick="ClearAllMed()">
+                                                جديد
+                                            </button>
+                                            <button type="button" class=" d-flex align-items-center action-btn btn fw-bold" onclick="PrintReportMed()">
+                                                طباعة
+                                                <i class="fa-solid fa-print me-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="Third" class="tab-pane in show fade" role="tabpanel" aria-labelledby="Third-tab">
+                    <div class="Pharmacy-form-parent  mx-auto">
+                        <div class="Pharmacy-form ">
+                            <div class=" m-auto">
+                                <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                                    @*<h3 class="me-3 fw-bold text-end">تقرير الأدوية</h3>*@
+
+                                    <div class="reports-field">
+                                        <h6>رقم الشركة</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<input type="text" class="reports-inp w-100" placeholder="من">*@
+
+                                            <div class="w-100 ps-0">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "ms-0 reports-inp w-100", style = "width: 100%", id = "CopmanyNumber2" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>الشهر</h6>
+                                        <div class="reports-input-parent ms-0">
+                                            <input type="text" class="reports-inp ms-0 w-100" placeholder="من" id="Date">
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>Group</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            <div class="w-100 ps-0">
+                                                <select class="reports-select w-100 " name="" id="ddlGroups">
+                                                    <option value="">Select Group</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reports-field">
+                                        <h6>رقم الكارت</h6>
+                                        <div class="reports-select2-parent" style="width:70%">
+                                            @*<select class="reports-select w-100 " name="" id="">
+                                                    <option value=""></option>
+                                                </select>*@
+                                            <div class="w-100 ps-0">
+                                                <select id="CardNo2" class="reports-select w-100" style="width: 100%">
+                                                    <option value="">select Card</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="reports-field ">
+                                            <h6>نوع الطباعة</h6>
+                                            <div class="reports-input-parent  ">
+                                                <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
+                                                    <div class="d-flex ms-4">
+                                                        <input class="ms-2" id="radio3-1" name="radio3" type="radio">
+                                                        <label for="radio3-1">Excel</label>
+                                                    </div>
+                                                    <div class="d-flex ">
+                                                        <input class="ms-2" id="radio3-2" name="radio3" type="radio">
+                                                        <label for="radio3-2">pdf</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                        <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                            <button type="button" class="action-btn btn fw-bold" onclick="ClearAll3()">
+                                                جديد
+                                            </button>
+                                            <button type="button" onclick="PrintReport3()" class=" d-flex align-items-center action-btn btn fw-bold">
+                                                طباعة
+                                                <i class="fa-solid fa-print me-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div><!-- End Section -->
+<script src="~/global/plugins/design/js/jquery.min.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/assets/global/plugins/design/js/popper.min.js"></script>
+<script src="~/assets/global/plugins/design/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/global/plugins/design/js/bootstrap.min.js"></script>
+@*<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>*@
+
+<script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>

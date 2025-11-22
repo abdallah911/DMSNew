@@ -16,13 +16,17 @@ namespace DMS_Authontication1.Controllers
         {
             db = new DMS_TESTEntities();
         }
-        public JsonResult GetReasons(string searchterm)
+        public JsonResult GetReasons(string searchterm, string CardId)
         {
             var datalist = db.AcceptionReasons.ToList();
-
+            if (!CardId.Split('-')[0].StartsWith("500") && !(User.Identity.Name == "GodaKotb"))
+            {
+                datalist = db.AcceptionReasons.Where(x => x.Id != 1).ToList();
+            }
             if (searchterm != null)
             {
                 datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
+
             }
             var modifieddate = datalist.Select(x => new
             {
@@ -106,14 +110,18 @@ namespace DMS_Authontication1.Controllers
 
                     int AcceptionId = Object.Id;
 
-                    CardAcceptionReason Objectt = new CardAcceptionReason();
                     for (int i = 0; i < data.Array.Length; i++)
                     {
+                        CardAcceptionReason Objectt = new CardAcceptionReason();
                         var id = int.Parse(data.Array[i]);
 
                         Objectt.AcceptionId = AcceptionId;
                         Objectt.AcceptionReasonsId = id;
+                        if (id == 1)
+                            Objectt.PatientPercent = data.PatientPercent.Value;
 
+                        if (id == 2)
+                            Objectt.PatientAmount = data.PatientAmount.Value;
 
                         db.CardAcceptionReasons.Add(Objectt);
                         db.SaveChanges();
