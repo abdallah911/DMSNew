@@ -1,4 +1,19 @@
-﻿$('#refreshData').on('click', function () {    
+﻿$(document).ready(function () {
+    const $header = $('#ULCategory');
+    const elementOffset = $('.dashboard-categories').offset().top;
+
+    $(window).on('scroll', function () {
+
+        if ($(this).scrollTop() >= elementOffset) {
+            $header.addClass('fixed');
+        } else {
+            $header.removeClass('fixed');
+        }
+    });
+});
+
+
+$('#refreshData').on('click', function () {
     if ($('#AllContract').hasClass('active'))
         ChartLiveScreen();
     else
@@ -595,8 +610,8 @@ function ChartLiveScreenMonth() {
                         label: 'عدد الخدمات (أدوية)',
                         data: data,
                         backgroundColor: [
-                            '#2362c1',
-                            '#3fa1fc'
+                            '#724494',
+                            '#a683be'
                         ],
                         borderWidth: 1
                     }]

@@ -9,6 +9,17 @@
         .dms-container {
             height: 100%;
         }
+        #ULCategory.fixed {
+            position: fixed;
+            z-index: 1000;
+            top: 40px;
+        }
+
+        #ULCategory {
+            top: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
     </style>
 
     <div class="portlet box mb-0 dms-container">
@@ -24,7 +35,7 @@
                 </button>
             </div>
             <div class="dashboard-categories navbar-collapse  collapse" id="categories">
-                <ul>
+                <ul id="ULCategory">
                     <li><a class="side-cate active" href="#" onclick="event.preventDefault(); loadScreen('_Live');"><img class="white" src="~/assets/global/img/Dashboard/live-icon-white.svg" onclick="loadScreen('_Screen1')" /><img class="black" style="display:none;" src="~/assets/global/img/Dashboard/live-icon-black.svg" onclick="loadScreen('_Screen1')" /> Live </a></li>
                     <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Consumptions');"><img class="white" src="~/assets/global/img/Dashboard/consumption-icon-white.svg"  /><img class="black"style="display:none;" src="~/assets/global/img/Dashboard/consumption-icon-black.svg" /> Consumptions</a></li>
                     <li><a class="side-cate " href="#" onclick="event.preventDefault(); loadScreen('_Providers');"><img class="white" src="~/assets/global/img/Dashboard/provider-icon-white.svg" /><img class="black" style="display:none;" src="~/assets/global/img/Dashboard/provider-icon-black.svg" />Providers</a></li>

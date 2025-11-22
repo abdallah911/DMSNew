@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var role = 1;
+    if (User.IsInRole("Admin"))
+    {
+        role = 0;
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+
+                }
+            }
+        }
+
+    }
+    ViewBag.Title = "Index";
+}
+<div class="dms-container">
+    <div class="portlet-title title-bg">
+        <div class="caption text-white fw-bold" style="padding:12px !important;">
+            <i class="fa-solid fa-home me-1"></i>Medical Reply
+        </div>
+    </div>
+    <div class="row d-flex row-gap-2  mx-auto my-4">
+        <div class="forLabel col-md-3 col-sm-6 ">
+            <input type="text" class="" required />
+            <span>Card Number</span>
+        </div>
+        <div class="labeled-file-box col-md-3 col-sm-6 ">
+            <div>
+                <span style="padding-left: 12px; padding-right: 8px;">Date</span>
+                <div class="d-flex " style="gap:8px;margin-right:4px">
+                    <div class="w-50">
+                        <input type="text" class="date-input w-100 " style="width:calc(50% - 6px)" placeholder="من" />
+                    </div>
+                    <div class="w-50">
+                        <input type="text" class="date-input w-100 " style="width:calc(50% - 6px)" placeholder="الى" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="forLabel col-md-3 col-sm-6 ">
+            <select class="" required></select>
+            <span>Approval Type</span>
+        </div>
+        <div class="forLabel col-md-3 col-sm-6 ">
+            <input type="text" class="" required />
+            <span>Provider Name</span>
+        </div>
+    </div>
+    <div class="panel-footer bg-transparent w-100 d-flex" style="justify-content:space-between">
+        <input style="width:fit-content"  type="search" value="Search" class="btn  " />
+        <input style="width:fit-content" type="button" value="Print" class="btn " />
+    </div>
+    <div>
+        <div class="table-responsive col-10">
+            <table class="table" id="table">
+                <thead>
+                    <tr>
+                        <th scope="col">تاريخ الخدمة</th>
+                        <th scope="col">اسم مقدم الخدمة</th>
+                        <th scope="col">الموافقة</th>
+                        <th scope="col">الرد الطبي</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<br />
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script src="~/Scripts/DMS/Pharmacy.js?V=4.8"></script>
+
+
+<script>
+    $('#table').DataTable();
+</script>

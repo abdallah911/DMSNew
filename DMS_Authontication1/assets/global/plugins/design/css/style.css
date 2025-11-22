@@ -612,7 +612,7 @@ div.field-labeled div {
     padding-left: 80px;
     border: 1px solid #436b8d;
 }
-.search-box::after {fuj
+.search-box::after {  
     top: 0;
     left: 0;
     background: #337ab7;
@@ -951,6 +951,12 @@ p:last-of-type {
  }
 .ms-2 {
     margin-left: 8px !important;
+}
+.ms-1 {
+    margin-left: .25rem !important;
+}
+.me-1 {
+    margin-right: .25rem !important;
 }
 .ms-auto {
     margin-left: auto !important;
@@ -1929,7 +1935,7 @@ span.selection {
 
 .card-body i {
     font-size: 16px;
-    background: #337ab7;
+    background: #724494;
     color: white;
     border-radius: 50%;
     width: 36px;
@@ -2038,7 +2044,7 @@ p.ratio {
 }
 .live .cards-box {
     width: 100% !important;
-    background: #3fa8fc24;
+    background: #7d3ffc24;
     border-radius: 12px;
 }
 .graph-parent {
@@ -2084,7 +2090,7 @@ p.ratio {
 
 .dash-tabs li.nav-item a {
     border: none !important;
-    background: #337ab7;
+    background: #724494;
     margin: 0 !important;
     color: white
 }
@@ -2096,7 +2102,7 @@ p.ratio {
 }
 .dash-tabs li.nav-item a.active {
     /*border: none  ;*/
-    color: #337ab7 !important;
+    color: #724494 !important;
     background: transparent !important;
     box-shadow: 0px -1px 1px 1px #1f116e1c;
 }
@@ -2109,11 +2115,15 @@ p.ratio {
 }
 .dash-tabs li.nav-item:active a {
     color: rgb(51 122 183) !important;
-} 
-    .dash-tabs li.nav-item a:hover  {
-        background: #30699b !important;
-        color: white !important;
-    }
+}
+.dash-tabs li.nav-item a:hover {
+    color: white !important;
+    background #69398d;
+}
+.dash-tabs li.nav-item a.active:hover {
+    background: transparent;
+    color: #69398d !important;
+}
 li.nav-item.dash-filter-icon {
     padding: 10px;
     border-radius: 8px 0 0 8px;
@@ -2127,12 +2137,12 @@ li.dash-filter-icon {
     padding: 10px;
     background: #dfdfdf;
     border-radius: 8px 0 0 8px;
-    color: #337ab7;
+    color: #724494;
     border: none;
 }
 .dash-tabs {
     align-items: start;
-    border  : 1px solid #337ab7 !important;
+    border: 1px solid #724494 !important;
     box-sizing: border-box !important;
     border-radius: 8px;
 }
@@ -2173,7 +2183,7 @@ li.dash-filter-icon {
     border: 1px solid #186bb321;
 }
     .graph-table thead {
-        background: #337ab7;
+        background: #724494;
         /*border: 1px solid #337ab7;*/
         border-radius: 8px 8px 0 0 !important;
     }
@@ -2210,7 +2220,7 @@ li.dash-filter-icon {
     font-weight: 600;
 }
     .graph-table td:first-of-type {
-        color: #337ab7;
+        color: #724494;
         font-weight: 700;
         font-size: 11px;
     }
